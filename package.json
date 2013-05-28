@@ -10,7 +10,6 @@
     "mongodb": "*",
     "ejs": "*",
     "stylus": "*",
-    "connect-mongo": "*",
     "connect-flash": "*",
     "markdown": "*"
   }

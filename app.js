@@ -7,7 +7,7 @@ var express = require('express')
     , routes = require('./server/routes')
     , http = require('http')
     , path = require('path')
-    , MongoStore = require('connect-mongo')(express)
+    //, MongoStore = require('connect-mongo')(express)
     , flash = require('connect-flash');
 
 var app = express();
@@ -21,14 +21,15 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser('dm_blog'));
-    app.use(express.session({
+    /*app.use(express.session({
         secret: settings.cookie_secret,
         key: settings.db,
         cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
         store: new MongoStore({
             db: settings.db
         })
-    }));
+    }));*/
+    app.use(express.session());
     app.use(app.router);
     app.use(require('stylus').middleware(__dirname + '/web'));
     app.use(express.static(path.join(__dirname, 'web')));
