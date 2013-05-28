@@ -1,3 +1,3 @@
 Welcome
-==========
-# This is just a simple blog demo.
+---
+### This is just a simple blog demo.
