@@ -10,25 +10,64 @@
 	<meta name="viewport" content="minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no">
 	<title>Soft Blog</title>
 	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="style/web_font_icon.css" />
 	<link rel="stylesheet" href="style/global.css" />
 </head>
 
 <body>
-	<header></header>
+	<header>
+		<div class="header-inner">
+			<section class="page-title">
+				<h1>
+					<a href="">chemdemo</a>
+				</h1>
+				<p class="sub-title sub-color">天下难事，必做于易；天下大事，必做于细。 —— 老 子！</p>
+			</section>
+
+			<form class="page-search clearfix" method="POST" action="">
+				<div class="search-wrap">
+					<label class="icon-magnifying-glass" for="search-text"></label>
+					<input id="search-text" class="search-text" placeholder="Input keywords" type="text" />
+				</div>
+			</form>
+		</div>
+	</header>
 
 	<div class="page-body">
-		<div class="sidebar shadow-box">
-			<a href="#" title="blog" class="avatar"></a>
+		<div class="sidebar">
+			<section class="author-info shadow-box">
+				<a class="avatar" href="#" title="blog"></a>
+				<dl class="author-desc sub-color">
+					<dt><a href="">ABOUT</a></dt>
+				</dl>
+			</section>
+
+			<section class="post-tags shadow-box"></section>
 		</div>
 
-		<div class="page-content shadow-box">
-			<img src="style/images/t.jpg" width="100%" />
+		<div class="page-content">
+			<section class="post shadow-box">
+				<h3 class="post-title"><a href="#">勇敢的人死于伤心</a></h3>
+				<p class="post-summary">相濡以沫，不如相忘江湖。为什么这么讲？我觉得是因为近必生苛，众多的挑剔抱怨都出自过于亲密的关系，远了，则如俗话说的那样，会产生“距离美”。“我”与圣西尼始终缘悭一面，故而保持着毕生的敬意，“我”从圣西尼寄来的家庭照上认识了他的女儿米兰达，他却不知道，这位漂亮女子有多么看不起自己的父亲和他的那个通信者，称他们是“捞奖金的人”。多年以后，米兰达给“我”带来了圣西尼的死讯，相逢一笑，“某种神秘的力量”使得两人早就和解了。</p>
+				<div class="post-info">
+					<span class="post-date">
+						<i class="icon-clock" title="发布日期"></i>
+						<a href="">2013-05-30</a>
+					</span>
+					<span class="post-gap">/</span>
+					<span class="post-tags">
+						<i class="icon-tag" title="标签"></i>
+						<a href="">生活</a>
+						<a href="">随感</a>
+						<a href="">艺术</a>
+					</span>
+				</div>
+			</section>
 		</div>
 	</div>
 
 	<footer>&copy;&nbsp;chemdemo&nbsp;|&nbsp;2013</footer>
 </body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
-<!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.js"></script> -->
 <script src="lib/requirejs/require.js"></script>
 </html>
