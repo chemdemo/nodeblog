@@ -17,7 +17,7 @@ ul, li {
 }
 a {
 	text-decoration: none;
-	color: #0CBFD8;
+	color: rgb(51, 181, 229);
 }
 a:hover {
 	text-decoration: underline;
@@ -75,6 +75,7 @@ h1 a {
 	vertical-align: bottom;
 }
 .search-wrap {
+	background-color: #FFF;
 	border: 1px solid #DDD;
 	padding: 2px 10px;
 	width: 200px;
@@ -90,7 +91,7 @@ h1 a {
 .search-wrap input {
 	border: none;
 	outline: none;
-	width: 180px;
+	width: 178px;
 	margin-left: 5px;
 	line-height: 2.5em;
 }
@@ -101,7 +102,7 @@ h1 a {
 	position: relative;
 }
 .shadow-box {
-	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
 	background-color: #FFF;
 }
 .sidebar {
@@ -128,12 +129,18 @@ h1 a {
 	padding-top: 1em;
 }
 .post-title a {
-	display: block;
-	padding: 0 2em;
+	/*display: block;*/
+	/*padding: 0 2em;*/
+	padding: 0 5px 0 3px;
 	font-size: 1.2em;
+	margin-left: 1em;
+	border-left: 3px solid #FF61AD;
+	background-color: transparent;
+	transition: background-color ease-in-out .3s;
 }
 .post-title a:hover {
-	background-color: #EEE;
+	background-color: #f8f8f8;
+	text-decoration: none;
 }
 .post-summary {
 	text-indent: 2em;
@@ -151,8 +158,10 @@ h1 a {
 }
 .post-tags a {
 	margin: 0 2px;
+	background-color: rgb(51, 181, 229);
+	color: #EEE;
+	padding: 0 3px;
 }
-
 
 footer {
 	text-align: center;
