@@ -17,7 +17,7 @@ ul, li {
 }
 a {
 	text-decoration: none;
-	color: rgb(51, 181, 229);
+	color: #33B5E5;
 }
 a:hover {
 	text-decoration: underline;
@@ -55,8 +55,7 @@ header {
 	margin: 0 auto;
 }
 .page-title {
-	display: inline-block;
-	width: 60%;
+	float: left;
 }
 h1 {
 	line-height: 2em;
@@ -69,10 +68,9 @@ h1 a {
 	font-size: 14px;
 }
 .page-search {
-	display: inline-block;
-	width: 39%;
+	float: right;
 	text-align: right;
-	vertical-align: bottom;
+	margin-top: 45px;
 }
 .search-wrap {
 	background-color: #FFF;
@@ -105,17 +103,39 @@ h1 a {
 	box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
 	background-color: #FFF;
 }
+.tag {
+	margin: 0 2px;
+	background-color: #33B5E5;
+	color: #EEE;
+	padding: 0 3px;
+}
+
 .sidebar {
 	width: 200px;
 	float: right;
 }
-.sidebar .avatar {
+.sidebar > section {
+	margin-bottom: 20px;
+	border-left: 2px solid #33B5E5;
+	padding: 1px 8px;
+}
+.sidebar .author-info {
+	border-left: none;
+	padding: 1px;
+}
+.author-info .avatar {
 	background: url(images/dm.jpg) no-repeat center;
 	background-size: cover;
-	width: 200px;
-	height: 200px;
+	width: 198px;
+	height: 198px;
 	margin: 0 auto;
 	display: block;
+}
+.author-desc {
+	;
+}
+.site-tags {
+	;
 }
 
 .page-content {
@@ -155,12 +175,6 @@ h1 a {
 }
 .post-info .post-gap {
 	margin: 0 1em;
-}
-.post-tags a {
-	margin: 0 2px;
-	background-color: rgb(51, 181, 229);
-	color: #EEE;
-	padding: 0 3px;
 }
 
 footer {
