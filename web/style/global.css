@@ -83,14 +83,13 @@ h1 a {
 }
 .search-wrap label {
 	cursor: pointer;
-	color: #999;
-	vertical-align: middle;
+	float: right;
+	margin-top: 10px;
 }
 .search-wrap input {
 	border: none;
 	outline: none;
 	width: 178px;
-	margin-left: 5px;
 	line-height: 2.5em;
 }
 
@@ -110,16 +109,16 @@ h1 a {
 	padding: 0 3px;
 }
 
-.sidebar {
+.page-sitebar {
 	width: 200px;
 	float: right;
 }
-.sidebar > section {
+.page-sitebar > section {
 	margin-bottom: 20px;
 	border-left: 2px solid #33B5E5;
 	padding: 1px 8px;
 }
-.sidebar .author-info {
+.page-sitebar .author-info {
 	border-left: none;
 	padding: 1px;
 }
@@ -131,19 +130,13 @@ h1 a {
 	margin: 0 auto;
 	display: block;
 }
-.author-desc {
-	;
-}
-.site-tags {
-	;
-}
 
 .page-content {
 	min-height: 500px;
 	margin-right: 250px;
 }
 .post {
-	;
+	margin-bottom: 2em;
 }
 .post-title {
 	padding-top: 1em;
@@ -176,10 +169,21 @@ h1 a {
 .post-info .post-gap {
 	margin: 0 1em;
 }
+.post-edit {
+	float: right;
+	margin-right: 1em;
+}
+.post-comments {
+	float: right;
+}
+.post-comments a {
+	margin-right: 2px;
+}
 
 footer {
 	text-align: center;
-	color: ;
-	height: 30px;
-	line-height: 30px;
+	color: #999;
+	background-color: #f8f8f8;
+	height: 60px;
+	line-height: 60px;
 }

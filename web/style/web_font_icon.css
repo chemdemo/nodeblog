@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-tag, .icon-clock, .icon-comment-alt2-fill, .icon-magnifying-glass {
+.icon-tags, .icon-bubbles, .icon-pushpin, .icon-mail, .icon-share, .icon-github, .icon-link, .icon-search, .icon-calendar, .icon-pencil {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -37,15 +37,33 @@ you can use the generic selector below, but it's slower:
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
-.icon-tag:before {
-	content: "\e000";
+.icon-tags:before {
+	content: "\e004";
 }
-.icon-clock:before {
+.icon-bubbles:before {
+	content: "\e005";
+}
+.icon-pushpin:before {
 	content: "\e001";
 }
-.icon-comment-alt2-fill:before {
+.icon-mail:before {
+	content: "\e00a";
+}
+.icon-share:before {
+	content: "\e00b";
+}
+.icon-github:before {
+	content: "\e00c";
+}
+.icon-link:before {
+	content: "\e000";
+}
+.icon-search:before {
 	content: "\e002";
 }
-.icon-magnifying-glass:before {
+.icon-calendar:before {
+	content: "\e006";
+}
+.icon-pencil:before {
 	content: "\e003";
 }
