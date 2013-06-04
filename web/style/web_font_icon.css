@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-tags, .icon-bubbles, .icon-pushpin, .icon-mail, .icon-share, .icon-github, .icon-link, .icon-search, .icon-calendar, .icon-pencil {
+.icon-tags, .icon-bubbles, .icon-pushpin, .icon-mail, .icon-share, .icon-github, .icon-link, .icon-search, .icon-calendar, .icon-pencil, .icon-disk, .icon-download, .icon-upload {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -66,4 +66,13 @@ you can use the generic selector below, but it's slower:
 }
 .icon-pencil:before {
 	content: "\e003";
+}
+.icon-disk:before {
+	content: "\e007";
+}
+.icon-download:before {
+	content: "\e008";
+}
+.icon-upload:before {
+	content: "\e009";
 }

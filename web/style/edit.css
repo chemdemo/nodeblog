@@ -1,0 +1,78 @@
+::-webkit-scrollbar-track-piece {background-color: #FFF;}
+::-webkit-scrollbar {width: 0; height: 13px;}
+::-webkit-scrollbar-thumb {background-color: #999; border: 2px solid #FFF;}
+::-webkit-scrollbar-thumb:vertical {border-top: none; border-bottom: none;}
+::-webkit-scrollbar-thumb:horizontal {border-left: none; border-right: none;}
+::-webkit-scrollbar-thumb:hover {background-color: #9f9f9f;}
+
+[class|="icon"] {
+	color: #999;
+}
+
+html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	height: 100%;
+	overflow-y: hidden;
+}
+body, input, button, textarea {
+	font: normal normal normal 12px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
+	color: #222;
+}
+.clearfix {
+	;
+}
+.clearfix:after {
+	content: ' ';
+	display: block;
+	clear: both;
+	height: 0;
+}
+
+.editor-wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.editor-ctrl {
+	height: 30px;
+	width: 100%;
+	position: relative;
+	background-color: #f3f3f3;
+	background-image: linear-gradient(#f9f9f9, #f3f3f3);
+	background-repeat: repeat-x;
+	border-bottom: 1px solid #DDD;
+	box-shadow: 0 0 4px #EEE;
+	transition: all 0.5s ease-in;
+}
+.editor-body {
+	position: relative;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+.editor-box {
+	width: 50%;
+	height: 100%;
+	float: left;
+	overflow: auto;
+	line-height: 1.8;
+}
+.ctrl-line {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 1px;
+	height: 100%;
+	background-color: #666;
+	cursor: e-resize;
+}
+.preview-box {
+	width: 50%;
+	height: 100%;
+	float: left;
+	overflow: auto;
+}

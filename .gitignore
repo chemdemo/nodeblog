@@ -2,7 +2,8 @@
 .DS_Store
 .idea
 *.log
+.allow-devtools-edit
 /log
 /bin
 /node_modules
-/web/lib/
+/tmp
