@@ -9,9 +9,8 @@
 	<meta name="application-name" content="blog" />
 	<meta name="viewport" content="minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no">
 	<title>blog editor</title>
-	<link rel="shortcut icon" href="favicon.ico" />
-	<link rel="stylesheet" href="style/web_font_icon.css" />
-	<link rel="stylesheet" href="style/edit.css" />
+	<link rel="stylesheet" href="../../web/style/web_font_icon.css" />
+	<link rel="stylesheet" href="../../web/style/edit.css" />
 </head>
 
 <body>
@@ -40,7 +39,7 @@
 	</div>
 </body>
 <!-- <script src="lib/requirejs/require.js"></script> -->
-<script src="lib/ace-builds/src/ace.js"></script>
+<script src="../../web/lib/ace-builds/src/ace.js"></script>
 <script>
 onload = function() {
 	var editor = ace.edit('editor-box');
@@ -62,22 +61,15 @@ onload = function() {
 	var lineCtrl = document.querySelector('#ctrl-line');
 	var editorBox = document.querySelector('#editor-box');
 	var previewBox = document.querySelector('#preview-box');
-	var bodyWidth = document.body.clientWidth;
 
-	document.body.addEventListener('mousedown', function(e) {
-		flag = false;
-		flag = e.target === lineCtrl;
+	lineCtrl.addEventListener('mousedown', function(e) {
+		flag = 1;
 	});
-	document.body.addEventListener('mouseup', function(e) {
-		flag = false;
+	lineCtrl.addEventListener('mouseup', function(e) {
+		flag = 0;
 	});
 	document.body.addEventListener('mousemove', function(e) {
-		if(flag) {
-			var x = e.clientX;console.log(x)
-			lineCtrl.style.left = x + 'px';
-			editorBox.style.width = x + 'px';
-			previewBox.style.width = bodyWidth - x + 'px';
-		}
+		console.log(e);
 	});
 }
 </script>

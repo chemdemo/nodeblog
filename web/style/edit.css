@@ -58,7 +58,8 @@ body, input, button, textarea {
 	width: 50%;
 	height: 100%;
 	float: left;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: scroll;
 	line-height: 1.8;
 }
 .ctrl-line {
@@ -75,4 +76,5 @@ body, input, button, textarea {
 	height: 100%;
 	float: left;
 	overflow: auto;
+	background-color: #DDD;
 }

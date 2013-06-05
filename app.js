@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -15,12 +14,21 @@ var app = express();
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/server/views');
-    app.set('view engine', 'ejs');
+    /*app.set('view engine', 'html');
+    app.register('.html', {
+        compile: function(str, options) {
+            return function(locals) {
+                return str;
+            }
+        }
+    });
+    app.set('view options', {layout: false});*/
+    app.engine('html', require('ejs').renderFile);
     app.use(express.favicon(__dirname + '/web/favicon.ico'));
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(express.cookieParser('dm_blog'));
+    app.use(express.cookieParser('soft blog'));
     /*app.use(express.session({
         secret: settings.cookie_secret,
         key: settings.db,
@@ -31,8 +39,8 @@ app.configure(function(){
     }));*/
     app.use(express.session());
     app.use(app.router);
-    app.use(require('stylus').middleware(__dirname + '/web'));
-    app.use(express.static(path.join(__dirname, 'web')));
+    //app.use(require('stylus').middleware(__dirname + '/web/'));
+    app.use(express.static(__dirname + '/web/'));
 });
 
 app.configure('development', function(){
