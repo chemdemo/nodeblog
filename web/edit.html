@@ -10,24 +10,43 @@
 	<meta name="viewport" content="minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no">
 	<title>blog editor</title>
 	<link rel="shortcut icon" href="favicon.ico" />
-	<link rel="stylesheet" href="style/web_font_icon.css" />
 	<link rel="stylesheet" href="style/edit.css" />
 </head>
 
 <body>
 	<div class="editor-wrapper">
 		<div class="editor-ctrl">
-			<a href="" class="icon-download import-doc" title="导入"></a>
-			<a href="" class="icon-upload export-doc" title="导出"></a>
-			<label for="editor-theme">选择编辑器主题：</label>
-			<select class="editor-theme" id="editor-theme">
+			<button class="btn import-doc">导入markdown文档</button>
+			<button class="btn export-doc">导出markdown文档</button>
+
+			<label for="select-theme">选择编辑器主题：</label>
+			<select id="select-theme">
 				<option value="ambiance">ambiance</option>
 				<option value="chaos">chaos</option>
 				<option value="chrome">chrome</option>
 				<option value="clouds">clouds</option>
 				<option value="clouds_midnight">clouds_midnight</option>
 			</select>
-			<a href="" class="icon-disk save-doc" title="保存"></a>
+
+			<label for="select-font-family">选择编辑器字体：</label>
+			<select id="select-font-family">
+				<option value="Arial">Arial</option>
+				<option value="Tahoma">Tahoma</option>
+				<option value="Microsoft Yahei">微软雅黑</option>
+			</select>
+
+			<label for="select-font-size">选择编辑器字号：</label>
+			<select id="select-font-size">
+				<option value="12">12px</option>
+				<option value="14">14px</option>
+				<option value="16">16px</option>
+				<option value="18">18px</option>
+				<option value="20">20px</option>
+				<option value="22">22px</option>
+				<option value="24">24px</option>
+			</select>
+
+			<button class="btn save-doc">创建文章</button>
 		</div>
 
 		<div class="editor-body clearfix">
@@ -41,28 +60,15 @@
 </body>
 <!-- <script src="lib/requirejs/require.js"></script> -->
 <script src="lib/ace-builds/src/ace.js"></script>
+<script src="lib/markdown/markdown.js"></script>
 <script>
 onload = function() {
-	var editor = ace.edit('editor-box');
-	editor.setShowPrintMargin(false);
-	/*editor.getSession().on('change', function(e) {
-		console.log('change');
-	});
-	editor.getSession().selection.on('changeSelection', function(e) {
-		console.log('changeSelection');
-	});
-	editor.getSession().selection.on('changeCursor', function(e) {
-		console.log('changeCursor');
-	});*/
-	console.log(window.editor = editor)
-	editor.setTheme('ace/theme/monokai');
-	editor.getSession().setMode('ace/mode/markdown');
-
 	var flag = 0;
 	var lineCtrl = document.querySelector('#ctrl-line');
 	var editorBox = document.querySelector('#editor-box');
 	var previewBox = document.querySelector('#preview-box');
 	var bodyWidth = document.body.clientWidth;
+	var editor = ace.edit('editor-box');
 
 	document.body.addEventListener('mousedown', function(e) {
 		flag = false;
@@ -77,8 +83,23 @@ onload = function() {
 			lineCtrl.style.left = x + 'px';
 			editorBox.style.width = x + 'px';
 			previewBox.style.width = bodyWidth - x + 'px';
+			editor.resize();
 		}
 	});
+
+	editor.setShowPrintMargin(false);
+	editor.getSession().on('change', function(e) {
+		previewBox.innerHTML = markdown.toHTML(editor.getValue());
+	});
+	/*editor.getSession().selection.on('changeSelection', function(e) {
+		console.log('changeSelection');
+	});
+	editor.getSession().selection.on('changeCursor', function(e) {
+		console.log('changeCursor');
+	});*/
+	//console.log(window.editor = editor)
+	editor.setTheme('ace/theme/chrome');
+	editor.getSession().setMode('ace/mode/javascript');
 }
 </script>
 </html>
