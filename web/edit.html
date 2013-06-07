@@ -10,6 +10,9 @@
 	<meta name="viewport" content="minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no">
 	<title>blog editor</title>
 	<link rel="shortcut icon" href="favicon.ico" />
+	<!-- <link rel="stylesheet" href="http://mrcoles.com/media/test/markdown-css/markdown.css" /> -->
+	<link rel="stylesheet" href="http://qplus1.idqqimg.com/lib/bootstrap/2.2.2/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="style/hibot.css" />
 	<link rel="stylesheet" href="style/edit.css" />
 </head>
 
@@ -50,56 +53,20 @@
 		</div>
 
 		<div class="editor-body clearfix">
-			<div class="editor-box" id="editor-box" style="font-size: 16px; font-family: Consolas 'Microsoft Yahei';"></div>
+			<div class="editor-box" id="editor-box"></div>
 
 			<div class="ctrl-line" id="ctrl-line"></div>
 
-			<div class="preview-box" id="preview-box"></div>
+			<div class="preview-box markdown" id="preview-box"><div class="box-inner"></div></div>
 		</div>
 	</div>
 </body>
-<!-- <script src="lib/requirejs/require.js"></script> -->
+<script src="http://qplus1.idqqimg.com/lib/jquery/1.8.3/jquery.min.js"></script>
+<script src="lib/requirejs/require.js"></script>
+<script src="lib/pagedown/Markdown.Converter.js"></script>
+<script src="lib/pagedown/Markdown.Editor.js"></script>
 <script src="lib/ace-builds/src/ace.js"></script>
 <script src="lib/markdown/markdown.js"></script>
-<script>
-onload = function() {
-	var flag = 0;
-	var lineCtrl = document.querySelector('#ctrl-line');
-	var editorBox = document.querySelector('#editor-box');
-	var previewBox = document.querySelector('#preview-box');
-	var bodyWidth = document.body.clientWidth;
-	var editor = ace.edit('editor-box');
-
-	document.body.addEventListener('mousedown', function(e) {
-		flag = false;
-		flag = e.target === lineCtrl;
-	});
-	document.body.addEventListener('mouseup', function(e) {
-		flag = false;
-	});
-	document.body.addEventListener('mousemove', function(e) {
-		if(flag) {
-			var x = e.clientX;console.log(x)
-			lineCtrl.style.left = x + 'px';
-			editorBox.style.width = x + 'px';
-			previewBox.style.width = bodyWidth - x + 'px';
-			editor.resize();
-		}
-	});
-
-	editor.setShowPrintMargin(false);
-	editor.getSession().on('change', function(e) {
-		previewBox.innerHTML = markdown.toHTML(editor.getValue());
-	});
-	/*editor.getSession().selection.on('changeSelection', function(e) {
-		console.log('changeSelection');
-	});
-	editor.getSession().selection.on('changeCursor', function(e) {
-		console.log('changeCursor');
-	});*/
-	//console.log(window.editor = editor)
-	editor.setTheme('ace/theme/chrome');
-	editor.getSession().setMode('ace/mode/javascript');
-}
-</script>
+<script src="lib/hibot.js"></script>
+<script src="js/edit.js"></script>
 </html>
