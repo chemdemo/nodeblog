@@ -10,13 +10,16 @@ onload = function() {
 
 	var updateRrew = function() {
 		var val = editor.getValue();
-		$('#preview-box .box-inner').html(markdown.toHTML(val));
-		//$('#preview-box .box-inner').html(converter.makeHtml(val));
+		//$('#preview-box .box-inner').html(markdown.toHTML(val));
+		$('#preview-box .box-inner').html(converter.makeHtml(val));
+		return
 
 		$('#preview-box code').each(function(i, tag) {
-			var code = $(tag).text();console.log(code);
+			//var $tag = $(tag).clone();
+			//$(tag).replaceWith($('<pre>').append($tag));
+			var code = $(tag).text();
 			var parser = new JavascriptParser();
-			parser.parse(code/*.replace(/\r/g, '')*/);
+			parser.parse(code);
 			tag.style.display = 'none';
 			var ol = document.createElement('ol');
 			ol.className = 'hibot';
@@ -27,9 +30,11 @@ onload = function() {
 		});
 	};
 
-	/*converter.hooks.chain('preConversion', function(t) {
-		return t + '\nettttttttttttttttttttttttttttt';
-	});*/
+	converter.hooks.chain('preConversion', function(t) {
+		console.log(t);
+		//t = t.replace(/```(\.)?```/g, )
+		return t;
+	});
 
 	document.body.addEventListener('mousedown', function(e) {
 		flag = false;
@@ -55,7 +60,8 @@ onload = function() {
 
 	//editor.getValue() && updateRrew();
 	$.get('./markdown.md', function(r) {
-		editor.setValue(r);
+		//editor.setValue(r);
+		//console.log(window.s = editor.getValue());
 		updateRrew();
 	});
 }
