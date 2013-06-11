@@ -1,0 +1,1 @@
+var settings = require('../settings');

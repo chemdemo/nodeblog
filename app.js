@@ -3,6 +3,7 @@
  */
 
 var express = require('express')
+    , settings = require('settings')
     , routes = require('./server/routes')
     , http = require('http')
     , path = require('path')
@@ -12,7 +13,7 @@ var express = require('express')
 var app = express();
 
 app.configure(function(){
-    app.set('port', process.env.PORT || 3000);
+    app.set('port', process.env.PORT || settings.SYSPORT);
     app.set('views', __dirname + '/server/views');
     /*app.set('view engine', 'html');
     app.register('.html', {
@@ -30,11 +31,11 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(express.cookieParser('soft blog'));
     /*app.use(express.session({
-        secret: settings.cookie_secret,
-        key: settings.db,
+        secret: settings.COOKIE_SECRET,
+        key: settings.HOST,
         cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
         store: new MongoStore({
-            db: settings.db
+            db: settings.HOST
         })
     }));*/
     app.use(express.session());
