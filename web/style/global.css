@@ -178,13 +178,16 @@ h1 a {
 }
 .post-edit {
 	float: right;
-	margin-right: 1em;
 }
 .post-comments {
 	float: right;
+	margin: 0 1em;
 }
 .post-comments a {
 	margin-right: 2px;
+}
+.post-visited {
+	float: right;
 }
 
 footer {
