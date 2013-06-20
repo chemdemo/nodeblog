@@ -3,20 +3,19 @@
  */
 
 var express = require('express')
-    , settings = require('settings')
+    , settings = require('./settings')
     , routes = require('./server/routes')
     , http = require('http')
     , path = require('path')
-    //, MongoStore = require('connect-mongo')(express)
     , flash = require('connect-flash');
 
 var app = express();
 
 app.configure(function(){
     app.set('port', process.env.PORT || settings.SYSPORT);
-    app.set('views', __dirname + '/server/views');
-    /*app.set('view engine', 'html');
-    app.register('.html', {
+    //app.set('views', __dirname + '/server/views');
+    app.set('view engine', 'html');
+    /*app.register('.html', {
         compile: function(str, options) {
             return function(locals) {
                 return str;
@@ -29,16 +28,19 @@ app.configure(function(){
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(express.cookieParser('soft blog'));
+    app.use(express.cookieParser('softblog'));
     /*app.use(express.session({
-        secret: settings.COOKIE_SECRET,
+        secret: settings.SESSION_SECRET,
         key: settings.HOST,
         cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
         store: new MongoStore({
             db: settings.HOST
         })
     }));*/
-    app.use(express.session());
+    app.use(express.session({
+        secret: settings.SESSION_SECRET,
+        cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}//30 days
+    }));
     app.use(app.router);
     //app.use(require('stylus').middleware(__dirname + '/web/'));
     app.use(express.static(__dirname + '/web/'));
@@ -53,3 +55,14 @@ http.createServer(app).listen(app.get('port'), function(){
 });
 
 routes(app);
+
+// 404
+app.use(function(req, res, next) {
+    res.send(404, 'Not found.');
+});
+
+// 500
+app.use(function(err, req, res, next) {
+    console.log(err, '-------------------------------');
+    res.send(500, 'Server error.');
+});

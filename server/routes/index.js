@@ -1,13 +1,18 @@
-
 /*
  * GET home routes page.
  */
+var controller = require('../controller');
+var user = controller.user;
+var post = controller.post;
+var tag = controller.tag;
+var comment = controller.comment;
 
-module.exports = function(app) {
-	app.get('/', function(req, res) {
-		res.render('index.html');
-	});
-	app.get('/edit', function(req, res) {
-		res.render('edit.html');
-	});
+var sessionCheck = function(req, res, next) {
+	;
+};
+
+function route(app) {
+	;
 }
+
+module.exports = route;
