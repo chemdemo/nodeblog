@@ -21,6 +21,9 @@ body, input, button, textarea {
 	font: normal normal normal 12px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
 	color: #222;
 }
+body {
+	background: #FFF url(images/bg03.png) repeat 0 0;
+}
 label {
 	display: inline-block;
 }
@@ -92,7 +95,7 @@ pre {
 	box-shadow: none;
 }
 
-.editor-wrapper {
+/*.editor-wrapper {
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -104,7 +107,6 @@ pre {
 	position: relative;
 	background-color: #363636;
 	background-image: linear-gradient(to bottom,#ee5f5b,#bd362f);
-	/*background-image: linear-gradient(to bottom,#5bc0de,#2f96b4);*/
 	background-repeat: repeat-x;
 	border-bottom: 1px solid #DF524D;
 	box-shadow: 0 0 4px #EEE;
@@ -150,10 +152,27 @@ pre {
 	height: 100%;
 	float: left;
 	overflow: auto;
-	/*background-color: #DDD;*/
 }
 .preview-box .box-inner {
 	padding: 1em;
-}
+}*/
 
 /* md */
+
+
+/* new */
+
+.post-editor {
+	width: 80%;
+	margin: 2em auto;
+	background-color: #FEFEFE;
+}
+.post-editor label {
+	display: block;
+}
+.post-editor input {
+	width: 100%;
+}
+.post-body {
+	border: 1px solid #DDD;
+}

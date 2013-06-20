@@ -11,10 +11,10 @@ var express = require('express')
 
 var app = express();
 
-app.configure(function(){
+app.configure(function() {
     app.set('port', process.env.PORT || settings.SYSPORT);
-    //app.set('views', __dirname + '/server/views');
-    app.set('view engine', 'html');
+    app.set('views', __dirname + '/server/views');
+    app.set('view engine', 'ejs');
     /*app.register('.html', {
         compile: function(str, options) {
             return function(locals) {
@@ -22,8 +22,8 @@ app.configure(function(){
             }
         }
     });
-    app.set('view options', {layout: false});*/
-    app.engine('html', require('ejs').renderFile);
+    app.set('view options', {layout: false});
+    app.engine('html', require('ejs').renderFile);*/
     app.use(express.favicon(__dirname + '/web/favicon.ico'));
     app.use(express.logger('dev'));
     app.use(express.bodyParser());

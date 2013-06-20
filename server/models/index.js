@@ -1,8 +1,8 @@
-var settings = require(__dirname + '/settings');
+var settings = require('../../settings');
 var mongoose = require('mongoose');
 var db_url = 'mongodb://' + settings.DB_HOST + ':' + settings.DB_PORT + '/' + settings.DB_NAME;
 
-mongoose.connect(db_url, function() {
+mongoose.connect(db_url, function(err) {
 	if(!err) {
 		console.log('Connect to db success!');
 	} else {
@@ -12,7 +12,7 @@ mongoose.connect(db_url, function() {
 
 require('./user');
 require('./post');
-require('./tags');
+require('./tag');
 require('./comment');
 
 exports.User = mongoose.model('User');

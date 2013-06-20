@@ -1,7 +1,7 @@
 module.exports = {
 	NAME: 'soft blog',
 	DB_HOST: 'localhost',
-	DB_PORT: 27010,
+	DB_PORT: 27017,
 	DB_NAME: 'softblog',
 	SESSION_SECRET: 'softblog',
 	SYSPORT: 3000,
