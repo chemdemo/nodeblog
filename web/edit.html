@@ -4,74 +4,62 @@
 	<meta charset="utf-8" />
 	<title>blog editor</title>
 	<link rel="shortcut icon" href="favicon.ico" />
-	<!-- <link rel="stylesheet" href="http://mrcoles.com/media/test/markdown-css/markdown.css" />
-	<link rel="stylesheet" href="http://qplus1.idqqimg.com/lib/bootstrap/2.2.2/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="style/hibot.css" /> -->
 	<link rel="stylesheet" href="style/edit.css" />
 </head>
 
 <body>
-	<!-- <div class="editor-wrapper">
-		<div class="editor-ctrl">
-			<button class="btn import-doc">导入markdown文档</button>
-			<button class="btn export-doc">导出markdown文档</button>
-
-			<label for="select-theme">选择编辑器主题：</label>
-			<select id="select-theme">
-				<option value="ambiance">ambiance</option>
-				<option value="chaos">chaos</option>
-				<option value="chrome">chrome</option>
-				<option value="clouds">clouds</option>
-				<option value="clouds_midnight">clouds_midnight</option>
-			</select>
-
-			<label for="select-font-family">选择编辑器字体：</label>
-			<select id="select-font-family">
-				<option value="Arial">Arial</option>
-				<option value="Tahoma">Tahoma</option>
-				<option value="Microsoft Yahei">微软雅黑</option>
-			</select>
-
-			<label for="select-font-size">选择编辑器字号：</label>
-			<select id="select-font-size">
-				<option value="12">12px</option>
-				<option value="14">14px</option>
-				<option value="16">16px</option>
-				<option value="18">18px</option>
-				<option value="20">20px</option>
-				<option value="22">22px</option>
-				<option value="24">24px</option>
-			</select>
-
-			<button class="btn save-doc">创建文章</button>
+	<header>
+		<div class="header-inner">
+			<a href="/index.html" title="回主页">
+				<img src="/style/images/dm.jpg" class="home-avatar" alt="chemdemo" />
+			</a>
 		</div>
+	</header>
 
-		<div class="editor-body clearfix">
-			<div class="editor-box" id="editor-box"></div>
-
-			<div class="ctrl-line" id="ctrl-line"></div>
-
-			<div class="preview-box markdown" id="preview-box"><div class="box-inner"></div></div>
-		</div>
-	</div> -->
-	<div class="post-editor">
-		<p>
+	<div class="post-body">
+		<section>
 			<label for="post-title">文章标题：</label>
-			<input type="text" id="post-title" placeholder="post title" />
-		</p>
-		<p>
-			<label for="post-tag">所属标签：</label>
-			<input type="text" id="post-tag" placeholder="post tags" />
-		</p>
-
-		<section class="post-body">
-			<p>锄禾日当如</p>
+			<input class="input post-title" type="text" id="post-title" placeholder="post title" />
 		</section>
 
-		<p>
-			<button type="button">保存</button>
-		</p>
-	<div>
+		<section class="edit-btns">
+			<div class="button-group">
+				<a href="#" id="function-h2" class="minibutton function-button" title="Header 2">
+					<b>h2</b>
+				</a>
+				<a href="#" id="function-h3" class="minibutton function-button" title="Header 3">
+					<b>h3</b>
+				</a>
+				<a href="#" id="function-h4" class="minibutton function-button" title="Header 4">
+					<b>h4</b>
+				</a>
+			</div>
+		</section>
+
+		<section class="post-editor" contenteditable>
+锄禾日当午，汗滴禾下土！<br />
+你是风味我是沙，缠缠绵绵·····<br />
+I miss you so much.
+		</section>
+
+		<section class="tags-edit">
+			<label for="post-tags">添加标签：</label>
+			<input type="text" class="input post-tags" id="post-tags" placeholder="post tags" />
+			<a href="javascript: void(0);" class="add-tags"><i class="icon-plus"></i>添加已有标签</a>
+		</section>
+
+		<section>
+			<button class="btn-blank btn-preview">预览</button>
+			<button class="btn-blue btn-save">保存</button>
+		</section>
+	</div>
+
+	<footer>
+		Copyright &copy; 2013. Built with 
+		<a href="" target="_blank">Nodejs</a> 
+		&amp; <a href="" target="_blank">Expressjs</a>. 
+		By <a href="" target="_blank">chemdemo</a>.
+	</footer>
 </body>
 <!-- <script src="http://qplus1.idqqimg.com/lib/jquery/1.8.3/jquery.min.js"></script>
 <script src="lib/requirejs/require.js"></script>

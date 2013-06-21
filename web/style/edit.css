@@ -1,178 +1,67 @@
-::-webkit-scrollbar-track-piece {background-color: #FFF;}
-::-webkit-scrollbar {width: 0; height: 13px;}
-::-webkit-scrollbar-thumb {background-color: #999; border: 2px solid #FFF;}
-::-webkit-scrollbar-thumb:vertical {border-top: none; border-bottom: none;}
-::-webkit-scrollbar-thumb:horizontal {border-left: none; border-right: none;}
-::-webkit-scrollbar-thumb:hover {background-color: #9f9f9f;}
-
+@import url(global.css);
+@import url(web_font_icon.css);
 [class|="icon"] {
-	color: #999;
+	color: inherit;
 }
 
-/*html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input {
-	margin: 0;
-	padding: 0;
-}*/
-html, body {
-	height: 100%;
-	overflow-y: hidden;
-}
-body, input, button, textarea {
-	font: normal normal normal 12px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
-	color: #222;
-}
-body {
-	background: #FFF url(images/bg03.png) repeat 0 0;
-}
-label {
-	display: inline-block;
-}
-select {
-	width: 100px;
-}
-pre {
-	background: #3A3C42;
-	color: #f8f8f2;
-	margin: 0 -20px 20px;
-	display: block;
-}
-.clearfix {
-	;
-}
-.clearfix:after {
-	content: ' ';
-	display: block;
-	clear: both;
-	height: 0;
-}
-.btn {
-	display: inline-block;
-	padding: 0 10px;
-	margin-bottom: 0;
-	line-height: 25px;
-	color: #333;
-	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-	vertical-align: middle;
-	cursor: pointer;
-	background-color: #f5f5f5;
-	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-	background-repeat: repeat-x;
-	border: 1px solid #BBB;
-	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-	border-bottom-color: #a2a2a2;
-	border-radius: 2px;
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-.btn:hover,
-.btn:active,
-.btn.active,
-.btn.disabled,
-.btn[disabled] {
-	background-color: #e6e6e6;
-}
-.btn:hover {
-	text-decoration: none;
-	background-position: 0 -15px;
-	transition: background-position 0.1s linear;
-}
-.btn:focus {
-  outline: thin dotted #333;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-.btn.active,
-.btn:active {
-	background-image: none;
-	outline: 0;
-	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-.btn.disabled,
-.btn[disabled] {
-	cursor: default;
-	background-image: none;
-	opacity: 0.65;
-	box-shadow: none;
-}
-
-/*.editor-wrapper {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-.editor-ctrl {
+/* edit page style */
+header {
 	height: 50px;
-	line-height: 50px;
-	width: 100%;
-	position: relative;
-	background-color: #363636;
-	background-image: linear-gradient(to bottom,#ee5f5b,#bd362f);
-	background-repeat: repeat-x;
-	border-bottom: 1px solid #DF524D;
-	box-shadow: 0 0 4px #EEE;
-	transition: all 0.5s ease-in;
-	text-align: center;
+	background-color: #404040;
 	color: #EEE;
 }
-.editor-ctrl * {
-	vertical-align: baseline;
-	margin-right: 1em;
-}
-.editor-ctrl label {
-	margin-right: 0;
-}
-.editor-body {
-	position: relative;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	overflow: hidden;
-}
-.editor-box {
-	width: 50%;
-	height: 100%;
-	float: left;
-	overflow-y: auto;
-	overflow-x: scroll;
-	line-height: 1.8;
-	font-size: 16px;
-	font-family: Consolas 'Microsoft Yahei';
-}
-.ctrl-line {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: 3px;
-	height: 100%;
-	background-color: #666;
-	cursor: e-resize;
-}
-.preview-box {
-	width: 50%;
-	height: 100%;
-	float: left;
-	overflow: auto;
-}
-.preview-box .box-inner {
-	padding: 1em;
-}*/
-
-/* md */
-
-
-/* new */
-
-.post-editor {
+.header-inner {
 	width: 80%;
-	margin: 2em auto;
-	background-color: #FEFEFE;
+	height: 100%;
+	margin: 0 auto;
+	line-height: 50px;
 }
-.post-editor label {
+.home-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+
+.post-body {
+	width: 80%;
+	padding: 1em;
+	margin: 0 auto 3px;
+	border: 1px solid #DDD;
+	/*box-shadow: 0 0 1px 3px rgba(0, 0, 0, 0.05);*/
+	box-shadow: 0 3px 0 3px #EEE;
+	background-color: #FFF;
+}
+.edit-btns, .tags-edit {
+	margin: 1em 0;
+}
+.post-body label {
 	display: block;
 }
-.post-editor input {
+.post-body .post-title {
 	width: 100%;
 }
-.post-body {
+.post-editor {
 	border: 1px solid #DDD;
+	margin: 1em auto;
+	outline: 0 none;
+	height: 300px;
+	box-sizing: border-box;
+	padding: .5em;
+}
+.tags-edit {
+	position: relative;
+}
+.post-tags {
+	width: 80%;
+}
+.add-tags {
+	;
+}
+
+footer {
+	text-align: center;
+	color: #999;
+	background-color: #f8f8f8;
+	height: 60px;
+	line-height: 60px;
 }
