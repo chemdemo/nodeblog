@@ -107,11 +107,3 @@ header {
 	cursor: pointer;
 	color: #00BCE1;
 }
-
-footer {
-	text-align: center;
-	color: #999;
-	background-color: #f8f8f8;
-	height: 60px;
-	line-height: 60px;
-}
