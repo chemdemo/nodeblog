@@ -31,10 +31,12 @@ header {
 	box-shadow: 0 3px 0 3px #EEE;
 	background-color: #FFF;
 }
-.edit-btns, .tags-edit {
-	margin: 1em 0;
-}
+.post-body input[type="checkbox"],
 .post-body label {
+	vertical-align: middle;
+	font-weight: bold;
+}
+.post-body .block-label {
 	display: block;
 }
 .post-body .post-title {
@@ -42,20 +44,68 @@ header {
 }
 .post-editor {
 	border: 1px solid #DDD;
-	margin: 1em auto;
+	margin: 0 auto;
 	outline: 0 none;
-	height: 300px;
+	height: 350px;
 	box-sizing: border-box;
 	padding: .5em;
 }
 .tags-edit {
 	position: relative;
 }
+.tags-select {
+	position: absolute;
+	top: -36px;
+	right: 0;
+	width: 300px;
+	min-height: 200px;
+	background-color: rgba(255, 255, 255, 0.4);
+	z-index: 10;
+}
+.tags-select-title {
+	height: 30px;
+	line-height: 30px;
+	background-color: rgba(64, 64, 64, 0.7);
+	color: #EEE;
+	padding: 0 1em;
+}
+.tags-select .tags-list {
+	padding: 1em;
+}
+.tags-select-title .close {
+	float: right;
+	cursor: pointer;
+	line-height: 30px;
+}
 .post-tags {
-	width: 80%;
+	width: 90%;
 }
 .add-tags {
 	;
+}
+.post-body > section {
+	margin-bottom: 1em;
+}
+
+.post-preview {
+	position: absolute;
+	width: 0%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.9);
+	top: 50px;
+	right: 0;
+	z-index: 100;
+	transition: width .5s ease-in-out;
+}
+.post-preview .preview-ctrl {
+	position: absolute;
+	top: 45%;
+	left: -18px;
+	font-size: 3em;
+	width: 18px;
+	overflow: hidden;
+	cursor: pointer;
+	color: #00BCE1;
 }
 
 footer {

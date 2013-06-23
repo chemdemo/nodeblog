@@ -18,7 +18,7 @@
 
 	<div class="post-body">
 		<section>
-			<label for="post-title">文章标题：</label>
+			<label for="post-title" class="block-label">文章标题：</label>
 			<input class="input post-title" type="text" id="post-title" placeholder="post title" />
 		</section>
 
@@ -43,15 +43,42 @@ I miss you so much.
 		</section>
 
 		<section class="tags-edit">
-			<label for="post-tags">添加标签：</label>
+			<label for="post-tags" class="block-label">添加标签：</label>
 			<input type="text" class="input post-tags" id="post-tags" placeholder="post tags" />
 			<a href="javascript: void(0);" class="add-tags"><i class="icon-plus"></i>添加已有标签</a>
+
+			<section class="shadow-box none tags-select">
+				<div class="tags-select-title">
+					选择已有标签
+					<span class="icon-close close"></span>
+				</div>
+				<div class="tags-list">
+					<a href="" class="tag">生活</a>
+					<a href="" class="tag">艺术</a>
+					<a href="" class="tag">随感</a>
+					<a href="" class="tag">技术</a>
+					<a href="" class="tag">人生</a>
+					<a href="" class="tag">nodejs</a>
+					<a href="" class="tag">css</a>
+					<a href="" class="tag">html</a>
+				</div>
+			</section>
+		</section>
+
+		<section>
+			<label for="set-topped">文章置顶：</label>
+			<input type="checkbox" id="set-topped" />
 		</section>
 
 		<section>
 			<button class="btn-blank btn-preview">预览</button>
 			<button class="btn-blue btn-save">保存</button>
 		</section>
+	</div>
+
+	<div class="post-preview">
+		<span class="preview-ctrl icon-arrow-left"></span>
+		<section class="preview-box"></section>
 	</div>
 
 	<footer>
@@ -69,4 +96,5 @@ I miss you so much.
 <script src="lib/markdown/markdown.js"></script>
 <script src="lib/hibot.js"></script>
 <script src="js/edit.js"></script> -->
+<script data-main="js/edit.js" src="lib/requirejs/require.js"></script>
 </html>

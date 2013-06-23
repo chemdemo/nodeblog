@@ -20,6 +20,7 @@ body, input, button, textarea {
 }
 body {
 	background: #FFF url(images/bg03.png) repeat 0 0;
+	position: relative;
 }
 ul, li {
 	list-style: none;
@@ -59,6 +60,22 @@ a:hover {
 ::selection {
 	color: #EEE;
 	background-color: #222;
+}
+
+.shadow-box {
+	box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+	background-color: #FFF;
+}
+
+.tag {
+	margin: 0 2px;
+	background-color: #33B5E5;
+	color: #EEE;
+	padding: 0 3px;
+}
+
+.none {
+	display: none;
 }
 
 .btn {

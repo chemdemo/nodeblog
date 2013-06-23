@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-pencil, .icon-tags, .icon-pushpin, .icon-home, .icon-bubbles, .icon-disk, .icon-calendar, .icon-search, .icon-checkmark, .icon-plus, .icon-minus, .icon-close, .icon-spam, .icon-share, .icon-github, .icon-mail, .icon-embed {
+.icon-pencil, .icon-tags, .icon-pushpin, .icon-home, .icon-bubbles, .icon-disk, .icon-calendar, .icon-search, .icon-checkmark, .icon-plus, .icon-minus, .icon-close, .icon-spam, .icon-share, .icon-github, .icon-mail, .icon-embed, .icon-arrow-right, .icon-arrow-left, .icon-checkbox-checked, .icon-checkbox-unchecked {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -87,4 +87,16 @@ you can use the generic selector below, but it's slower:
 }
 .icon-embed:before {
 	content: "\e010";
+}
+.icon-arrow-right:before {
+	content: "\e011";
+}
+.icon-arrow-left:before {
+	content: "\e012";
+}
+.icon-checkbox-checked:before {
+	content: "\e013";
+}
+.icon-checkbox-unchecked:before {
+	content: "\e014";
 }
