@@ -48,7 +48,8 @@ header {
 	outline: 0 none;
 	height: 350px;
 	box-sizing: border-box;
-	padding: .5em;
+	/*padding: .5em;
+	padding-right: 0;*/
 }
 .tags-edit {
 	position: relative;
@@ -92,7 +93,7 @@ header {
 	width: 0%;
 	height: 100%;
 	background-color: rgba(0,0,0,0.9);
-	top: 50px;
+	top: 0;
 	right: 0;
 	z-index: 100;
 	transition: width .5s ease-in-out;
