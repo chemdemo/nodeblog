@@ -1,4 +1,5 @@
-var rcodes = require('../../settings').RCODES;
+var settings = require('../../settings');
+var rcodes = settings.RCODES;
 var crypto = require('crypto');
 var request = require('request');
 var validator = require('validator');
@@ -8,24 +9,14 @@ var sanitize = validator.sanitize;
 var models = require('../models');
 var User = models.User;
 
-/*function addUser(req, res, next) {
-	var name = sanitize(req.body.user_name).trim();
-	var email = sanitize(req.body.user_email).trim();
-}
-
-function findUser(req, res, next) {
-	;
-}*/
-
 function md5(str) {
 	var hash = crypto.createHash('md5');
 	hash.update(str);
 	return str = hash.digest('hex');
 }
 
-function findUser(email, callback) {
-	email = sanitize(email).trim();
-	User.find({email: email}, callback);
+function findUser(uid, callback) {
+	User.findOne({_id: uid}, callback);
 }
 
 function addUser(info, callback) {
@@ -36,7 +27,7 @@ function addUser(info, callback) {
 	if(!name || !email) {
 		return callback({
 			rcode: rcodes['PARAM_MISSING'],
-			msg: 'Param user_name and user_email were required.'
+			msg: 'Both user_name and user_email are required.'
 		});
 	}
 
@@ -49,9 +40,9 @@ function addUser(info, callback) {
 	request(avatar_url, function(err) {
 		user.avatar = !err ? avatar_url : settings.DEFAULT_AVATAR;
 		console.log(user);
-		user.save(function(er) {
-			console.log(er);
-			callback(er);
+		user.save(function(er, doc) {
+			console.log(er, doc);
+			callback(er, doc);
 		});
 	});
 }

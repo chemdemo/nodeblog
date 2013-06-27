@@ -4,6 +4,7 @@ var ObjectId = Schema.ObjectId;
 
 var Tag = new Schema({
 	name: String,
+	description: String,
 	posts: [ObjectId]
 });
 
