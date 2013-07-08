@@ -29,15 +29,11 @@ app.configure(function() {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser('softblog'));
-    /*app.use(express.session({
-        secret: settings.SESSION_SECRET,
-        key: settings.HOST,
-        cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+    app.use(express.session({
+        /*key: settings.HOST,
         store: new MongoStore({
             db: settings.HOST
-        })
-    }));*/
-    app.use(express.session({
+        }),*/
         secret: settings.SESSION_SECRET,
         cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}//30 days
     }));

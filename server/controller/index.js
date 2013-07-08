@@ -6,10 +6,7 @@ var post = require('./post');
 var tag = require('./tag');
 var comment = require('./comment');
 
-exports.login_check = function(req, res, next) {
-	;
-}
-
+exports.user = user;
 exports.post = post;
 exports.tag = tag;
 exports.comment = comment;

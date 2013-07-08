@@ -12,6 +12,7 @@
         "validator": "*",
         "ejs": "*",
         "stylus": "*",
-        "connect-flash": "*"
+        "connect-flash": "*",
+        "request": "*"
     }
 }
