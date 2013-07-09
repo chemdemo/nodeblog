@@ -4,6 +4,7 @@ var models = require('../models');
 var Post = models.Post;
 
 var user_ctrl = require('./user');
+var tag_ctrl = require('./tag');
 
 function findById(postid, callback) {
 	Post.findById(postid, callback);
@@ -51,6 +52,10 @@ exports.addOne = function(req, res, next) {
 		//;
 	//}
 	//});
+
+	tag_ctrl.addTags(tags, postid, function(err) {
+		;
+	});
 }
 
 exports.findOne = function(req, res, next) {
@@ -72,10 +77,11 @@ exports.updateOne = function(req, res, next) {
 
 	Post.findOneAndUpdate({_id: postid}, update || {}, function(err, doc) {
 		if(!err && doc) {
-			res.json({
+			/*res.json({
 				rcode: rcodes['SUCCESS'],
 				result: {postid: doc._id}
-			});
+			});*/
+			res.render('post', doc);
 		} else {
 			res.json({
 				rcode: rcodes['UPDATE_POST_ERROR'],

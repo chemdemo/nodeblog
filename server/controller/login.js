@@ -7,6 +7,12 @@ var sanitize = validator.sanitize;
 
 var user_ctrl = require('./user');
 
+function signup(info, callback) {
+	if(info.name && info.email) {
+		;
+	}
+}
+
 exports.login = function(req, res, next) {
 	var name = sanitize(req.body.name).trim().toLowerCase();
 	var email = sanitize(req.body.email).trim();
@@ -49,3 +55,5 @@ exports.logout = function(req, res, next) {
 	//res.clearCookie(config.auth_cookie_name, { path: '/' });
 	//res.redirect(req.headers.referer || 'home');
 }
+
+exports.signup = signup;
