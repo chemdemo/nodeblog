@@ -2,9 +2,6 @@ var settings = require('../../settings');
 var rcodes = settings.RCODES;
 var crypto = require('crypto');
 var request = require('request');
-var validator = require('validator');
-var check = validator.check;
-var sanitize = validator.sanitize;
 
 var models = require('../models');
 var User = models.User;
@@ -15,14 +12,19 @@ function md5(str) {
 	return str = hash.digest('hex');
 }
 
-function findUser(uid, callback) {
-	User.findOne({_id: uid}, callback);
+function findOne(query, callback) {
+	User.findOne(query, callback);
 }
 
-function addUser(info, callback) {
-	var name = sanitize(info.name).trim();
-	var email = sanitize(info.email).trim();
-	var site = sanitize(info.site || '').trim();
+function findById(id, callback) {
+	//findOne({_id: id}, callback);
+	User.findById(id, callback);
+}
+
+function addOne(info, callback) {
+	var name = info.name;
+	var email = info.email;
+	var site = info.site || '';
 
 	if(!name || !email) {
 		return callback({
@@ -47,5 +49,6 @@ function addUser(info, callback) {
 	});
 }
 
-exports.addUser = addUser;
-exports.findUser = findUser;
+exports.addOne = addOne;
+exports.findOne = findOne;
+exports.findById = findById;
