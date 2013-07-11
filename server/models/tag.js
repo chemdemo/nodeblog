@@ -4,8 +4,8 @@ var ObjectId = Schema.ObjectId;
 
 var Tag = new Schema({
 	name: String,
-	description: String,
-	posts: [ObjectId]
+	//description: String,
+	postids: [ObjectId]
 });
 
 mongoose.model('Tag', Tag);
