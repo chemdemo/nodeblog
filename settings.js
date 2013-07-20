@@ -16,8 +16,6 @@ module.exports = {
 	RCODES: {
 		SUCCESS: 0
 		, PARAM_MISSING: 1001
-		, DB_ERROR: 1002,
-		, FIND_POST_ERROR: 1005
-		, UPDATE_POST_ERROR: 1006
+		, DB_ERROR: 1002
 	}
 }

@@ -2,10 +2,12 @@ var settings = require('../../settings');
 var rcodes = settings.RCODES;
 var models = require('../models');
 var Tag = models.Tag;
+var post_ctrl = require('./post');
+var async = require('async');
 
-function findById(id, callback) {
+/*function findById(id, callback) {
 	Tag.findById(id, callback);
-}
+}*/
 
 function findOne(name, callback) {
 	Tag.findOne({name: name}, callback);
@@ -18,13 +20,17 @@ function addOne(name, callback) {
 	tag.save(callback);
 }
 
-function addPost(tagid, postid, callback) {
-	findById(tagid, function(err, doc) {
+function addPost(tag, postid, callback) {
+	findOne(tag, function(err, doc) {
 		if(err) {
-			callback(err);
+			//callback(err);
+			addOne(tag, function(_err, _doc) {
+				_doc.postids.push(postid);
+				_doc.save(callback);
+			});
 		} else {
 			var postids = doc.postids || [];
-			if(postids && postids.indexOf(postid) > -1) {
+			if(postids.indexOf(postid) > -1) {
 				callback(null);
 			} else {
 				doc.postids.push(postid);
@@ -34,8 +40,22 @@ function addPost(tagid, postid, callback) {
 	});
 }
 
-function removePost(tagid, postid, callback) {
-	findById(tagid, function(err, doc) {
+function addTags4Post(tags, postid, callback) {
+	async.map(tags, function(tag, _callback) {
+		addPost(tag, postid, _callback);
+		/*findOne(tag, function(err, doc) {
+			if(err) {
+				addOne(tag, _callback);
+			} else {
+				//_callback(null, doc);
+				_callback(err, doc);
+			}
+		});*/
+	}, callback);
+}
+
+function removePost(tag, postid, callback) {
+	findOne(tag, function(err, doc) {
 		if(err) {
 			callback(err);
 		} else {
@@ -52,30 +72,45 @@ function removePost(tagid, postid, callback) {
 }
 
 exports.findPostsByTag = function(req, res, next) {
-	var tagid = req.query.tagid;
+	var tag = req.query.tag;
 
-	if(!tagid) {
+	if(!tag) {
 		return res.json({
 			rcode: rcodes['PARAM_MISSING'],
-			errinfo: 'Param tagid required.'
+			errinfo: 'Param tag required.'
 		});
 	}
 
-	Tag.find({_id: tagid}, function(err, doc) {
+	Tag.find({name: tag}, function(err, doc) {
 		if(err) {
 			res.json({
 				rcode: rcodes['DB_ERROR'],
 				errinfo: err
 			});
 		} else {
-			callback({
+			/*callback({
 				rcode: rcodes['SUCCESS'],
 				result: doc.postids
+			});*/
+			var postids = doc.postids || [];
+			post_ctrl.fetchPosts(postids, function(err, r) {
+				if(err) {
+					res.json({
+						rcode: rcodes['DB_ERROR'],
+						errinfo: err
+					});
+				} else {
+					res.json({
+						rcode: rcodes['SUCCESS'],
+						result: r
+					});
+				}
 			});
 		}
 	});
 }
 
-exports.addOne = addOne;
-exports.addPost = addPost;
+//exports.addOne = addOne;
+//exports.addPost = addPost;
+exports.addTags4Post = addTags4Post;
 exports.removePost = removePost;

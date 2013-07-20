@@ -7,9 +7,9 @@ var getMonth = function() {
 	return new Date(d.getFullYear(), d.getMonth()); 
 };
 
-var PostPlaced = new Schema({
-	month: {type: date, default: getMonth()},
+var PostPlacedSchema = new Schema({
+	month: {type: Date, default: getMonth()},
 	posts: [ObjectId]
-});
+}, {collection: 'post_placed'});
 
-mongoose.model('PostPlaced', PostPlaced);
+mongoose.model('PostPlaced', PostPlacedSchema);

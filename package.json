@@ -13,6 +13,8 @@
         "ejs": "*",
         "stylus": "*",
         "connect-flash": "*",
-        "request": "*"
+        "request": "*",
+        "async": "*",
+        "eventproxy": "*"
     }
 }

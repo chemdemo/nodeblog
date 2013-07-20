@@ -49,6 +49,6 @@ function addOne(info, callback) {
 	});
 }
 
+exports.findById = findById;
 exports.addOne = addOne;
 exports.findOne = findOne;
-exports.findById = findById;
