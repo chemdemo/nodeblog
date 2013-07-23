@@ -7,6 +7,7 @@ var CommentSchema = new Schema({
 	parent_id: ObjectId,
 	author_id: ObjectId,
 	content: String,
+	//replies: [],
 	create: {type: Date, default: Date.now, index: true}
 }, {collection: 'comment'});
 

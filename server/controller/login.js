@@ -31,7 +31,7 @@ exports.login = function(req, res, next) {
 	var info = {};
 	info.name = sanitize(req.body.name).trim().toLowerCase();
 	info.email = sanitize(req.body.email).trim();
-	info.site = sanitize(.site || '').trim();
+	info.site = sanitize(req.body.site || '').trim();
 
 	if(!info.name || !info.email) {
 		return res.json({
