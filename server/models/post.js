@@ -12,7 +12,7 @@ var PostSchema = new Schema({
 	cover: String,
 	summary: String,
 	tags: [String],
-	comments: Number,
+	comments: {type: Number, default: 0},
 	visite: {type: Number, default: 0},
 	top: {type: Boolean, default: false},
 	last_comment_at: {type: Date},

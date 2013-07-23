@@ -4,7 +4,7 @@ var ObjectId = Schema.ObjectId;
 
 var CommentSchema = new Schema({
 	post_id: ObjectId,
-	parent_id: ObjectId,
+	//parent_id: ObjectId,
 	author_id: ObjectId,
 	content: String,
 	//replies: [],

@@ -20,7 +20,6 @@ function findById(id, callback) {
 	//findOne({_id: id}, callback);
 	User.findById(id, callback);
 }
-
 function addOne(info, callback) {
 	var name = info.name;
 	var email = info.email;

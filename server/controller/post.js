@@ -9,8 +9,16 @@ var comment_ctrl = require('./comment');
 
 var async = require('async');
 
-function findById(postid, fields, callback) {
-	Post.findById(postid, fields, function(err, doc) {
+function findById(postid, callback) {
+	Post.findById(postid, callback);
+}
+
+function findByIdAndUpdate(postid, update, callback) {
+	Post.findByIdAndUpdate(postid, update, callback);
+};
+
+function findAPost(conditions, fields, callback) {
+	Post.find(conditions, fields, function(err, doc) {
 		if(err) {
 			callback(err);
 		} else {
@@ -40,7 +48,7 @@ function findById(postid, fields, callback) {
 
 function fetchPosts(postids, callback) {
 	async.map(postids, function(postid, _callback) {
-		findById(postid, '');
+		findAPost(postid, '', _callback);
 	}, callback);
 }
 
@@ -105,7 +113,7 @@ exports.findOne = function(req, res, next) {
 	//var user = req.session.user;
 	var postid = req.query.postid;
 
-	findById(postid, function(err, doc) {
+	findAPost({_id: postid}, '', function(err, doc) {
 		if(!err && doc) {
 			//res.render('edit', doc);
 			res.json({
@@ -129,7 +137,7 @@ exports.updateOne = function(req, res, next) {
 
 	update.update_at = Date.now();
 
-	Post.findByIdAndUpdate(postid, update, function(err, doc) {
+	findByIdAndUpdate(postid, update, function(err, doc) {
 		if(!err && doc) {
 			res.json({
 				rcode: rcodes['SUCCESS'],
@@ -200,4 +208,5 @@ exports.postPlaced = function(req, res, next) {
 }
 
 exports.findById = findById;
+exports.findByIdAndUpdate = findByIdAndUpdate;
 exports.fetchPosts = fetchPosts;

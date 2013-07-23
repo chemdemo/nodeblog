@@ -4,7 +4,7 @@ var ObjectId = Schema.ObjectId;
 
 var getMonth = function() {
 	var d = new Date();
-	return new Date(d.getFullYear(), d.getMonth()); 
+	return new Date(d.getFullYear(), d.getMonth());
 };
 
 var PostPlacedSchema = new Schema({
