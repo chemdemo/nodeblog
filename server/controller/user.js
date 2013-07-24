@@ -34,12 +34,12 @@ function addOne(info, callback) {
 
 	var avatar_url = 'http://www.gravatar.com/avatar/' + md5(email) + '?size=48';
 
-	request(avatar_url, function(err) {
+	request(avatar_url, function(err, res) {
 		var user = new User();
 		user.name = name;
 		user.email = email;
 		user.site = site;
-		user.avatar = !err ? avatar_url : settings.DEFAULT_AVATAR;
+		user.avatar = !err && res.statusCode === 200 ? avatar_url : settings.DEFAULT_AVATAR;
 		console.log(user);
 		user.save(callback);
 	});

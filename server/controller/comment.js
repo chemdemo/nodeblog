@@ -8,6 +8,7 @@ var user_ctrl = require('./user');
 
 var sanitize = require('validator').sanitize;
 var EventProxy = require('eventproxy');
+var async = require('async');
 
 function findById(commentid, callback) {
 	Comment.findById(commentid).exec(callback);
@@ -68,7 +69,7 @@ exports.addOne = function(req, res, next) {
 				if(!err) {
 					var replies = doc.replies || (doc.replies = []);
 					doc.replies.push(new_comment._id);
-					dov.save(function(_err, _doc) {
+					doc.save(function(_err, _doc) {
 						if(!_err) {
 							proxy.emit('comment_saved');
 						}
@@ -146,13 +147,20 @@ exports.findAllByPostId = function(req, res, next) {
 		});
 	}
 
-	Comment.find({post_id: postid}, function(err, doc) {
-		if(!err) {
-			var comments = doc || [];
+	Comment.find({post_id: postid}, function(er, comments) {
+		if(!er) {
+			var r = [];
+			comments.forEach(function(comment, i) {
+				(function(comment, i) {
+					findById(comment._id, function(err, doc) {
+						;
+					});
+				}(comment, i));
+			});
 		} else {
 			res.json({
 				rcode: rcodes['DB_ERROR'],
-				errinfo: err
+				errinfo: er
 			});
 		}
 	});
