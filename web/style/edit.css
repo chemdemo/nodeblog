@@ -4,6 +4,36 @@
 	color: inherit;
 }
 
+.ace_scrollbar {
+	width: 12px !important;
+	background-color: #DCDCDC;
+}
+
+.edit-btns .btn-group {
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: middle
+}
+.edit-btns .i-btn {
+	padding: 3px 10px;
+	border: 1px solid #DBDBDB;
+}
+.edit-btns .btn-group .i-btn {
+	border-right: none;
+	float: left;
+	border-radius: 0;
+	margin-right: 0;
+}
+.edit-btns .btn-group .i-btn:first-child {
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+}
+.edit-btns .btn-group .i-btn:last-child {
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-right: 1px solid #DBDBDB;
+}
+
 /* edit page style */
 header {
 	height: 50px;
@@ -92,19 +122,50 @@ header {
 	position: absolute;
 	width: 0%;
 	height: 100%;
-	background-color: rgba(0,0,0,0.9);
 	top: 0;
 	right: 0;
 	z-index: 100;
 	transition: width .5s ease-in-out;
 }
-.post-preview .preview-ctrl {
+.preview-ctrl-box {
 	position: absolute;
+	width: 46px;
+	height: 60px;
 	top: 45%;
-	left: -18px;
-	font-size: 3em;
-	width: 18px;
-	overflow: hidden;
+	left: -23px;
+	border: 1px solid #DDD;
+	border-radius: 23px/30px;
+	background-color: #FFF;
 	cursor: pointer;
+	overflow: hidden;
+	font-size: 3em;
+	transition: all .3s;
+}
+.preview-ctrl {
+	position: absolute;
+	left: -5px;
+	top: 12px;
 	color: #00BCE1;
+	-webkit-transform-origin: center;
+	transform-origin: center;
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+	transition: all .3s;
+}
+.preview-ctrl-box:hover {
+	background-color: #DDD;
+	border-color: #CCC;
+}
+.preview-ctrl-box:hover .preview-ctrl {
+	color: #F17F7F;
+}
+.preview-close {
+	-webkit-transform: scaleX(1);
+	transform: scaleX(1);
+}
+.preview-box {
+	position: relative;
+	background-color: rgba(0,0,0,0.9);
+	width: 100%;
+	height: 100%;
 }

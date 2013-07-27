@@ -33,7 +33,9 @@ h1 a {
 .page-search {
 	float: right;
 	text-align: right;
-	margin-top: 45px;
+	margin-top: 40px;
+	background-color: rgba(241, 241, 241, .8);
+	padding: 5px;
 }
 .search-wrap {
 	background-color: #FFF;
@@ -109,10 +111,18 @@ h1 a {
 	background-color: #f8f8f8;
 	text-decoration: none;
 }
+.post-cover {
+	text-align: center;
+	overflow: hidden;
+}
+.post-cover img {
+	width: auto;
+	max-width: 100%;
+}
 .post-summary {
 	text-indent: 2em;
 	padding: 0 2em;
-	margin: 1em 0;
+	margin: 0 0 1em;
 }
 .post-info {
 	color: #999;

@@ -13,11 +13,11 @@
 ::-webkit-scrollbar-thumb:hover{-webkit-box-shadow:inset 1px 1px 1px rgba(0,0,0,.25);background-color:rgba(0,0,0,.4)}
 ::-webkit-scrollbar-thumb:active{-webkit-box-shadow:inset 1px 1px 3px rgba(0,0,0,.35);background-color:rgba(0,0,0,.5)}
 ::-webkit-scrollbar-thumb:vertical{border-width:0;border-left-width:5px;}
-::-webkit-scrollbar-thumb:horizontal{border-width:0;border-top-width:5px}
+/*::-webkit-scrollbar-thumb:horizontal{border-width:0;border-top-width:5px}*/
 ::-webkit-scrollbar-track:vertical{border-left-width:6px;border-right-width:1px}
-::-webkit-scrollbar-track:horizontal{border-bottom:1px;border-top:6px}
+/*::-webkit-scrollbar-track:horizontal{border-bottom:1px;border-top:6px}*/
 ::-webkit-scrollbar-thumb:vertical{border-width:0;border-left-width:6px;border-right-width:1px}
-::-webkit-scrollbar-thumb:horizontal{border-width:0;border-bottom:1px;border-top:6px}
+/*::-webkit-scrollbar-thumb:horizontal{border-width:0;border-bottom:1px;border-top:6px}*/
 ::-webkit-scrollbar-track:hover{-webkit-box-shadow:inset 1px 0 0 rgba(0,0,0,.1);background-color:rgba(0,0,0,.05)}
 ::-webkit-scrollbar-track:active{-webkit-box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px -1px 0 rgba(0,0,0,.07);background-color:rgba(0,0,0,.05)}
 
@@ -33,8 +33,11 @@ body, input, button, textarea {
 	font: normal normal normal 12px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
 	color: #222;
 }
+html {
+	overflow-x: hidden;
+}
 body {
-	background: #FFF url(images/bg03.png) repeat 0 0;
+	background: #FFF url(images/bg05.jpg) repeat 0 0;
 	position: relative;
 }
 ul, li {
@@ -458,10 +461,47 @@ a:hover {
 	border-color: #B0281A !important;
 }
 
+@-webkit-keyframes redblink {
+	from {
+		box-shadow: 0 0 10px rgba(21,21,21,.2);
+	}
+	to {
+		box-shadow: 0 0 30px rgba(241,127,127,.9);
+	}
+}
+
+.i-btn {
+	display: inline-block;
+	vertical-align: middle;
+	border: none;
+	padding: 5px 15px;
+	line-height: 20px;
+	text-align: center;
+	background-color: #EBEBEB;
+	border-radius: 2px;
+	color: #414141;
+	cursor: pointer;
+	text-decoration: none;
+	margin: 0 10px 0 0;
+}
+.i-btn:hover {
+	text-decoration: none;
+}
+
+.i-btn-pink {
+	background-color: #F17F7F;
+	color: #FFF;
+}
+
+.i-btn-blue {
+	background-color: #33B5E5;
+	color: #FFF;
+}
+
 footer {
 	text-align: center;
 	color: #999;
-	background-color: #f8f8f8;
+	/*background-color: #f8f8f8;*/
 	height: 60px;
 	line-height: 60px;
 }

@@ -149,14 +149,45 @@ exports.findAllByPostId = function(req, res, next) {
 
 	Comment.find({post_id: postid}, function(er, comments) {
 		if(!er) {
-			var r = [];
-			comments.forEach(function(comment, i) {
-				(function(comment, i) {
-					findById(comment._id, function(err, doc) {
-						;
-					});
-				}(comment, i));
+			var ep = new EventProxy();
+			ep.after('author_info_got', comments.length, function() {
+				res.json({
+					rcode: rcodes['SUCCESS'],
+					result: comments
+				});
+			}).fail(function(err) {
+				console.log(err);
 			});
+
+			comments.forEach(function(comment, i) {
+				user_ctrl.findById(comment.author_id, function(err, doc) {
+					err && console.log(err);
+					var authorInfo = {};
+
+					if(doc) {
+						authorInfo = {
+							name: doc.name,
+							email: doc.email,
+							avatar: doc.avatar,
+							site: doc.site
+						}
+					} else {
+						authorInfo = {
+							name: '[已注销]',
+							email: '',
+							avatar: settings.DEFAULT_AVATAR,
+							site: ''
+						}
+					}
+					
+					comment.authorInfo = authorInfo;
+					ep.emit('author_info_got');
+				});
+			});
+			/*res.json({
+				rcode: rcodes['SUCCESS'],
+				result: comments
+			});*/
 		} else {
 			res.json({
 				rcode: rcodes['DB_ERROR'],
