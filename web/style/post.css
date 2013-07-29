@@ -1,2 +1,97 @@
 @import url(global.css);
 @import url(web_font_icon.css);
+
+header {
+	width: 100%;
+	height: 100px;
+	background-color: rgba(255, 255, 255, 0.9);
+	border-top: 5px solid #404040;
+	box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+.header-inner {
+	width: 1200px;
+	margin: 0 auto;
+}
+.page-title {
+	float: left;
+}
+.site-title {
+	line-height: 2em;
+	margin-top: .8em;
+}
+.site-title a {
+	font-size: 2em;
+}
+.page-title .sub-title {
+	font-size: 14px;
+}
+.page-search {
+	float: right;
+	text-align: right;
+	margin-top: 40px;
+	background-color: rgba(241, 241, 241, .8);
+	padding: 5px;
+}
+.search-wrap {
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	padding: 2px 10px;
+	width: 200px;
+	display: inline-block;
+	text-align: left;
+	box-shadow: 0 2px 2px #f0f0f0 inset;
+}
+.search-wrap label {
+	cursor: pointer;
+	float: right;
+	margin-top: 10px;
+}
+.search-wrap input {
+	border: none;
+	outline: none;
+	width: 178px;
+	line-height: 30px;
+	height: 30px;
+}
+
+.page-body {
+	width: 1200px;
+	margin: 130px auto 30px;
+	position: relative;
+}
+
+.page-sitebar {
+	width: 200px;
+	float: right;
+}
+.page-sitebar > section {
+	margin-bottom: 20px;
+	border-left: 2px solid #33B5E5;
+	padding: 1px 8px;
+}
+.page-sitebar .author-info {
+	border-left: none;
+	padding: 1px;
+}
+.author-info .avatar {
+	background: url(images/dm.jpg) no-repeat center;
+	background-size: cover;
+	width: 198px;
+	height: 198px;
+	margin: 0 auto;
+	display: block;
+}
+
+.page-content {
+	min-height: 500px;
+	margin-right: 250px;
+}
+
+.page-content p {
+	text-indent: 2em;
+	margin-top: 1em;
+}
