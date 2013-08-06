@@ -1,5 +1,5 @@
-@import url(global.css);
-@import url(web_font_icon.css);
+/*@import url(global.css);
+@import url(web_font_icon.css);*/
 [class|="icon"] {
 	color: inherit;
 }
@@ -76,7 +76,7 @@ header {
 	border: 1px solid #DDD;
 	margin: 0 auto;
 	outline: 0 none;
-	height: 350px;
+	height: 500px;
 	box-sizing: border-box;
 	/*padding: .5em;
 	padding-right: 0;*/

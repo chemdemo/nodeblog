@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>blog editor</title>
-	<link rel="shortcut icon" href="favicon.ico" />
-	<link rel="stylesheet" href="style/edit.css" />
-</head>
+{{ include include/header }}
+{{ include include/css-eidt }}
 
-<body>
-	<header>
+<header>
 		<div class="header-inner">
 			<a href="/" title="回主页">
 				<img src="/style/images/dm.jpg" class="home-avatar" alt="chemdemo" />
@@ -80,12 +73,6 @@
 		<section class="preview-box"></section>
 	</div>
 
-	<footer>
-		Copyright &copy; 2013. Built with 
-		<a href="" target="_blank">Nodejs</a> 
-		&amp; <a href="" target="_blank">Expressjs</a>. 
-		By <a href="" target="_blank">chemdemo</a>.
-	</footer>
-</body>
-<script data-main="js/edit.js" src="js/lib/requirejs/require.js"></script>
+{{ include include/footer }}
+{{ include include/js-edit }}
 </html>

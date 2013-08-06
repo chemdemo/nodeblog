@@ -1,11 +1,142 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/web/style/global.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+{{ include include/header }}
+{{ include include/css-home }}
+
+	<header>
+		<div class="header-inner clearfix">
+			<section class="page-title">
+				<h1>
+					<a href="">chemdemo</a>
+				</h1>
+				<p class="sub-title sub-color">天下难事，必做于易；天下大事，必做于细。 —— 老 子！</p>
+			</section>
+
+			<form class="page-search clearfix" method="POST" action="">
+				<div class="search-wrap clearfix">
+					<label class="icon-search" for="search-text" title="搜索"></label>
+					<input id="search-text" class="search-text" placeholder="Input keywords" type="text" />
+				</div>
+			</form>
+		</div>
+	</header>
+
+	<div class="page-body clearfix">
+		<div class="page-sitebar">
+			<section class="author-info shadow-box">
+				<a class="avatar" href="#" title="blog"></a>
+			</section>
+
+			<section class="author-desc shadow-box">
+				<a href="">ABOUT</a>
+			</section>
+
+			<section class="site-tags shadow-box">
+				<h3>所有标签</h3>
+				<div class="tags-list">
+					<a href="" class="tag">生活</a>
+					<a href="" class="tag">艺术</a>
+					<a href="" class="tag">随感</a>
+					<a href="" class="tag">技术</a>
+					<a href="" class="tag">人生</a>
+					<a href="" class="tag">nodejs</a>
+					<a href="" class="tag">css</a>
+					<a href="" class="tag">html</a>
+				</div>
+			</section>
+
+			<section class="site-archive shadow-box">
+				<h3>文章归档</h3>
+				<ul class="archive-list">
+					<li>
+						<a href="">2013年06月</a>
+						(<b>10</b>)
+					</li>
+					<li>
+						<a href="">2013年05月</a>
+						(<b>0</b>)
+					</li>
+					<li>
+						<a href="">2013年04月</a>
+						(<b>13</b>)
+					</li>
+				</ul>
+			</section>
+
+			<section class="friend-links shadow-box">
+				<h3>友情链接</h3>
+				<ul class="links-list">
+					<li>
+						<a href="">AlloyTeam</a>
+					</li>
+					<li>
+						<a href="">Github</a>
+					</li>
+				</ul>
+			</section>
+		</div>
+
+		<div class="page-content">
+			<section class="post shadow-box">
+				<h3 class="post-title"><a href="#">勇敢的人死于伤心</a></h3>
+				<p class="post-cover"><img src="covers/c0.jpg" /></p>
+				<p class="post-summary">
+					相濡以沫，不如相忘江湖。为什么这么讲？我觉得是因为近必生苛，众多的挑剔抱怨都出自过于亲密的关系，远了，则如俗话说的那样，会产生“距离美”。“我”与圣西尼始终缘悭一面，故而保持着毕生的敬意，“我”从圣西尼寄来的家庭照上认识了他的女儿米兰达，他却不知道，这位漂亮女子有多么看不起自己的父亲和他的那个通信者，称他们是“捞奖金的人”。多年以后，米兰达给“我”带来了圣西尼的死讯，相逢一笑，“某种神秘的力量”使得两人早就和解了。<a href="" class="post-more">阅读更多...</a>
+				</p>
+				<div class="post-info">
+					<span class="post-date">
+						<i class="icon-calendar" title="最后编辑时间"></i>
+						<span href="" class="">2013-05-30 13:52</span>
+					</span>
+					<span class="post-gap">/</span>
+					<span class="post-tags">
+						<i class="icon-tags" title="标签"></i>
+						<a class="tag" href="">生活</a>
+						<a class="tag" href="">随感</a>
+						<a class="tag" href="">艺术</a>
+					</span>
+					<span class="post-edit">
+						<a href="./edit.html" class="icon-pencil" title="编辑"></a>
+					</span>
+					<span class="post-comments">
+						<a href="" class="icon-bubbles" title="评论"></a>
+						<span class="comments-num">0</span>
+					</span>
+					<span class="post-visited">
+						访问量 
+						<span class="visited-num">10</span>
+					</span>
+				</div>
+			</section>
+
+			<section class="post shadow-box">
+				<h3 class="post-title"><a href="#">勇敢的人死于伤心</a></h3>
+				<p class="post-summary">
+					相濡以沫，不如相忘江湖。为什么这么讲？我觉得是因为近必生苛，众多的挑剔抱怨都出自过于亲密的关系，远了，则如俗话说的那样，会产生“距离美”。“我”与圣西尼始终缘悭一面，故而保持着毕生的敬意，“我”从圣西尼寄来的家庭照上认识了他的女儿米兰达，他却不知道，这位漂亮女子有多么看不起自己的父亲和他的那个通信者，称他们是“捞奖金的人”。多年以后，米兰达给“我”带来了圣西尼的死讯，相逢一笑，“某种神秘的力量”使得两人早就和解了。<a href="" class="post-more">阅读更多...</a>
+				</p>
+				<div class="post-info">
+					<span class="post-date">
+						<i class="icon-calendar" title="最后编辑时间"></i>
+						<span href="" class="">2013-05-30 13:52</span>
+					</span>
+					<span class="post-gap">/</span>
+					<span class="post-tags">
+						<i class="icon-tags" title="标签"></i>
+						<a class="tag" href="">生活</a>
+						<a class="tag" href="">随感</a>
+						<a class="tag" href="">艺术</a>
+					</span>
+					<span class="post-comments">
+						<a href="" class="icon-bubbles" title="评论"></a>
+						<span class="comments-num">0</span>
+					</span>
+					<span class="post-visited">
+						访问量 
+						<span class="visited-num">10</span>
+					</span>
+				</div>
+			</section>
+		</div>
+	</div>
+
+{{ include include/footer }}
+{{ include include/js-home }}
 </html>

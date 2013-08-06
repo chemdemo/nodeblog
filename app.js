@@ -7,7 +7,11 @@ var express = require('express')
     , routes = require('./server/routes')
     , http = require('http')
     , path = require('path')
-    , flash = require('connect-flash');
+    , flash = require('connect-flash')
+    , ejs = require('ejs');
+
+ejs.open = '{{';
+ejs.close = '}}';
 
 var app = express();
 
@@ -15,6 +19,11 @@ app.configure(function() {
     app.set('port', process.env.PORT || settings.SYSPORT);
     app.set('views', __dirname + '/server/views');
     app.set('view engine', 'ejs');
+    app.set('view options', {
+        'open': '{{', 
+        'close': '}}',
+        'layout': false
+    });
     /*app.register('.html', {
         compile: function(str, options) {
             return function(locals) {
@@ -54,7 +63,8 @@ routes(app);
 
 // 404
 app.use(function(req, res, next) {
-    res.send(404, 'Not found.');
+    //res.send(404, 'Not found.');
+    res.render('404', {msg: 'Page not found!'});
 });
 
 // 500
