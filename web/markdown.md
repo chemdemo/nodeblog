@@ -60,6 +60,11 @@
 示例：
 
 让我们聊聊 `html`
+```
+function foo() {
+	console.log('foo');
+}
+```
 
 ### 9.  使用 四个缩进空格 表示代码块
 

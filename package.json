@@ -1,20 +1,23 @@
 {
-    "name": "softblog",
-    "version": "0.0.1",
-    "private": true,
-    "starcripts": {
-        "start": "node app"
-    },
-    "dependencies": {
-        "express": "3.0.6",
-        "mongodb": "*",
-        "mongoose": "*",
-        "validator": "*",
-        "ejs": "*",
-        "stylus": "*",
-        "connect-flash": "*",
-        "request": "*",
-        "async": "*",
-        "eventproxy": "*"
-    }
+  "name": "softblog",
+  "version": "0.0.1",
+  "private": true,
+  "starcripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.6",
+    "mongodb": "*",
+    "mongoose": "*",
+    "validator": "*",
+    "ejs": "*",
+    "stylus": "*",
+    "connect-flash": "*",
+    "request": "*",
+    "async": "*",
+    "eventproxy": "*",
+    "marked": "~0.2.9",
+    "pygmentize-bundled": "~1.2.0",
+    "highlight": "~0.2.3"
+  }
 }

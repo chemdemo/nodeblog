@@ -7,7 +7,7 @@ var post = require('./post');
 var tag = require('./tag');
 var comment = require('./comment');
 
-exports.authCheck = function(req, res, next) {
+exports.auth = function(req, res, next) {
 	if(!req.session.user) {
 		return res.redirect('/login');
 	}
