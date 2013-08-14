@@ -59,10 +59,25 @@
 
 示例：
 
-让我们聊聊 `html`
-```
+让我们聊聊 *coding*
+
+#### javascript
+``` javascript
 function foo() {
 	console.log('foo');
+}
+```
+#### python
+``` python
+import sys
+print 123
+```
+#### css
+``` css
+.box {
+	border: 1px solid #09C;
+	font: normal 12px/1.8 Tahoma;
+	color: #888;
 }
 ```
 
@@ -70,7 +85,7 @@ function foo() {
 
 示例：
 
-    这是一个代码块，此行左侧有四个不可见的空格
+    var bar = function(a) {console.log(a);};
 
 ### 10.  使用 \!\[描述](图片链接地址) 插入图像
 

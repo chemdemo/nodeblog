@@ -1,11 +1,5 @@
-<!doctype html> 
-<html> 
-<head> 
-    <meta charset="utf-8"> 
-    <title></title> 
-</head>
-<body>
-<h1>Markdown 语法简明手册</h1>
+<!doctype html>	<html><head><meta charset="utf-8"><title>demo</title>
+<link href="styles/obsidian.css" rel="stylesheet" /><style type="text/css">body {font: 12px/1.6 'Microsoft Yahei', Tahoma;}pre, code {font-family: Monaco, Consolas, "Lucida Console", monospace;}</style>	</head>	<body><h1>Markdown 语法简明手册</h1>
 <h3>1. 使用 <em> 和 *</em> 表示斜体和粗体</h3>
 <p>示例：</p>
 <p>这是 <em>斜体</em>，这是 <strong>粗体</strong>。</p>
@@ -42,19 +36,24 @@
 </blockquote>
 <h3>8. 使用 `代码` 表示行内代码块</h3>
 <p>示例：</p>
-<p>让我们聊聊 <code>html</code></p>
-<pre><code><div class="highlight"><pre><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</code></pre>
+<p>让我们聊聊 <em>coding</em></p>
+<h4>javascript</h4>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span> {</span>
+    console.log(<span class="string">'foo'</span>);
+}</code></pre>
+<h4>python</h4>
+<pre><code class="lang-python"><span class="keyword">import</span> sys
+<span class="keyword">print</span> <span class="number">123</span></code></pre>
+<h4>css</h4>
+<pre><code class="lang-css"><span class="class">.box</span> <span class="rules">{
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1</span>px solid <span class="hexcolor">#09C</span>;</span></span>
+    <span class="rule"><span class="attribute">font</span>:<span class="value"> normal <span class="number">12</span>px/<span class="number">1.8</span> Tahoma;</span></span>
+    <span class="rule"><span class="attribute">color</span>:<span class="value"> <span class="hexcolor">#888</span>;</span></span>
+<span class="rule">}</span></span></code></pre>
 <h3>9.  使用 四个缩进空格 表示代码块</h3>
 <p>示例：</p>
-<pre><code><div class="highlight"><pre><span class="err">这是一个代码块，此行左侧有四个不可见的空格</span>
-</pre></div>
-</code></pre>
+<pre><code><span class="keyword">var</span> bar = <span class="keyword">function</span>(a) {console.log(a);};</code></pre>
 <h3>10.  使用 ![描述](图片链接地址) 插入图像</h3>
 <p>示例：</p>
 <p><img src="style/images/dm.jpg" alt="我的头像"></p>
-</body>
-</html>
+</head><body>

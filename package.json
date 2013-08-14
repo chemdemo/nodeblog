@@ -17,7 +17,6 @@
     "async": "*",
     "eventproxy": "*",
     "marked": "~0.2.9",
-    "pygmentize-bundled": "~1.2.0",
-    "highlight": "~0.2.3"
+    "highlight.js": "~7.3.0"
   }
 }
