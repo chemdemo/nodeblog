@@ -80,6 +80,13 @@ print 123
 	color: #888;
 }
 ```
+#### xml
+``` xml
+<p>示例：</p>
+<h1>这是一个一级标题</h1>
+<h2>这是一个二级标题</h2>
+<h3>这是一个三级标题</h3>
+```
 
 ### 9.  使用 四个缩进空格 表示代码块
 
@@ -91,4 +98,4 @@ print 123
 
 示例：
 
-![我的头像](style/images/dm.jpg)
+![markdown](style/images/markdown.jpg)

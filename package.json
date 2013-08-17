@@ -15,8 +15,6 @@
     "connect-flash": "*",
     "request": "*",
     "async": "*",
-    "eventproxy": "*",
-    "marked": "~0.2.9",
-    "highlight.js": "~7.3.0"
+    "eventproxy": "*"
   }
 }

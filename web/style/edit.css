@@ -4,6 +4,10 @@
 	color: inherit;
 }
 
+body {
+	overflow: hidden;
+}
+
 .ace_scrollbar {
 	width: 12px !important;
 	background-color: #DCDCDC;
@@ -55,7 +59,7 @@ header {
 .post-body {
 	width: 80%;
 	padding: 1em;
-	margin: 0 auto 3px;
+	margin: 55px auto 3px;
 	border: 1px solid #DDD;
 	/*box-shadow: 0 0 1px 3px rgba(0, 0, 0, 0.05);*/
 	box-shadow: 0 3px 0 3px #EEE;
@@ -76,7 +80,7 @@ header {
 	border: 1px solid #DDD;
 	margin: 0 auto;
 	outline: 0 none;
-	height: 500px;
+	height: 350px;
 	box-sizing: border-box;
 	/*padding: .5em;
 	padding-right: 0;*/
@@ -120,8 +124,8 @@ header {
 
 .post-preview {
 	position: absolute;
-	width: 0%;
-	height: 100%;
+	width: 50%;
+	height: 99.9%;
 	top: 0;
 	right: 0;
 	z-index: 100;
@@ -165,7 +169,8 @@ header {
 }
 .preview-box {
 	position: relative;
-	background-color: rgba(0,0,0,0.9);
+	background-color: #EEE;
 	width: 100%;
 	height: 100%;
+	box-shadow: -1px 0 15px 1px rgba(0,0,0,0.3);
 }
