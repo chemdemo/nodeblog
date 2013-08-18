@@ -82,6 +82,7 @@ header {
 	outline: 0 none;
 	height: 350px;
 	box-sizing: border-box;
+	font-size: 13px;
 	/*padding: .5em;
 	padding-right: 0;*/
 }
@@ -124,14 +125,14 @@ header {
 
 .post-preview {
 	position: absolute;
-	width: 50%;
+	width: 0%;
 	height: 99.9%;
 	top: 0;
 	right: 0;
 	z-index: 100;
 	transition: width .5s ease-in-out;
 }
-.preview-ctrl-box {
+.post-preview .preview-ctrl {
 	position: absolute;
 	width: 46px;
 	height: 60px;
@@ -145,7 +146,7 @@ header {
 	font-size: 3em;
 	transition: all .3s;
 }
-.preview-ctrl {
+.preview-ctrl-inner {
 	position: absolute;
 	left: -5px;
 	top: 12px;
@@ -156,14 +157,14 @@ header {
 	transform: scaleX(-1);
 	transition: all .3s;
 }
-.preview-ctrl-box:hover {
+.preview-ctrl:hover {
 	background-color: #DDD;
 	border-color: #CCC;
 }
-.preview-ctrl-box:hover .preview-ctrl {
+.preview-ctrl:hover .preview-ctrl-inner {
 	color: #F17F7F;
 }
-.preview-close {
+.preview-ctrl-inner.preview-close {
 	-webkit-transform: scaleX(1);
 	transform: scaleX(1);
 }
@@ -173,4 +174,6 @@ header {
 	width: 100%;
 	height: 100%;
 	box-shadow: -1px 0 15px 1px rgba(0,0,0,0.3);
+	overflow: auto;
+	padding: 1em;
 }

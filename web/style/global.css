@@ -30,7 +30,7 @@ html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input {
 	padding: 0;
 }
 body, input, button, textarea {
-	font: normal normal normal 12px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
+	font: normal normal normal 13px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
 	color: #222;
 }
 html {
@@ -39,6 +39,16 @@ html {
 body {
 	background: #FFF url(images/bg05.jpg) repeat 0 0;
 	position: relative;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}
+pre, code {
+	font-family: Monaco, Consolas, "Lucida Console", monospace;
+}
+pre ::selection,
+code ::selection {
+	background-color: #33B5E5;
 }
 ul, li {
 	list-style: none;
@@ -90,6 +100,12 @@ a:hover {
 	background-color: #33B5E5;
 	color: #EEE;
 	padding: 0 3px;
+}
+.md .tag {
+	margin: inherit;
+	background-color: inherit;
+	color: inherit;
+	padding: inherit;
 }
 
 .none {
