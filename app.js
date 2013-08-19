@@ -9,7 +9,7 @@ var express = require('express')
     , http = require('http')
     , path = require('path')
     , flash = require('connect-flash')
-    , ejs = require('ejs'),
+    , ejs = require('ejs')
     , connectDomain = require('connect-domain');
 
 ejs.open = '{{';

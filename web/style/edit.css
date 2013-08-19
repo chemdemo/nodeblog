@@ -167,6 +167,7 @@ header {
 .preview-ctrl-inner.preview-close {
 	-webkit-transform: scaleX(1);
 	transform: scaleX(1);
+	left: -9px;
 }
 .preview-box {
 	position: relative;
