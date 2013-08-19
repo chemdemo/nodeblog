@@ -27,7 +27,6 @@ define(function(require, exports, module) {
 	editor.setTheme('libs/ace/theme/crimson_editor');
 	editor.getSession().setMode('libs/ace/mode/markdown');
 
-	var previewOpen = false;
 	var render = function() {
 		var val = editor.getValue();
 
@@ -42,6 +41,8 @@ define(function(require, exports, module) {
 	};
 
 	var bindEvents = (function() {
+		var previewOpen = false;
+		
 		function onEditerChange(e) {
 			if(!previewOpen) {
 				return;

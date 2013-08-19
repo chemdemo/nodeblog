@@ -158,7 +158,7 @@ exports.updateOne = function(req, res, next) {
 exports.postPlaced = function(req, res, next) {
 	var mapFn = function() {
 		var create = new Date(this.create_at);
-		var month = new Date(create.getFullYear(), create.getMonth());
+		var month = new Date(create.getFullYear(), create.getMonth()).getTime();
 		emit(month, this._id);
 	};
 
@@ -199,7 +199,7 @@ exports.postPlaced = function(req, res, next) {
 				} else {
 					res.json({
 						rcode: rcodes['SUCCESS'],
-						result: r
+						result: doc
 					});
 				}
 			});

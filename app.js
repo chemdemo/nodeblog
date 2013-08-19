@@ -9,7 +9,8 @@ var express = require('express')
     , http = require('http')
     , path = require('path')
     , flash = require('connect-flash')
-    , ejs = require('ejs');
+    , ejs = require('ejs'),
+    , connectDomain = require('connect-domain');
 
 ejs.open = '{{';
 ejs.close = '}}';
@@ -47,6 +48,7 @@ app.configure(function() {
         secret: settings.SESSION_SECRET,
         cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}//30 days
     }));
+    app.use(connectDomain());
     app.use(app.router);
     //app.use(require('stylus').middleware(__dirname + '/web/'));
     app.use(express.static(__dirname + '/web/'));
@@ -72,4 +74,8 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
     console.log(err, '-------------------------------');
     res.send(500, 'Server error.');
+});
+
+process.on('uncaughtException', function(err) {
+    console.log('uncaughtException err: %s, at %s', err, new Date());
 });

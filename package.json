@@ -15,6 +15,7 @@
     "connect-flash": "*",
     "request": "*",
     "async": "*",
-    "eventproxy": "*"
+    "eventproxy": "*",
+    "connect-domain": "~0.5.0"
   }
 }
