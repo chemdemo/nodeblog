@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-pencil, .icon-image, .icon-tags, .icon-pushpin, .icon-bubbles, .icon-calendar, .icon-plus, .icon-list, .icon-numbered-list, .icon-search, .icon-play {
+.icon-image, .icon-bubbles, .icon-search, .icon-spinner, .icon-tags, .icon-attachment, .icon-link, .icon-numbered-list, .icon-list, .icon-play, .icon-checkmark, .icon-plus, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-pushpin, .icon-close, .icon-plus-alt, .icon-trashcan, .icon-left-quote, .icon-calendar, .icon-pencil, .icon-disk {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -37,36 +37,78 @@ you can use the generic selector below, but it's slower:
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 }
+.icon-image:before {
+	content: "\e002";
+}
+.icon-bubbles:before {
+	content: "\e005";
+}
+.icon-search:before {
+	content: "\e001";
+}
+.icon-spinner:before {
+	content: "\e004";
+}
+.icon-tags:before {
+	content: "\e006";
+}
+.icon-attachment:before {
+	content: "\e007";
+}
+.icon-link:before {
+	content: "\e008";
+}
+.icon-numbered-list:before {
+	content: "\e009";
+}
+.icon-list:before {
+	content: "\e00a";
+}
+.icon-play:before {
+	content: "\e00b";
+}
+.icon-checkmark:before {
+	content: "\e00c";
+}
+.icon-plus:before {
+	content: "\e00d";
+}
+.icon-bold:before {
+	content: "\e00e";
+}
+.icon-underline:before {
+	content: "\e00f";
+}
+.icon-italic:before {
+	content: "\e010";
+}
+.icon-strikethrough:before {
+	content: "\e011";
+}
+.icon-code:before {
+	content: "\e012";
+}
+.icon-pushpin:before {
+	content: "\e013";
+}
+.icon-close:before {
+	content: "\e014";
+}
+.icon-plus-alt:before {
+	content: "\e015";
+}
+.icon-trashcan:before {
+	content: "\e016";
+}
+.icon-left-quote:before {
+	content: "\e017";
+}
+.icon-calendar:before {
+	content: "\e018";
+}
 .icon-pencil:before {
 	content: "\e000";
 }
-.icon-image:before {
-	content: "\e001";
-}
-.icon-tags:before {
-	content: "\e002";
-}
-.icon-pushpin:before {
-	content: "\e003";
-}
-.icon-bubbles:before {
-	content: "\e004";
-}
-.icon-calendar:before {
-	content: "\e005";
-}
-.icon-plus:before {
-	content: "\e006";
-}
-.icon-list:before {
-	content: "\e007";
-}
-.icon-numbered-list:before {
-	content: "\e008";
-}
-.icon-search:before {
-	content: "\e009";
-}
-.icon-play:before {
-	content: "\e00a";
+.icon-disk:before {
+	content: "\e01a";
 }

@@ -48,7 +48,7 @@ app.configure(function() {
         secret: settings.SESSION_SECRET,
         cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}//30 days
     }));
-    app.use(connectDomain());
+    //app.use(connectDomain());
     app.use(app.router);
     //app.use(require('stylus').middleware(__dirname + '/web/'));
     app.use(express.static(__dirname + '/web/'));
