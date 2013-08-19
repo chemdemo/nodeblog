@@ -20,7 +20,3 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
-
-/web/edit.html
-/web/index.html
-/web/post.html

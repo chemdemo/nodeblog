@@ -7,3 +7,6 @@
 /bin
 /node_modules
 /tmp
+/web/edit.html
+/web/index.html
+/web/post.html
