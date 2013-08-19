@@ -65,6 +65,9 @@ header {
 	box-shadow: 0 3px 0 3px #EEE;
 	background-color: #FFF;
 }
+.post-body > section {
+	margin-bottom: 1em;
+}
 .post-body input[type="checkbox"],
 .post-body label {
 	vertical-align: middle;
@@ -80,12 +83,13 @@ header {
 	border: 1px solid #DDD;
 	margin: 0 auto;
 	outline: 0 none;
-	height: 350px;
+	height: 500px;
 	box-sizing: border-box;
 	font-size: 13px;
 	/*padding: .5em;
 	padding-right: 0;*/
 }
+
 .tags-edit {
 	position: relative;
 }
@@ -119,12 +123,18 @@ header {
 .add-tags {
 	;
 }
-.post-body > section {
-	margin-bottom: 1em;
+
+.edit-summary {
+	;
+}
+.edit-summary .textarea {
+	width: 100%;
+	height: 8em;
+	resize: none;
 }
 
 .post-preview {
-	position: absolute;
+	position: fixed;
 	width: 0%;
 	height: 99.9%;
 	top: 0;
@@ -136,7 +146,7 @@ header {
 	position: absolute;
 	width: 46px;
 	height: 60px;
-	top: 45%;
+	top: 30%;
 	left: -23px;
 	border: 1px solid #DDD;
 	border-radius: 23px/30px;
@@ -148,13 +158,13 @@ header {
 }
 .preview-ctrl-inner {
 	position: absolute;
-	left: -5px;
+	left: -9px;
 	top: 12px;
 	color: #00BCE1;
 	-webkit-transform-origin: center;
 	transform-origin: center;
-	-webkit-transform: scaleX(-1);
-	transform: scaleX(-1);
+	-webkit-transform: scaleX(1);
+	transform: scaleX(1);
 	transition: all .3s;
 }
 .preview-ctrl:hover {
@@ -164,17 +174,20 @@ header {
 .preview-ctrl:hover .preview-ctrl-inner {
 	color: #F17F7F;
 }
-.preview-ctrl-inner.preview-close {
-	-webkit-transform: scaleX(1);
-	transform: scaleX(1);
-	left: -9px;
+.preview-close .preview-ctrl-inner {
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+	left: -7px;
 }
 .preview-box {
 	position: relative;
 	background-color: #EEE;
 	width: 100%;
 	height: 100%;
-	box-shadow: -1px 0 15px 1px rgba(0,0,0,0.3);
+	box-shadow: -1px 0 20px 1px rgba(0,0,0,0.2);
 	overflow: auto;
 	padding: 0 1em;
+}
+.preview-close .preview-box {
+	box-shadow: none;
 }

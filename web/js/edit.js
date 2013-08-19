@@ -57,14 +57,11 @@ define(function(require, exports, module) {
 
 		function previewSwitch(e) {
 			var previewBox = $('#post-preview');
-			var ctrlIcon = previewBox.find('.preview-ctrl-inner');
 
 			if(previewOpen) {// open => close
-				previewBox.css({width: '0%'});
-				ctrlIcon.removeClass('preview-close');
+				previewBox.css({width: '0%'}).addClass('preview-close');
 			} else {// close => open
-				previewBox.css({width: '50%'});
-				ctrlIcon.addClass('preview-close');
+				previewBox.css({width: '50%'}).removeClass('preview-close');
 				render();
 			}
 
@@ -78,6 +75,7 @@ define(function(require, exports, module) {
 	}());
 
 	~function init() {
+		$('#post-preview').css('height', document.body.clientHeight + 'px');
 		bindEvents();
 
 		$.get('./markdown.md', function(r) {
