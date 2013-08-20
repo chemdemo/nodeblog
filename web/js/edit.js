@@ -1,3 +1,4 @@
+//see https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 define(function(require, exports, module) {
 	'use strict';
 
@@ -29,7 +30,7 @@ define(function(require, exports, module) {
 
 	var render = function() {
 		var val = editor.getValue();
-
+		
 		marked(val, function(err, content) {
 			if(err) {
 				return console.log('Marked file error: ', err);
@@ -77,6 +78,10 @@ define(function(require, exports, module) {
 	~function init() {
 		$('#post-preview').css('height', document.body.clientHeight + 'px');
 		bindEvents();
+		$('#btn-save').click(function() {
+			var v = editor.getValue().replace(/</g,'&lt;').replace(/>/g,'&gt;');
+			console.log(v);
+		});
 
 		$.get('./markdown.md', function(r) {
 			editor.setValue(r);
