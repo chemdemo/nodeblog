@@ -13,31 +13,6 @@ body {
 	background-color: #DCDCDC;
 }
 
-.edit-btns .btn-group {
-	overflow: hidden;
-	display: inline-block;
-	vertical-align: middle
-}
-.edit-btns .i-btn {
-	padding: 3px 10px;
-	border: 1px solid #DBDBDB;
-}
-.edit-btns .btn-group .i-btn {
-	border-right: none;
-	float: left;
-	border-radius: 0;
-	margin-right: 0;
-}
-.edit-btns .btn-group .i-btn:first-child {
-	border-top-left-radius: 2px;
-	border-bottom-left-radius: 2px;
-}
-.edit-btns .btn-group .i-btn:last-child {
-	border-top-right-radius: 2px;
-	border-bottom-right-radius: 2px;
-	border-right: 1px solid #DBDBDB;
-}
-
 /* edit page style */
 header {
 	height: 50px;
@@ -76,9 +51,15 @@ header {
 .post-body .block-label {
 	display: block;
 }
+
 .post-body .post-title {
 	width: 100%;
 }
+
+.edit-btns .icon-file {
+	border: 1px solid #DBDBDB;
+}
+
 .post-editor {
 	border: 1px solid #DDD;
 	margin: 0 auto;
@@ -120,8 +101,8 @@ header {
 .post-tags {
 	width: 90%;
 }
-.add-tags {
-	;
+.add-tags i {
+	padding-right: .2em;
 }
 
 .edit-summary {
@@ -131,6 +112,10 @@ header {
 	width: 100%;
 	height: 8em;
 	resize: none;
+}
+.opt-btns i {
+	margin-right: 3px;
+	/*display: none;*/
 }
 
 .post-preview {

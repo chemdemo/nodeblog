@@ -17,14 +17,34 @@
 
 		<section class="edit-btns">
 			<div class="btn-group">
-				<a class="i-btn" href="#">H2</a>
-				<a class="i-btn" href="#">H3</a>
-				<a class="i-btn" href="#">H4</a>
-				<a class="i-btn" href="#">H5</a>
-				<a class="i-btn" href="#">H6</a>
+				<a class="i-btn" href="#">h1</a>
+				<a class="i-btn" href="#">h2</a>
+				<a class="i-btn" href="#">h3</a>
+				<a class="i-btn" href="#">h4</a>
 			</div>
 
-			<button class="i-btn">IMG</button>
+			<div class="btn-group">
+				<a class="i-btn icon-image" href="#"></a>
+				<a class="i-btn icon-link" href="#"></a>
+				<a class="i-btn icon-attachment" href="#"></a>
+				<!-- <a class="i-btn icon-file" href="#" title="导入markdown文档"></a> -->
+			</div>
+
+			<div class="btn-group">
+				<a class="i-btn icon-bold" href="#"></a>
+				<a class="i-btn icon-italic" href="#"></a>
+				<a class="i-btn icon-underline" href="#"></a>
+				<a class="i-btn icon-strikethrough" href="#"></a>
+				<a class="i-btn icon-code" href="#"></a>
+			</div>
+
+			<div class="btn-group">
+				<a class="i-btn icon-numbered-list" href="#"></a>
+				<a class="i-btn icon-list" href="#"></a>
+				<a class="i-btn icon-left-quote" href="#"></a>
+			</div>
+
+			<button class="i-btn icon-file" title="导入markdown文档"></button>
 		</section>
 
 		<section class="post-editor" id="post-editor">锄禾日当午，汗滴禾下土</section>
@@ -37,7 +57,7 @@
 		<section class="tags-edit">
 			<label for="post-tags" class="block-label">添加标签：</label>
 			<input type="text" class="input post-tags" id="post-tags" placeholder="post tags" />
-			<a href="javascript: void(0);" class="add-tags"><i class="icon-plus"></i>添加已有标签</a>
+			<a href="javascript: void(0);" class="add-tags"><i class="icon-plus-alt"></i>添加已有标签</a>
 
 			<section class="shadow-box none tags-select">
 				<div class="tags-select-title">
@@ -62,12 +82,10 @@
 			<input type="checkbox" id="set-topped" />
 		</section>
 
-		<section>
-			<!-- <button class="button action btn-preview">预览</button> -->
-			<button class="i-btn preview-ctrl">预览</button>
-			<button class="i-btn i-btn-pink">预览</button>
-			<!-- <button class="btn-blue btn-save">保存</button> -->
-			<button class="i-btn i-btn-blue">保存</button>
+		<section class="opt-btns">
+			<button class="i-btn preview-ctrl" title="预览"><i class="icon-eye"></i>预览</button>
+			<button class="i-btn i-btn-blue" title="保存"><i class="icon-disk"></i>保存</button>
+			<button class="i-btn i-btn-red" title="导出"><i class="icon-download"></i>导出</button>
 		</section>
 	</div>
 
