@@ -8,6 +8,7 @@ var tag_ctrl = require('./tag');
 var comment_ctrl = require('./comment');
 
 var async = require('async');
+var _ = require('underscore');
 
 function findById(postid, callback) {
 	Post.findById(postid, callback);
@@ -159,26 +160,21 @@ exports.postPlaced = function(req, res, next) {
 	var mapFn = function() {
 		var create = new Date(this.create_at);
 		var month = new Date(create.getFullYear(), create.getMonth()).getTime();
-		emit(month, this._id);
+		emit(month, [this._id]);
 	};
 
-	var r = {};
-	var reduceFn = function(month, postid) {//{20130500: ['xxx', 'xxxx']}
-		//var r = {};
-		r[month] = r[month] || (r[month] = []);
-		r[month].push(postid);
-		return r;
+	var reduceFn = function(key, values) {//{'20130500': ['xxx', 'xxxx']}
+		return _.flatten(values);
 	};
 
-	var finalizeFn = function() {
-		;
-	};
+	var finalizeFn = function() {};
 
 	Post.mapReduce({
 		map: mapFn,
 		reduce: reduceFn,
 		out: {replace: 'post_placed_result'},
 		query: {create_at: {$gt: new Date('01/01/2013')}},
+		keeptemp: true,
 		//finalize: finalizeFn,
 		verbose: true
 	}, function(err, model, stats) {

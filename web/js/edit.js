@@ -14,11 +14,11 @@ define(function(require, exports, module) {
 			return hljs.highlightAuto(code).value;
 		},
 		tables: true,
-		breaks: false,
-		pedantic: false,
-		sanitize: true,
+		breaks: true,
+		pedantic: true,
+		sanitize: false,
 		smartLists: true,
-		smartypants: false,
+		smartypants: true,
 		langPrefix: 'lang-'
 	});
 	var hljs = require('libs/highlight.js/highlight.pack');
