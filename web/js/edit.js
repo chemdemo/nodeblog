@@ -1,4 +1,5 @@
 //see https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+//see http://ghosertblog.github.io/mdeditor/static/editor/scrollLink.js
 define(function(require, exports, module) {
 	'use strict';
 
@@ -22,11 +23,16 @@ define(function(require, exports, module) {
 		langPrefix: 'lang-'
 	});
 	var hljs = require('libs/highlight.js/highlight.pack');
+	console.log(ace);
+	window.ace =ace;
 
 	var editor = ace.edit('post-editor');
+	var session = editor.getSession();
+	editor.setShowPrintMargin(false);
+	editor.setHighlightActiveLine(false);
 	editor.setShowPrintMargin(false);
 	editor.setTheme('libs/ace/theme/crimson_editor');
-	editor.getSession().setMode('libs/ace/mode/markdown');
+	session.setMode('libs/ace/mode/markdown');
 
 	var render = function() {
 		var val = editor.getValue();
@@ -56,6 +62,10 @@ define(function(require, exports, module) {
 			}, 500);
 		}
 
+		function onCursorChange() {
+			console.log('cursor change!');
+		}
+
 		function previewSwitch(e) {
 			var previewBox = $('#post-preview');
 
@@ -69,8 +79,12 @@ define(function(require, exports, module) {
 			previewOpen = !previewOpen;
 		}
 
-		return function() {
+		return function() {//moveCursorTo
 			editor.on('change', onEditerChange);
+			editor.getSession().selection.on('changeCursor', function(e) {
+				console.log('cursor: ',editor.selection.getCursor())
+				console.log(e)
+			});
 			$('.preview-ctrl').on('click', previewSwitch);
 		}
 	}());
@@ -79,8 +93,11 @@ define(function(require, exports, module) {
 		$('#post-preview').css('height', document.body.clientHeight + 'px');
 		bindEvents();
 		$('#btn-save').click(function() {
-			var v = editor.getValue().replace(/</g,'&lt;').replace(/>/g,'&gt;');
-			console.log(v);
+			//editor.insert('<b>test</b>');
+			var c = editor.selection.getCursor();
+			console.log('getCursor: ', c)
+			//editor.moveCursorTo(c.row-2, c.column+1);
+			editor.gotoLine(c.row - 2);
 		});
 
 		$.get('./markdown.md', function(r) {
