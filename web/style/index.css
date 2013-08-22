@@ -13,7 +13,8 @@
 	padding: 0 5px 0 3px;
 	font-size: 1.2em;
 	margin-left: 1em;
-	border-left: 3px solid #FF61AD;
+	/*border-left: 3px solid #FF61AD;*/
+	border-left: 3px solid #404040;
 	background-color: transparent;
 	transition: background-color ease-in-out .3s;
 }

@@ -23,8 +23,6 @@ define(function(require, exports, module) {
 		langPrefix: 'lang-'
 	});
 	var hljs = require('libs/highlight.js/highlight.pack');
-	console.log(ace);
-	window.ace =ace;
 
 	var editor = ace.edit('post-editor');
 	var session = editor.getSession();
