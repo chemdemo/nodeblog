@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-image, .icon-bubbles, .icon-tags, .icon-spinner, .icon-numbered-list, .icon-list, .icon-link, .icon-attachment, .icon-eye, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-pencil, .icon-play, .icon-calendar, .icon-trashcan, .icon-plus-alt, .icon-left-quote, .icon-search, .icon-disk, .icon-download, .icon-file, .icon-checkmark {
+.icon-image, .icon-bubbles, .icon-tags, .icon-spinner, .icon-numbered-list, .icon-list, .icon-link, .icon-attachment, .icon-eye, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-pencil, .icon-play, .icon-calendar, .icon-trashcan, .icon-plus-alt, .icon-left-quote, .icon-search, .icon-disk, .icon-download, .icon-file, .icon-checkmark, .icon-arrow-right, .icon-home {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -111,4 +111,10 @@ you can use the generic selector below, but it's slower:
 }
 .icon-checkmark:before {
 	content: "\e009";
+}
+.icon-arrow-right:before {
+	content: "\e01a";
+}
+.icon-home:before {
+	content: "\e01b";
 }

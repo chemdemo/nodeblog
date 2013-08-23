@@ -3,8 +3,6 @@
 
 .post {
 	margin-bottom: 2em;
-}
-.post-title {
 	padding-top: 1em;
 }
 .post-title a {
@@ -12,14 +10,14 @@
 	/*padding: 0 2em;*/
 	padding: 0 5px 0 3px;
 	font-size: 1.2em;
-	margin-left: 1em;
+	margin-left: 1.5em;
 	/*border-left: 3px solid #FF61AD;*/
 	border-left: 3px solid #404040;
 	background-color: transparent;
 	transition: background-color ease-in-out .3s;
 }
 .post-title a:hover {
-	background-color: #f8f8f8;
+	background-color: #EEE;
 	text-decoration: none;
 }
 .post-cover {
@@ -33,16 +31,19 @@
 .post-summary {
 	text-indent: 2em;
 	padding: 0 2em;
-	margin: 0 0 1em;
+}
+.post-more {
+	padding: 0 2em;
+}
+.post-more i {
+	color: #33B5E5;
 }
 .post-info {
+	margin-top: 1em;
 	color: #999;
 	background-color: #f8f8f8;
 	border-top: 1px solid #EEE;
 	padding: .5em 2em .5em;
-}
-.post-info .post-gap {
-	margin: 0 1em;
 }
 .post-edit {
 	float: right;

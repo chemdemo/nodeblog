@@ -1,7 +1,47 @@
 /*@import url(global.css);
 @import url(web_font_icon.css);*/
 
-.page-content p {
+.post {
+	padding: 2em 1em 1em;
+}
+.edit-info {
+	padding: 0;
+}
+.post-body p {
 	text-indent: 2em;
 	margin-top: 1em;
+}
+.prev-next {
+	margin: 1em 0;
+	padding-top: 1em;
+	border-top: 1px solid #EEE;
+}
+
+.post-comments {
+	margin-top: 2em;
+}
+.add-comment {
+	margin: .5em 0;
+}
+.add-comment p {
+	margin: 1em 0;
+}
+.add-comment label {
+	margin-left: .5em;
+}
+.add-comment input {
+	padding: 2px 5px;
+	height: 30px;
+	line-height: 1.5em;
+	width: 25em;
+}
+.comment-input label {
+	display: block;
+	margin-left: 0;
+	margin-bottom: .5em;
+}
+.add-comment textarea {
+	resize: none;
+	line-height: 1.5em;
+	width: 60%;
 }

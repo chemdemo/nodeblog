@@ -25,12 +25,12 @@
 	color: #999;
 }
 
-html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input {
+html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input, textarea {
 	margin: 0;
 	padding: 0;
 }
 body, input, button, textarea {
-	font: normal normal normal 13px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
+	font: normal normal normal 12px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
 	color: #222;
 }
 html {
@@ -109,6 +109,10 @@ a:hover {
 
 .none {
 	display: none;
+}
+
+.required {
+	color: #DD0833;
 }
 
 /* btn style */
@@ -210,12 +214,13 @@ header a.active {
 }
 header h1 a {
 	font-size: 1.3em;
+	line-height: 55px;
 }
 header .sub-title {
 	float: left;
 	line-height: 1em;
 	font-size: 12px;
-	margin-top: -16px;
+	margin-top: -11px;
 	color: #999;
 }
 header nav {
@@ -267,6 +272,14 @@ header nav a {
 .page-content {
 	min-height: 500px;
 	margin-right: 250px;
+}
+.edit-info {
+	padding: 0 2em;
+	margin: .5em 0;
+	text-align: right;
+}
+.post-gap {
+	margin: 0 .5em;
 }
 
 /* sitebar */

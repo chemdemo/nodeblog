@@ -88,7 +88,6 @@ define(function(require, exports, module) {
 	}());
 
 	~function init() {
-		$('#post-preview').css('height', document.body.clientHeight + 'px');
 		bindEvents();
 		$('#btn-save').click(function() {
 			//editor.insert('<b>test</b>');
