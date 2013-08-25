@@ -1,3 +1,4 @@
-Welcome
+# Welcome
 ---
-### This is just a simple blog demo.
+## This is a simple blog site built with nodejs by chemdemo.
+
