@@ -8,6 +8,12 @@
 	padding: 0;
 	border-bottom: 1px dashed #EEE;
 }
+.post-top {
+	color: #888;
+}
+.post-edit {
+	margin-right: .5em;
+}
 .post-body p {
 	text-indent: 2em;
 	margin-top: 1em;

@@ -67,6 +67,7 @@ routes(app);
 // 404
 app.use(function(req, res, next) {
     //res.send(404, 'Not found.');
+    console.log(404);
     res.render('404', {msg: 'Page not found!'});
 });
 
