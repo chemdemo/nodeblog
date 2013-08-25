@@ -5,7 +5,7 @@ module.exports = {
 	, DB_NAME: '[DB_NAME]'
 	, SESSION_SECRET: '[SESSION_SECRET]'
 	, APP_PORT: '[APP_PORT]'
-	, DEFAULT_PASS: 'pass@123'
+	, DEFAULT_PASS: '[DEFAULT_PASS]'
 	, ADMIN: {
 		NAME: '[ADMIN_NAME]'
 		, EMAIL: '[ADMIN_EMAIL]'

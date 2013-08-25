@@ -10,28 +10,6 @@ var post = controller.post;
 var tag = controller.tag;
 var comment = controller.comment;
 
-function checkLogin(req, res, next) {
-	if(!req.session.user) {
-		req.flash('error', '未登录!');
-		//return res.redirect('/login');
-	}
-	next();
-}
-
-function checkNotLogin(req, res, next) {
-	if(!req.session.user) {
-		req.flash('error', '已登录!');
-		//return res.redirect('/');
-	}
-	next();
-}
-
-function adminCheck(req, res, next) {
-	var user = req.session.user;
-	var admin = settings.ADMIN;
-	return user && user.name === admin.NAME && user.email === admin.EMAIL && user.pass === admin.PASS;
-}
-
 function home(req, res, next) {
 	res.render('index');
 }
@@ -47,7 +25,7 @@ function routes(app) {
 	app.post('/signup', sign.signup);
 
 	app.get('/login', function(req, res, next) {
-		res.render('login', {user: req.session.user || {name: ''}});
+		res.render('login', {user: req.session.user});
 	});
 	app.post('/login', sign.login);
 

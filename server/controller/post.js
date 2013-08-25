@@ -16,7 +16,7 @@ function findById(postid, fields, callback) {
 
 function findByIdAndUpdate(postid, update, callback) {
 	Post.findByIdAndUpdate(postid, update, callback);
-};
+}
 
 function findAPost(conditions, fields, callback) {
 	Post.find(conditions, fields, function(err, doc) {

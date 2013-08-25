@@ -120,18 +120,20 @@ exports.addOne = function(req, res, next) {
 			if(err) return proxy.emit('error', err);
 
 			if(doc) {
+				doc.isAdmin = user_ctrl.adminCheck(doc);
 				req.session.user = user = doc;
 				proxy.emit('user_exist', user);
 				// update user info
 				if(doc.name !== info.name || doc.site !== info.site) {
-					doc.name = info.name;
-					doc.site = info.site;
-					doc.save(function(err) {});
+					user_ctrl.findByIdAndUpdate(doc._id, {
+						name: info.name,
+						site: info.site
+					}, function(err) {});
 				}
 			} else {
 				user_ctrl.addOne(info, function(_err, _doc) {
 					if(_err) return proxy.emit('error', _err);
-
+					_doc.isAdmin = user_ctrl.adminCheck(_doc);
 					req.session.user = user = _doc;
 					proxy.emit('user_exist', user);
 				});

@@ -12,8 +12,8 @@ var express = require('express')
     , ejs = require('ejs')
     , connectDomain = require('connect-domain');
 
-ejs.open = '{{';
-ejs.close = '}}';
+// ejs.open = '{{';
+// ejs.close = '}}';
 
 var app = express();
 
