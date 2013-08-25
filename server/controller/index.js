@@ -1,8 +1,8 @@
 var settings = require('../../settings');
 var rcodes = settings.RCODES;
 
-var login = require('./login');
-var user = require('./user');
+//var user = require('./user');
+var sign = require('./sign');
 var post = require('./post');
 var tag = require('./tag');
 var comment = require('./comment');
@@ -14,8 +14,8 @@ exports.auth = function(req, res, next) {
 	next();
 }
 
-exports.login = login;
-exports.user = user;
+//exports.user = user;
+exports.sign = sign;
 exports.post = post;
 exports.tag = tag;
 exports.comment = comment;

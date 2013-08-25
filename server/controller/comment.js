@@ -6,7 +6,6 @@ var Comment = models.Comment;
 var post_ctrl = require('./post');
 var user_ctrl = require('./user');
 
-var sanitize = require('validator').sanitize;
 var EventProxy = require('eventproxy');
 var async = require('async');
 
@@ -35,9 +34,9 @@ exports.addOne = function(req, res, next) {
 	var postid = req.body.postid;
 	var content = req.body.content;
 	var commentid = req.body.commentid;
-	var name = req.body.name;
-	var email = req.body.email;
-	var site = req.body.site;
+	var name = req.body.name || '';
+	var email = req.body.email || '';
+	var site = req.body.site || '';
 
 	if(!postid || !content) {
 		return res.json({
@@ -66,15 +65,14 @@ exports.addOne = function(req, res, next) {
 	proxy.on('comment_added', function(new_comment) {
 		if(commentid) {
 			findById(commentid, function(err, doc) {
-				if(!err) {
-					var replies = doc.replies || (doc.replies = []);
-					doc.replies.push(new_comment._id);
-					doc.save(function(_err, _doc) {
-						if(!_err) {
-							proxy.emit('comment_saved');
-						}
-					});
-				}
+				if(err || !doc) return proxy.emit('error', err);
+
+				var replies = doc.replies || (doc.replies = []);
+				doc.replies.push(new_comment._id);
+				doc.save(function(_err, _doc) {
+					if(_err) return proxy.emit('error', _err);
+					proxy.emit('comment_saved');
+				});
 			});
 		} else {
 			proxy.emit('comment_saved');
@@ -85,9 +83,8 @@ exports.addOne = function(req, res, next) {
 			last_comment_by: new_comment.author_id,
 			$inc: {comments: 1}
 		}, function(err, doc) {
-			if(!err) {
-				proxy.emit('post_saved');
-			}
+			if(err) return proxy.emit('error', err);
+			proxy.emit('post_saved');
 		});
 	});
 
@@ -97,43 +94,49 @@ exports.addOne = function(req, res, next) {
 		comment.author_id = user._id;
 		comment.content = content;
 		comment.save(function(err, doc) {
-			if(!err) {
-				proxy.emit('comment_added', doc);
-			}
+			if(err) return proxy.emit('error', err);
+			proxy.emit('comment_added', doc);
 		});
 	});
 
 	if(user) {
 		proxy.emit('user_exist', user);
 	} else {
-		name = sanitize(name).trim();
-		email = sanitize(email).trim();
-		site = sanitize(site).trim();
+		var info = {
+			name: name,
+			email: email,
+			pass: settings.DEFAULT_PASS,
+			site: site
+		};
+		info = user_ctrl.infoCheck(info);
 
-		if(name && email) {
-			user_ctrl.findOne({
-				name: name,
-				email: email,
-				site: site
-			}, function(err, doc) {
-				if(err) {
-					user_ctrl.addOne(info, function(_err, _doc) {
-						if(!_err) {
-							req.session.user = user = _doc;
-							proxy.emit('user_exist', user);
-						} else {
-							console.log(_err);
-							next(502);
-						}
-					});
-				} else {
-					req.session.user = user = doc;
-					proxy.emit('user_exist', user);
+		if(info.error) return proxy.emit('error', info.error);
+
+		user_ctrl.findOne({
+			//name: info.name,
+			email: info.email,
+			pass: info.pass
+		}, function(err, doc) {
+			if(err) return proxy.emit('error', err);
+
+			if(doc) {
+				req.session.user = user = doc;
+				proxy.emit('user_exist', user);
+				// update user info
+				if(doc.name !== info.name || doc.site !== info.site) {
+					doc.name = info.name;
+					doc.site = info.site;
+					doc.save(function(err) {});
 				}
-			});
-		} else {
-			next(403);
-		}
+			} else {
+				user_ctrl.addOne(info, function(_err, _doc) {
+					if(_err) return proxy.emit('error', _err);
+
+					req.session.user = user = _doc;
+					proxy.emit('user_exist', user);
+				});
+			}
+		});
 	}
 }
 

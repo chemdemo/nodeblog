@@ -1,0 +1,34 @@
+{{ include include/html-header }}
+<link rel="stylesheet" href="/style/user.css" />
+
+	{{ include include/header }}
+
+	<div class="page-body clearfix">
+		<form class="user-signup" action="/signup" method="POST">
+			<h4>注册</h4>
+			<p>error: {{= error }}</p>
+			<p>
+				<label for="name">名称<b class="required">（*）</b>：</label>
+				<input class="input" name="name" id="name" placeholder="Input your name" />
+			</p>
+			<p>
+				<label for="email">邮箱<b class="required">（*）</b>：</label>
+				<input class="input" type="email" name="email" id="email" placeholder="Input your email" />
+			</p>
+			<p>
+				<label for="site">网站：</label>
+				<input class="input" name="site" id="site" placeholder="Input your site" />
+			</p>
+			<p>
+				<label for="pass">密码<b class="required">（*）</b>：</label>
+				<input class="input" type="password" name="pass" id="pass" placeholder="Input your password" />
+			</p>
+			<button type="submit" class="i-btn i-btn-blue">
+				<i class="icon-checkmark"></i>提交
+			</button>
+		</form>
+	</div>
+
+{{ include include/footer }}
+<script data-main="/js/user.js" src="/js/libs/requirejs/require.js"></script>
+</html>

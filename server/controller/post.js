@@ -10,8 +10,8 @@ var comment_ctrl = require('./comment');
 var async = require('async');
 var _ = require('underscore');
 
-function findById(postid, callback) {
-	Post.findById(postid, callback);
+function findById(postid, fields, callback) {
+	Post.findById(postid, fields, callback);
 }
 
 function findByIdAndUpdate(postid, update, callback) {
@@ -47,10 +47,16 @@ function findAPost(conditions, fields, callback) {
 	});
 }
 
-function fetchPosts(postids, callback) {
+function fetchPosts(postids, fields, callback) {
 	async.map(postids, function(postid, _callback) {
-		findAPost(postid, '', _callback);
+		findAPost({_id: postid}, fields, _callback);
 	}, callback);
+}
+
+function fetchPostsByPage(start, offset, callback) {
+	var count = Math.abs(offset - start);
+	var limit = Math.max(20, count);
+	Post.find().limit(limit).count(count).exec(callback);
 }
 
 function getRandomCover() {
@@ -62,7 +68,7 @@ exports.addOne = function(req, res, next) {
 	var title = req.body.title;
 	var content = req.body.body;
 	var summary = req.body.summary || '';
-	var cover = req.body.cover_url || getRandomCover();
+	//var cover = req.body.cover_url || getRandomCover();
 	var tags = JSON.parse(req.body.tags || null) || [];
 	var top = req.body.top || false;
 
@@ -85,6 +91,8 @@ exports.addOne = function(req, res, next) {
 	post.setSummary(summary);
 
 	post.save(function(err, doc) {
+		//if(err) return next(err);
+
 		if(err) {
 			req.flash('error', 'Post error!');
 			console.log(err);
@@ -97,7 +105,7 @@ exports.addOne = function(req, res, next) {
 		//res.redirect('/post/' + doc._id);
 		tag_ctrl.addTags4Post(tags, doc._id, function(err, r) {
 			console.log(err, r);
-
+			if(err) return next(err);
 			res.json({
 				rcode: rcodes['SUCCESS'],
 				result: doc
@@ -114,7 +122,7 @@ exports.findOne = function(req, res, next) {
 	//var user = req.session.user;
 	var postid = req.query.postid;
 
-	findAPost({_id: postid}, '', function(err, doc) {
+	findAPost({_id: postid}, null, function(err, doc) {
 		if(!err && doc) {
 			//res.render('edit', doc);
 			res.json({
@@ -123,7 +131,7 @@ exports.findOne = function(req, res, next) {
 			});
 		} else {
 			console.log(err);
-			next(404);
+			next(err);
 		}
 	});
 }
@@ -206,3 +214,4 @@ exports.postPlaced = function(req, res, next) {
 exports.findById = findById;
 exports.findByIdAndUpdate = findByIdAndUpdate;
 exports.fetchPosts = fetchPosts;
+exports.fetchPostsByPage = fetchPostsByPage;

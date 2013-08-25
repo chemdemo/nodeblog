@@ -18,7 +18,7 @@ ejs.close = '}}';
 var app = express();
 
 app.configure(function() {
-    app.set('port', process.env.PORT || settings.SYSPORT);
+    app.set('port', process.env.PORT || settings.APP_PORT);
     app.set('views', __dirname + '/server/views');
     app.set('view engine', 'ejs');
     app.set('view options', {
