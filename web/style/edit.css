@@ -172,6 +172,8 @@ header {
 	box-shadow: -1px 0 20px 1px rgba(0,0,0,0.2);
 	overflow: auto;
 	padding: 0 1em;
+
+	transition: all .3s;
 }
 .preview-close .preview-box {
 	box-shadow: none;

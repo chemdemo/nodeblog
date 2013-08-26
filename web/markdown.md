@@ -93,7 +93,6 @@ print 123
 示例：
 
     var bar = function(a) {console.log(a);};
-
 ### 10.  使用 \!\[描述](图片链接地址) 插入图像
 
 示例：

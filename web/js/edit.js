@@ -1,10 +1,14 @@
 //see https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 //see http://ghosertblog.github.io/mdeditor/static/editor/scrollLink.js
-define(function(require, exports, module) {
-	'use strict';
 
+'use strict';
+
+define(function(require, exports, module) {
+	var util = require('util');
 	var ace = require('libs/ace/ace');
 	var marked = require('libs/marked/marked');
+	var hljs = require('libs/highlight.js/highlight.pack');
+
 	marked.setOptions({
 		gfm: true,
 		highlight: function (code, lang) {
@@ -22,7 +26,6 @@ define(function(require, exports, module) {
 		smartypants: true,
 		langPrefix: 'lang-'
 	});
-	var hljs = require('libs/highlight.js/highlight.pack');
 
 	var editor = ace.edit('post-editor');
 	var session = editor.getSession();
@@ -46,6 +49,8 @@ define(function(require, exports, module) {
 	};
 
 	var bindEvents = (function() {
+		var previewWrapper = $('#post-preview');
+		var previewBox = $('#preview-box');
 		var previewOpen = false;
 		
 		function onEditerChange(e) {
@@ -65,37 +70,51 @@ define(function(require, exports, module) {
 		}
 
 		function previewSwitch(e) {
-			var previewBox = $('#post-preview');
-
 			if(previewOpen) {// open => close
-				previewBox.css({width: '0%'}).addClass('preview-close');
+				previewWrapper.css({width: '0%'}).addClass('preview-close');
 			} else {// close => open
-				previewBox.css({width: '50%'}).removeClass('preview-close');
+				previewWrapper.css({width: '50%'}).removeClass('preview-close');
 				render();
 			}
 
 			previewOpen = !previewOpen;
 		}
 
+		function syncScroll(e) {
+			if(!previewOpen) return;
+
+			~util.debounce(function() {
+				var H = previewBox[0].scrollHeight;
+				var n = editor.getFirstVisibleRow();
+				var l = editor.getSession().getLength();
+				console.log('scrollTop: ', H*(n/l));
+				previewBox.scrollTop(H*(n/l));
+			}, 500, true)();
+		}
+
 		return function() {//moveCursorTo
 			editor.on('change', onEditerChange);
 			editor.getSession().selection.on('changeCursor', function(e) {
-				console.log('cursor: ',editor.selection.getCursor())
-				console.log(e)
+				//console.log('cursor: ',editor.selection.getCursor())
+				//console.log(e)
 			});
 			$('.preview-ctrl').on('click', previewSwitch);
+			/*$('#btn-save').click(function() {
+				//editor.insert('<b>test</b>');
+				var c = editor.selection.getCursor();
+				console.log('getCursor: ', c)
+				//editor.moveCursorTo(c.row-2, c.column+1);
+				editor.gotoLine(c.row - 2);
+			});*/
+			
+			//editor.session.on('changeScrollTop', syncScroll);
+			editor.session.selection.on('changeCursor', syncScroll);
+			//$(window).on('scroll', syncScroll);
 		}
 	}());
 
 	~function init() {
 		bindEvents();
-		$('#btn-save').click(function() {
-			//editor.insert('<b>test</b>');
-			var c = editor.selection.getCursor();
-			console.log('getCursor: ', c)
-			//editor.moveCursorTo(c.row-2, c.column+1);
-			editor.gotoLine(c.row - 2);
-		});
 
 		$.get('./markdown.md', function(r) {
 			editor.setValue(r);
