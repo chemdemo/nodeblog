@@ -30,15 +30,5 @@ define(function(require, exports, module) {
 
 	~function init() {
 		bindEvents();
-
-		$.get('./markdown.md', function(r) {
-			marked(r, function(err, content) {
-				if(err) {
-					return console.log('Marked file error: ', err);
-				}
-
-				$('#post-body').html(content);
-			});
-		});
 	}();
 });

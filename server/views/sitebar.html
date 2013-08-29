@@ -1,0 +1,47 @@
+{% block sitebar %}
+<div class="page-sitebar">
+	<!-- <section class="author-info shadow-box">
+		<a class="avatar" href="#" title="blog"></a>
+	</section> -->
+
+	<section class="author-desc shadow-box">
+		<a href="/about">ABOUT</a>
+	</section>
+
+	<section class="site-tags shadow-box">
+		<h3>所有标签</h3>
+		<div class="tags-list">
+			{% for tag in tags %}
+			<a href="/tag/{{ tag._id }}" class="tag">{{ tag.name }}</a>
+			{% endfor %}
+		</div>
+	</section>
+
+	<section class="site-archive shadow-box">
+		<h3>文章归档</h3>
+		<ul class="archive-list">
+			{% for count in counts %}
+			<li>
+				<a href="/count/{{ count._id }}">{{ count._id }}</a>
+				(<b>{{ count.value.length }}</b>)
+			</li>
+			{% endfor %}
+		</ul>
+	</section>
+
+	<section class="friend-links shadow-box">
+		<h3>友情链接</h3>
+		<ul class="links-list">
+			<li>
+				<a href="http://www.alloyteam.com">AlloyTeam</a>
+			</li>
+			<li>
+				<a href="https://www.github.com">Github</a>
+			</li>
+			<li>
+				<a href="http://jianshu.io/c/BDu5F8">Markdown</a>
+			</li>
+		</ul>
+	</section>
+</div>
+{% endblock %}

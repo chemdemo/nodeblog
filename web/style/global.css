@@ -30,7 +30,7 @@ html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input, textarea
 	padding: 0;
 }
 body, input, button, textarea {
-	font: normal normal normal 12px/2 'Segoe UI', 'Microsoft Yahei', 'Myriad Pro', Helvetica, Tahoma, Simsun, sans-serif;
+	font: normal normal normal 13px/2 /*Monaco, */'Segoe UI', 'Microsoft Yahei', Helvetica, Tahoma, Simsun, sans-serif;
 	color: #222;
 }
 html {
@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 pre, code {
-	font-family: Monaco, Consolas, "Lucida Console", monospace;
+	font-family: Monaco, 'PT Mono', Consolas, 'Lucida Console', monospace;
 }
 pre ::selection,
 code ::selection {
@@ -216,7 +216,7 @@ header h1 a {
 	font-size: 1.3em;
 	line-height: 55px;
 }
-header .sub-title {
+header .motto {
 	float: left;
 	line-height: 1em;
 	font-size: 12px;

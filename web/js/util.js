@@ -59,4 +59,11 @@ var debounce = function (fn, delay, immediate) {
 };
 exports.debounce = debounce;
 
+exports.searchParam = function(name) {
+	var s = window.location.search;
+	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+	var m = s.substr(1).match(reg);
+	return m ? unescape(m[2]) : null;
+}
+
 });

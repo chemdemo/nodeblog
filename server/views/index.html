@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/style/index.css" />
+{% endblock %}
+
+{% block content %}
+<div class="page-body clearfix">
+	{% include 'server/views/sitebar.html' %}
+
+	<div class="page-content">
+		{% for post in posts %}
+		<section class="post shadow-box">
+			<h3 class="post-title"><a href="/post/{{ post._id }}">{{ post.title }}</a></h3>
+			<div class="edit-info">
+				<span class="post-date">
+					<i class="icon-calendar" title="最后编辑时间"></i>
+					<span class="update-time">{{ post.update_at }}</span>
+				</span>
+				<span class="post-gap">/</span>
+				by <strong>{{ post.author.name }}</strong>
+			</div>
+			<!-- <div class="post-cover"><img src="covers/c0.jpg" /></div> -->
+			<div class="post-summary">{{ post.summary }}</div>
+			<div class="post-more">
+				<a href="/post/{{ post._id }}">阅读更多&nbsp;<i class="icon-arrow-right"></i></a>
+			</div>
+			<div class="post-info">
+				<!-- <span class="post-date">
+					<i class="icon-calendar" title="最后编辑时间"></i>
+					<span href="" class="">2013-05-30 13:52</span>
+				</span>
+				<span class="post-gap">/</span> -->
+				<span class="post-tags">
+					<i class="icon-tags" title="标签"></i>
+					{% for tag in post.tags %}
+					<a class="tag" href="/tag/{{ tag._id }}">{{ tag.name }}</a>
+					{% endfor %}
+				</span>
+				<span class="post-edit">
+					<a href="/edit/{{ post._id }}" class="icon-pencil" title="编辑"></a>
+				</span>
+				<span class="post-comments">
+					<a href="/post/{{ post._id }}#comment" class="icon-bubbles" title="评论"></a>
+					<span class="comments-num">{{ post.comments.length }}</span>
+				</span>
+				<span class="post-visited">
+					访问量 
+					<span class="visited-num">{{ post.visited }}</span>
+				</span>
+			</div>
+		</section>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script data-main="/js/home.js" src="/js/libs/requirejs/require.js"></script>
+{% endblock %}

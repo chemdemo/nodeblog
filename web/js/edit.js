@@ -10,21 +10,16 @@ define(function(require, exports, module) {
 	var hljs = require('libs/highlight.js/highlight.pack');
 
 	marked.setOptions({
-		gfm: true,
 		highlight: function (code, lang) {
-			console.log(lang);
 			if(lang) {
 				return hljs.highlight(lang, code).value;
 			}
 			return hljs.highlightAuto(code).value;
 		},
-		tables: true,
 		breaks: true,
 		pedantic: true,
 		sanitize: false,
-		smartLists: true,
-		smartypants: true,
-		langPrefix: 'lang-'
+		smartypants: true
 	});
 
 	var editor = ace.edit('post-editor');
@@ -46,6 +41,17 @@ define(function(require, exports, module) {
 			//$(window.frames['preview'].document).find('body').html(content);
 			$('#preview-box').html(content);
 		});
+	};
+
+	var getData = function() {
+		var r = {};
+		r.title = $('#post-title').val();
+		r.content = editor.getValue();
+		//r.cover = '';
+		r.summary = $('#post-summary').val();
+		r.tags = $('#post-tags').val().split(/[^\w+]/);
+		r.topped = $('#set-topped').attr('checked') ? 1 : 0;
+		return r;
 	};
 
 	var bindEvents = (function() {
@@ -80,7 +86,17 @@ define(function(require, exports, module) {
 			previewOpen = !previewOpen;
 		}
 
+		function savePost(e) {
+			var pid = $(this).attr('data-pid');
+			var url = '/edit' + (pid ? '/' + pid : '');
+			$.post(url, {data: JSON.stringify(getData())}, function(r) {
+				console.log(r);
+			});
+		}
+
 		function syncScroll(e) {
+			console.log('cursor: ',editor.selection.getCursor())
+
 			if(!previewOpen) return;
 
 			~util.debounce(function() {
@@ -94,31 +110,20 @@ define(function(require, exports, module) {
 
 		return function() {//moveCursorTo
 			editor.on('change', onEditerChange);
-			editor.getSession().selection.on('changeCursor', function(e) {
-				//console.log('cursor: ',editor.selection.getCursor())
-				//console.log(e)
-			});
 			$('.preview-ctrl').on('click', previewSwitch);
-			/*$('#btn-save').click(function() {
-				//editor.insert('<b>test</b>');
-				var c = editor.selection.getCursor();
-				console.log('getCursor: ', c)
-				//editor.moveCursorTo(c.row-2, c.column+1);
-				editor.gotoLine(c.row - 2);
-			});*/
+			$('#btn-save').on('click', savePost);
 			
 			//editor.session.on('changeScrollTop', syncScroll);
 			editor.session.selection.on('changeCursor', syncScroll);
-			//$(window).on('scroll', syncScroll);
 		}
 	}());
 
 	~function init() {
 		bindEvents();
 
-		$.get('./markdown.md', function(r) {
+		/*$.get('./markdown.md', function(r) {
 			editor.setValue(r);
 			editor.gotoLine(0, 0, true);
-		});
+		});*/
 	}();
 });

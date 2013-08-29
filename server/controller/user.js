@@ -2,7 +2,7 @@ var settings = require('../../settings');
 var rcodes = settings.RCODES;
 
 var crypto = require('crypto');
-var request = require('request');
+//var request = require('request');
 var check = require('validator').check;
 var sanitize = require('validator').sanitize;
 
@@ -51,7 +51,7 @@ function findOne(query, callback) {
 	if(query.pass) {
 		query.pass = md5(query.pass);
 	}
-
+	console.log('query: ', query)
 	User.findOne(query, callback);
 }
 
@@ -64,21 +64,17 @@ function findById(id, callback) {
 }
 
 function addOne(info, callback) {
-	//info = infoCheck(info);
-	//if(info.error) return callback(info.error);
-
 	var avatar_url = 'http://www.gravatar.com/avatar/' + md5(info.email) + '?size=48';
 
-	request(avatar_url, function(err, res) {console.log('avatar: ', err, res);
-		var user = new User();
-		user.name = info.name;
-		user.pass = info.pass;
-		user.email = info.email;
-		user.site = info.site;
-		user.avatar = !err && res.statusCode === 200 ? avatar_url : settings.DEFAULT_AVATAR;
-		console.log(user);
-		user.save(callback);
-	});
+	//request(avatar_url, function(err, res) {console.log('avatar: ', err, res);
+	var user = new User();
+	user.name = info.name;
+	user.pass = md5(info.pass);
+	user.email = info.email;
+	user.site = info.site;
+	user.avatar = avatar_url;
+	user.save(callback);
+	//});
 }
 
 exports.infoCheck = infoCheck;
@@ -86,3 +82,4 @@ exports.findById = findById;
 exports.findByIdAndUpdate = findByIdAndUpdate;
 exports.addOne = addOne;
 exports.findOne = findOne;
+exports.adminCheck = adminCheck;

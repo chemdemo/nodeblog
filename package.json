@@ -17,6 +17,9 @@
     "async": "*",
     "eventproxy": "*",
     "connect-domain": "~0.5.0",
-    "underscore": "~1.5.1"
+    "underscore": "~1.5.1",
+    "consolidate": "~0.9.1",
+    "swig": "~1.0.0-pre3",
+    "highlight.js": "~7.3.0"
   }
 }

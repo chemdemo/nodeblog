@@ -1,0 +1,177 @@
+{% extends 'layout.html' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/style/post.css" />
+{% endblock %}
+
+{% block content %}
+<div class="page-body clearfix">
+	{% include 'server/views/sitebar.html' %}
+
+	<div class="page-content">
+		<section class="post shadow-box">
+			<h1 class="post-title">
+				<b class="post-top">【置顶】</b>
+				<a href="/post/{{ _id }}">{{ title }}</a>
+			</h1>
+			<div class="edit-info">
+				<a href="/edit/{{ _id }}" class="icon-pencil post-edit" title="编辑"></a>
+				<span class="post-date">
+					<i class="icon-alarm" title="最后编辑时间"></i>
+					<span href="" class="">{{ update_at }}</span>
+				</span>
+				<span class="post-gap">/</span>
+				by <strong>{{ author.name }}</strong>
+			</div>
+			<div class="post-body md" id="post-body">{{ content }}</div>
+			<div class="prev-next">
+				<p>上一篇：<a href="#">白天不懂夜的黑</a></p>
+				<p>下一篇：<a href="#">你是风儿我是沙，缠缠绵绵</a></p>
+			</div>
+		</section>
+
+		<section class="post-comments">
+			<h3>文章评论</h3>
+			<ul class="comment-list">
+				<li class="comment">
+					<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
+					<div class="comment-body">
+						<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
+						<div class="comment-content">你是风儿我是沙，缠缠绵绵</div>
+						<div class="comment-btns">
+							<a href="#" class="comment-del" title="删除">
+								<i class="icon-trashcan"></i>
+								删除
+							</a>
+							<a href="#" class="comment-reply" title="回复">
+								<i class="icon-undo-2"></i>
+								回复
+							</a>
+						</div>
+						<ul class="reply-list">
+							<li class="comment">
+								<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
+								<div class="comment-body">
+									<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
+									<div class="comment-content">你是风儿我是沙，缠缠绵绵.你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵</div>
+									<div class="comment-btns">
+										<a href="#" class="comment-del" title="删除">
+											<i class="icon-trashcan"></i>
+											删除
+										</a>
+										<a href="#" class="comment-reply" title="回复">
+											<i class="icon-undo-2"></i>
+											回复
+										</a>
+									</div>
+									<ul class="reply-list">
+										<li class="comment">
+											<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
+											<div class="comment-body">
+												<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
+												<div class="comment-content">你是风儿我是沙，缠缠绵绵.你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵</div>
+												<div class="comment-btns">
+													<a href="#" class="comment-del" title="删除">
+														<i class="icon-trashcan"></i>
+														删除
+													</a>
+													<a href="#" class="comment-reply" title="回复">
+														<i class="icon-undo-2"></i>
+														回复
+													</a>
+												</div>
+											</div>
+										</li>
+										<li class="comment">
+											<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
+											<div class="comment-body">
+												<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
+												<div class="comment-content">你是风儿我是沙，缠缠绵绵.你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵</div>
+												<div class="comment-btns">
+													<a href="#" class="comment-del" title="删除">
+														<i class="icon-trashcan"></i>
+														删除
+													</a>
+													<a href="#" class="comment-reply" title="回复">
+														<i class="icon-undo-2"></i>
+														回复
+													</a>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li class="comment">
+								<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
+								<div class="comment-body">
+									<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
+									<div class="comment-content">你是风儿我是沙，缠缠绵绵.你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵</div>
+									<div class="comment-btns">
+										<a href="#" class="comment-del" title="删除">
+											<i class="icon-trashcan"></i>
+											删除
+										</a>
+										<a href="#" class="comment-reply" title="回复">
+											<i class="icon-undo-2"></i>
+											回复
+										</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="comment">
+					<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
+					<div class="comment-body">
+						<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
+						<div class="comment-content">你是风儿我是沙，缠缠绵绵.你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵</div>
+						<div class="comment-btns">
+							<a href="#" class="comment-del" title="删除">
+								<i class="icon-trashcan"></i>
+								删除
+							</a>
+							<a href="#" class="comment-reply" title="回复">
+								<i class="icon-undo-2"></i>
+								回复
+							</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<form class="add-comment">
+				<h4><i class="icon-plus"></i> 添加评论</h4>
+				<p>
+					<input class="input" name="name" id="name" placeholder="Input your name" />
+					<label for="name">名称<b class="required">（*）</b></label>
+				</p>
+				<p>
+					<input class="input" type="email" name="email" id="email" placeholder="Input your email" />
+					<label for="email">邮箱（不会公开）<b class="required">（*）</b></label>
+				</p>
+				<p>
+					<input class="input" name="site" id="site" placeholder="Input your site" />
+					<label for="site">网站</label>
+				</p>
+				<div class="comment-input">
+					<label for="comment">评论内容（支持markdown^_^）</label>
+					<textarea id="comment" class="textarea" rows="5" placeholder="Input your comment"></textarea>
+				</div>
+				<div class="add-comment-btns">
+					<button type="submit" class="i-btn i-btn-blue comment-submit">
+						<i class="icon-checkmark"></i>提交
+					</button>
+					<button class="i-btn comment-cancel">
+						<i class="icon-close"></i>取消
+					</button>
+				</div>
+			</form>
+		</section>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script data-main="/js/post.js" src="/js/libs/requirejs/require.js"></script>
+{% endblock %}

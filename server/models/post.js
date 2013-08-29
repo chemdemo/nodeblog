@@ -14,7 +14,7 @@ var PostSchema = new Schema({
 	tags: [String],
 	comments: {type: Number, default: 0},
 	visite: {type: Number, default: 0},
-	top: {type: Boolean, default: false},
+	topped: {type: Number, default: 0},
 	last_comment_at: {type: Date},
 	last_comment_by: ObjectId
 }, {collection: 'post'});

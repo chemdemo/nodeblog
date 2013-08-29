@@ -1,0 +1,108 @@
+{% extends 'layout.html' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/style/edit.css" />
+{% endblock %}
+
+{% block header %}
+<header>
+	<div class="header-inner">
+		<a href="/" title="回主页">
+			<img src="/style/images/dm.jpg" class="home-avatar" alt="chemdemo" />
+		</a>
+	</div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="post-body">
+	<section>
+		<label for="post-title" class="block-label">文章标题：</label>
+		<input class="input post-title" type="text" id="post-title" value="{{ title }}" placeholder="post title" />
+	</section>
+
+	<section class="edit-btns">
+		<div class="btn-group">
+			<a class="i-btn" href="#">h1</a>
+			<a class="i-btn" href="#">h2</a>
+			<a class="i-btn" href="#">h3</a>
+			<a class="i-btn" href="#">h4</a>
+		</div>
+
+		<div class="btn-group">
+			<a class="i-btn icon-image" href="#"></a>
+			<a class="i-btn icon-link" href="#"></a>
+			<a class="i-btn icon-attachment" href="#"></a>
+			<!-- <a class="i-btn icon-file" href="#" title="导入markdown文档"></a> -->
+		</div>
+
+		<div class="btn-group">
+			<a class="i-btn icon-bold" href="#"></a>
+			<a class="i-btn icon-italic" href="#"></a>
+			<a class="i-btn icon-underline" href="#"></a>
+			<a class="i-btn icon-strikethrough" href="#"></a>
+			<a class="i-btn icon-code" href="#"></a>
+		</div>
+
+		<div class="btn-group">
+			<a class="i-btn icon-numbered-list" href="#"></a>
+			<a class="i-btn icon-list" href="#"></a>
+			<a class="i-btn icon-left-quote" href="#"></a>
+		</div>
+
+		<button class="i-btn icon-document-alt-fill" title="导入markdown文档"></button>
+	</section>
+
+	<section class="post-editor" id="post-editor">{{ content }}</section>
+
+	<section class="edit-summary">
+		<label class="block-label" for="post-summary">文章摘要：</label>
+		<textarea class="textarea" id="post-summary" placeholder="add post summary" value="{{ summary }}"></textarea>
+	</section>
+
+	<section class="tags-edit">
+		<label for="post-tags" class="block-label">添加标签：</label>
+		<input value="{% if tags %}{{ tags.join(' ') }}{% endif %}" class="input post-tags" id="post-tags" placeholder="post tags" />
+		<a href="javascript: void(0);" class="add-tags"><i class="icon-plus-alt"></i>添加已有标签</a>
+
+		<section class="shadow-box tags-select none">
+			<div class="tags-select-title">
+				选择已有标签
+				<span class="icon-close close"></span>
+			</div>
+			<div class="tags-list">
+				<a href="" class="tag">生活</a>
+				<a href="" class="tag">艺术</a>
+				<a href="" class="tag">随感</a>
+				<a href="" class="tag">技术</a>
+				<a href="" class="tag">人生</a>
+				<a href="" class="tag">nodejs</a>
+				<a href="" class="tag">css</a>
+				<a href="" class="tag">html</a>
+			</div>
+		</section>
+	</section>
+
+	<section>
+		<label for="set-topped">文章置顶：</label>
+		<input type="checkbox" id="set-topped"{% if topped %} checked{% endif %} />
+	</section>
+
+	<section class="opt-btns">
+		<button class="i-btn preview-ctrl" title="预览"><i class="icon-eye"></i>预览</button>
+		<button data-pid="{{ _id }}" id="btn-save" class="i-btn i-btn-blue" title="保存"><i class="icon-checkmark"></i>保存</button>
+		<button class="i-btn i-btn-red" title="导出"><i class="icon-download"></i>导出</button>
+	</section>
+</div>
+
+<div class="post-preview preview-close" id="post-preview">
+	<div class="preview-ctrl">
+		<span class="preview-ctrl-inner icon-play"></span>
+	</div>
+	<section class="md preview-box" id="preview-box"></section>
+</div>
+{% endblock %}
+
+{% block script %}
+<script data-main="/js/edit.js" src="/js/libs/requirejs/require.js"></script>
+{% endblock %}

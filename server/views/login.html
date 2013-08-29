@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/style/user.css" />
+{% endblock %}
+
+{% block content %}
+<div class="page-body clearfix">
+	<form class="user-login" action="/login" method="POST">
+		<h2>管理登陆</h2>
+		<p>
+			<label for="email">邮箱：</label>
+			<input class="input" type="email" name="email" id="email" placeholder="Input email" value="{{ email }}" />
+		</p>
+		<p>
+			<label for="pass">密码：</label>
+			<input class="input" type="password" name="pass" id="pass" placeholder="Input password" />
+		</p>
+		<button type="submit" class="i-btn i-btn-blue">
+			<i class="icon-checkmark"></i>提交
+		</button>
+		<a href="/signup" class="i-btn">注册</a>
+	</form>
+
+	{% if error %}<p class="error"><strong>{{ error }}</strong></p>{% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="/js/user.js"></script>
+{% endblock %}
