@@ -77,6 +77,7 @@ function addOne(info, callback) {
 	//});
 }
 
+exports.md5 = md5;
 exports.infoCheck = infoCheck;
 exports.findById = findById;
 exports.findByIdAndUpdate = findByIdAndUpdate;

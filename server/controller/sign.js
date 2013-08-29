@@ -24,7 +24,7 @@ exports.signup = function(req, res, next) {
 			info.site = admin.SITE;
 		}
 
-		user_ctrl.findOne({email: info.email, pass: info.pass}, function(err, doc) {
+		user_ctrl.findOne({email: info.email}, function(err, doc) {
 			if(err) return next(err);
 
 			if(!doc) {// add a user
@@ -32,7 +32,7 @@ exports.signup = function(req, res, next) {
 					if(err) return next(err);
 					//doc.isAdmin = user_ctrl.adminCheck(doc);
 					req.session.user = doc;
-					res.redirect(req.headers.referer || '/');
+					res.render('info', doc);
 				});
 			} else {
 				infoTmp.error = 'This email has already been registered.';
@@ -45,7 +45,7 @@ exports.signup = function(req, res, next) {
 }
 
 exports.login = function(req, res, next) {
-	console.log('user: ', req.session.user);
+	//console.log('user: ', req.session.user);
 	if(req.method === 'POST') {
 		var info = {};
 		//info.name = req.body.name;
@@ -56,17 +56,28 @@ exports.login = function(req, res, next) {
 		//info = user_ctrl.infoCheck(info);
 		//if(info.error) return res.render('login', {error: info.error});
 		if(!info.email || !info.pass) {
-			return res.render('login', {error: 'Param email and pass requird.'});
+			return res.render('login', {
+				email: info.email || '', 
+				error: 'Param email and pass requird.'
+			});
 		}
 
-		user_ctrl.findOne({email: info.email, pass: info.pass}, function(err, doc) {
+		user_ctrl.findOne({email: info.email}, function(err, doc) {
 			if(err) return next(err);
-			if(!doc) return res.redirect('/login');
-			//doc.isAdmin = user_ctrl.adminCheck(doc);
-			req.session.user = doc;
-			console.log('referer: ', req.headers.referer)
-			//res.redirect(req.headers.referer || '/');
-			res.redirect('/');
+			if(!doc) {
+				res.render('login', {email: info.email, error: 'This email is not registered.'});
+			} else {
+				if(user_ctrl.md5(info.pass) === doc.pass) {
+					//doc.isAdmin = user_ctrl.adminCheck(doc);
+					req.session.user = doc;
+					res.render('info', doc);
+				} else {
+					res.render('login', {
+						email: info.email, 
+						error: 'Wrong user name or password.'
+					});
+				}
+			}
 		});
 	} else {
 		res.render('login', req.session.user);

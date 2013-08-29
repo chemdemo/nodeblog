@@ -119,7 +119,7 @@ function countMonthy(callback) {
 	Post.mapReduce({
 		map: mapFn,
 		reduce: reduceFn,
-		out: {replace: 'post_placed_result'},
+		out: {replace: 'count_monthy'},
 		query: {create_at: {$gt: new Date('01/01/2013')}},
 		keeptemp: true,
 		//finalize: finalizeFn,

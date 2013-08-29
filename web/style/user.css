@@ -18,6 +18,13 @@ label {
 	margin-bottom: 1em;
 }
 
+.page-body .user-avata {
+	text-align: center;
+}
+.page-body .user-avata img {
+	width: 48px;
+}
+
 .page-body form .i-btn i {
 	color: #FFF;
 	margin-right: 2px;
