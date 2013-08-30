@@ -1,3 +1,6 @@
+var settings = require('../../settings');
+var rcodes = settings.RCODES;
+
 /**
  * 让日期和时间按照指定的格式显示的方法
  * @method date
@@ -38,4 +41,13 @@ function dateFormat(date, formatString) {
 	return formatString;
 }
 
+function jsonReturn(res, rtype, r, err) {
+	res.json({
+		rcode: rcodes[rtype],
+		result: r || null,
+		errinfo: err || null
+	});
+}
+
 exports.dateFormat = dateFormat;
+exports.jsonReturn = jsonReturn;

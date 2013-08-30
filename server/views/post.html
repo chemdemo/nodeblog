@@ -6,22 +6,29 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include './sitebar.html' %}
+	{% include 'server/views/sitebar.html' %}
 
 	<div class="page-content">
 		<section class="post shadow-box">
 			<h1 class="post-title">
-				<b class="post-top">【置顶】</b>
+				{% if topped %}
+				<b class="topped">【置顶】</b>
+				{% endif %}
 				<a href="/post/{{ _id }}">{{ title }}</a>
 			</h1>
 			<div class="edit-info">
 				<a href="/edit/{{ _id }}" class="icon-pencil post-edit" title="编辑"></a>
+				Last post at 
 				<span class="post-date">
 					<i class="icon-alarm" title="最后编辑时间"></i>
-					<span href="" class="">{{ update_at }}</span>
+					<span class="update-date">{{ update_date }}</span>
 				</span>
-				<span class="post-gap">/</span>
-				by <strong>{{ author.name }}</strong>
+				<span class="post-gap">/</span>by 
+				{% if author.site %}
+				<a href="{{ author.site }}" target="_blank">{{ author.name }}</a>
+				{% else %}
+				{{ author.name }}
+				{% endif %}
 			</div>
 			<div class="post-body md" id="post-body">{{ content }}</div>
 			<div class="prev-next">
@@ -30,7 +37,8 @@
 			</div>
 		</section>
 
-		<section class="post-comments">
+		<section class="post-comments" id="post-comments">
+			<a href="#comments" class="none"></a>
 			<h3>文章评论</h3>
 			<ul class="comment-list">
 				<li class="comment">
@@ -141,7 +149,7 @@
 				</li>
 			</ul>
 			<form class="add-comment">
-				<h4><i class="icon-plus"></i> 添加评论</h4>
+				<h4><i class="icon-bubbles"></i> 添加评论</h4>
 				<p>
 					<input class="input" name="name" id="name" placeholder="Input your name" />
 					<label for="name">名称<b class="required">（*）</b></label>

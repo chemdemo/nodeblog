@@ -17,7 +17,8 @@ function home(req, res, next) {
 		res.render('list', {
 			posts: posts,
 			tags: tags,
-			counts: counts
+			counts: counts,
+			home: true
 		});
 	}).fail(next);
 
@@ -44,17 +45,17 @@ function routes(app) {
 	app.get('/', home);
 	app.get('/index', home);
 	app.get('/home', home);
-
+	
 	app.get('/signup', sign.signup);
 	app.post('/signup', sign.signup);
-
+	
 	app.get('/login', sign.login);
 	app.post('/login', sign.login);
-
+	
 	app.get('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.edit);
 	app.post('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.save);
 	app.delete('/post/:postid', sign.loginCheck, sign.adminCheck, post.remove);
-
+	
 	app.get('/post/:postid', post.show);
 }
 

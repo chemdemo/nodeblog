@@ -97,4 +97,4 @@ print 123
 
 示例：
 
-![markdown](style/images/markdown.jpg)
+![markdown](/style/images/markdown.jpg)

@@ -1,5 +1,4 @@
 var settings = require('../../settings');
-var rcodes = settings.RCODES;
 var itemLimit = settings.ITEM_PER_PAGE;
 var models = require('../models');
 var Post = models.Post;
@@ -27,24 +26,40 @@ function getRandomCover() {
 	return '/web/covers/c0.jpg';
 }
 
+function findAPost(postid, fields, callback) {
+	findById(postid, fields, function(err, doc) {
+		if(err) return callback(err);
+
+		var proxy = EventProxy.create('author_find', 'last_commentator_find', function(author, commentator) {
+			doc.author = author;
+			doc.lastCommentator = commentator;
+			doc.update_date = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss')
+			callback(null, doc);
+		}).fail(callback);
+
+		if(_.contains(fields, 'author_id')) {
+			var aid = doc.author_id;
+			user_ctrl.findById(aid, function(_err, _doc) {
+				if(_err) return proxy.emit('error', _err);
+				proxy.emit('author_find', _doc);
+			});
+		} else {
+			proxy.emit('author_find', null);
+		}
+		
+		if(_.contains(fields, 'last_comment_by') && doc.last_comment_by) {
+			var aid = doc.author_id;
+			user_ctrl.findById(aid, function(_err, _doc) {
+				if(_err) return proxy.emit('error', _err);
+				proxy.emit('last_commentator_find', _doc);
+			});
+		} else {
+			proxy.emit('last_commentator_find', null);
+		}
+	});
+}
+
 function fetchPosts(postids, fields, callback) {
-	function findAPost(id, fields, callback) {
-		Post.findById(id, fields, function(err, doc) {
-			if(err) return callback(err);
-
-			if(_.contains(fields, 'author_id')) {
-				var aid = doc.author_id;
-				user_ctrl.findById(aid, function(_err, _doc) {
-					if(_err) return callback(_err);
-					doc.author = _doc;
-					callback(null, doc);
-				});
-			} else {
-				callback(null, doc);
-			}
-		});
-	}
-
 	async.map(postids, function(postid, _callback) {
 		findAPost(postid, fields, _callback);
 	}, callback);
@@ -65,7 +80,7 @@ function fetchByPage(start, offset, callback) {
 			async.map(doc, function(item, cb) {
 				var proxy = EventProxy.create('got_author', 'build', function(author, summary) {
 					item.author = author;
-					item.summary = summary.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+					item.summary = summary;
 					item.update_date = utils.dateFormat(item.update_at, 'YYYY-MM-DD hh:mm:ss');
 					cb(null, item);
 				}).fail(cb);
@@ -144,12 +159,12 @@ exports.edit = function(req, res, next) {// get
 	
 	if(postid) {
 		var fields = '_id title content summary tags topped';
-		Post.findById(postid, fields, function(err, doc) {
+		findById(postid, fields, function(err, doc) {
 			if(!err && doc) {
 				res.render('edit', doc);
 			} else {
 				console.log('Find post error, err: ', err);
-				next();
+				next(err);
 			}
 		});
 	} else {
@@ -160,10 +175,9 @@ exports.edit = function(req, res, next) {// get
 exports.save = function(req, res, next) {
 	var user = req.session.user;
 	var postid = req.params.postid;
+	var fields = ['_id', 'title', 'content', 'cover', 'summary', 'tags', 'topped'];
 
 	function _extend(doc, data) {
-		var fields = ['title', 'content', 'cover', 'summary', 'tags', 'topped'];
-
 		if(data.tags) data.tags = _.uniq(data.tags);
 
 		_(fields).each(function(field) {
@@ -181,12 +195,11 @@ exports.save = function(req, res, next) {
 
 	if(postid) {// update
 		var data = JSON.parse(req.body.data || null);
-		var fields = '_id tags';
-
+		
 		if(!data) return next();
 
-		Post.findById(postid, fields, function(err, doc) {
-			if(err || !doc) return next();
+		Post.findById(postid, fields.join(' '), function(err, doc) {
+			if(err || !doc) return next(err);
 
 			var dataTags = _.uniq(data.tags || []);
 			var docTags = doc.tags || [];
@@ -198,12 +211,14 @@ exports.save = function(req, res, next) {
 				//delete doc._id;
 				doc.save(function(err, doc) {
 					console.log('Update post error, err', err);
-					if(err || !doc) return next(err);
-					res.redirect('/post/' + doc._id);
+					if(err || !doc) return jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
+					//res.redirect('/post/' + doc._id);
+					jsonReturn(res, 'SUCCESS', doc);
 				});
 			}).fail(function(err) {
 				console.log('Set tags error, err', err);
-				next(err);
+				//next(err);
+				jsonReturn(res, 'DB_ERROR', null, 'Set tags error.');
 			});
 
 			if(arrDel.length) {
@@ -235,10 +250,7 @@ exports.save = function(req, res, next) {
 		
 		if(!data.title || !data.content) {
 			console.log('Both title and content were required.');
-			return res.json({
-				rcode: rcodes['PARAM_MISSING'],
-				errinfo: 'Both title and content were required.'
-			});
+			return jsonReturn(res, 'PARAM_MISSING', null, 'Both title and content were required.');
 		}
 
 		var post = new Post();
@@ -247,17 +259,25 @@ exports.save = function(req, res, next) {
 		post.author_id = user._id;
 
 		post.save(function(err, doc) {
-			if(err || !doc) {
+			if(err) {
 				console.log('Create post error, err: ', err);
-				return next(err);
+				//return next(err);
+				return jsonReturn(res, 'DB_ERROR', null, 'Create post error.');
 			}
-			res.redirect('/post/' + doc._id);
 
 			if(doc.tags && doc.tags.length) {
 				tag_ctrl.addTags4Post(doc.tags, doc._id, function(err, r) {
 					if(err) console.log('Add tags for post error, err: ', err);
 				});
 			}
+
+			// res.redirect will not work if the method is post by ajax
+			//return res.redirect(302, '/post/' + doc._id);
+			/*var data = JSON.stringify('/post/' + doc._id);
+			res.contentType('application/json');
+			res.header('Content-Length', data.length);
+			res.end(data);*/
+			jsonReturn(res, 'SUCCESS', doc._id);
 		});
 	}
 }
@@ -297,8 +317,28 @@ exports.show = function(req, res, next) {
 
 	var fields = '_id title content update_at author_id tags comments visite topped last_comment_at last_comment_by';
 	
-	Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(err, doc) {
-		if(err) return handleError(err);
+	//findAPost
+	var proxy = EventProxy.create('post_find', 'counts_monthy'/*, 'find_prev', 'find_next'*/, function(post, counts) {
+		;
+	}).fail(next);
+
+	findAPost(postid, fields, function(err, doc) {
+		if(err) return proxy.emit('error', err);
+		doc.visite ++;
+		doc.save(function(_err) {if(_err) console.log('Add visite error.');});
+		proxy.emit('post_find', doc);
+		/*Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(_err, _doc) {
+			if(_err) console.log('Add visite error.');
+		});*/
+	});
+
+	countMonthy(function(err, doc) {
+		if(err) return proxy.emit('error', err);
+		proxy.emit('post_find', doc);
+	});
+
+	/*Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(err, doc) {
+		if(err) return next(err);
 		//return res.render('post', doc);
 		marked(doc.content, {
 			highlight: function (code, lang) {
@@ -317,26 +357,19 @@ exports.show = function(req, res, next) {
 			} else {
 				console.log('Build html error, err: ', err);
 			}
-			doc.update_at = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
+			//doc.update_at = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
+			doc.update_date = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
 			res.render('post', doc);
 		});
-	});
+	});*/
 }
 
 exports.showByPage = function(req, res, next) {
 	// page从0开始
 	var page = (req.query.page-0) || 0;
 	fetchByPage(page*itemLimit, itemLimit, function(err, r) {
-		if(err) {
-			return res.json({
-				rcode: rcodes['DB_ERROR'],
-				errinfo: err
-			});
-		}
-		res.json({
-			rcode: rcodes['SUCCESS'],
-			result: r
-		});
+		if(err) return jsonReturn(res, 'DB_ERROR', '', err);
+		jsonReturn(res, 'SUCCESS', r);
 	});
 }
 

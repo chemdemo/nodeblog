@@ -89,7 +89,10 @@ define(function(require, exports, module) {
 		function savePost(e) {
 			var pid = $(this).attr('data-pid');
 			var url = '/edit' + (pid ? '/' + pid : '');
-			$.post(url, {data: JSON.stringify(getData())}, function(r) {
+			return $.post(url, {data: JSON.stringify(getData())}, function(r) {
+				if(r.rcode === 0) {
+					return window.location = '/post/' + r.result;
+				}
 				console.log(r);
 			});
 		}

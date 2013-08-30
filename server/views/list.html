@@ -6,27 +6,27 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include './sitebar.html' %}
+	{% include 'server/views/sitebar.html' %}
 
 	<div class="page-content">
 		{% for post in posts %}
 		<section class="post shadow-box">
 			<h3 class="post-title">
 				{% if topped %}
-				<b class="topped">[置顶]</b>
+				<b class="topped">【置顶】</b>
 				{% endif %}
 				<a href="/post/{{ post._id }}">{{ post.title }}</a>
 			</h3>
 			<div class="edit-info">
 				<span class="post-date">
 					<i class="icon-calendar" title="最后编辑时间"></i>
-					<span class="update-time">{{ post.update_date }}</span>
+					<span class="update-date">{{ post.update_date }}</span>
 				</span>
 				<span class="post-gap">/</span>
 				by <strong>{{ post.author.name }}</strong>
 			</div>
 			<!-- <div class="post-cover"><img src="covers/c0.jpg" /></div> -->
-			<div class="post-summary">{{ post.summary }}</div>
+			<div class="post-summary md">{{ post.summary }}</div>
 			<div class="post-more">
 				<a href="/post/{{ post._id }}">阅读更多&nbsp;<i class="icon-arrow-right"></i></a>
 			</div>
@@ -46,7 +46,7 @@
 					<a href="/edit/{{ post._id }}" class="icon-pencil" title="编辑"></a>
 				</span>
 				<span class="post-comments">
-					<a href="/post/{{ post._id }}#comment" class="icon-bubbles" title="评论"></a>
+					<a href="/post/{{ post._id }}#comments" class="icon-bubbles" title="评论"></a>
 					<span class="comments-num">{{ post.comments }}</span>
 				</span>
 				<span class="post-visited">
