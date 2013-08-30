@@ -11,26 +11,26 @@
 	<div class="page-content">
 		<section class="post shadow-box">
 			<h1 class="post-title">
-				{% if topped %}
+				{% if post.topped %}
 				<b class="topped">【置顶】</b>
 				{% endif %}
 				<a href="/post/{{ _id }}">{{ title }}</a>
 			</h1>
 			<div class="edit-info">
 				<a href="/edit/{{ _id }}" class="icon-pencil post-edit" title="编辑"></a>
-				Last post at 
+				Last edit at 
 				<span class="post-date">
 					<i class="icon-alarm" title="最后编辑时间"></i>
-					<span class="update-date">{{ update_date }}</span>
+					<span class="update-date">{{ post.update_date }}</span>
 				</span>
 				<span class="post-gap">/</span>by 
-				{% if author.site %}
-				<a href="{{ author.site }}" target="_blank">{{ author.name }}</a>
+				{% if post.author.site %}
+				<a href="{{ author.site }}" target="_blank">{{ post.author.name }}</a>
 				{% else %}
-				{{ author.name }}
+				{{ post.author.name }}
 				{% endif %}
 			</div>
-			<div class="post-body md" id="post-body">{{ content }}</div>
+			<div class="post-body md" id="post-body">{{ post.content }}</div>
 			<div class="prev-next">
 				<p>上一篇：<a href="#">白天不懂夜的黑</a></p>
 				<p>下一篇：<a href="#">你是风儿我是沙，缠缠绵绵</a></p>

@@ -318,15 +318,36 @@ exports.show = function(req, res, next) {
 	var fields = '_id title content update_at author_id tags comments visite topped last_comment_at last_comment_by';
 	
 	//findAPost
-	var proxy = EventProxy.create('post_find', 'counts_monthy'/*, 'find_prev', 'find_next'*/, function(post, counts) {
-		;
+	var proxy = EventProxy.create('post_find', 'counts_monthy'/*, 'find_prev', 'find_next'*/, function(post, counts/*, prev, next*/) {
+		res.render('post', {post: post, counts: counts});
 	}).fail(next);
 
 	findAPost(postid, fields, function(err, doc) {
 		if(err) return proxy.emit('error', err);
 		doc.visite ++;
 		doc.save(function(_err) {if(_err) console.log('Add visite error.');});
-		proxy.emit('post_find', doc);
+		marked(doc.content, {
+			highlight: function (code, lang) {
+				if(lang) {
+					return hljs.highlight(lang, code).value;
+				}
+				return hljs.highlightAuto(code).value;
+			},
+			breaks: true,
+			pedantic: true,
+			sanitize: true,
+			smartypants: true
+		}, function(err, content) {
+			if(!err) {
+				doc.content = content;
+			} else {
+				console.log('Build html error, err: ', err);
+			}
+			//doc.update_at = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
+			doc.update_date = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
+			proxy.emit('post_find', doc);
+		});
+		//proxy.emit('post_find', doc);
 		/*Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(_err, _doc) {
 			if(_err) console.log('Add visite error.');
 		});*/
