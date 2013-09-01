@@ -4,7 +4,9 @@
 'use strict';
 
 define(function(require, exports, module) {
-	var util = require('util');
+	var utils = require('utils');
+	var ace = require('libs/ace/ace');
+	var marked = require('libs/marked/marked');
 	var ace = require('libs/ace/ace');
 	var marked = require('libs/marked/marked');
 	var hljs = require('libs/highlight.js/highlight.pack');
@@ -37,7 +39,6 @@ define(function(require, exports, module) {
 			if(err) {
 				return console.log('Marked file error: ', err);
 			}
-
 			//$(window.frames['preview'].document).find('body').html(content);
 			$('#preview-box').html(content);
 		});
@@ -50,7 +51,7 @@ define(function(require, exports, module) {
 		//r.cover = '';
 		r.summary = $('#post-summary').val();
 		r.tags = $('#post-tags').val().split(/[^\w+]/);
-		r.topped = $('#set-topped').attr('checked') ? 1 : 0;
+		r.topped = $('#set-topped').prop('checked') - 0;
 		return r;
 	};
 

@@ -4,11 +4,11 @@ var ObjectId = Schema.ObjectId;
 
 var CommentSchema = new Schema({
 	post_id: ObjectId,
-	//parent_id: ObjectId,
 	author_id: ObjectId,
+	reply_id: ObjectId,
+	reply_user_id: ObjectId,
 	content: String,
-	//replies: [],
-	create: {type: Date, default: Date.now, index: true}
+	create_at: {type: Date, default: Date.now, index: true}
 }, {collection: 'comment'});
 
 mongoose.model('Comment', CommentSchema);

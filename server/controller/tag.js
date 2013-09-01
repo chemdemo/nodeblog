@@ -1,10 +1,10 @@
 var settings = require('../../settings');
-var rcodes = settings.RCODES;
 
 var models = require('../models');
 var Tag = models.Tag;
 var post_ctrl = require('./post');
 
+var tools = require('../utils/tools');
 var async = require('async');
 
 /*function findById(id, callback) {
@@ -86,7 +86,7 @@ function removePost4Tags(tags, postid, callback) {
 }
 
 function findAllTags(callback) {
-	Tag.find().sort('name').exec(function(err, doc) {
+	Tag.find(null, 'name').exec(function(err, doc) {
 		if(err) {
 			console.log('Find tags error, error: ', err);
 			return callback(err);

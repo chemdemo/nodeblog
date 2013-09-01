@@ -22,8 +22,8 @@
 		<ul class="archive-list">
 			{% for count in counts %}
 			<li>
-				<a href="/count/{{ count._id }}">{{ count._id }}</a>
-				(<b>{{ count.value.length }}</b>)
+				<a href="/count/{{ count._id }}">{{ count._id|date('Y年m月') }}</a>
+				(<b>{{ count.value|split('$')|length|default(0) }}</b>)
 			</li>
 			{% endfor %}
 		</ul>

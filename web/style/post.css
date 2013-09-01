@@ -34,6 +34,11 @@
 	border-top: 1px solid #DDD;
 	margin-top: .5em;
 }
+.no-comment {
+	text-align: center;
+	color: #555;
+	line-height: 5em;
+}
 .reply-list {
 	margin-top: .5em;
 	/*border-left: 1px dashed #DDD;*/
@@ -78,6 +83,9 @@
 .comment-btns a, .comment-btns i {
 	color: #222;
 }
+#tips {
+	display: none;
+}
 
 /* add comment */
 .add-comment {
@@ -107,7 +115,7 @@
 .add-comment textarea {
 	resize: none;
 	line-height: 1.5em;
-	width: 60%;
+	width: 98%;
 }
 .add-comment-btns i {
 	margin-right: 3px;

@@ -6,25 +6,24 @@ exports.signup = function(req, res, next) {
 	if(req.session.user) return res.redirect('/login');
 
 	if(req.method === 'POST') {
-		var admin = settings.ADMIN;
+		//var admin = settings.ADMIN;
 		var info = {
 			name: req.body.name,
 			email: req.body.email,
-			pass: settings.DEFAULT_PASS,
+			pass: req.body.pass || settings.DEFAULT_USER_PASS,
 			site: req.body.site
 		};
-		var infoTmp = info;
 
 		info = user_ctrl.infoCheck(info);
-		if(info.error) return res.render('signup', {error: info.error});
+		if(info.error) return res.render('signup', info);
 
-		if(info.email === admin.EMAIL) {
+		/*if(info.email === admin.EMAIL) {
 			info.name = admin.NAME;
 			info.pass = admin.PASS;
 			info.site = admin.SITE;
-		}
+		}*/
 
-		user_ctrl.findOne({email: info.email}, function(err, doc) {
+		user_ctrl.findOne({name: info.name, email: info.email}, function(err, doc) {
 			if(err) return next(err);
 
 			if(!doc) {// add a user
@@ -35,8 +34,8 @@ exports.signup = function(req, res, next) {
 					res.render('info', doc);
 				});
 			} else {
-				infoTmp.error = 'This email has already been registered.';
-				res.render('signup', infoTmp);
+				info.error = 'This name or email has already been registered.';
+				res.render('signup', info);
 			}
 		});
 	} else {
@@ -68,7 +67,6 @@ exports.login = function(req, res, next) {
 				res.render('login', {email: info.email, error: 'This email is not registered.'});
 			} else {
 				if(user_ctrl.md5(info.pass) === doc.pass) {
-					//doc.isAdmin = user_ctrl.adminCheck(doc);
 					req.session.user = doc;
 					res.render('info', doc);
 				} else {
@@ -84,6 +82,10 @@ exports.login = function(req, res, next) {
 	}
 }
 
+exports.info = function(req, res, next) {
+	res.render('info', req.session.user || {});
+}
+
 exports.loginCheck = function(req, res, next) {
 	if(!req.session.user) {
 		return res.redirect('/login');
@@ -92,9 +94,12 @@ exports.loginCheck = function(req, res, next) {
 }
 
 exports.adminCheck = function(req, res, next) {
-	if(!user_ctrl.adminCheck(req.session.user)) {
-		return next(403);
+	if(!req.session.user.admin) {
+		return next('Forbidden.');
 	}
+	/*if(!user_ctrl.adminCheck(req.session.user)) {
+		return next(403);
+	}*/
 	next();
 }
 

@@ -1,0 +1,57 @@
+{% for comment in comments %}
+<li class="comment">
+	<img class="avatar" src="{{ comment.author.avatar }}" alt="{{ comment.author.name }}" />
+	<div class="comment-body">
+		<h2>{{ comment.author.name }}
+			<span class="comment-date">{{ comment.create_at|date('Y 年 m 月 d 日') }}</span>
+		</h2>
+		<div class="comment-content">{{ comment.content }}</div>
+		<div class="comment-btns">
+			{% if (user && (user._id === comment.author_id || user.admin)) %}
+			<a href="#" class="comment-del" title="删除">
+				<i class="icon-trashcan"></i>
+				删除
+			</a>
+			{% endif %}
+			<a href="#" class="comment-reply" title="回复">
+				<i class="icon-undo-2"></i>
+				回复
+			</a>
+		</div>
+		{% set replies = comment.replies || [] %}
+		{% if replies.length %}
+		<ul class="reply-list">
+			{% for reply in replies %}
+			<li class="comment">
+				<img class="avatar" src="{{ reply.author.avatar }}" alt="{{ reply.author.name }}" />
+				<div class="comment-body">
+					<h2>{{ reply.author.name }}
+						<span class="comment-date">
+							{{ reply.create_at|date('Y 年 m 月 d 日') }}
+						</span>
+					</h2>
+					<div class="comment-content">
+					{% if reply. %}
+
+					{% endif }
+					</div>
+					<div class="comment-btns">
+						{% if (user && (user._id === comment.author_id || user.admin)) %}
+						<a href="#" class="comment-del" title="删除">
+							<i class="icon-trashcan"></i>
+							删除
+						</a>
+						{% endif %}
+						<a href="#" class="comment-reply" title="回复">
+							<i class="icon-undo-2"></i>
+							回复
+						</a>
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	</div>
+</li>
+{% endfor %}

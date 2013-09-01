@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	<form class="user-info">
+	<form class="user-info" method="POST">
 		<p class="user-avatar">
 			<img src="{{ avatar }}" alt="avatar" />
 		</p>
@@ -26,10 +26,10 @@
 			<label for="site">网站：</label>
 			<input class="input" id="site" name="site" value="{{ site }}" />
 		</p>
-		<p>
+		<!-- <p>
 			<button disabled type="submit" class="i-btn i-btn-red">修改</button>
 			<a href="/" class="i-btn">回主页</a>
-		</p>
+		</p> -->
 	</form>
 </div>
 {% endblock %}

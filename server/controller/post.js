@@ -1,13 +1,13 @@
 var settings = require('../../settings');
 var itemLimit = settings.ITEM_PER_PAGE;
+
 var models = require('../models');
 var Post = models.Post;
-
 var user_ctrl = require('./user');
 var tag_ctrl = require('./tag');
 var comment_ctrl = require('./comment');
 
-var utils = require('./utils');
+var tools = require('../utils/tools');
 var async = require('async');
 var EventProxy = require('eventproxy');
 var _ = require('underscore');
@@ -28,18 +28,17 @@ function getRandomCover() {
 
 function findAPost(postid, fields, callback) {
 	findById(postid, fields, function(err, doc) {
-		if(err) return callback(err);
+		if(err || !doc) return callback(err);
 
 		var proxy = EventProxy.create('author_find', 'last_commentator_find', function(author, commentator) {
 			doc.author = author;
 			doc.lastCommentator = commentator;
-			doc.update_date = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss')
+			//doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss')
 			callback(null, doc);
 		}).fail(callback);
 
-		if(_.contains(fields, 'author_id')) {
-			var aid = doc.author_id;
-			user_ctrl.findById(aid, function(_err, _doc) {
+		if(fields.indexOf('author_id') > -1) {
+			user_ctrl.findById(doc.author_id, function(_err, _doc) {
 				if(_err) return proxy.emit('error', _err);
 				proxy.emit('author_find', _doc);
 			});
@@ -47,9 +46,8 @@ function findAPost(postid, fields, callback) {
 			proxy.emit('author_find', null);
 		}
 		
-		if(_.contains(fields, 'last_comment_by') && doc.last_comment_by) {
-			var aid = doc.author_id;
-			user_ctrl.findById(aid, function(_err, _doc) {
+		if(fields.indexOf('last_comment_by') > -1 && doc.last_comment_by) {
+			user_ctrl.findById(doc.last_comment_by, function(_err, _doc) {
 				if(_err) return proxy.emit('error', _err);
 				proxy.emit('last_commentator_find', _doc);
 			});
@@ -78,10 +76,10 @@ function fetchByPage(start, offset, callback) {
 			}
 
 			async.map(doc, function(item, cb) {
-				var proxy = EventProxy.create('got_author', 'build', function(author, summary) {
+				/*var proxy = EventProxy.create('got_author', 'build', function(author, summary) {
 					item.author = author;
 					item.summary = summary;
-					item.update_date = utils.dateFormat(item.update_at, 'YYYY-MM-DD hh:mm:ss');
+					item.update_date = tools.dateFormat(item.update_at, 'YYYY-MM-DD');
 					cb(null, item);
 				}).fail(cb);
 
@@ -91,8 +89,9 @@ function fetchByPage(start, offset, callback) {
 						return proxy.emit('error', _err);
 					}
 					proxy.emit('got_author', _doc);
-				});
+				});*/
 
+				//item.update_date = tools.dateFormat(item.update_at, 'YYYY-MM-DD hh:mm');
 				marked(item.summary, {
 					highlight: function (code, lang) {
 						if(lang) {
@@ -105,28 +104,45 @@ function fetchByPage(start, offset, callback) {
 					sanitize: true,
 					smartypants: true
 				}, function(_err, content) {
-					if(_err) {
+					/*if(_err) {
 						console.log('Build summary error: ', _err);
-						//return proxy.emit('error', err);
 						return proxy.emit('build', item.summary);
 					}
-					proxy.emit('build', content);
+					proxy.emit('build', content);*/
+					if(!_err) {
+						item.summary = content;
+					} else {
+						console.log('Build summary error: ', _err);
+					}
+					cb(null, item);
 				});
 			}, callback);
 		});
 }
 
-// post按月归档统计
+// post按月归档统计，在post有增加或者删除的时候调用
 // see --> http://mongoosejs.com/docs/api.html#model_Model.mapReduce
 function countMonthy(callback) {
 	var mapFn = function() {
 		var create = this.create_at;
-		var month = new Date(create.getFullYear(), create.getMonth()).getTime();
-		emit(month, [this._id]);
+		var year = create.getFullYear();
+		var month = create.getMonth()+1;
+		month = ('0' + month).slice(-2);
+		var key = new Date(create.getFullYear(), create.getMonth()+1).getTime();
+		//var key = year + '年' + month + '月';
+		//emit(key, {postid: [this._id]});
+		emit(key, this._id.toString());
 	};
 
 	var reduceFn = function(key, values) {//{'20130500': ['xxx', 'xxxx']}
-		return _.flatten(values);
+		//return _.flatten(values);
+		//var r = {postids: []};
+		var r = [];
+		values.forEach(function(v, i) {
+			//r.postids.push(v.postid[0]);
+			r.push(v);
+		});
+		return r.join('$');
 	};
 
 	var finalizeFn = function() {};
@@ -136,21 +152,44 @@ function countMonthy(callback) {
 		reduce: reduceFn,
 		out: {replace: 'count_monthy'},
 		query: {create_at: {$gt: new Date('01/01/2013')}},
+		//jsMode: true,
 		keeptemp: true,
 		//finalize: finalizeFn,
-		verbose: true
+		verbose: true//,
+		//scope: {_: _, console: console}
 	}, function(err, model, stats) {
-		console.log('MapReduce took %d ms', stats.processtime);
+		console.log('MapReduce took %d ms.', stats.processtime);
 		if(err) {
 			console.log('Count posts error, err: ', err);
-			return callback(err);
+			return callback && callback(err);
 		}
+		callback && callback(null);
 
-		model.find().exec(function(err, doc) {
+		/*model.find().exec(function(err, doc) {
 			callback(err, doc);
-			if(err) console.log('Find result of mapReduce error: ', err, doc);
-		});
+			if(err || !doc) console.log('Find result of mapReduce error: ', err, doc);
+		});*/
 	});
+}
+
+// 查找post统计结果
+function findCounts(callback) {
+	try {
+		var mongo = require('mongodb');
+		var server = mongo.Server(settings.DB_HOST, settings.DB_PORT, {auto_reconnect: true});
+		var db = new mongo.Db(settings.DB_NAME, server, {safe: false});
+
+		db.open(function(err, dbConn) {
+			if(err) return callback(err);
+			dbConn.collection('count_monthy', function(err, conn) {
+				if(err) return callback(err);
+				conn.find().toArray(callback);
+			});
+		});
+	} catch(e) {
+		console.log('Mongodb connect error.', e);
+		return callback(e);
+	}
 }
 
 exports.edit = function(req, res, next) {// get
@@ -178,7 +217,7 @@ exports.save = function(req, res, next) {
 	var fields = ['_id', 'title', 'content', 'cover', 'summary', 'tags', 'topped'];
 
 	function _extend(doc, data) {
-		if(data.tags) data.tags = _.uniq(data.tags);
+		if(data.tags) data.tags = _.without(_.uniq(data.tags), '');
 
 		_(fields).each(function(field) {
 			if(data[field]) {
@@ -203,22 +242,24 @@ exports.save = function(req, res, next) {
 
 			var dataTags = _.uniq(data.tags || []);
 			var docTags = doc.tags || [];
-			var arrAdd = _.difference(dataTags, docTags);
-			var arrDel = _.difference(docTags, dataTags);
+			var arrAdd = _.without(_.difference(dataTags, docTags), '');
+			var arrDel = _.without(_.difference(docTags, dataTags), '');
+
+			console.log('arrAdd: ', arrAdd);
+			console.log('arrDel: ', arrDel);
 
 			var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
 				doc = _extend(doc, data);
 				//delete doc._id;
 				doc.save(function(err, doc) {
-					console.log('Update post error, err', err);
-					if(err || !doc) return jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
+					if(err || !doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
 					//res.redirect('/post/' + doc._id);
-					jsonReturn(res, 'SUCCESS', doc);
+					tools.jsonReturn(res, 'SUCCESS', doc._id);
 				});
 			}).fail(function(err) {
 				console.log('Set tags error, err', err);
 				//next(err);
-				jsonReturn(res, 'DB_ERROR', null, 'Set tags error.');
+				tools.jsonReturn(res, 'DB_ERROR', null, 'Set tags error.');
 			});
 
 			if(arrDel.length) {
@@ -250,8 +291,10 @@ exports.save = function(req, res, next) {
 		
 		if(!data.title || !data.content) {
 			console.log('Both title and content were required.');
-			return jsonReturn(res, 'PARAM_MISSING', null, 'Both title and content were required.');
+			return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Both title and content were required.');
 		}
+
+		if(data.tags) data.tags = _.without(data.tags, '');
 
 		var post = new Post();
 		post = _extend(post, data);
@@ -262,7 +305,7 @@ exports.save = function(req, res, next) {
 			if(err) {
 				console.log('Create post error, err: ', err);
 				//return next(err);
-				return jsonReturn(res, 'DB_ERROR', null, 'Create post error.');
+				return tools.jsonReturn(res, 'DB_ERROR', null, 'Create post error.');
 			}
 
 			if(doc.tags && doc.tags.length) {
@@ -277,7 +320,8 @@ exports.save = function(req, res, next) {
 			res.contentType('application/json');
 			res.header('Content-Length', data.length);
 			res.end(data);*/
-			jsonReturn(res, 'SUCCESS', doc._id);
+			tools.jsonReturn(res, 'SUCCESS', doc._id);
+			countMonthy(function(err) {if(err) console.log('Count posts error.', err);});
 		});
 	}
 }
@@ -288,6 +332,13 @@ exports.remove = function(req, res, next) {
 	var fields = '_id tags comments';
 
 	if(!postid) return next();
+
+	var _remove = function(doc) {
+		doc.remove(function(err) {
+			if(err) return console.log('Remove post error.', err);
+			countMonthy(function(err) {'Count posts error.', err});
+		});
+	};
 
 	Post.findOne({_id: postid, author_id: user._id}, fields, function(err, doc) {
 		//Post.findByIdAndRemove
@@ -311,21 +362,26 @@ exports.remove = function(req, res, next) {
 }
 
 exports.show = function(req, res, next) {
+	var user = req.session.user;
 	var postid = req.params.postid;
 
 	if(!postid) return next();
 
-	var fields = '_id title content update_at author_id tags comments visite topped last_comment_at last_comment_by';
+	var fields = 'title content update_at author_id tags comments visite topped last_comment_at last_comment_by';
 	
 	//findAPost
-	var proxy = EventProxy.create('post_find', 'counts_monthy'/*, 'find_prev', 'find_next'*/, function(post, counts/*, prev, next*/) {
-		res.render('post', {post: post, counts: counts});
+	var proxy = EventProxy.create('post', 'tags', 'counts'/*, 'prev', 'next'*/, function(post, tags, counts/*, prev, next*/) {
+		res.render('post', {
+			post: post
+			, tags: tags
+			, counts: counts
+			, user: user || {}
+		});
 	}).fail(next);
 
 	findAPost(postid, fields, function(err, doc) {
-		if(err) return proxy.emit('error', err);
-		doc.visite ++;
-		doc.save(function(_err) {if(_err) console.log('Add visite error.');});
+		if(err || !doc) return proxy.emit('error', err);
+		//doc.save(function(_err) {if(_err) console.log('Add visite error.');});
 		marked(doc.content, {
 			highlight: function (code, lang) {
 				if(lang) {
@@ -343,19 +399,25 @@ exports.show = function(req, res, next) {
 			} else {
 				console.log('Build html error, err: ', err);
 			}
-			//doc.update_at = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
-			doc.update_date = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
-			proxy.emit('post_find', doc);
+			//doc.update_at = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
+			//doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD');
+			doc.visite ++;
+			proxy.emit('post', doc);
 		});
-		//proxy.emit('post_find', doc);
-		/*Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(_err, _doc) {
-			if(_err) console.log('Add visite error.');
-		});*/
+
+		Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(_err, _doc) {
+			if(_err) console.log('Add visite error.', _err);
+		});
 	});
 
-	countMonthy(function(err, doc) {
+	tag_ctrl.findAllTags(function(err, doc) {
 		if(err) return proxy.emit('error', err);
-		proxy.emit('post_find', doc);
+		proxy.emit('tags', doc);
+	});
+	
+	findCounts(function(err, doc) {
+		if(err) return proxy.emit('error', err);
+		proxy.emit('counts', doc);
 	});
 
 	/*Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(err, doc) {
@@ -378,8 +440,8 @@ exports.show = function(req, res, next) {
 			} else {
 				console.log('Build html error, err: ', err);
 			}
-			//doc.update_at = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
-			doc.update_date = utils.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
+			//doc.update_at = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
+			doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
 			res.render('post', doc);
 		});
 	});*/
@@ -389,8 +451,8 @@ exports.showByPage = function(req, res, next) {
 	// page从0开始
 	var page = (req.query.page-0) || 0;
 	fetchByPage(page*itemLimit, itemLimit, function(err, r) {
-		if(err) return jsonReturn(res, 'DB_ERROR', '', err);
-		jsonReturn(res, 'SUCCESS', r);
+		if(err) return tools.jsonReturn(res, 'DB_ERROR', '', err);
+		tools.jsonReturn(res, 'SUCCESS', r);
 	});
 }
 
@@ -399,3 +461,4 @@ exports.findByIdAndUpdate = findByIdAndUpdate;
 exports.fetchPosts = fetchPosts;
 exports.fetchByPage = fetchByPage;
 exports.countMonthy = countMonthy;
+exports.findCounts = findCounts;

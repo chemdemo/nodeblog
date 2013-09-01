@@ -7,6 +7,7 @@ var UserSchema = new Schema({
 	pass: String,
 	avatar: String,
 	site: String,
+	admin: {type: Boolean, default: false},
 	create_at: {type: Date, default: Date.now, index: true},
 	modify_at: {type: Date, default: Date.now}
 }, {collection: 'user'});

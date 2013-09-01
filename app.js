@@ -9,6 +9,7 @@ var express = require('express')
     //, flash = require('connect-flash')
     //, ejs = require('ejs')
     , swig = require('swig')
+    , filters = require('./server/utils/filters')
     , cons = require('consolidate')
     , connectDomain = require('connect-domain')
     , MongoStore = require('connect-mongo')(express)
@@ -21,28 +22,40 @@ var express = require('express')
 
 var app = express();
 
+var swigOptions = {
+    autoescape: false
+    , encoding: 'utf8'
+    , root: __dirname + '/server/views'
+    , tzOffset: 0
+    , filters: filters
+};
+
+app.configure('development', function() {
+    app.use(express.static(staticDir));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    //app.set('view cache', false);
+    swigOptions.cache = false;
+    swig.setDefaults(swigOptions);
+});
+
+app.configure('production', function() {
+    app.use(express.static(staticDir, {maxAge: maxAge}));
+    app.use(express.errorHandler());
+    swigOptions.cache = true;
+    swig.setDefaults(swigOptions);
+});
+
 app.configure(function() {
     app.set('port', process.env.PORT || settings.APP_PORT);
     //app.engine('html', swig.renderFile);
     app.engine('html', cons.swig);
-    swig.setDefaults({autoescape: false});
+    //swig.setDefaults({autoescape: false});
     app.set('view engine', 'html');
     app.set('views', __dirname + '/server/views');
     //app.set('view cache', false);
-    /*app.set('view engine', 'ejs');
-    app.set('view options', {
-        'open': '{{', 
-        'close': '}}',
-        'layout': false
-    });*/
-    /*app.register('.html', {
-        compile: function(str, options) {
-            return function(locals) {
-                return str;
-            }
-        }
-    });*/
-    //app.set('view options', {layout: false});
+    app.set('view options', {layout: false});
+    swig.setFilter('split', filters.split);
+    swig.setFilter('length', filters.length);
     app.use(express.favicon(__dirname + '/web/favicon.ico'));
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
@@ -60,22 +73,11 @@ app.configure(function() {
         secret: settings.SESSION_SECRET,
         cookie: {maxAge: maxAge}//30 days
     }));
-    app.use(connectDomain());
-    app.use(app.router);
     app.use('/upload/', express.static(settings.UPLOAD_DIR, {maxAge: maxAge}));
     //app.use(require('stylus').middleware(__dirname + '/web/'));
     //app.use(express.static(staticDir));
-});
-
-app.configure('development', function() {
-    app.use(express.static(staticDir));
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    app.set('view cache', false);
-});
-
-app.configure('production', function() {
-    app.use(express.static(staticDir, {maxAge: maxAge}));
-    app.use(express.errorHandler());
+    app.use(app.router);
+    app.use(connectDomain());
 });
 
 http.createServer(app).listen(app.get('port'), function() {
@@ -84,18 +86,33 @@ http.createServer(app).listen(app.get('port'), function() {
 
 routes(app);
 
-// 404
-app.use(function(req, res, next) {
-    //res.send(404, 'Not found.');
-    console.log(404);
-    res.render('404', {msg: 'Page not found!'});
-});
+function on404(req, res, next) {
+    console.log(404, req.url);
+    res.render('error', {error: 'Page not found!'});
+}
 
-// 500
-app.use(function(err, req, res, next) {
-    console.log(err, '-------------------------------');
-    res.send(500, 'Server error.');
-});
+function logErrors(err, req, res, next) {
+    console.error(500, err, err.stack);
+    next(err);
+}
+
+function clientErrorHandler(err, req, res, next) {
+    if (req.xhr) {
+        res.send(500, {error: 'Something blew up!'});
+    } else {
+        next(err);
+    }
+}
+
+function errorHandler(err, req, res, next) {
+    res.status(500);
+    res.render('error', {error: err});
+}
+
+app.use(on404);
+app.use(logErrors);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 process.on('uncaughtException', function(err) {
     console.log('uncaughtException err: %s, at %s', err, new Date());
