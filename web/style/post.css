@@ -44,7 +44,7 @@
 	/*border-left: 1px dashed #DDD;*/
 }
 .comment {
-	padding: .5em;
+	padding: .5em 1em;
 	border-bottom: 1px dashed #DDD;
 	/*margin-top: .5em;*/
 	transition: background-color .8s ease-in-out;

@@ -7,18 +7,23 @@ define(function(require, exports, module) {
 		'school_book', 'solarized_dark', 'solarized_light', 'sunburst', 'tomorrow', 
 		'tomorrow-night', 'tomorrow-night-blue', 'tomorrow-night-bright', 
 		'tomorrow-night-eighties', 'vs', 'xcode', 'zenburn'];
-	var select = $('<select>');
 	var html = '';
 
 	files.forEach(function(f, i) {
 		html += '<option value="/libs/highlight.js/styles/'+f+'.css">' + f + '</option>';
 	});
 
-	select
-		.append(html)
-		.appendTo($('body'))
-		.css({position: 'fixed', top: '60px', 'z-index': 100})
-		.on('change', function(e) {
-			$('#code-theme').attr('href', $(this).val());
-		});
+	function init() {
+		var select = $('<select>');
+
+		select
+			.append(html)
+			.appendTo($('body'))
+			.css({position: 'fixed', top: '60px', 'z-index': 100})
+			.on('change', function(e) {
+				$('#code-theme').attr('href', $(this).val());
+			});
+	}
+
+	exports.init = init;
 });

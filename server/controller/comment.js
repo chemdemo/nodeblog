@@ -203,7 +203,7 @@ exports.add = function(req, res, next) {
 		comment.save(function(err, doc) {
 			if(err) return proxy.emit('error', err);
 			doc = doc.toObject({hide: 'post_id', transform: true});
-			doc.create_at = tools.dateFormat(create_at, 'YYYY 年 MM 月 DD 日');
+			doc.create_at = tools.dateFormat(doc.create_at, 'YYYY 年 MM 月 DD 日');
 			tools.marked(doc.content, function(err, content) {
 				if(!err) doc.content = content;
 				proxy.emit('add_comment', doc);
@@ -234,7 +234,6 @@ exports.add = function(req, res, next) {
 	checkUser(user, function(err, doc) {
 		if(err) return emitErr('Check user error on add comment.', err);
 		doc = doc.toJSON({hide: 'pass', transform: true});
-		console.log('user: ', doc)
 		req.session.user = doc;
 		proxy.emit('user_check', doc);
 	});

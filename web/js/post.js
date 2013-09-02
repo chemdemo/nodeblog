@@ -68,6 +68,7 @@ define(['jquery','underscore','text!tmpl/comment.html', /*'utils',*/'./themes'],
 	function init() {
 		bindEvents();
 		fetchComments();
+		themes.init();
 	}
 
 	$(init);
