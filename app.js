@@ -22,29 +22,6 @@ var express = require('express')
 
 var app = express();
 
-var swigOptions = {
-    autoescape: false
-    , encoding: 'utf8'
-    , root: __dirname + '/server/views'
-    , tzOffset: 0
-    , filters: filters
-};
-
-app.configure('development', function() {
-    app.use(express.static(staticDir));
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    //app.set('view cache', false);
-    swigOptions.cache = false;
-    swig.setDefaults(swigOptions);
-});
-
-app.configure('production', function() {
-    app.use(express.static(staticDir, {maxAge: maxAge}));
-    app.use(express.errorHandler());
-    swigOptions.cache = true;
-    swig.setDefaults(swigOptions);
-});
-
 app.configure(function() {
     app.set('port', process.env.PORT || settings.APP_PORT);
     //app.engine('html', swig.renderFile);
@@ -78,6 +55,29 @@ app.configure(function() {
     //app.use(express.static(staticDir));
     app.use(app.router);
     app.use(connectDomain());
+});
+
+var swigOptions = {
+    autoescape: false
+    , encoding: 'utf8'
+    , root: __dirname + '/server/views'
+    , tzOffset: 0
+    , filters: filters
+};
+
+app.configure('development', function() {
+    app.use(express.static(staticDir));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    //app.set('view cache', false);
+    swigOptions.cache = false;
+    swig.setDefaults(swigOptions);
+});
+
+app.configure('production', function() {
+    app.use(express.static(staticDir, {maxAge: maxAge}));
+    app.use(express.errorHandler());
+    swigOptions.cache = true;
+    swig.setDefaults(swigOptions);
 });
 
 http.createServer(app).listen(app.get('port'), function() {

@@ -1,0 +1,63 @@
+<% _.each(comments, function(comment, i) { %>
+	<% var author = comment.author; %>
+	<li class="comment" data-commentid="<%= comment._id %>">
+		<img class="avatar" src="<%= comment.author.avatar %>" alt="<%= author.name %>" />
+		<div class="comment-body">
+			<h3>
+				<% if(author.site) { %>
+				<a href="<%= author.site %>" target="_blank"><%= author.name %></a>
+				<% } else { %>
+				<%= author.name %>
+				<% } %>
+				<span class="comment-date"><%= comment.create_at %></span>
+			</h3>
+			<div class="comment-content"><%= comment.content %></div>
+			<div class="comment-btns">
+				<% if(user && (user._id === author._id || user.admin)) { %>
+				<a href="javascript: void(0);" class="comment-del" title="删除">
+					<i class="icon-trashcan"></i>
+					删除
+				</a>
+				<% } %>
+				<a href="javascript: void(0);" class="comment-reply" title="回复">
+					<i class="icon-undo-2"></i>
+					回复
+				</a>
+			</div>
+			<% var replies = comment.replies; %>
+			<% if(replies.length) { %>
+			<ul class="reply-list">
+				<% _.each(replies, function(reply) { %>
+				<% var rAuthor = reply.author; %>
+				<li class="comment" data-commentid="<%= reply._id %>">
+					<img class="avatar" src="<%= reply.author.avatar %>" alt="<%= reply.author.name %>" />
+					<div class="comment-body">
+						<h3>
+							<% if(rAuthor.site) { %>
+							<a href="<%= rAuthor.site %>" target="_blank"><%= rAuthor.name %></a>
+							<% } else { %>
+							<%= rAuthor.name %>
+							<% } %>
+							<span class="comment-date"><%= reply.create_at %></span>
+						</h3>
+						<div class="comment-content"><%= reply.content %></div>
+						<div class="comment-btns">
+							<% if(user && (user._id === rAuthor._id || user.admin)) { %>
+							<a href="javascript: void(0);" class="comment-del" title="删除">
+								<i class="icon-trashcan"></i>
+								删除
+							</a>
+							<% } %>
+							<a href="javascript: void(0);" class="comment-reply" title="回复">
+								<i class="icon-undo-2"></i>
+								回复
+							</a>
+						</div>
+					</div>
+				</li>
+				<% }); %>
+			</ul>
+			<% } %>
+		</div>
+	</li>
+<% }); %>

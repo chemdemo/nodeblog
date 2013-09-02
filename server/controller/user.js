@@ -78,7 +78,6 @@ function findById(id, fields, callback) {
 function addOne(info, callback) {
 	var avatar_url = 'http://www.gravatar.com/avatar/' + md5(info.email) + '?size=48';
 
-	//request(avatar_url, function(err, res) {console.log('avatar: ', err, res);
 	var user = new User();
 	user.name = info.name;
 	user.pass = md5(info.pass);
@@ -87,7 +86,6 @@ function addOne(info, callback) {
 	user.avatar = avatar_url;
 	user.admin = (info.email === admin.EMAIL && info.pass === admin.PASS);
 	user.save(callback);
-	//});
 }
 
 exports.md5 = md5;

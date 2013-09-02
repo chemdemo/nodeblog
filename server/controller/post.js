@@ -11,8 +11,6 @@ var tools = require('../utils/tools');
 var async = require('async');
 var EventProxy = require('eventproxy');
 var _ = require('underscore');
-var marked = require('marked');
-var hljs = require('highlight.js');
 
 function findById(postid, fields, callback) {
 	Post.findById(postid, fields, callback);
@@ -92,18 +90,8 @@ function fetchByPage(start, offset, callback) {
 				});*/
 
 				//item.update_date = tools.dateFormat(item.update_at, 'YYYY-MM-DD hh:mm');
-				marked(item.summary, {
-					highlight: function (code, lang) {
-						if(lang) {
-							return hljs.highlight(lang, code).value;
-						}
-						return hljs.highlightAuto(code).value;
-					},
-					breaks: true,
-					pedantic: true,
-					sanitize: true,
-					smartypants: true
-				}, function(_err, content) {
+				item = item.toObject();
+				tools.marked(item.summary, function(_err, content) {
 					/*if(_err) {
 						console.log('Build summary error: ', _err);
 						return proxy.emit('build', item.summary);
@@ -245,8 +233,8 @@ exports.save = function(req, res, next) {
 			var arrAdd = _.without(_.difference(dataTags, docTags), '');
 			var arrDel = _.without(_.difference(docTags, dataTags), '');
 
-			console.log('arrAdd: ', arrAdd);
-			console.log('arrDel: ', arrDel);
+			//console.log('arrAdd: ', arrAdd);
+			//console.log('arrDel: ', arrDel);
 
 			var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
 				doc = _extend(doc, data);
@@ -382,18 +370,9 @@ exports.show = function(req, res, next) {
 	findAPost(postid, fields, function(err, doc) {
 		if(err || !doc) return proxy.emit('error', err);
 		//doc.save(function(_err) {if(_err) console.log('Add visite error.');});
-		marked(doc.content, {
-			highlight: function (code, lang) {
-				if(lang) {
-					return hljs.highlight(lang, code).value;
-				}
-				return hljs.highlightAuto(code).value;
-			},
-			breaks: true,
-			pedantic: true,
-			sanitize: true,
-			smartypants: true
-		}, function(err, content) {
+		doc = doc.toObject();
+		//console.log(doc.content)
+		tools.marked(doc.content, function(err, content) {
 			if(!err) {
 				doc.content = content;
 			} else {
@@ -402,6 +381,7 @@ exports.show = function(req, res, next) {
 			//doc.update_at = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
 			//doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD');
 			doc.visite ++;
+			//console.log('post: ', doc)
 			proxy.emit('post', doc);
 		});
 
@@ -423,18 +403,7 @@ exports.show = function(req, res, next) {
 	/*Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(err, doc) {
 		if(err) return next(err);
 		//return res.render('post', doc);
-		marked(doc.content, {
-			highlight: function (code, lang) {
-				if(lang) {
-					return hljs.highlight(lang, code).value;
-				}
-				return hljs.highlightAuto(code).value;
-			},
-			breaks: true,
-			pedantic: true,
-			sanitize: true,
-			smartypants: true
-		}, function(err, content) {
+		tools.marked(doc.content,  function(err, content) {
 			if(!err) {
 				doc.content = content;
 			} else {

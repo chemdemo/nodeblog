@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include './sitebar.html' %}
+	{% include 'server/views/sitebar.html' %}
 
 	<div class="page-content">
 		<section class="post shadow-box">
@@ -150,5 +150,5 @@
 {% endblock %}
 
 {% block script %}
-<script data-main="/js/post.js" src="/js/libs/requirejs/require.js"></script>
+<script data-main="/js/post.js" src="/libs/requirejs/require.js"></script>
 {% endblock %}

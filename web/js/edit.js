@@ -3,13 +3,22 @@
 
 'use strict';
 
-define(function(require, exports, module) {
-	var utils = require('utils');
+require.config({
+    paths: {
+        jquery: '../libs/jquery/jquery',
+        ace: '../libs/ace',
+        marked: '../libs/marked/marked',
+        hljs: '../libs/highlight.js/highlight.pack',
+		utils: './utils'
+    }
+	//, urlArgs: '_t=' + Date.now()// no cache
+});
+
+define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked, hljs, utils) {
+	/*var utils = require('utils');
 	var ace = require('libs/ace/ace');
 	var marked = require('libs/marked/marked');
-	var ace = require('libs/ace/ace');
-	var marked = require('libs/marked/marked');
-	var hljs = require('libs/highlight.js/highlight.pack');
+	var hljs = require('libs/highlight.js/highlight.pack');*/
 
 	marked.setOptions({
 		highlight: function (code, lang) {
@@ -29,8 +38,8 @@ define(function(require, exports, module) {
 	editor.setShowPrintMargin(false);
 	editor.setHighlightActiveLine(false);
 	editor.setShowPrintMargin(false);
-	editor.setTheme('libs/ace/theme/crimson_editor');
-	session.setMode('libs/ace/mode/markdown');
+	editor.setTheme('ace/theme/crimson_editor');
+	session.setMode('ace/mode/markdown');
 
 	var render = function() {
 		var val = editor.getValue();
@@ -122,12 +131,9 @@ define(function(require, exports, module) {
 		}
 	}());
 
-	~function init() {
+	function init() {
 		bindEvents();
+	}
 
-		/*$.get('./markdown.md', function(r) {
-			editor.setValue(r);
-			editor.gotoLine(0, 0, true);
-		});*/
-	}();
+	$(init);
 });

@@ -18,7 +18,6 @@
 				回复
 			</a>
 		</div>
-		{% set replies = comment.replies || [] %}
 		{% if replies.length %}
 		<ul class="reply-list">
 			{% for reply in replies %}

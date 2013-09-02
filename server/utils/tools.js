@@ -48,6 +48,24 @@ function prezero(n) {
 	return ('0' + n).slice(-2);
 }
 
+var marked = require('marked');
+var hljs = require('highlight.js');
+
+exports.marked = function(val, callback) {
+	marked(val, {
+		highlight: function (code, lang) {
+			if(lang) {
+				return hljs.highlight(lang, code).value;
+			}
+			return hljs.highlightAuto(code).value;
+		},
+		breaks: true,
+		pedantic: true,
+		sanitize: true,
+		smartypants: true
+	}, callback);
+}
+
 exports.dateFormat = dateFormat;
 exports.jsonReturn = jsonReturn;
 exports.prezero = prezero;

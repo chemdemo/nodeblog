@@ -1266,8 +1266,7 @@ var VirtualRenderer = function(container, theme) {
         _self._dispatchEvent('themeChange',{theme:theme});
 
         if (!theme || typeof theme == "string") {
-            //var moduleName = theme || "ace/theme/textmate";
-            var moduleName = theme || "libs/ace/theme/textmate";//modified by yangdemo@gmail.com
+            var moduleName = theme || "ace/theme/textmate";
             config.loadModule(["theme", moduleName], afterLoad);
         } else {
             afterLoad(theme);

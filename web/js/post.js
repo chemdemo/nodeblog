@@ -1,12 +1,17 @@
 'use strict';
 
-define(function(require, exports, module) {
-	var commentTmpl = require('libs/requirejs-plugins/text!templates/comment.html');
-	var themes = require('themes');
-	var _ = require('libs/underscore/underscore-min');
-	//var utils = require('utils');
-	//var swig = utils.swig;
+require.config({
+    //baseUrl: '../libs',
+    paths: {
+        jquery: '../libs/jquery/jquery',
+        underscore: '../libs/underscore/underscore',
+        text: '../libs/requirejs/text',
+		utils: './utils'
+    }
+	//, urlArgs: '_t=' + Date.now()// no cache
+});
 
+define(['jquery','underscore','text!tmpl/comment.html', /*'utils',*/'./themes'], function($, _, commentTmpl, /*utils, */themes) {
 	var postId = function() {
 		var u = location.href;
 		var m = u.match(/post\/(\w+)(?:#.*)?/);
@@ -16,7 +21,9 @@ define(function(require, exports, module) {
 
 	function fetchComments() {
 		$.get('/comment/' + postId, function(r) {
-			console.log(r);
+			console.log(r.result);
+			var html = _.template(commentTmpl, r.result);
+			$('#comment-list').html(html);
 		});
 	}
 
@@ -33,17 +40,11 @@ define(function(require, exports, module) {
 				$('#tips').text(msg).stop().fadeIn(500).delay(500).fadeOut(500);
 			};
 
-			if(!name) {
-				return tips('名称填一下嘛～');
-			}
+			if(!name) return tips('名称填一下嘛～');
 
-			if(!email) {
-				return tips('再填下邮箱嘛～');
-			}
+			if(!email) return tips('再填下邮箱嘛～');
 
-			if(!content) {
-				return tips('请说点啥嘛～');
-			}
+			if(!content) return tips('请说点啥嘛～');
 
 			if(!postid) return;
 
@@ -64,8 +65,10 @@ define(function(require, exports, module) {
 		}
 	}());
 
-	~function init() {
+	function init() {
 		bindEvents();
 		fetchComments();
-	}();
+	}
+
+	$(init);
 });

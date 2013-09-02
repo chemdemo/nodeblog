@@ -46,7 +46,11 @@
 .comment {
 	padding: .5em;
 	border-bottom: 1px dashed #DDD;
-	margin-top: .5em;
+	/*margin-top: .5em;*/
+	transition: background-color .8s ease-in-out;
+}
+.comment:hover {
+	background-color: #FBFAE6;
 }
 .reply-list .comment {
 	border: 1px dashed #DDD;
@@ -63,10 +67,13 @@
 .comment .comment-body {
 	padding-left: 5em;
 }
-.comment h2 {
+.comment h3 {
 	line-height: 1em;
 }
-.comment h2 .comment-date {
+.comment h3 a {
+	color: #222;
+}
+.comment h3 .comment-date {
 	font-weight: normal;
 	float: right;
 	font-size: .8em;
@@ -76,6 +83,11 @@
 }
 .comment .comment-btns {
 	text-align: right;
+	opacity: 0;
+	transition: opacity .8s ease-in-out;
+}
+.comment:hover .comment-btns {
+	opacity: 1;
 }
 .comment-btns a {
 	margin-right: 1em;
