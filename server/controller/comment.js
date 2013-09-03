@@ -70,7 +70,7 @@ function findCommentsByPostId(postid, callback) {
 					comment = comment.toObject({hide: 'post_id author_id', transform: true});
 					comment.replies = replies;
 					comment.author = author;
-					comment.create_at = tools.dateFormat(comment.create_at, 'YYYY 年 MM 月 DD 日');
+					comment.create_at = tools.dateFormat(comment.create_at, 'YYYY 年 MM 月 DD 日 hh:mm:ss');
 					tools.marked(comment.content, function(err, content) {
 						if(!err) comment.content = content;
 						ep.emit('all_find', comment);
@@ -89,7 +89,7 @@ function findCommentsByPostId(postid, callback) {
 						//console.log(reply)
 						var proxy2 = EventProxy.create('author', 'r_author', function(author, rAuthor) {
 							reply = reply.toObject({hide: 'post_id author_id at_user_id', transform: true});
-							reply.create_at = tools.dateFormat(reply.create_at, 'YYYY 年 MM 月 DD 日');
+							reply.create_at = tools.dateFormat(reply.create_at, 'YYYY 年 MM 月 DD 日 hh:mm:ss');
 							reply.author = author;
 							if(rAuthor) reply.reply_author = rAuthor;
 							tools.marked(reply.content, function(err, content) {
@@ -142,21 +142,6 @@ function findCommentsByPostId(postid, callback) {
 	]*/
 }
 
-function checkUser(user, callback) {
-	user = user_ctrl.infoCheck(user);
-	if(user.error) return callback(user.error);
-
-	user_ctrl.findOne({name: user.name, email: user.email}, function(err, doc) {
-		if(err) return callback(err);
-
-		if(!doc) {
-			user_ctrl.addOne(user, callback);
-		} else {
-			callback(null, doc);
-		}
-	});
-}
-
 exports.add = function(req, res, next) {
 	var postid = req.body.postid || req.params.postid;
 	var user = req.body.user || null;
@@ -164,6 +149,26 @@ exports.add = function(req, res, next) {
 	var content = sanitize(req.body.content || '').trim();
 	var replyId = req.body.reply_comment_id || '';
 	var atUid = req.body.at_user_id || '';
+
+	var checkUser = function(callback) {
+		user = user_ctrl.infoCheck(user);
+		if(user.error) return callback(user.error);
+
+		user_ctrl.findOne({name: user.name, email: user.email}, function(err, doc) {
+			if(err) return callback(err);
+
+			if(!doc) {
+				user_ctrl.addOne(user, callback);
+			} else {
+				callback(null, doc);
+			}
+		});
+	};
+
+	var emitErr = function(msg, err) {
+		console.log(msg, err);
+		proxy.emit('error', msg);
+	};
 
 	if(!user) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'User info missing.');
 	if(!content) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Comment content null.');
@@ -178,44 +183,30 @@ exports.add = function(req, res, next) {
 		}
 	}
 
-	// 这里其实不是并发执行，任务是串行的
-	var proxy = EventProxy.create(
-		'user_check'
-		, 'reply_check'
-		, 'add_comment'
-		, function(user, at_user, comment) {console.log(arguments)
-			comment.author = user;
-			/*if(replyId) comment.reply_id = replyId;
-			if(at_user) comment.at_user_id = at_user._id;*/
-			tools.jsonReturn(res, 'SUCCESS', comment);
-		}).fail(function(err) {
-			console.log('Add comment error.', err);
-			tools.jsonReturn(res, 'DB_ERROR', null, 'Add comment error.');
-		});
-
-	var emitErr = function(msg, err) {
-		console.log(msg, err);
-		proxy.emit('error', msg);
-	};
-
-	proxy.on('user_check', function(user) {
+	var proxy = EventProxy.create('user_check', 'at_user_check', function(author, at_author) {
 		var comment = new Comment();
 		comment.post_id = postid;
-		comment.author_id = user._id;
+		comment.author_id = author._id;
 		comment.content = content;
 
 		if(replyId) comment.reply_id = replyId;
-		if(atUid) comment.at_user_id = atUid;
+		if(at_author) comment.at_user_id = at_author._id;
 		
 		comment.save(function(err, doc) {
-			if(err) return proxy.emit('error', err);
+			if(err) {
+				console.log('Add comment error. ', err);
+				return tools.jsonReturn(res, 'DB_ERROR', null, 'Add comment error.');
+			}
 			doc = doc.toObject();
-			doc.create_at = tools.dateFormat(doc.create_at, 'YYYY 年 MM 月 DD 日');
+			doc.author = author;
+			doc.reply_id = replyId;
+			doc.reply_author = at_author;
+			doc.create_at = tools.dateFormat(doc.create_at, 'YYYY 年 MM 月 DD 日 hh:mm:ss');
 			tools.marked(doc.content, function(err, content) {
 				if(!err) doc.content = content;
-				proxy.emit('add_comment', doc);
+				tools.jsonReturn(res, 'SUCCESS', doc);
 			});
-			return
+			
 			post_ctrl.findByIdAndUpdate(postid, {
 				$set: {
 					last_comment_at: Date.now(),
@@ -226,9 +217,12 @@ exports.add = function(req, res, next) {
 				if(err) console.log('Update post error.', err);
 			});
 		});
+	}).fail(function(err) {
+		console.log('Add comment error.', err);
+		tools.jsonReturn(res, 'DB_ERROR', null, 'Add comment error.');
 	});
 
-	checkUser(user, function(err, doc) {
+	checkUser(function(err, doc) {
 		if(err) return emitErr('Check user error on add comment.', err);
 		doc = doc.toObject();
 		delete doc.pass;
@@ -240,10 +234,10 @@ exports.add = function(req, res, next) {
 
 	if(atUid) {
 		user_ctrl.findById(atUid, 'name avatar site admin', function(err, doc) {
-			proxy.emit('reply_check', doc);
+			proxy.emit('at_user_check', doc);
 		});
 	} else {
-		proxy.emit('reply_check', null);
+		proxy.emit('at_user_check', null);
 	}
 }
 
@@ -262,7 +256,31 @@ exports.findAllByPostId = function(req, res, next) {
 }
 
 exports.remove = function(req, res, next) {
-	;
+	var postid = req.body.postid || req.params.postid;
+	var user = req.session.user;
+	var commentId = req.body.commentid || req.params.commentid;
+
+	if(!postid) {
+		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Param postid required.');
+	}
+
+	Comment.find({_id: commentId, post_id: postid}, function(err, doc) {
+		if(err) next(err);
+		if(!doc) next();
+		if(user.admin || doc.author_id === user._id) {
+			Comment.findByIdAndRemove(doc._id, function(err, doc) {console.log(doc)
+				if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
+				tools.jsonReturn(res, 'SUCCESS', 0);
+			});
+			/*doc.remove(function(err) {
+				if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
+				tools.jsonReturn(res, 'SUCCESS', 0);
+			});*/
+		} else {
+			next('403 access forbidden!');
+		}
+	});
+	//Comment.find({_id: commentId, post_id: postid}).or([{author_id: user._id}])
 }
 
 exports.findById = findById;

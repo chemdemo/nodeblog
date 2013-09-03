@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include 'server/views/sitebar.html' %}
+	{% include './sitebar.html' %}
 
 	<div class="page-content">
 		<section class="post shadow-box">
@@ -46,7 +46,7 @@
 			<ul class="comment-list" id="comment-list">
 				<li class="no-comment">还没有评论唉^_^！</li>
 			</ul>
-			<form class="add-comment" id="add-comment">
+			<section class="add-comment" id="add-comment">
 				<input hidden id="reply-comment-id" name="reply_comment_id" />
 				<input hidden id="at-user-id" name="at_user_id" />
 				<h4><i class="icon-bubbles"></i> 添加评论</h4>
@@ -75,7 +75,7 @@
 					</button>
 					<span id="tips" class="tips i-btn i-btn-red none"></span>
 				</div>
-			</form>
+			</section>
 		</section>
 	</div>
 </div>

@@ -42,7 +42,7 @@ define(
 		var repling;
 		var appendWrapper = $('#comment-list');
 
-		function addComment(e) {
+		function addComment(e) {//return console.log(appendWrapper)
 			e.preventDefault();
 			e.stopPropagation();
 
@@ -76,11 +76,23 @@ define(
 			}, function(r) {
 				console.log(r)
 				if(r.rcode === 0) {
+					$('#comment-list .no-comment').remove();
+					appendWrapper.append(_.template(replyTmpl, r.result).replace(/\n/g, ''));
 					$('#btn-cancel').trigger('click');
-					appendWrapper.append($(_.template(replyTmpl, r.result)));
 				} else {
-					tips('添加评论失败，再试一次？');
+					//tips('添加评论失败，再试一次？');
 					console.log('Add comment error, ', r);
+				}
+			});
+		}
+
+		function delComment(cid) {
+			$.ajax({
+				url: '/comment/' + cid, 
+				method: 'delete',
+				data: {postid: postId},
+				success: function(r) {
+					console.log(r);
 				}
 			});
 		}
@@ -91,7 +103,7 @@ define(
 
 			$('#reply-comment-id').val('');
 			$('#at-user-id').val('');
-			commentForm.find('#comment').val();
+			$('#comment').val('');
 
 			if(repling) {
 				commentForm.appendTo($('#post-comments'));
@@ -105,32 +117,29 @@ define(
 			e.preventDefault();
 			e.stopPropagation();
 
-			$('#reply-comment-id').val('');
-			$('#at-user-id').val('');
-
 			var self = $(e.target);
 			var cmd = self.attr('data-cmd');
+			var p = self.parent().parent().parent();
 
 			switch(cmd) {
 				case 'reply':
-					var p = self.parentsUntil('.comment');
+					var cid = p.attr('data-cid');
+					$('#reply-comment-id').val(cid);
 					appendWrapper = p.find('.reply-list');
-					repling = !repling;
-					commentForm.appendTo(p.find('.comment-body'));
+					repling = true;
+					commentForm.insertBefore(p.find('.reply-list'));
 					break;
 				case 're-reply':
-					var p = self.parentsUntil('.comment');
 					var rid = p.attr('data-rid');
 					var uid = p.attr('data-uid');
 					$('#reply-comment-id').val(rid);
 					$('#at-user-id').val(uid);
-					appendWrapper = p.find('.reply-list');
-					repling = !repling;
+					appendWrapper = p.parent();
+					repling = true;
 					commentForm.appendTo(p.find('.comment-body'));
 					break;
 				case 'delete':
-					var p = self.parentsUntil('.comment');
-					var cid = p.attr('data-cid');
+					delComment(p.attr('data-cid'));
 					break;
 				default: break;
 			}

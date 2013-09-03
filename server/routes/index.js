@@ -63,7 +63,7 @@ function routes(app) {
 	// comment about
 	app.get('/comment/:postid?', comment.findAllByPostId);
 	app.post('/comment/:postid?', comment.add);
-	app.delete('/comment/:commentid', sign.loginCheck, comment.remove);
+	app.delete('/comment/:commentid?', sign.loginCheck, comment.remove);
 
 	// tag about
 

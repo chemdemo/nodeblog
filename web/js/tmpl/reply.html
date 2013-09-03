@@ -1,5 +1,5 @@
-<% var reply_id = reply_id || '';var reply_author = reply_author || null; %>
-<li <% if(reply_id) { data-rid="<%= reply_id %>" } %> class="comment" data-cid="<%= _id %>" data-uid="<%= author._id %>" >
+<% var reply_id = reply_id || ''; var reply_author = reply_author || null; %>
+<li<% if(reply_id) { %> data-rid="<%= reply_id %>"<% } %> class="comment" data-cid="<%= _id %>" data-uid="<%= author._id %>">
 	<img class="avatar" src="<%= author.avatar %>" alt="<%= author.name %>" />
 	<div class="comment-body">
 		<h3>
@@ -32,5 +32,8 @@
 				回复
 			</a>
 		</div>
+		<% if(!reply_id) { %>
+		<ul class="reply-list"></ul>
+		<% } %>
 	</div>
 </li>
