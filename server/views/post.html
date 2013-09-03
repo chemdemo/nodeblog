@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include './sitebar.html' %}
+	{% include 'server/views/sitebar.html' %}
 
 	<div class="page-content">
 		<section class="post shadow-box">
@@ -45,78 +45,10 @@
 			<h3><i class="icon-bubbles"></i>文章评论</h3>
 			<ul class="comment-list" id="comment-list">
 				<li class="no-comment">还没有评论唉^_^！</li>
-				<!-- <li class="comment">
-					<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
-					<div class="comment-body">
-						<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
-						<div class="comment-content">你是风儿我是沙，缠缠绵绵</div>
-						<div class="comment-btns">
-							<a href="#" class="comment-del" title="删除">
-								<i class="icon-trashcan"></i>
-								删除
-							</a>
-							<a href="#" class="comment-reply" title="回复">
-								<i class="icon-undo-2"></i>
-								回复
-							</a>
-						</div>
-						<ul class="reply-list">
-							<li class="comment">
-								<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
-								<div class="comment-body">
-									<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
-									<div class="comment-content">你是风儿我是沙，缠缠绵绵.你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵</div>
-									<div class="comment-btns">
-										<a href="#" class="comment-del" title="删除">
-											<i class="icon-trashcan"></i>
-											删除
-										</a>
-										<a href="#" class="comment-reply" title="回复">
-											<i class="icon-undo-2"></i>
-											回复
-										</a>
-									</div>
-								</div>
-							</li>
-							<li class="comment">
-								<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
-								<div class="comment-body">
-									<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
-									<div class="comment-content">你是风儿我是沙，缠缠绵绵.你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵</div>
-									<div class="comment-btns">
-										<a href="#" class="comment-del" title="删除">
-											<i class="icon-trashcan"></i>
-											删除
-										</a>
-										<a href="#" class="comment-reply" title="回复">
-											<i class="icon-undo-2"></i>
-											回复
-										</a>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="comment">
-					<img class="avatar" width="48px" src="/style/images/dm.jpg" alt="" />
-					<div class="comment-body">
-						<h2>chemdemo<span class="comment-date">2012 年 12 月 10 日</span></h2>
-						<div class="comment-content">你是风儿我是沙，缠缠绵绵.你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵你是风儿我是沙，缠缠绵绵</div>
-						<div class="comment-btns">
-							<a href="#" class="comment-del" title="删除">
-								<i class="icon-trashcan"></i>
-								删除
-							</a>
-							<a href="#" class="comment-reply" title="回复">
-								<i class="icon-undo-2"></i>
-								回复
-							</a>
-						</div>
-					</div>
-				</li> -->
 			</ul>
 			<form class="add-comment" id="add-comment">
+				<input hidden id="reply-comment-id" name="reply_comment_id" />
+				<input hidden id="at-user-id" name="at_user_id" />
 				<h4><i class="icon-bubbles"></i> 添加评论</h4>
 				<p>
 					<input value="{{ user.name }}" class="input" name="name" id="name" placeholder="Input your name" />

@@ -6,7 +6,7 @@ var CommentSchema = new Schema({
 	post_id: ObjectId,
 	author_id: ObjectId,
 	reply_id: ObjectId,
-	reply_user_id: ObjectId,
+	at_user_id: ObjectId,
 	content: String,
 	create_at: {type: Date, default: Date.now, index: true}
 }, {collection: 'comment'});

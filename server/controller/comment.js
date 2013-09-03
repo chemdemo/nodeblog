@@ -16,9 +16,9 @@ function findById(commentid, callback) {
 	Comment.findById(commentid).exec(callback);
 }
 
-/*function findOne(conditions, fields, callback) {
+function findOne(conditions, fields, callback) {
 	Comment.find(conditions, fields, callback);
-}*/
+}
 
 function findByIdAndUpdate(commentid, update, callback) {
 	Comment.findByIdAndUpdate(commentid, update, callback);
@@ -30,7 +30,7 @@ function findCommentsByPostId(postid, callback) {
 
 	Comment.find({post_id: postid})
 		.$where(function() {return !this.reply_id})
-		.sort({create_at: 1})
+		.sort('create_at')
 		.exec(function(err, comments) {
 			if(err) return callback(err);
 			if(comments.length === 0) return callback(null, []);
@@ -56,8 +56,12 @@ function findCommentsByPostId(postid, callback) {
 							avatar: settings.DEFAULT_AVATAR
 						}
 					}
+					doc = doc.toObject();
+					delete doc.pass;
+					delete doc.create_at;
+					delete doc.modify_at;
 					callback(null, doc);
-					infoCache[uid] = doc.toObject({hide: '_id', transform: true});
+					infoCache[uid] = doc;
 				});
 			};
 
@@ -82,26 +86,31 @@ function findCommentsByPostId(postid, callback) {
 					}).fail(function(err) {proxy.emit('error', err);});
 
 					var findUsers = function(reply) {
-						var proxy2 = EventProxy.create('origin', 'author', function(at, author) {
-							reply = reply.toObject({hide: 'post_id author_id reply_user_id', transform: true});
+						//console.log(reply)
+						var proxy2 = EventProxy.create('author', 'r_author', function(author, rAuthor) {
+							reply = reply.toObject({hide: 'post_id author_id at_user_id', transform: true});
 							reply.create_at = tools.dateFormat(reply.create_at, 'YYYY 年 MM 月 DD 日');
-							reply.at_author = at;
 							reply.author = author;
+							if(rAuthor) reply.reply_author = rAuthor;
 							tools.marked(reply.content, function(err, content) {
 								if(!err) reply.content = content;
 								ep2.emit('users_find', reply);
 							});
 						}).fail(function(err) {ep2.emit('error', err);});
 
-						findAuthor(reply.reply_user_id, function(err, doc) {
-							if(err) return proxy2.emit('error', err);
-							proxy2.emit('at', doc);
-						});
-
 						findAuthor(reply.author_id, function(err, doc) {
 							if(err) return proxy2.emit('error', err);
 							proxy2.emit('author', doc);
 						});
+
+						if(reply.at_user_id) {
+							findAuthor(reply.at_user_id, function(err, doc) {
+								if(err) return proxy2.emit('error', err);
+								proxy2.emit('r_author', doc);
+							});
+						} else {
+							proxy2.emit('r_author', null);
+						}
 					};
 
 					_(replies).each(findUsers);
@@ -153,8 +162,8 @@ exports.add = function(req, res, next) {
 	var user = req.body.user || null;
 	var sUser = req.session.user;
 	var content = sanitize(req.body.content || '').trim();
-	var replyId = req.body.reply_id;// this is a reply
-	var at = req.body.set_at; // this is a reply and @ anothor user
+	var replyId = req.body.reply_comment_id || '';
+	var atUid = req.body.at_user_id || '';
 
 	if(!user) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'User info missing.');
 	if(!content) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Comment content null.');
@@ -173,9 +182,11 @@ exports.add = function(req, res, next) {
 	var proxy = EventProxy.create(
 		'user_check'
 		, 'reply_check'
-		//, 'at_user_check'
 		, 'add_comment'
-		, function(user, reply, comment) {
+		, function(user, at_user, comment) {console.log(arguments)
+			comment.author = user;
+			/*if(replyId) comment.reply_id = replyId;
+			if(at_user) comment.at_user_id = at_user._id;*/
 			tools.jsonReturn(res, 'SUCCESS', comment);
 		}).fail(function(err) {
 			console.log('Add comment error.', err);
@@ -187,27 +198,24 @@ exports.add = function(req, res, next) {
 		proxy.emit('error', msg);
 	};
 
-	proxy.on('reply_check', function(user, reply_comment) {
+	proxy.on('user_check', function(user) {
 		var comment = new Comment();
 		comment.post_id = postid;
 		comment.author_id = user._id;
 		comment.content = content;
 
-		if(reply_comment) {
-			comment.reply_id = reply_comment._id;
-			if(at) {
-				comment.reply_user_id = reply_comment.author_id;
-			}
-		}
+		if(replyId) comment.reply_id = replyId;
+		if(atUid) comment.at_user_id = atUid;
 		
 		comment.save(function(err, doc) {
 			if(err) return proxy.emit('error', err);
-			doc = doc.toObject({hide: 'post_id', transform: true});
+			doc = doc.toObject();
 			doc.create_at = tools.dateFormat(doc.create_at, 'YYYY 年 MM 月 DD 日');
 			tools.marked(doc.content, function(err, content) {
 				if(!err) doc.content = content;
 				proxy.emit('add_comment', doc);
 			});
+			return
 			post_ctrl.findByIdAndUpdate(postid, {
 				$set: {
 					last_comment_at: Date.now(),
@@ -220,23 +228,23 @@ exports.add = function(req, res, next) {
 		});
 	});
 
-	proxy.on('user_check', function(user) {
-		if(replyId) {
-			Comment.findById(replyId, function(err, doc) {
-				if(err) return emitErr('error', 'Find reply comment error.', err);
-				proxy.emit('reply_check', user, doc);
-			});
-		} else {
-			proxy.emit('reply_check', user, null);
-		}
-	});
-
 	checkUser(user, function(err, doc) {
 		if(err) return emitErr('Check user error on add comment.', err);
-		doc = doc.toJSON({hide: 'pass', transform: true});
+		doc = doc.toObject();
+		delete doc.pass;
+		delete doc.create_at;
+		delete doc.modify_at;
 		req.session.user = doc;
 		proxy.emit('user_check', doc);
 	});
+
+	if(atUid) {
+		user_ctrl.findById(atUid, 'name avatar site admin', function(err, doc) {
+			proxy.emit('reply_check', doc);
+		});
+	} else {
+		proxy.emit('reply_check', null);
+	}
 }
 
 exports.findAllByPostId = function(req, res, next) {

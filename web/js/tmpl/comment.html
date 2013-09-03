@@ -1,6 +1,6 @@
 <% _.each(comments, function(comment, i) { %>
 	<% var author = comment.author; %>
-	<li class="comment" data-commentid="<%= comment._id %>">
+	<li class="comment" data-cid="<%= comment._id %>">
 		<img class="avatar" src="<%= comment.author.avatar %>" alt="<%= author.name %>" />
 		<div class="comment-body">
 			<h3>
@@ -14,22 +14,21 @@
 			<div class="comment-content"><%= comment.content %></div>
 			<div class="comment-btns">
 				<% if(user && (user._id === author._id || user.admin)) { %>
-				<a href="javascript: void(0);" class="comment-del" title="删除">
+				<a href="javascript: void(0);" data-cmd="delete" class="comment-del" title="删除">
 					<i class="icon-trashcan"></i>
 					删除
 				</a>
 				<% } %>
-				<a href="javascript: void(0);" class="comment-reply" title="回复">
+				<a href="javascript: void(0);" data-cmd="reply" class="comment-reply" title="回复">
 					<i class="icon-undo-2"></i>
 					回复
 				</a>
 			</div>
-			<% var replies = comment.replies; %>
-			<% if(replies.length) { %>
 			<ul class="reply-list">
+				<% var replies = comment.replies; %>
 				<% _.each(replies, function(reply) { %>
-				<% var rAuthor = reply.author; %>
-				<li class="comment" data-commentid="<%= reply._id %>">
+				<% var rAuthor = reply.author; var rRAuthor = reply.reply_author; %>
+				<li class="comment" data-cid="<%= reply._id %>" data-uid="<%= reply.author._id %>" data-rid="<%= comment._id %>">
 					<img class="avatar" src="<%= reply.author.avatar %>" alt="<%= reply.author.name %>" />
 					<div class="comment-body">
 						<h3>
@@ -40,15 +39,26 @@
 							<% } %>
 							<span class="comment-date"><%= reply.create_at %></span>
 						</h3>
-						<div class="comment-content"><%= reply.content %></div>
+						<div class="comment-content">
+							<% if(rRAuthor) { %>
+								<em class="re-reply">回复
+									<% if(rRAuthor.site) { %>
+									<a href="<%= rRAuthor.site %>"><%= rRAuthor.name %></a>
+									<% } else { %>
+									<%= rRAuthor.name %>
+									<% } %>
+								</em>
+							<% } %>
+							<%= reply.content %>
+						</div>
 						<div class="comment-btns">
 							<% if(user && (user._id === rAuthor._id || user.admin)) { %>
-							<a href="javascript: void(0);" class="comment-del" title="删除">
+							<a href="javascript: void(0);" data-cmd="delete" class="comment-del" title="删除">
 								<i class="icon-trashcan"></i>
 								删除
 							</a>
 							<% } %>
-							<a href="javascript: void(0);" class="comment-reply" title="回复">
+							<a href="javascript: void(0);" data-cmd="re-reply" class="comment-reply" title="回复">
 								<i class="icon-undo-2"></i>
 								回复
 							</a>
@@ -57,7 +67,6 @@
 				</li>
 				<% }); %>
 			</ul>
-			<% } %>
 		</div>
 	</li>
 <% }); %>
