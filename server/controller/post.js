@@ -25,12 +25,14 @@ function getRandomCover() {
 }
 
 function findAPost(postid, fields, callback) {
-	findById(postid, fields, function(err, doc) {
+	Post.findById(postid, fields, function(err, doc) {
 		if(err || !doc) return callback(err);
 
+		doc = doc.toObject();
 		var proxy = EventProxy.create('author_find', 'last_commentator_find', function(author, commentator) {
 			doc.author = author;
-			doc.lastCommentator = commentator;
+			doc.last_commentator = commentator;
+			console.log(doc);
 			//doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss')
 			callback(null, doc);
 		}).fail(callback);
@@ -38,6 +40,7 @@ function findAPost(postid, fields, callback) {
 		if(fields.indexOf('author_id') > -1) {
 			user_ctrl.findById(doc.author_id, function(_err, _doc) {
 				if(_err) return proxy.emit('error', _err);
+				delete _doc.pass;
 				proxy.emit('author_find', _doc);
 			});
 		} else {
@@ -47,6 +50,7 @@ function findAPost(postid, fields, callback) {
 		if(fields.indexOf('last_comment_by') > -1 && doc.last_comment_by) {
 			user_ctrl.findById(doc.last_comment_by, function(_err, _doc) {
 				if(_err) return proxy.emit('error', _err);
+				delete _doc.pass;
 				proxy.emit('last_commentator_find', _doc);
 			});
 		} else {
@@ -370,7 +374,7 @@ exports.show = function(req, res, next) {
 	findAPost(postid, fields, function(err, doc) {
 		if(err || !doc) return proxy.emit('error', err);
 		//doc.save(function(_err) {if(_err) console.log('Add visite error.');});
-		doc = doc.toObject();
+		//doc = doc.toObject();
 		//console.log(doc.content)
 		tools.marked(doc.content, function(err, content) {
 			if(!err) {

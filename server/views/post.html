@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include './sitebar.html' %}
+	{% include 'server/views/sitebar.html' %}
 
 	<div class="page-content">
 		<section class="post shadow-box">
@@ -20,7 +20,7 @@
 				<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
 				<span class="post-date">
 					<i class="icon-alarm" title="最后编辑时间"></i>
-					<span class="update-date">{{ post.update_at|date('Y-m-d') }}</span>
+					<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s') }}</span>
 				</span>
 				<span class="post-gap">/</span>by 
 				{% if post.author.site %}
@@ -47,8 +47,8 @@
 				<li class="no-comment">还没有评论唉^_^！</li>
 			</ul>
 			<section class="add-comment" id="add-comment">
-				<input hidden id="reply-comment-id" name="reply_comment_id" />
-				<input hidden id="at-user-id" name="at_user_id" />
+				<input type="hidden" hidden id="reply-comment-id" name="reply_comment_id" />
+				<input type="hidden" hidden id="at-user-id" name="at_user_id" />
 				<h4><i class="icon-bubbles"></i> 添加评论</h4>
 				<p>
 					<input value="{{ user.name }}" class="input" name="name" id="name" placeholder="Input your name" />

@@ -28,10 +28,12 @@ function findCommentsByPostId(postid, callback) {
 	// 缓存userinfo
 	var infoCache = {};
 
+	//Comment.find(null, 'content').sort({create_at: 1}).exec(function(err, doc) {console.log(doc)});
+
 	Comment.find({post_id: postid})
 		.$where(function() {return !this.reply_id})
-		.sort('create_at')
-		.exec(function(err, comments) {
+		.sort({create_at: 1})
+		.exec(function(err, comments) {//console.log(comments)
 			if(err) return callback(err);
 			if(comments.length === 0) return callback(null, []);
 
@@ -243,7 +245,7 @@ exports.add = function(req, res, next) {
 
 exports.findAllByPostId = function(req, res, next) {
 	var postid = req.body.postid || req.params.postid;
-	var user = req.session.user;
+	var user = req.session.user || null;
 
 	if(!postid) {
 		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Param postid required.');
