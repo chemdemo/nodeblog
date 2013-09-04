@@ -44,8 +44,9 @@
 	/*border-left: 1px dashed #DDD;*/
 }
 .comment {
-	padding: .5em 1em;
-	border-bottom: 1px dashed #DDD;
+	padding: 1em;
+	/*border-bottom: 1px dashed #DDD;*/
+	border-bottom: 1px solid #EEE;
 	/*margin-top: .5em;*/
 	transition: background-color .8s ease-in-out;
 }
@@ -53,7 +54,12 @@
 	background-color: #FBFAE6;
 }
 .reply-list .comment {
-	border: 1px dashed #DDD;
+	/*border: 1px dashed #DDD;*/
+	margin-bottom: .5em;
+	background-color: rgb(241, 241, 241);
+}
+.reply-list .comment:hover {
+	background-color: #FFF;
 }
 .comment .avatar {
 	float: left;
@@ -83,10 +89,12 @@
 }
 .comment .comment-btns {
 	text-align: right;
+}
+.comment .comment-del {
 	opacity: 0;
 	transition: opacity .8s ease-in-out;
 }
-.comment:hover .comment-btns {
+.comment:hover .comment-del {
 	opacity: 1;
 }
 .comment-btns a {

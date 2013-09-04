@@ -33,22 +33,25 @@ function findCommentsByPostId(postid, callback) {
 	Comment.find({post_id: postid})
 		.$where(function() {return !this.reply_id})
 		.sort({create_at: 1})
-		.exec(function(err, comments) {//console.log(comments)
+		.exec(function(err, comments) {
 			if(err) return callback(err);
 			if(comments.length === 0) return callback(null, []);
 
-			var ep = new EventProxy().after('all_find', comments.length, function(comments) {
+			var ep = new EventProxy().after('all_find', comments.length, function() {
 				callback(null, comments);
 			}).fail(function(err) {callback(err);});
 
 			var findReplies = function(replyid, callback) {
-				Comment.find({post_id: postid, reply_id: replyid}, callback);
+				//Comment.find({post_id: postid, reply_id: replyid}, callback);
+				Comment.find({post_id: postid, reply_id: replyid})
+					.sort({create_at: 1})
+					.exec(callback);
 			};
 
 			var findAuthor = function(uid, callback) {
 				if(infoCache[uid]) return callback(null, infoCache[uid]);
 
-				user_ctrl.findById(uid, 'name avatar site admin', function(err, doc) {
+				user_ctrl.findById(uid, 'name email site admin', function(err, doc) {
 					if(err) return callback(err);
 					if(!doc) {
 						doc = {
@@ -57,11 +60,11 @@ function findCommentsByPostId(postid, callback) {
 							email: '',
 							avatar: settings.DEFAULT_AVATAR
 						}
+					} else {
+						doc = doc.toObject();
+						doc.avatar = user_ctrl.genAvatar(doc.email);
+						//delete doc.email;
 					}
-					doc = doc.toObject();
-					delete doc.pass;
-					delete doc.create_at;
-					delete doc.modify_at;
 					callback(null, doc);
 					infoCache[uid] = doc;
 				});
@@ -73,30 +76,32 @@ function findCommentsByPostId(postid, callback) {
 					comment.replies = replies;
 					comment.author = author;
 					comment.create_at = tools.dateFormat(comment.create_at, 'YYYY 年 MM 月 DD 日 hh:mm:ss');
+					comments[i] = comment;
 					tools.marked(comment.content, function(err, content) {
 						if(!err) comment.content = content;
-						ep.emit('all_find', comment);
+						ep.emit('all_find'/*, comment*/);
 					});
-				}).fail(function(err) {ep.emit('error', err);});
+				}).fail(function(err) {ep.emit('error', err);})
 
 				findReplies(comment._id, function(err, replies) {
 					if(err) return proxy.emit('error', err);
-					if(!replies) return proxy.emit('find_replies', []);
+					if(!replies.length) return proxy.emit('find_replies', []);
 
-					var ep2 = new EventProxy().after('users_find', replies.length, function(list) {
-						proxy.emit('find_replies', list);
+					var ep2 = new EventProxy().after('users_find', replies.length, function() {
+						proxy.emit('find_replies', replies);
 					}).fail(function(err) {proxy.emit('error', err);});
 
-					var findUsers = function(reply) {
+					var findUsers = function(reply, j) {
 						//console.log(reply)
 						var proxy2 = EventProxy.create('author', 'r_author', function(author, rAuthor) {
 							reply = reply.toObject({hide: 'post_id author_id at_user_id', transform: true});
 							reply.create_at = tools.dateFormat(reply.create_at, 'YYYY 年 MM 月 DD 日 hh:mm:ss');
 							reply.author = author;
 							if(rAuthor) reply.reply_author = rAuthor;
+							replies[j] = reply;
 							tools.marked(reply.content, function(err, content) {
 								if(!err) reply.content = content;
-								ep2.emit('users_find', reply);
+								ep2.emit('users_find');
 							});
 						}).fail(function(err) {ep2.emit('error', err);});
 
@@ -138,7 +143,7 @@ function findCommentsByPostId(postid, callback) {
 			id: 'xx',
 			author: {},
 			replies: [
-				{id: 'yy', replies: [], replyUser: {}, author: {}}
+				{id: 'yy', replies: [], reply_author: {}, author: {}}
 			]
 		}
 	]*/
@@ -227,15 +232,21 @@ exports.add = function(req, res, next) {
 	checkUser(function(err, doc) {
 		if(err) return emitErr('Check user error on add comment.', err);
 		doc = doc.toObject();
+		doc.avatar = user_ctrl.genAvatar(doc.email);
 		delete doc.pass;
 		delete doc.create_at;
 		delete doc.modify_at;
+		//delete doc.email;
 		req.session.user = doc;
 		proxy.emit('user_check', doc);
 	});
 
 	if(atUid) {
-		user_ctrl.findById(atUid, 'name avatar site admin', function(err, doc) {
+		user_ctrl.findById(atUid, 'name email site admin', function(err, doc) {
+			if(err || !doc) return proxy.emit('at_user_check', null);
+			doc = doc.toObject();
+			doc.avatar = user_ctrl.genAvatar(doc.email);
+			delete doc.avatar;
 			proxy.emit('at_user_check', doc);
 		});
 	} else {
@@ -266,18 +277,24 @@ exports.remove = function(req, res, next) {
 		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Param postid required.');
 	}
 
-	Comment.find({_id: commentId, post_id: postid}, function(err, doc) {
-		if(err) next(err);
-		if(!doc) next();
-		if(user.admin || doc.author_id === user._id) {
-			Comment.findByIdAndRemove(doc._id, function(err, doc) {console.log(doc)
-				if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
-				tools.jsonReturn(res, 'SUCCESS', 0);
-			});
-			/*doc.remove(function(err) {
+	Comment.findOne({_id: commentId, post_id: postid}, function(err, doc) {
+		if(err) return next(err);
+		if(!doc) return next();
+		if(user.admin || doc.author_id.toString() === user._id.toString()) {
+			/*Comment.findByIdAndRemove(doc._id, function(err, doc) {
 				if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
 				tools.jsonReturn(res, 'SUCCESS', 0);
 			});*/
+			doc.remove(function(err, doc) {
+				if(err || doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
+				tools.jsonReturn(res, 'SUCCESS', 0);
+
+				post_ctrl.findByIdAndUpdate(postid, {
+					$inc: {comments: -1}
+				}, function(err) {
+					if(err) console.log('Update post error.', err);
+				});
+			});
 		} else {
 			next('403 access forbidden!');
 		}

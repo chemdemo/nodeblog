@@ -6,6 +6,7 @@
 var express = require('express')
     , http = require('http')
     , path = require('path')
+    , domain = require('domain')
     //, flash = require('connect-flash')
     //, ejs = require('ejs')
     , swig = require('swig')
@@ -82,6 +83,22 @@ app.configure('production', function() {
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log("Application listening on port %s in %s mode, pid: %s.", app.get('port'), app.settings.env, process.pid);
+});
+
+// 捕获异步回调的异常
+app.use(function(req, res, next) {
+    var d = domain.create();
+    d.on('error', function(err) {
+        logger(err);
+        res.statusCode = 500;
+        //res.json();
+        res.send(500, 'Server error.');
+        d.dispose();
+    });
+
+    d.add(req);
+    d.add(res);
+    d.run(next);
 });
 
 routes(app);

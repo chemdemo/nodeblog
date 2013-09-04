@@ -32,15 +32,16 @@ function findAPost(postid, fields, callback) {
 		var proxy = EventProxy.create('author_find', 'last_commentator_find', function(author, commentator) {
 			doc.author = author;
 			doc.last_commentator = commentator;
-			console.log(doc);
 			//doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss')
 			callback(null, doc);
 		}).fail(callback);
 
 		if(fields.indexOf('author_id') > -1) {
-			user_ctrl.findById(doc.author_id, function(_err, _doc) {
-				if(_err) return proxy.emit('error', _err);
-				delete _doc.pass;
+			user_ctrl.findById(doc.author_id, 'name email site admin', function(_err, _doc) {
+				if(_err || !_doc) return proxy.emit('error', _err);
+				_doc = _doc.toObject();
+				_doc.avatar = user_ctrl.genAvatar(_doc.email);
+				//delete _doc.email;
 				proxy.emit('author_find', _doc);
 			});
 		} else {
@@ -48,9 +49,11 @@ function findAPost(postid, fields, callback) {
 		}
 		
 		if(fields.indexOf('last_comment_by') > -1 && doc.last_comment_by) {
-			user_ctrl.findById(doc.last_comment_by, function(_err, _doc) {
-				if(_err) return proxy.emit('error', _err);
-				delete _doc.pass;
+			user_ctrl.findById(doc.last_comment_by, 'name email site admin', function(_err, _doc) {
+				if(_err || !_doc) return proxy.emit('error', _err);
+				_doc = _doc.toObject();
+				_doc.avatar = user_ctrl.genAvatar(_doc.email);
+				//delete _doc.email;
 				proxy.emit('last_commentator_find', _doc);
 			});
 		} else {
@@ -375,7 +378,6 @@ exports.show = function(req, res, next) {
 		if(err || !doc) return proxy.emit('error', err);
 		//doc.save(function(_err) {if(_err) console.log('Add visite error.');});
 		//doc = doc.toObject();
-		//console.log(doc.content)
 		tools.marked(doc.content, function(err, content) {
 			if(!err) {
 				doc.content = content;

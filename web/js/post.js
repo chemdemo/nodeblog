@@ -93,6 +93,12 @@ define(
 				data: {postid: postId},
 				success: function(r) {
 					console.log(r);
+					if(r.rcode === 0) {
+						fetchComments();// 重新拉一遍，省事儿。。
+					} else {
+						console.log('Remove comment error: ', r.errinfo);
+						alert('删除评论失败，重新试试？');
+					}
 				}
 			});
 		}

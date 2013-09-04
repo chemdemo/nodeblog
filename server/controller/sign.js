@@ -83,7 +83,9 @@ exports.login = function(req, res, next) {
 }
 
 exports.info = function(req, res, next) {
-	res.render('info', req.session.user || {});
+	var user = req.session.user || null;
+	if(user) user.avatar = user_ctrl.genAvatar(user.email);
+	res.render('info', user);
 }
 
 exports.loginCheck = function(req, res, next) {
