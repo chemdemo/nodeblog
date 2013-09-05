@@ -34,7 +34,7 @@ function home(req, res, next) {
 		proxy.emit('tags', doc);
 	});
 
-	post.findCounts(function(err, doc) {
+	post.findCounts(null, function(err, doc) {
 		//console.log('countMonthy: ', err, doc)
 		if(err) return proxy.emit('error', err);
 		proxy.emit('counts', doc);
@@ -66,8 +66,13 @@ function routes(app) {
 	app.delete('/comment/:commentid?', sign.loginCheck, comment.remove);
 
 	// tag about
+	app.get('/tag/:tag', tag.findPostsByTag);
 
 	// post counts about
+	app.get('/counts/:month', post.counts);
+
+	// search
+	app.get('/search', post.search);
 }
 
 module.exports = routes;

@@ -1,12 +1,16 @@
 {% extends 'layout.html' %}
 
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
 {% block stylesheet %}
 <link rel="stylesheet" href="/style/post.css" />
 {% endblock %}
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include 'server/views/sitebar.html' %}
+	{% include './sitebar.html' %}
 
 	<div class="page-content">
 		<section class="post shadow-box">

@@ -97,26 +97,27 @@ function findAllTags(callback) {
 }
 
 exports.findPostsByTag = function(req, res, next) {
-	var tag = req.query.tag;
+	var tag = req.params.tag;
+	var pageTitle = '所有含有<em class="list-key"> ' + tag + ' </em>的文章';
 
 	if(!tag) {
 		console.log('Param tag required');
 		return next();
 	}
 
-	Tag.find({name: tag}, function(err, doc) {
-		if(err || !doc) return next();
+	Tag.findOne({name: tag}, function(err, doc) {
+		if(err) return next(err);
 
 		var postids = doc.postids || [];
+		var fields = '_id title author_id topped update_at visite';
 		if(postids.length > 0) {
-			post_ctrl.fetchPosts(postids, '_id title summary author_id', function(err, r) {
+			post_ctrl.fetchPosts(postids, fields, function(err, _doc) {
 				if(err) return next(err);
 				console.log('Fetch posts by tag success!');
-				//res.render('list', {result: r});
+				res.render('list', {posts: _doc, page_title: pageTitle});
 			});
 		} else {
-			console.log('No posts found.');
-			//res.render('list',{result: []});
+			res.render('list', {posts: [], page_title: pageTitle});
 		}
 	});
 }

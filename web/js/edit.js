@@ -15,11 +15,6 @@ require.config({
 });
 
 define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked, hljs, utils) {
-	/*var utils = require('utils');
-	var ace = require('libs/ace/ace');
-	var marked = require('libs/marked/marked');
-	var hljs = require('libs/highlight.js/highlight.pack');*/
-
 	marked.setOptions({
 		highlight: function (code, lang) {
 			if(lang) {

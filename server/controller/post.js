@@ -8,6 +8,7 @@ var tag_ctrl = require('./tag');
 var comment_ctrl = require('./comment');
 
 var tools = require('../utils/tools');
+var sanitize = require('validator').sanitize;
 var async = require('async');
 var EventProxy = require('eventproxy');
 var _ = require('underscore');
@@ -168,7 +169,7 @@ function countMonthy(callback) {
 }
 
 // 查找post统计结果
-function findCounts(callback) {
+function findCounts(conditions, callback) {
 	try {
 		var mongo = require('mongodb');
 		var server = mongo.Server(settings.DB_HOST, settings.DB_PORT, {auto_reconnect: true});
@@ -178,7 +179,7 @@ function findCounts(callback) {
 			if(err) return callback(err);
 			dbConn.collection('count_monthy', function(err, conn) {
 				if(err) return callback(err);
-				conn.find().toArray(callback);
+				conn.find(conditions).toArray(callback);
 			});
 		});
 	} catch(e) {
@@ -401,7 +402,7 @@ exports.show = function(req, res, next) {
 		proxy.emit('tags', doc);
 	});
 	
-	findCounts(function(err, doc) {
+	findCounts(null, function(err, doc) {
 		if(err) return proxy.emit('error', err);
 		proxy.emit('counts', doc);
 	});
@@ -429,6 +430,48 @@ exports.showByPage = function(req, res, next) {
 		if(err) return tools.jsonReturn(res, 'DB_ERROR', '', err);
 		tools.jsonReturn(res, 'SUCCESS', r);
 	});
+}
+
+exports.counts = function(req, res, next) {
+	var month = req.params.month;
+	var fields = '_id title author_id topped update_at visite';
+	var pageTitle = '';
+	var postids;
+
+	if(!month) return next();
+
+	month -= 0;
+	pageTitle = tools.dateFormat(new Date(month), 'YYYY年MM月') + '文章归档';
+
+	findCounts({_id: month}, function(err, doc) {
+		if(err) return next(err);
+		if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
+		postids = doc[0].value.split('$');
+		fetchPosts(postids, fields, function(err, doc) {
+			if(err) return next(err);
+			res.render('list', {posts: doc, page_title: pageTitle});
+		});
+	});
+}
+
+exports.search = function(req, res, next) {
+	var keyword = sanitize(req.query.keyword || '').trim();
+	var fields = '_id title author_id topped update_at visite';
+	var pageTitle = '所有含<em class="list-key"> ' + req.query.keyword + '</em> 的文章';
+
+	if(!keyword) return res.render('list', {posts: [], page_title: pageTitle});
+
+	keyword = sanitize(keyword).xss();
+	Post.find(null, '_id')
+		.$where('(/' + keyword + '/.test(this.title))')
+		.exec(function(err, doc) {
+			if(err) return next(err);
+			if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
+			fetchPosts(_.filter(doc, function(item) {return item._id}), fields, function(err, doc) {
+				if(err) return next(err);
+				res.render('list', {posts: doc, page_title: pageTitle});
+			});
+		});
 }
 
 exports.findById = findById;

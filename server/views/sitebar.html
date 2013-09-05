@@ -12,7 +12,7 @@
 		<h3>所有标签</h3>
 		<div class="tags-list">
 			{% for tag in tags %}
-			<a href="/tag/{{ tag._id }}" class="tag">{{ tag.name }}</a>
+			<a href="/tag/{{ tag.name }}" class="tag">{{ tag.name }}</a>
 			{% endfor %}
 		</div>
 	</section>
@@ -22,7 +22,7 @@
 		<ul class="archive-list">
 			{% for count in counts %}
 			<li>
-				<a href="/count/{{ count._id }}">{{ count._id|date('Y年m月') }}</a>
+				<a href="/counts/{{ count._id }}">{{ count._id|date('Y年m月') }}</a>
 				(<b>{{ count.value|split('$')|length|default(0) }}</b>)
 			</li>
 			{% endfor %}
