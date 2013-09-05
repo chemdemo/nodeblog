@@ -42,6 +42,8 @@ define(
 		var repling;
 		var appendWrapper = $('#comment-list');
 
+		// 这里，最好写个状态机
+
 		function addComment(e) {//return console.log(appendWrapper)
 			e.preventDefault();
 			e.stopPropagation();
@@ -79,8 +81,10 @@ define(
 					$('#comment-list .no-comment').remove();
 					appendWrapper.append(_.template(replyTmpl, r.result).replace(/\n/g, ''));
 					$('#btn-cancel').trigger('click');
+				} else if(r.rcode === 10000) {
+					location.href = '/login';
 				} else {
-					//tips('添加评论失败，再试一次？');
+					tips('添加评论失败，再试一次？');
 					console.log('Add comment error, ', r);
 				}
 			});

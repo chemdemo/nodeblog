@@ -1,4 +1,0 @@
-/*
- * @description: blog
- * @author: dm
- */
