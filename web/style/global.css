@@ -30,7 +30,7 @@ html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input, textarea
 	padding: 0;
 }
 body, input, button, textarea {
-	font: normal normal normal 13px/2 /*Monaco, */'Segoe UI', 'Microsoft Yahei', Helvetica, Tahoma, Simsun, sans-serif;
+	font: normal normal normal 13px/2 /*Monaco, */'Segoe UI Light', 'Segoe UI', 'Microsoft Yahei', Helvetica, Tahoma, Simsun, sans-serif;
 	color: #222;
 }
 html {
