@@ -10,15 +10,10 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include './sitebar.html' %}
-
 	<div class="page-content">
 		<section class="post shadow-box">
 			<h1 class="post-title">
-				{% if !!post.topped %}
-				<b class="topped">【置顶】</b>
-				{% endif %}
-				<a href="/post/{{ post._id }}">{{ post.title }}</a>
+				{% if post.topped %}<b class="topped">【置顶】</b>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
 			</h1>
 			<div class="edit-info">
 				<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
@@ -39,8 +34,10 @@
 			{% endautoescape %}
 			</div>
 			<div class="prev-next">
-				<p>上一篇：<a href="#">白天不懂夜的黑</a></p>
-				<p>下一篇：<a href="#">你是风儿我是沙，缠缠绵绵</a></p>
+				<p>上一篇：{% if prev._id %}<a href="/post/{{ prev._id }}">{{ prev.title }}</a>{% else %}没有了{% endif %}
+				</p>
+				<p>下一篇：{% if next._id %}<a href="/post/{{ next._id }}">{{ next.title }}</a>{% else %}没有了{% endif %}
+				</p>
 			</div>
 		</section>
 
@@ -53,6 +50,7 @@
 			<section class="add-comment" id="add-comment">
 				<input type="hidden" hidden id="reply-comment-id" name="reply_comment_id" />
 				<input type="hidden" hidden id="at-user-id" name="at_user_id" />
+				<input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
 				<h4><i class="icon-bubble"></i> 添加评论</h4>
 				<p>
 					<input value="{{ user.name }}" class="input" name="name" id="name" placeholder="Input your name" />
@@ -82,9 +80,11 @@
 			</section>
 		</section>
 	</div>
+
+	{% include 'server/views/sitebar.html' %}
 </div>
 {% endblock %}
 
 {% block script %}
-<script data-main="/js/post.js" src="/libs/requirejs/require.js"></script>
+<script data-main="/js/post.js" src="/lib/requirejs/require.js"></script>
 {% endblock %}

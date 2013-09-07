@@ -8,6 +8,7 @@
 <div class="page-body clearfix">
 	<form class="user-login" action="/login" method="POST">
 		<h2>管理登陆</h2>
+		<input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
 		<p>
 			<label for="email">邮箱：</label>
 			<input class="input" type="email" name="email" id="email" placeholder="Input email" value="{{ email }}" />

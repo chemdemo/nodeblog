@@ -3,12 +3,12 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
 	name: String,
-	email: String,
+	email: {type: String, unique: true},
 	pass: String,
-	//avatar: String,
+	avatar: String,// 允许自定义头像
 	site: String,
 	admin: {type: Boolean, default: false},
-	create_at: {type: Date, default: Date.now, index: true},
+	create_at: {type: Date, default: Date.now},
 	modify_at: {type: Date, default: Date.now}
 }, {collection: 'user'});
 

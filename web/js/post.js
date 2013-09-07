@@ -3,9 +3,9 @@
 require.config({
     //baseUrl: '../libs',
     paths: {
-        jquery: '../libs/jquery/jquery',
-        underscore: '../libs/underscore/underscore',
-        text: '../libs/requirejs/text',
+        jquery: '../lib/jquery/jquery',
+        underscore: '../lib/underscore/underscore',
+        text: '../lib/requirejs/text',
 		utils: './utils'
     }
 	//, urlArgs: '_t=' + Date.now()// no cache
@@ -52,6 +52,7 @@ define(
 			var name = $('#name').val();
 			var email = $('#email').val();
 			var site = $('#site').val();
+			var csrf = $('#csrf').val();
 			var content = $('#comment').val();
 
 			var tips = function(msg) {
@@ -72,6 +73,7 @@ define(
 					email: email,
 					site: site
 				},
+				_csrf: csrf,
 				reply_comment_id: $('#reply-comment-id').val(),
 				at_user_id: $('#at-user-id').val(),
 				content: content

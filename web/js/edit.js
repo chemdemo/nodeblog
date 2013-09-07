@@ -5,10 +5,10 @@
 
 require.config({
     paths: {
-        jquery: '../libs/jquery/jquery',
-        ace: '../libs/ace',
-        marked: '../libs/marked/marked',
-        hljs: '../libs/highlight.js/highlight.pack',
+        jquery: '../lib/jquery/jquery',
+        ace: '../lib/ace',
+        marked: '../lib/marked/marked',
+        hljs: '../lib/highlight.js/highlight.pack',
 		utils: './utils'
     }
 	//, urlArgs: '_t=' + Date.now()// no cache
@@ -94,7 +94,10 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 		function savePost(e) {
 			var pid = $(this).attr('data-pid');
 			var url = '/edit' + (pid ? '/' + pid : '');
-			return $.post(url, {data: JSON.stringify(getData())}, function(r) {
+			return $.post(url, {
+				data: JSON.stringify(getData()), 
+				_csrf: $('#csrf').val()
+			}, function(r) {
 				if(r.rcode === 0) {
 					return window.location = '/post/' + r.result;
 				}

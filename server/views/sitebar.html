@@ -5,7 +5,7 @@
 	</section> -->
 
 	<section class="author-desc shadow-box">
-		<a href="/about">ABOUT</a>
+		<a href="jascript: void(0);">About me</a>
 	</section>
 
 	<section class="site-tags shadow-box">
@@ -22,7 +22,7 @@
 		<ul class="archive-list">
 			{% for count in counts %}
 			<li>
-				<a href="/counts/{{ count._id }}">{{ count._id|date('Y年m月') }}</a>
+				<a href="/posts/{{ count._id|date('Y/m/') }}">{{ count._id|date('Y年m月') }}</a>
 				(<b>{{ count.value|split('$')|length|default(0) }}</b>)
 			</li>
 			{% endfor %}

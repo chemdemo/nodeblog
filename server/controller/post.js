@@ -125,12 +125,11 @@ function countMonthy(callback) {
 		var month = create.getMonth()+1;
 		month = ('0' + month).slice(-2);
 		var key = new Date(create.getFullYear(), create.getMonth()+1).getTime();
-		//var key = year + '年' + month + '月';
 		//emit(key, {postid: [this._id]});
-		emit(key, this._id.toString());
+		emit(key, this._id.toString());// win mongodb have bug
 	};
 
-	var reduceFn = function(key, values) {//{'20130500': ['xxx', 'xxxx']}
+	var reduceFn = function(key, values) {//{'2013/09': ['xxx', 'xxxx']}
 		//return _.flatten(values);
 		//var r = {postids: []};
 		var r = [];
@@ -357,23 +356,59 @@ exports.remove = function(req, res, next) {
 	});
 }
 
-exports.show = function(req, res, next) {
-	var user = req.session.user;
+exports.show = function(req, res, next) {//return countMonthy(function(){})
+	//var user = req.session.user;
+	var cookies = req.cookies;
+	var name = cookies.name;
+	var email = cookies.email;
+	var user = null;
 	var postid = req.params.postid;
 
 	if(!postid) return next();
 
 	var fields = 'title content update_at author_id tags comments visite topped last_comment_at last_comment_by';
 	
+	if(name && email) {
+		user = {name: name, email: email, site: cookies.site}
+	} else {
+		user = req.session.user;
+	}
+
 	//findAPost
-	var proxy = EventProxy.create('post', 'tags', 'counts'/*, 'prev', 'next'*/, function(post, tags, counts/*, prev, next*/) {
+	var proxy = EventProxy.create('post', 'tags', 'counts', 'prev', 'next', function(post, tags, counts, prev, next) {
 		res.render('post', {
 			post: post
 			, tags: tags
 			, counts: counts
-			, user: user || {}
+			, prev: prev
+			, next: next
+			, user: user
+		});
+
+		Post.findByIdAndUpdate(post._id, {$inc: {visite: 1}}, function(_err, _doc) {
+			if(_err) console.log('Add visite error.', _err);
 		});
 	}).fail(next);
+
+	proxy.on('post', function(post) {
+		// find prev 
+		Post.find({_id: {$gt: post._id}}, 'title')
+			.sort({_id: -1})
+			.limit(1)
+			.exec(function(err, doc) {
+				proxy.emit('prev', {});
+				if(err) console.log('Find previous post error, ', err);
+			});
+
+		// find next 
+		Post.find({_id: {$gt: post._id}}, 'title')
+			.sort({_id: 1})
+			.limit(1)
+			.exec(function(err, doc) {
+				proxy.emit('next', {});
+				if(err) console.log('Find next post error, ', err);
+			});
+	});
 
 	findAPost(postid, fields, function(err, doc) {
 		if(err || !doc) return proxy.emit('error', err);
@@ -390,10 +425,6 @@ exports.show = function(req, res, next) {
 			doc.visite ++;
 			//console.log('post: ', doc)
 			proxy.emit('post', doc);
-		});
-
-		Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(_err, _doc) {
-			if(_err) console.log('Add visite error.', _err);
 		});
 	});
 
@@ -433,20 +464,22 @@ exports.showByPage = function(req, res, next) {
 }
 
 exports.counts = function(req, res, next) {
+	var year = req.params.year;
 	var month = req.params.month;
 	var fields = '_id title author_id topped update_at visite';
 	var pageTitle = '';
 	var postids;
 
-	if(!month) return next();
-
+	year -= 0;
 	month -= 0;
-	pageTitle = tools.dateFormat(new Date(month), 'YYYY年MM月') + '文章归档';
+	if(!year || !month) return next();
 
-	findCounts({_id: month}, function(err, doc) {
+	pageTitle = tools.dateFormat(new Date(year, month-1), 'YYYY年MM月') + '文章归档';
+
+	findCounts({_id: new Date(year, month).getTime()}, function(err, doc) {
 		if(err) return next(err);
 		if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
-		postids = doc[0].value.split('$');
+		postids = doc[0].value.split('$');console.log(postids)
 		fetchPosts(postids, fields, function(err, doc) {
 			if(err) return next(err);
 			res.render('list', {posts: doc, page_title: pageTitle});
@@ -455,9 +488,9 @@ exports.counts = function(req, res, next) {
 }
 
 exports.search = function(req, res, next) {
-	var keyword = sanitize(req.query.keyword || '').trim();
+	var keyword = sanitize(req.body.keyword || '').trim();
 	var fields = '_id title author_id topped update_at visite';
-	var pageTitle = '所有含<b class="list-key"> ' + req.query.keyword + '</b> 的文章';
+	var pageTitle = '所有含<b class="list-key"> ' + req.body.keyword + '</b> 的文章';
 
 	if(!keyword) return res.render('list', {posts: [], page_title: pageTitle});
 

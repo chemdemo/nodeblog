@@ -19,6 +19,8 @@ var PostSchema = new Schema({
 	last_comment_by: ObjectId
 }, {collection: 'post'});
 
+PostSchema.index({create_at: 1});
+
 PostSchema.methods.setSummary = function(text) {
 	this.summary = text || this.content.substring(0, 200);
 }

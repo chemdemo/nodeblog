@@ -2,16 +2,16 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<meta name="keywords" content="blog" />
-	<meta name="description" content="blog" />
-	<meta name="author" content="yangdemo@gmail.com" />
-	<meta name="copyright" content="chemdemo" />
-	<meta name="application-name" content="blog" />
+	<meta name="keywords" content="notes dmyang" />
+	<meta name="description" content="dmyang dm chemdemo" />
+	<meta name="author" content="dmyang @demo-i" />
+	<meta name="copyright" content="dmyang" />
+	<meta name="application-name" content="dmyang's blog" />
 	<meta name="viewport" content="minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no">
 	<title>{% block title %}Notes·dm{% endblock %}</title>
 	<!-- <link rel="shortcut icon" href="/favicon.ico" /> -->
 	<link rel="stylesheet" href="/style/style.css" />
-	<link id="code-theme" rel="stylesheet" href="/libs/highlight.js/styles/rainbow.css" />
+	<link id="code-theme" rel="stylesheet" href="/lib/highlight.js/styles/rainbow.css" />
 	<link rel="stylesheet" href="/style/global.css" />
 	<link>{% block stylesheet %}{% endblock %}</link>
 </head>
@@ -34,17 +34,18 @@
 			<!-- <h1><a href="/" class="active">Notes-dm</a></h1>
 			<b class="sub-title">天下难事，必做于易；天下大事，必做于细。—— 老子!</b> -->
 
-			<form class="page-search clearfix" method="POST" action="">
+			<form class="page-search clearfix" method="POST" action="/search">
+				<input type="hidden" name="_csrf" value="{{ token }}">
 				<div class="search-wrap clearfix">
 					<label class="icon-search" for="search-text" title="搜索"></label>
-					<input id="search-text" class="search-text" placeholder="Input keywords" type="text" />
+					<input id="search-text" name="keyword" class="search-text" placeholder="Input keyword" />
 				</div>
 			</form>
 
 			<nav>
 				<a href="/" class="{% if home %}active{% endif %}" title="To home">Home</a>
 				<a href="http://dmfee.lofter.com/" title="Thumbs on lofter">Lofter</a>
-				<a href="/about" class="{% if about %}active{% endif %}" title="About me">About</a>
+				<a href="/about" class="{% if about %}active{% endif %}" title="About blog">About</a>
 			</nav>
 		</div>
 	</header>
@@ -54,9 +55,9 @@
 
 	<footer>
 		Copyright &copy; <script>document.write(new Date().getFullYear());</script>. Built with 
-		<a href="" target="_blank">NodeJS(expressjs)</a> 
-		and <a href="" target="_blank">MongoDB</a>.
-		By <a href="" target="_blank">chemdemo</a>.
+		<a href="http://nodejs.org/" target="_blank">NodeJS(expressjs)</a> 
+		and <a href="http://www.mongodb.org/" target="_blank">MongoDB(mongoose)</a>.
+		By <a href="http://www.dmfee.com" target="_blank">dmyang</a>.
 	</footer>
 </body>
 {% block script %}{% endblock %}

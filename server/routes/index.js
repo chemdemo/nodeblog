@@ -12,7 +12,8 @@ var comment = controller.comment;
 var EventProxy = require('eventproxy');
 
 function home(req, res, next) {
-	//console.log('session: ', req.session.user);
+	console.log('session: ', req.session.user);
+	console.log('cookie: ', req.cookies);
 	var proxy = EventProxy.create('posts', 'tags', 'counts', function(posts, tags, counts) {
 		res.render('index', {
 			posts: posts,
@@ -69,10 +70,10 @@ function routes(app) {
 	app.get('/tag/:tag', tag.findPostsByTag);
 
 	// post counts about
-	app.get('/counts/:month', post.counts);
+	app.get('/posts/:year/:month', post.counts);
 
 	// search
-	app.get('/search', post.search);
+	app.post('/search', post.search);
 }
 
 module.exports = routes;

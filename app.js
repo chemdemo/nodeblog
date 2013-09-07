@@ -47,10 +47,16 @@ app.configure(function() {
         store: new MongoStore({
             db: settings.DB_NAME
             //, collection: ''
+            , maxAge: maxAge
         }),
         secret: settings.SESSION_SECRET,
-        cookie: {maxAge: maxAge}//30 days
+        cookie: {maxAge: maxAge*3}//30*3 days
     }));
+    app.use(express.csrf());
+    app.use(function(req, res, next) {
+        res.locals.token = req.session._csrf;
+        next();
+    });
     app.use('/upload/', express.static(settings.UPLOAD_DIR, {maxAge: maxAge}));
     //app.use(require('stylus').middleware(__dirname + '/web/'));
     //app.use(express.static(staticDir));
@@ -77,7 +83,7 @@ app.configure('development', function() {
 app.configure('production', function() {
     app.use(express.static(staticDir, {maxAge: maxAge}));
     app.use(express.errorHandler());
-    swigOptions.cache = true;
+    //swigOptions.cache = true;
     swig.setDefaults(swigOptions);
 });
 
@@ -115,20 +121,21 @@ function logErrors(err, req, res, next) {
 
 function clientErrorHandler(err, req, res, next) {
     if (req.xhr) {
-        res.send(500, {error: 'Something blew up!'});
+        res.send(500, {error: 'Server error while request by ajax.'});
     } else {
         next(err);
     }
 }
 
 function errorHandler(err, req, res, next) {
+    console.error(err, err.status, err.stack);
     res.status(500);
     res.render('error', {error: err});
 }
 
 app.use(on404);
-app.use(logErrors);
-app.use(clientErrorHandler);
+//app.use(logErrors);
+//app.use(clientErrorHandler);
 app.use(errorHandler);
 
 process.on('uncaughtException', function(err) {

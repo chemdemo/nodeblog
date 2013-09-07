@@ -22,16 +22,14 @@
 					<i class="icon-alarm" title="最后编辑时间"></i>
 					<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s') }}</span>
 				</span>
-				&nbsp;
 				<span class="post-author">{{ post.author.name }}</span>
-				&nbsp;
 				<span class="post-visite">
 					访问量(<span class="visite-num">{{ post.visite }}</span>) 
 				</span>
-				&nbsp;|&nbsp;
+				|
 				<span class="post-comments">
 					评论(<span class="comments-num">{{ post.comments|default(0) }}</span>)
-				</span>&nbsp;
+				</span>
 				<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
 			</div>
 		</li>

@@ -10,7 +10,7 @@ define(function(require, exports, module) {
 	var html = '';
 
 	files.forEach(function(f, i) {
-		html += '<option value="/libs/highlight.js/styles/'+f+'.css">' + f + '</option>';
+		html += '<option value="/lib/highlight.js/styles/'+f+'.css">' + f + '</option>';
 	});
 
 	function init() {

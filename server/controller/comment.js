@@ -156,7 +156,7 @@ exports.add = function(req, res, next) {
 	var content = sanitize(req.body.content || '').trim();
 	var replyId = req.body.reply_comment_id || '';
 	var atUid = req.body.at_user_id || '';
-
+	
 	var checkUser = function(callback) {
 		user = user_ctrl.infoCheck(user);
 		if(user.error) return callback(user.error);
@@ -195,7 +195,7 @@ exports.add = function(req, res, next) {
 		comment.post_id = postid;
 		comment.author_id = author._id;
 		comment.content = content;
-
+	
 		if(replyId) comment.reply_id = replyId;
 		if(at_author) comment.at_user_id = at_author._id;
 		
@@ -232,21 +232,24 @@ exports.add = function(req, res, next) {
 	checkUser(function(err, doc) {
 		if(err) return emitErr('Check user error on add comment.', err);
 		doc = doc.toObject();
-		doc.avatar = user_ctrl.genAvatar(doc.email);
+		doc.avatar = doc.avatar || user_ctrl.genAvatar(doc.email);
 		delete doc.pass;
 		delete doc.create_at;
 		delete doc.modify_at;
 		//delete doc.email;
-		req.session.user = doc;
+		user_ctrl.setCookie(res, doc);
+		//req.session.user = doc;
 		proxy.emit('user_check', doc);
 	});
 
 	if(atUid) {
-		user_ctrl.findById(atUid, 'name email site admin', function(err, doc) {
+		user_ctrl.findById(atUid, 'name email site admin', function(err, doc) {console.log(666)
 			if(err || !doc) return proxy.emit('at_user_check', null);
 			doc = doc.toObject();
-			doc.avatar = user_ctrl.genAvatar(doc.email);
-			delete doc.avatar;
+			doc.avatar = doc.avatar || user_ctrl.genAvatar(doc.email);
+			delete doc.pass;
+			delete doc.create_at;
+			delete doc.modify_at;
 			proxy.emit('at_user_check', doc);
 		});
 	} else {
@@ -256,7 +259,16 @@ exports.add = function(req, res, next) {
 
 exports.findAllByPostId = function(req, res, next) {
 	var postid = req.body.postid || req.params.postid;
-	var user = req.session.user || null;
+	var cookies = req.cookies;
+	var name = cookies.name;
+	var email = cookies.email;
+	var user = null;
+
+	if(name && email) {
+		user = {name: name, email: email, site: cookies.site}
+	} else {
+		user = req.session.user;
+	}
 
 	if(!postid) {
 		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Param postid required.');

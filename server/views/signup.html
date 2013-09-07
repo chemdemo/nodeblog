@@ -8,6 +8,7 @@
 <div class="page-body clearfix">
 	<form class="user-signup" action="/signup" method="POST">
 		<h2>注册</h2>
+		<input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
 		<p>
 			<label for="name">用户名<b class="required">（*）</b>：</label>
 			<input class="input" type="name" name="name" id="name" placeholder="Input your name" value="{{ name }}" />

@@ -6,16 +6,11 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	{% include './sitebar.html' %}
-
 	<div class="page-content">
 		{% for post in posts %}
 		<section class="post shadow-box">
 			<h3 class="post-title">
-				{% if topped %}
-				<b class="topped">【置顶】</b>
-				{% endif %}
-				<a href="/post/{{ post._id }}">{{ post.title }}</a>
+				{% if post.topped %}<b class="topped">【置顶】</b>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
 			</h3>
 			<!-- <div class="edit-info">
 				<span class="post-date">
@@ -61,9 +56,11 @@
 		</section>
 		{% endfor %}
 	</div>
+
+	{% include 'server/views/sitebar.html' %}
 </div>
 {% endblock %}
 
 {% block script %}
-<script data-main="/js/index.js" src="/libs/requirejs/require.js"></script>
+<script data-main="/js/index.js" src="/lib/requirejs/require.js"></script>
 {% endblock %}

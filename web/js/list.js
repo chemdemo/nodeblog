@@ -2,7 +2,7 @@
 
 require.config({
     paths: {
-        jquery: '../libs/jquery/jquery',
+        jquery: '../lib/jquery/jquery',
         utils: './utils'
     }
 	//, urlArgs: '_t=' + Date.now()// no cache

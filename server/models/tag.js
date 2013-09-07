@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var TagSchema = new Schema({
-	name: String,
+	name: {type: String, unique: true},
 	//description: String,
 	postids: [ObjectId]
 }, {collection: 'tag'});

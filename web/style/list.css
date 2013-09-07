@@ -7,7 +7,7 @@ h2 {
 	line-height: 3em;
 }
 .list-key {
-	color: rgb(216, 11, 77);
+	color: #D80B4D;
 }
 
 li {
@@ -20,5 +20,5 @@ li {
 }
 .box-info {
 	float: right;
-	max-width: 440px;
+	/*max-width: 440px;*/
 }

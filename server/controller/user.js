@@ -83,8 +83,8 @@ function addOne(info, callback) {
 	user.pass = md5(info.pass);
 	user.email = info.email;
 	user.site = info.site;
-	//user.avatar = avatar_url;
-	user.admin = (info.email === admin.EMAIL && info.pass === admin.PASS);
+	user.avatar = info.avatar || avatar_url;
+	user.admin = (info.email === admin.EMAIL && user.pass === md5(admin.PASS));
 	user.save(callback);
 }
 
@@ -92,8 +92,16 @@ function genAvatar(email) {
 	return 'http://www.gravatar.com/avatar/' + md5(email) + '?size=48';
 }
 
+function setCookie(res, user) {
+	res.cookie('name', user.name);
+	res.cookie('email', user.email);
+	res.cookie('site', user.site);
+	res.cookie('avatar', user.avatar);
+}
+
 exports.md5 = md5;
 exports.genAvatar = genAvatar;
+exports.setCookie = setCookie;
 exports.infoCheck = infoCheck;
 exports.findById = findById;
 exports.findByIdAndUpdate = findByIdAndUpdate;

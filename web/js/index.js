@@ -2,9 +2,9 @@
 
 require.config({
     paths: {
-        jquery: '../libs/jquery/jquery',
-        marked: '../libs/marked/marked',
-        hljs: '../libs/highlight.js/highlight.pack',
+        jquery: '../lib/jquery/jquery',
+        marked: '../lib/marked/marked',
+        hljs: '../lib/highlight.js/highlight.pack',
 		utils: './utils'
     }
 	//, urlArgs: '_t=' + Date.now()// no cache
