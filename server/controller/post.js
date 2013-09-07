@@ -457,7 +457,7 @@ exports.counts = function(req, res, next) {
 exports.search = function(req, res, next) {
 	var keyword = sanitize(req.query.keyword || '').trim();
 	var fields = '_id title author_id topped update_at visite';
-	var pageTitle = '所有含<em class="list-key"> ' + req.query.keyword + '</em> 的文章';
+	var pageTitle = '所有含<b class="list-key"> ' + req.query.keyword + '</b> 的文章';
 
 	if(!keyword) return res.render('list', {posts: [], page_title: pageTitle});
 

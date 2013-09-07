@@ -50,12 +50,12 @@
 					<a href="/edit/{{ post._id }}" class="icon-pencil" title="编辑"></a>
 				</span>
 				<span class="post-comments">
-					<a href="/post/{{ post._id }}#comments" class="icon-bubbles" title="{{ post.comments }}条评论"></a>
-					<span class="comments-num">{{ post.comments }}</span>
+					<!-- <a href="/post/{{ post._id }}#comments" class="icon-bubbles" title="{{ post.comments }}条评论"></a> -->
+					评论(<span class="comments-num">{{ post.comments }}</span>)
 				</span>
-				<span class="post-visited">
-					访问量 
-					<span class="visited-num">{{ post.visite }}</span>
+				<span class="line">|</span>
+				<span class="post-visite">
+					访问量(<span class="visite-num">{{ post.visite }}</span>)
 				</span>
 			</div>
 		</section>

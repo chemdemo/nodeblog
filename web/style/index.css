@@ -45,16 +45,10 @@
 	border-top: 1px solid #EEE;
 	padding: .5em 2em .5em;
 }
-.post-edit {
-	float: right;
-}
+.post-edit,
+.post-visite,
+.line,
 .post-comments {
 	float: right;
-	margin: 0 1em;
-}
-.post-comments a {
-	margin-right: 2px;
-}
-.post-visited {
-	float: right;
+	margin-left: .6em;
 }

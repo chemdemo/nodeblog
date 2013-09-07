@@ -19,6 +19,7 @@
 	text-transform: none;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Use the following CSS code if you want to have a class per icon */
@@ -27,7 +28,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-image, .icon-bubbles, .icon-search, .icon-spinner, .icon-tags, .icon-attachment, .icon-link, .icon-numbered-list, .icon-list, .icon-play, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-pushpin, .icon-close, .icon-plus-alt, .icon-trashcan, .icon-left-quote, .icon-pencil, .icon-disk, .icon-alarm, .icon-undo, .icon-redo, .icon-undo-2, .icon-redo-2, .icon-arrow-left, .icon-arrow-up, .icon-arrow-right, .icon-cancel-circle, .icon-checkmark-circle, .icon-download, .icon-document-alt-fill, .icon-eye, .icon-plus, .icon-arrow-up-2, .icon-checkmark {
+.icon-image, .icon-bubbles, .icon-search, .icon-spinner, .icon-tags, .icon-attachment, .icon-link, .icon-numbered-list, .icon-list, .icon-play, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-pushpin, .icon-close, .icon-plus-alt, .icon-trashcan, .icon-left-quote, .icon-pencil, .icon-alarm, .icon-undo, .icon-redo, .icon-undo-2, .icon-redo-2, .icon-arrow-left, .icon-arrow-up, .icon-arrow-right, .icon-cancel-circle, .icon-checkmark-circle, .icon-download, .icon-document-alt-fill, .icon-eye, .icon-plus, .icon-arrow-up-2, .icon-checkmark, .icon-users, .icon-users-2, .icon-bubble {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -100,9 +101,6 @@ you can use the generic selector below, but it's slower:
 .icon-pencil:before {
 	content: "\e000";
 }
-.icon-disk:before {
-	content: "\e01a";
-}
 .icon-alarm:before {
 	content: "\e018";
 }
@@ -150,4 +148,13 @@ you can use the generic selector below, but it's slower:
 }
 .icon-checkmark:before {
 	content: "\e026";
+}
+.icon-users:before {
+	content: "\e00c";
+}
+.icon-users-2:before {
+	content: "\e01a";
+}
+.icon-bubble:before {
+	content: "\e027";
 }

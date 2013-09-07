@@ -98,7 +98,7 @@ function findAllTags(callback) {
 
 exports.findPostsByTag = function(req, res, next) {
 	var tag = req.params.tag;
-	var pageTitle = '所有含有<em class="list-key"> ' + tag + ' </em>的文章';
+	var pageTitle = '标签<b class="list-key"> ' + tag + ' </b>下的文章';
 
 	if(!tag) {
 		console.log('Param tag required');
@@ -113,7 +113,6 @@ exports.findPostsByTag = function(req, res, next) {
 		if(postids.length > 0) {
 			post_ctrl.fetchPosts(postids, fields, function(err, _doc) {
 				if(err) return next(err);
-				console.log('Fetch posts by tag success!');
 				res.render('list', {posts: _doc, page_title: pageTitle});
 			});
 		} else {

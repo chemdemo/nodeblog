@@ -54,7 +54,7 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 		r.content = editor.getValue();
 		//r.cover = '';
 		r.summary = $('#post-summary').val();
-		r.tags = $('#post-tags').val().split(/[^\w+]/);
+		r.tags = $('#post-tags').val().split(/[\s;]/);
 		r.topped = $('#set-topped').prop('checked') - 0;
 		return r;
 	};

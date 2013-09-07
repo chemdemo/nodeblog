@@ -1,0 +1,24 @@
+.page-body {
+	padding: 1em 2em;
+	box-sizing: border-box;
+}
+
+h2 {
+	line-height: 3em;
+}
+.list-key {
+	color: rgb(216, 11, 77);
+}
+
+li {
+	overflow: hidden;
+	color: #999;
+}
+
+.box-title {
+	float: left;
+}
+.box-info {
+	float: right;
+	max-width: 440px;
+}

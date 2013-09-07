@@ -5,40 +5,40 @@
 {% endblock %}
 
 {% block content %}
-<div class="page-body clearfix">
-	<div class="page-content">
-		<h2>{{ page_title }}</h2>
-		{% if posts.length > 0 %}
-		<ul>
-			{% for post in posts %}
-			<li>
+<div class="page-body shadow-box clearfix">
+	<h2>{{ page_title }}</h2>
+	{% if posts.length > 0 %}
+	<ul>
+		{% for post in posts %}
+		<li>
+			<div class="box-title">
 				{% if post.topped %}
 				<b class="topped">【置顶】</b>
 				{% endif %}
-				<a href="/post/{{ post._id }}" target="_blank">{{ post.title }}</a>
-				<span class="edit-info">
-					<span class="post-date">
-						<i class="icon-alarm" title="最后编辑时间"></i>
-						<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s') }}</span>
-					</span>
-					<span class="post-gap">/</span>by 
-					{% if post.author.site %}
-					<a href="{{ post.author.site }}" target="_blank">{{ post.author.name }}</a>
-					{% else %}
-					{{ post.author.name }}
-					{% endif %}
-					<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
+				<a class="title" href="/post/{{ post._id }}">{{ post.title }}</a>
+			</div>
+			<div class="box-info">
+				<span class="post-date">
+					<i class="icon-alarm" title="最后编辑时间"></i>
+					<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s') }}</span>
 				</span>
-			</li>
-			{% endfor %}
-		</ul>
-		{% else %}
-		<section class="no-post"></section>
-		{% endif %}
-	</div>
+				&nbsp;
+				<span class="post-author">{{ post.author.name }}</span>
+				&nbsp;
+				<span class="post-visite">
+					访问量(<span class="visite-num">{{ post.visite }}</span>) 
+				</span>
+				&nbsp;|&nbsp;
+				<span class="post-comments">
+					评论(<span class="comments-num">{{ post.comments|default(0) }}</span>)
+				</span>&nbsp;
+				<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	<section class="no-post"></section>
+	{% endif %}
 </div>
-{% endblock %}
-
-{% block script %}
-<script data-main="/js/list.js" src="/libs/requirejs/require.js"></script>
 {% endblock %}
