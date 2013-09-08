@@ -72,7 +72,7 @@ function fetchPosts(postids, fields, callback) {
 function fetchByPage(start, offset, callback) {
 	offset = Math.min(offset, itemLimit);
 	Post.find(null, 'title summary author_id update_at tags comments visite topped')
-		.sort('topped -create_at')
+		.sort({topped: -1, create_at: -1})
 		.skip(start)
 		.limit(offset)
 		.exec(function(err, doc) {
@@ -192,23 +192,33 @@ exports.edit = function(req, res, next) {// get
 	var postid = req.params.postid;
 	
 	if(postid) {
-		var fields = '_id title content summary tags topped';
-		findById(postid, fields, function(err, doc) {
+		var proxy = EventProxy.create('post', 'tags', function(post, tags) {
+			res.render('edit', {post: post, tags: tags});
+		}).fail(next);
+
+		findById(postid, 'title content summary tags topped', function(err, doc) {
 			if(!err && doc) {
-				res.render('edit', doc);
+				proxy.emit('post', doc);
 			} else {
-				console.log('Find post error, err: ', err);
-				next(err);
+				proxy.emit('error', err || 'Post not found.');
 			}
 		});
+
+		tag_ctrl.findAllTags(function(err, doc) {
+			if(err) console.log('Find tags error, ', err);
+			proxy.emit('tags', doc || []);
+		});
 	} else {
-		res.render('edit', {});
+		tag_ctrl.findAllTags(function(err, doc) {
+			if(err) console.log('Find tags error, ', err);
+			res.render('edit', {tags: doc});
+		});
 	}
 }
 
 exports.save = function(req, res, next) {
 	var user = req.session.user;
-	var postid = req.params.postid;
+	var postid = req.body.postid || req.params.postid;
 	var fields = ['_id', 'title', 'content', 'cover', 'summary', 'tags', 'topped'];
 
 	function _extend(doc, data) {
@@ -496,7 +506,7 @@ exports.search = function(req, res, next) {
 
 	keyword = sanitize(keyword).xss();
 	Post.find(null, '_id')
-		.$where('(/' + keyword + '/.test(this.title))')
+		.$where('(/' + keyword + '/ig.test(this.title))')
 		.exec(function(err, doc) {
 			if(err) return next(err);
 			if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});

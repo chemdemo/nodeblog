@@ -27,7 +27,7 @@
 			{% endautoescape %}
 			</div>
 			<div class="post-more">
-				<a href="/post/{{ post._id }}">阅读更多&nbsp;<i class="icon-arrow-right"></i></a>
+				<a class="i-btn btn-mini" href="/post/{{ post._id }}">阅读更多&nbsp;<i class="icon-arrow-right"></i></a>
 			</div>
 			<div class="post-info">
 				<span class="post-date">
@@ -57,7 +57,7 @@
 		{% endfor %}
 	</div>
 
-	{% include 'server/views/sitebar.html' %}
+	{% include './sitebar.html' %}
 </div>
 {% endblock %}
 

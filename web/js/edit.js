@@ -26,15 +26,19 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 		pedantic: true,
 		sanitize: false,
 		smartypants: true
-	});
+	});//window.ace = ace;
 
 	var editor = ace.edit('post-editor');
 	var session = editor.getSession();
 	editor.setShowPrintMargin(false);
 	editor.setHighlightActiveLine(false);
 	editor.setShowPrintMargin(false);
+	editor.setAutoScrollEditorIntoView();
 	editor.setTheme('ace/theme/crimson_editor');
 	session.setMode('ace/mode/markdown');
+	session.setUseWrapMode(true);
+
+	//var bar = new ScrollBar($('#post-editor')[0]);
 
 	var render = function() {
 		var val = editor.getValue();
@@ -63,17 +67,90 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 		var previewWrapper = $('#post-preview');
 		var previewBox = $('#preview-box');
 		var previewOpen = false;
+		var tagsBoxShow = false;
+
+		function stopPropagation(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		function showTagsBox(e) {
+			stopPropagation(e);
+			if(!tagsBoxShow) {
+				$('.tags-select').fadeIn('slow');
+				tagsBoxShow = true;
+			}
+		}
+
+		function selectTag(e) {
+			var self = $(this);
+			var tag = self.text();
+			var postTags = $('#post-tags');
+			var curTags = postTags.val().split(/[\s+;]/);
+
+			if(curTags.indexOf(tag) === -1) {
+				postTags.val(postTags.val() + ' ' + tag);
+			}
+		}
+
+		function hideTagsBox(e) {
+			if(tagsBoxShow) {
+				$('.tags-select').fadeOut('slow');
+				tagsBoxShow = false;
+			}
+		}
+
+		function editorHandler(e) {
+			var self = $(this);
+			var cmd = self.attr('data-cmd');
+
+			if(!cmd) return;
+
+			if(cmd !== 'export-md') {
+				var v = self.attr('data-insert');
+				var i = v.indexOf('^');
+
+				if(i !== -1) {
+					var p = editor.getCursorPosition();
+					editor.insert(v.replace(/\^/, ''));
+					editor.moveCursorTo(p.row, p.column + i);
+				} else {
+					editor.insert(v);
+				}
+				editor.focus();
+			} else {
+				if(window.Blob) {
+					var blob = new Blob([editor.getValue()], {
+                        type: 'text/plain',
+                        charset: document.characterSet
+                    });
+                    utils.saveAs(blob, ($('#post-title').val() || 'Untitled') + '.md');
+				} else {
+					alert('Your browser is too old to support this action.');
+				}
+			}
+		}
+
+		function importHandler(e) {
+			var files = e.target.files || e.dataTransfer.files;
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				try {
+					editor.setValue(e.target.result);
+				} catch(ex) {
+					throw new Error(ex);
+					alert('Error occurs while reading the file.');
+				}
+			}
+
+			reader.readAsText(files[0]);
+		}
 		
 		function onEditerChange(e) {
-			if(!previewOpen) {
-				return;
-			}
-			var timer = this.timer || null;
-			clearTimeout(timer);
-			this.timer = setTimeout(function() {
-				console.log(e.data);
-				render();
-			}, 500);
+			if(!previewOpen) return;
+
+			~utils.debounce(render, 500, true)();
 		}
 
 		function onCursorChange() {
@@ -91,11 +168,16 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 			previewOpen = !previewOpen;
 		}
 
-		function savePost(e) {
-			var pid = $(this).attr('data-pid');
-			var url = '/edit' + (pid ? '/' + pid : '');
-			return $.post(url, {
-				data: JSON.stringify(getData()), 
+		function save(e) {
+			var pid = $('#postid').val();
+			var url = '/edit/' + pid;
+			var data = getData();
+
+			if(!data.title || !data.content) return alert('字段不完整！');
+
+			$.post(url, {
+				data: JSON.stringify(getData()),
+				postid: pid,
 				_csrf: $('#csrf').val()
 			}, function(r) {
 				if(r.rcode === 0) {
@@ -106,25 +188,31 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 		}
 
 		function syncScroll(e) {
-			console.log('cursor: ',editor.selection.getCursor())
-
+			//console.log('cursor: ', editor.selection.getCursor())
 			if(!previewOpen) return;
 
-			~util.debounce(function() {
+			~utils.debounce(function() {
 				var H = previewBox[0].scrollHeight;
 				var n = editor.getFirstVisibleRow();
 				var l = editor.getSession().getLength();
-				console.log('scrollTop: ', H*(n/l));
+				//console.log('scrollTop: ', H*(n/l));
 				previewBox.scrollTop(H*(n/l));
 			}, 500, true)();
 		}
 
 		return function() {//moveCursorTo
-			editor.on('change', onEditerChange);
 			$('.preview-ctrl').on('click', previewSwitch);
-			$('#btn-save').on('click', savePost);
-			
-			//editor.session.on('changeScrollTop', syncScroll);
+			$('.add-tags').on('click', showTagsBox);
+			$('.tags-select').on('click', stopPropagation);
+			$('.tags-list .tag').on('click', selectTag);
+			$('.tags-select .close').on('click', hideTagsBox);
+			$(document).on('click', hideTagsBox);
+
+			editor.on('change', onEditerChange);
+			$('.editor-btn').on('click', editorHandler);
+			$('#import-md').on('change', importHandler);
+			$('#btn-save').on('click', save);
+			editor.session.on('changeScrollTop', syncScroll);
 			editor.session.selection.on('changeCursor', syncScroll);
 		}
 	}());

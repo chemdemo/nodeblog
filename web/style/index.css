@@ -35,9 +35,14 @@
 }
 .post-more {
 	padding: 0 2em;
+	/*text-align: right;*/
+}
+.post-more a {
+	color: #888;
 }
 .post-more i {
 	color: #33B5E5;
+	color: #888;
 }
 .post-info {
 	margin-top: 1em;

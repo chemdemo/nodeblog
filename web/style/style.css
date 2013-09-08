@@ -28,7 +28,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-image, .icon-bubbles, .icon-search, .icon-spinner, .icon-tags, .icon-attachment, .icon-link, .icon-numbered-list, .icon-list, .icon-play, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-pushpin, .icon-close, .icon-plus-alt, .icon-trashcan, .icon-left-quote, .icon-pencil, .icon-alarm, .icon-undo, .icon-redo, .icon-undo-2, .icon-redo-2, .icon-arrow-left, .icon-arrow-up, .icon-arrow-right, .icon-cancel-circle, .icon-checkmark-circle, .icon-download, .icon-document-alt-fill, .icon-eye, .icon-plus, .icon-arrow-up-2, .icon-checkmark, .icon-users, .icon-users-2, .icon-bubble {
+.icon-image, .icon-bubbles, .icon-search, .icon-spinner, .icon-tags, .icon-attachment, .icon-link, .icon-numbered-list, .icon-list, .icon-play, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-pushpin, .icon-close, .icon-plus-alt, .icon-trashcan, .icon-left-quote, .icon-pencil, .icon-alarm, .icon-undo, .icon-redo, .icon-undo-2, .icon-redo-2, .icon-cancel-circle, .icon-checkmark-circle, .icon-download, .icon-document-alt-fill, .icon-eye, .icon-plus, .icon-arrow-up, .icon-checkmark, .icon-users, .icon-users-2, .icon-bubble, .icon-arrow-right, .icon-arrow-left, .icon-arrow-down-right {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -116,15 +116,6 @@ you can use the generic selector below, but it's slower:
 .icon-redo-2:before {
 	content: "\e01b";
 }
-.icon-arrow-left:before {
-	content: "\e01e";
-}
-.icon-arrow-up:before {
-	content: "\e01f";
-}
-.icon-arrow-right:before {
-	content: "\e020";
-}
 .icon-cancel-circle:before {
 	content: "\e021";
 }
@@ -143,7 +134,7 @@ you can use the generic selector below, but it's slower:
 .icon-plus:before {
 	content: "\e024";
 }
-.icon-arrow-up-2:before {
+.icon-arrow-up:before {
 	content: "\e025";
 }
 .icon-checkmark:before {
@@ -157,4 +148,13 @@ you can use the generic selector below, but it's slower:
 }
 .icon-bubble:before {
 	content: "\e027";
+}
+.icon-arrow-right:before {
+	content: "\e028";
+}
+.icon-arrow-left:before {
+	content: "\e01f";
+}
+.icon-arrow-down-right:before {
+	content: "\e01e";
 }

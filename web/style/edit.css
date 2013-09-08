@@ -3,6 +3,15 @@
 [class|="icon"] {
 	color: inherit;
 }
+.hidden-file-input {
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 
 body {
 	overflow: hidden;
@@ -31,13 +40,27 @@ header {
 	border-radius: 50%;
 }
 
+.back {
+	position: fixed;
+	top: 1%;
+	left: 3%;
+	/*font-size: 3em;*/
+	color: #999;
+	transition: all .5s;
+}
+.back:hover {
+	text-decoration: none;
+	color: #333;
+}
+
 .post-body {
 	width: 80%;
 	padding: 1em;
-	margin: 50px auto 3px;
+	/*margin: 50px auto 3px;*/
+	margin: 3px auto;
 	border: 1px solid #DDD;
 	/*box-shadow: 0 0 1px 3px rgba(0, 0, 0, 0.05);*/
-	box-shadow: 0 3px 0 3px #EEE;
+	box-shadow: 0 0 0 3px #EEE;
 	background-color: #FFF;
 }
 .post-body > section {
@@ -80,8 +103,9 @@ header {
 	right: 0;
 	width: 300px;
 	min-height: 200px;
-	background-color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(255, 255, 255, 0.9);
 	z-index: 10;
+	display: none;
 }
 .tags-select-title {
 	height: 30px;
