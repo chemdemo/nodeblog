@@ -2,6 +2,7 @@
 
 {% block stylesheet %}
 <link rel="stylesheet" href="/style/edit.css" />
+<!-- <link rel="stylesheet" href="http://uedsky.com/static/css/markdown-github.css" /> -->
 {% endblock %}
 
 {% block header %}
@@ -68,9 +69,9 @@
 		<input value="{% if post.tags %}{{ post.tags.join(' ') }}{% endif %}" class="input post-tags" id="post-tags" placeholder="post tags" />
 		<a href="javascript: void(0);" class="add-tags"><i class="icon-plus-alt"></i>添加已有标签</a>
 
-		<section class="shadow-box tags-select">
+		<section class="tags-select">
 			<div class="tags-select-title">
-				选择已有标签
+				选择已有标签&nbsp;
 				<span class="icon-arrow-down-right close"></span>
 			</div>
 			<div class="tags-list">
@@ -99,7 +100,7 @@
 	<div class="preview-ctrl">
 		<span class="preview-ctrl-inner icon-play"></span>
 	</div>
-	<section class="md preview-box" id="preview-box"></section>
+	<section class="md preview-box markdown-body" id="preview-box"></section>
 </div>
 {% endblock %}
 

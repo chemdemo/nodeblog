@@ -103,7 +103,8 @@ header {
 	right: 0;
 	width: 300px;
 	min-height: 200px;
-	background-color: rgba(255, 255, 255, 0.9);
+	background-color: #FFFEE5;
+	box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
 	z-index: 10;
 	display: none;
 }
@@ -124,9 +125,6 @@ header {
 }
 .post-tags {
 	width: 90%;
-}
-.add-tags i {
-	padding-right: .2em;
 }
 
 .edit-summary {
