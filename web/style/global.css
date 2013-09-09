@@ -38,6 +38,7 @@ html {
 }
 body {
 	background: #FAFAF2 url(images/bg05.jpg) repeat 0 0;
+	background-color: #f0f0f0;
 	position: relative;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -91,7 +92,7 @@ a:hover {
 
 .shadow-box {
 	box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
-	background-color: #FFF;
+	background-color: #FBFFF9;
 }
 
 .tag {
@@ -108,7 +109,7 @@ a:hover {
 }
 
 .topped {
-	color: #000;
+	color: #F77;
 	font-style: normal;
 	font-size: 0.9em;
 	font-weight: normal;
@@ -217,6 +218,7 @@ header {
 	top: 0;
 	left: 0;
 	z-index: 10;
+	overflow: hidden;
 }
 .header-inner {
 	width: 1200px;
@@ -250,12 +252,22 @@ header nav {
 }
 header nav a {
 	display: inline-block;
-	margin: 0 1em;
+	padding: 0 1em;
+	margin-right: -3px;
+	border-top: 1px solid transparent;
+}
+header nav a.active,
+header nav a:hover {
+	background-color: #3D3D3D;
+	color: #EEE;
+	border-color: #33B5E5;
+	text-decoration: none;
 }
 .page-search {
 	float: right;
 	text-align: right;
-	background-color: rgba(241, 241, 241, .1);
+	/*background-color: rgba(241, 241, 241, .1);*/
+	background-color: #3D3D3D;
 	height: 100%;
 	padding: 14px 3px;
 }
@@ -273,7 +285,7 @@ header nav a {
 .search-wrap label {
 	cursor: pointer;
 	float: right;
-	margin-top: 10px;
+	margin-top: 7px;
 }
 .search-wrap input {
 	border: none;

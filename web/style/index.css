@@ -7,15 +7,19 @@
 }
 .post-title {
 	margin: .5em 2em 1.5em;
-	line-height: 24px;
-	height: 22px;
+	line-height: 22px;
 	border-left: 3px solid #404040;
 	background-color: transparent;
 	transition: all .5s;
+	display: inline-block;
+}
+.post-title a {
+	padding-right: 5px;
 }
 .post-title .topped,
 .post-title a {
 	margin-left: 5px;
+	text-decoration: none;
 }
 .post-title:hover {
 	background-color: #EEE;
