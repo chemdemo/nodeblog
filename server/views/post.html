@@ -28,6 +28,7 @@
 				{{ post.author.name }}
 				{% endif %}
 			</div>
+			<textarea type="hidden" class="none" id="post-content">{{ post.content }}</textarea>
 			<div class="post-body md" id="post-body">
 			{% autoescape false %}
 				{{ post.content }}
@@ -81,7 +82,7 @@
 		</section>
 	</div>
 
-	{% include './sitebar.html' %}
+	{% include 'server/views/sitebar.html' %}
 </div>
 {% endblock %}
 

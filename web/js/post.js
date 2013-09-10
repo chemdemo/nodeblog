@@ -168,6 +168,7 @@ define(
 		bindEvents();
 		fetchComments();
 		themes.init();
+		//$('#post-body').html($('#post-content').val());
 	}
 
 	$(init);

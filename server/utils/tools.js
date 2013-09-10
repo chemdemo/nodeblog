@@ -59,7 +59,8 @@ exports.marked = function(val, callback) {
 			}
 			return hljs.highlightAuto(code).value;
 		},
-		breaks: true,
+		//autoescape: false,
+		//breaks: false,
 		pedantic: true,
 		sanitize: true,
 		smartypants: true

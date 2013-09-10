@@ -172,11 +172,12 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 			var pid = $('#postid').val();
 			var url = '/edit/' + pid;
 			var data = getData();
+			//return console.log(data.content)
 
 			if(!data.title || !data.content) return alert('字段不完整！');
 
 			$.post(url, {
-				data: JSON.stringify(getData()),
+				data: JSON.stringify(data),
 				postid: pid,
 				_csrf: $('#csrf').val()
 			}, function(r) {
@@ -219,6 +220,17 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 
 	function init() {
 		bindEvents();
+		//editor.setValue($('#post-content').val());
+		$.get('/edit/' + $('#postid').val(), function(r) {
+			console.log(r);
+			if(r.rcode === 0) {
+				r = r.result;
+				editor.setValue(r.content);
+				$('#post-summary').val(r.summary);
+			} else {
+				alert('Fetch data error.', r);
+			}
+		});
 	}
 
 	$(init);

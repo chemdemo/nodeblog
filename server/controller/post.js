@@ -193,7 +193,13 @@ exports.edit = function(req, res, next) {// get
 	
 	if(postid) {
 		var proxy = EventProxy.create('post', 'tags', function(post, tags) {
-			res.render('edit', {post: post, tags: tags});
+			if(req.xhr) {
+				tools.jsonReturn(res, 'SUCCESS', {content: post.content, summary: post.summary});
+			} else {
+				delete post.content;
+				delete post.summary;
+				res.render('edit', {post: post, tags: tags});
+			}
 		}).fail(next);
 
 		findById(postid, 'title content summary tags topped', function(err, doc) {
@@ -427,6 +433,7 @@ exports.show = function(req, res, next) {//return countMonthy(function(){})
 		tools.marked(doc.content, function(err, content) {
 			if(!err) {
 				doc.content = content;
+				console.log(doc.content)
 			} else {
 				console.log('Build html error, err: ', err);
 			}
@@ -436,7 +443,7 @@ exports.show = function(req, res, next) {//return countMonthy(function(){})
 			//console.log('post: ', doc)
 			proxy.emit('post', doc);
 		});
-	});
+	}, false);
 
 	tag_ctrl.findAllTags(function(err, doc) {
 		if(err) return proxy.emit('error', err);

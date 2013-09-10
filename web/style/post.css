@@ -4,6 +4,9 @@
 .post {
 	padding: 2em 2em 1em;
 }
+.post-title {
+	font-family: 'Microsoft JhengHei';
+}
 .edit-info {
 	padding: 0;
 	border-bottom: 1px dashed #EEE;
@@ -15,7 +18,7 @@
 	margin-right: .5em;
 }
 .post-body p {
-	text-indent: 2em;
+	/*text-indent: 2em;*/
 	margin-top: 1em;
 }
 .prev-next {
