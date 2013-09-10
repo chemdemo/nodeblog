@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+<input type="hidden" class="none" id="postid" value="{{ post._id }}" />
 <div class="page-body clearfix">
 	<div class="page-content">
 		<section class="post shadow-box">
@@ -28,12 +29,13 @@
 				{{ post.author.name }}
 				{% endif %}
 			</div>
-			<textarea type="hidden" class="none" id="post-content">{{ post.content }}</textarea>
-			<div class="post-body md" id="post-body">
+			<!-- <textarea type="hidden" class="none" id="post-content">{{ post.content }}</textarea> -->
+			<article class="post-body markdown-body md" id="post-body"></article>
+			<!-- <div class="post-body md" id="post-body">
 			{% autoescape false %}
 				{{ post.content }}
 			{% endautoescape %}
-			</div>
+			</div> -->
 			<div class="prev-next">
 				<p>上一篇：{% if prev._id %}<a href="/post/{{ prev._id }}">{{ prev.title }}</a>{% else %}没有了{% endif %}
 				</p>
@@ -45,7 +47,7 @@
 		<section class="post-comments" id="post-comments">
 			<a href="#comments" class="none"></a>
 			<h3><i class="icon-bubbles"></i>文章评论</h3>
-			<ul class="comment-list" id="comment-list">
+			<ul class="comment-list ul" id="comment-list">
 				<li class="no-comment">还没有评论唉^_^！</li>
 			</ul>
 			<section class="add-comment" id="add-comment">
@@ -82,7 +84,7 @@
 		</section>
 	</div>
 
-	{% include 'server/views/sitebar.html' %}
+	{% include './sitebar.html' %}
 </div>
 {% endblock %}
 

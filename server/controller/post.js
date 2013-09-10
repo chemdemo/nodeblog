@@ -392,14 +392,20 @@ exports.show = function(req, res, next) {//return countMonthy(function(){})
 
 	//findAPost
 	var proxy = EventProxy.create('post', 'tags', 'counts', 'prev', 'next', function(post, tags, counts, prev, next) {
-		res.render('post', {
-			post: post
-			, tags: tags
-			, counts: counts
-			, prev: prev
-			, next: next
-			, user: user
-		});
+		console.log(222222)
+		if(req.xhr) {
+			tools.jsonReturn(res, 'SUCCESS', post.content);
+		} else {
+			delete post.content;
+			res.render('post', {
+				post: post
+				, tags: tags
+				, counts: counts
+				, prev: prev
+				, next: next
+				, user: user
+			});
+		}
 
 		Post.findByIdAndUpdate(post._id, {$inc: {visite: 1}}, function(_err, _doc) {
 			if(_err) console.log('Add visite error.', _err);
@@ -433,7 +439,7 @@ exports.show = function(req, res, next) {//return countMonthy(function(){})
 		tools.marked(doc.content, function(err, content) {
 			if(!err) {
 				doc.content = content;
-				console.log(doc.content)
+				//console.log(doc.content)
 			} else {
 				console.log('Build html error, err: ', err);
 			}

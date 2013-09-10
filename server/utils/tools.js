@@ -59,10 +59,10 @@ exports.marked = function(val, callback) {
 			}
 			return hljs.highlightAuto(code).value;
 		},
-		//autoescape: false,
+		//autoescape: true,
 		//breaks: false,
-		pedantic: true,
-		sanitize: true,
+		pedantic: false,
+		sanitize: false,
 		smartypants: true
 	}, callback);
 }

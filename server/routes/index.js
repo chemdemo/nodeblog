@@ -12,8 +12,8 @@ var comment = controller.comment;
 var EventProxy = require('eventproxy');
 
 function home(req, res, next) {
-	console.log('session: ', req.session.user);
-	console.log('cookie: ', req.cookies);
+	//console.log('session: ', req.session.user);
+	//console.log('cookie: ', req.cookies);
 	var proxy = EventProxy.create('posts', 'tags', 'counts', function(posts, tags, counts) {
 		res.render('index', {
 			posts: posts,

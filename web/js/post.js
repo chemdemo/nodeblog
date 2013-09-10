@@ -165,10 +165,21 @@ define(
 	}());
 
 	function init() {
-		bindEvents();
-		fetchComments();
-		themes.init();
 		//$('#post-body').html($('#post-content').val());
+		var pid = $('#postid').val();
+		if(pid) {
+			$.get('/post/' + pid, function(r) {
+				if(r.rcode === 0) {console.log(r.result)
+					$('#post-body').html(r.result);
+					bindEvents();
+					fetchComments();
+					//themes.init();
+				} else {
+					console.log(r);
+					alert('拉取数据失败。');
+				}
+			});
+		}
 	}
 
 	$(init);

@@ -221,16 +221,19 @@ define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 	function init() {
 		bindEvents();
 		//editor.setValue($('#post-content').val());
-		$.get('/edit/' + $('#postid').val(), function(r) {
-			console.log(r);
-			if(r.rcode === 0) {
-				r = r.result;
-				editor.setValue(r.content);
-				$('#post-summary').val(r.summary);
-			} else {
-				alert('Fetch data error.', r);
-			}
-		});
+		var pid = $('#postid').val();
+		if(pid) {
+			$.get('/edit/' + pid, function(r) {
+				console.log(r);
+				if(r.rcode === 0) {
+					r = r.result;
+					editor.setValue(r.content);
+					$('#post-summary').val(r.summary);
+				} else {
+					alert('Fetch data error.', r);
+				}
+			});
+		}
 	}
 
 	$(init);
