@@ -93,6 +93,7 @@ function genAvatar(email) {
 }
 
 function setCookie(res, user) {
+	res.cookie('_id', user._id);
 	res.cookie('name', user.name);
 	res.cookie('email', user.email);
 	res.cookie('site', user.site);

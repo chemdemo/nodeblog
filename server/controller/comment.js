@@ -62,7 +62,7 @@ function findCommentsByPostId(postid, callback) {
 						}
 					} else {
 						doc = doc.toObject();
-						doc.avatar = user_ctrl.genAvatar(doc.email);
+						doc.avatar = doc.avatar || user_ctrl.genAvatar(doc.email);
 						//delete doc.email;
 					}
 					callback(null, doc);
@@ -260,12 +260,13 @@ exports.add = function(req, res, next) {
 exports.findAllByPostId = function(req, res, next) {
 	var postid = req.body.postid || req.params.postid;
 	var cookies = req.cookies;
+	var id = cookies._id;
 	var name = cookies.name;
 	var email = cookies.email;
 	var user = null;
 
-	if(name && email) {
-		user = {name: name, email: email, site: cookies.site}
+	if(id && name && email) {
+		user = {_id: id, name: name, email: email, site: cookies.site}
 	} else {
 		user = req.session.user;
 	}
@@ -308,7 +309,7 @@ exports.remove = function(req, res, next) {
 				});
 			});
 		} else {
-			next('403 access forbidden!');
+			next(403);
 		}
 	});
 	//Comment.find({_id: commentId, post_id: postid}).or([{author_id: user._id}])

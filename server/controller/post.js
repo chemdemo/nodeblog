@@ -225,7 +225,7 @@ exports.edit = function(req, res, next) {// get
 exports.save = function(req, res, next) {
 	var user = req.session.user;
 	var postid = req.body.postid || req.params.postid;
-	var fields = ['_id', 'title', 'content', 'cover', 'summary', 'tags', 'topped'];
+	var fields = ['title', 'content', 'cover', 'summary', 'tags', 'topped'];
 
 	function _extend(doc, data) {
 		if(data.tags) data.tags = _.without(_.uniq(data.tags), '');
@@ -375,6 +375,7 @@ exports.remove = function(req, res, next) {
 exports.show = function(req, res, next) {//return countMonthy(function(){})
 	//var user = req.session.user;
 	var cookies = req.cookies;
+	var id = cookies._id;
 	var name = cookies.name;
 	var email = cookies.email;
 	var user = null;
@@ -384,15 +385,14 @@ exports.show = function(req, res, next) {//return countMonthy(function(){})
 
 	var fields = 'title content update_at author_id tags comments visite topped last_comment_at last_comment_by';
 	
-	if(name && email) {
-		user = {name: name, email: email, site: cookies.site}
+	if(!id || !name && email) {
+		user = {_id: id, name: name, email: email, site: cookies.site}
 	} else {
 		user = req.session.user;
 	}
 
 	//findAPost
 	var proxy = EventProxy.create('post', 'tags', 'counts', 'prev', 'next', function(post, tags, counts, prev, next) {
-		console.log(222222)
 		if(req.xhr) {
 			tools.jsonReturn(res, 'SUCCESS', post.content);
 		} else {
@@ -502,7 +502,7 @@ exports.counts = function(req, res, next) {
 	findCounts({_id: new Date(year, month).getTime()}, function(err, doc) {
 		if(err) return next(err);
 		if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
-		postids = doc[0].value.split('$');console.log(postids)
+		postids = doc[0].value.split('$');//console.log(postids)
 		fetchPosts(postids, fields, function(err, doc) {
 			if(err) return next(err);
 			res.render('list', {posts: doc, page_title: pageTitle});

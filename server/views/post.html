@@ -11,80 +11,78 @@
 {% block content %}
 <input type="hidden" class="none" id="postid" value="{{ post._id }}" />
 <div class="page-body clearfix">
-	<div class="page-content">
-		<section class="post">
-			<h1 class="post-title">
-				{% if post.topped %}<b class="topped">【置顶】</b>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
-			</h1>
-			<div class="edit-info">
-				<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
-				<span class="post-date">
-					<i class="icon-alarm" title="最后编辑时间"></i>
-					<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s') }}</span>
-				</span>
-				<span class="post-gap">/</span>by 
-				{% if post.author.site %}
-				<a href="{{ post.author.site }}" target="_blank">{{ post.author.name }}</a>
-				{% else %}
-				{{ post.author.name }}
-				{% endif %}
+	<!-- <div class="page-content"> -->
+	<section class="post">
+		<h1 class="post-title">
+			{% if post.topped %}<b class="topped">【置顶】</b>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
+		</h1>
+		<div class="edit-info">
+			<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
+			<span class="post-date">
+				<i class="icon-alarm" title="最后编辑时间"></i>
+				<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s') }}</span>
+			</span>
+			<span class="post-gap">/</span>by 
+			{% if post.author.site %}
+			<a href="{{ post.author.site }}" target="_blank">{{ post.author.name }}</a>
+			{% else %}
+			{{ post.author.name }}
+			{% endif %}
+		</div>
+		<!-- <textarea type="hidden" class="none" id="post-content">{{ post.content }}</textarea> -->
+		<article class="post-body markdown-body md" id="post-body"></article>
+		<!-- <div class="post-body md" id="post-body">
+		{% autoescape false %}
+			{{ post.content }}
+		{% endautoescape %}
+		</div> -->
+		<div class="prev-next">
+			<p>上一篇：{% if prev._id %}<a href="/post/{{ prev._id }}">{{ prev.title }}</a>{% else %}没有了{% endif %}
+			</p>
+			<p>下一篇：{% if next._id %}<a href="/post/{{ next._id }}">{{ next.title }}</a>{% else %}没有了{% endif %}
+			</p>
+		</div>
+	</section>
+
+	<section class="post-comments" id="post-comments">
+		<a href="#comments" class="none"></a>
+		<h3><i class="icon-bubbles"></i>文章评论</h3>
+		<ul class="comment-list ul" id="comment-list">
+			<li class="no-comment">还没有评论唉^_^！</li>
+		</ul>
+		<section class="add-comment" id="add-comment">
+			<input type="hidden" hidden id="reply-comment-id" name="reply_comment_id" />
+			<input type="hidden" hidden id="at-user-id" name="at_user_id" />
+			<input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
+			<h4><i class="icon-bubble"></i> 添加评论</h4>
+			<p>
+				<input value="{{ user.name }}" class="input" name="name" id="name" placeholder="Input your name" />
+				<label for="name">名称<b class="required">（*）</b></label>
+			</p>
+			<p>
+				<input value="{{ user.email }}" class="input" type="email" name="email" id="email" placeholder="Input your email" />
+				<label for="email">邮箱（不会公开）<b class="required">（*）</b></label>
+			</p>
+			<p>
+				<input value="{{ user.site }}" class="input" name="site" id="site" placeholder="Input your site" />
+				<label for="site">网站</label>
+			</p>
+			<div class="comment-input">
+				<label for="comment">评论内容（支持markdown^_^）</label>
+				<textarea id="comment" class="textarea" rows="5" placeholder="随便说点？"></textarea>
 			</div>
-			<!-- <textarea type="hidden" class="none" id="post-content">{{ post.content }}</textarea> -->
-			<article class="post-body markdown-body md" id="post-body"></article>
-			<!-- <div class="post-body md" id="post-body">
-			{% autoescape false %}
-				{{ post.content }}
-			{% endautoescape %}
-			</div> -->
-			<div class="prev-next">
-				<p>上一篇：{% if prev._id %}<a href="/post/{{ prev._id }}">{{ prev.title }}</a>{% else %}没有了{% endif %}
-				</p>
-				<p>下一篇：{% if next._id %}<a href="/post/{{ next._id }}">{{ next.title }}</a>{% else %}没有了{% endif %}
-				</p>
+			<div class="add-comment-btns">
+				<button data-postid="{{ post._id }}" id="btn-add" class="i-btn i-btn-blue comment-submit">
+					<i class="icon-checkmark"></i>提交
+				</button>
+				<button id="btn-cancel" class="i-btn comment-cancel">
+					<i class="icon-close"></i>取消
+				</button>
+				<span id="tips" class="tips i-btn i-btn-red none"></span>
 			</div>
 		</section>
-
-		<section class="post-comments" id="post-comments">
-			<a href="#comments" class="none"></a>
-			<h3><i class="icon-bubbles"></i>文章评论</h3>
-			<ul class="comment-list ul" id="comment-list">
-				<li class="no-comment">还没有评论唉^_^！</li>
-			</ul>
-			<section class="add-comment" id="add-comment">
-				<input type="hidden" hidden id="reply-comment-id" name="reply_comment_id" />
-				<input type="hidden" hidden id="at-user-id" name="at_user_id" />
-				<input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
-				<h4><i class="icon-bubble"></i> 添加评论</h4>
-				<p>
-					<input value="{{ user.name }}" class="input" name="name" id="name" placeholder="Input your name" />
-					<label for="name">名称<b class="required">（*）</b></label>
-				</p>
-				<p>
-					<input value="{{ user.email }}" class="input" type="email" name="email" id="email" placeholder="Input your email" />
-					<label for="email">邮箱（不会公开）<b class="required">（*）</b></label>
-				</p>
-				<p>
-					<input value="{{ user.site }}" class="input" name="site" id="site" placeholder="Input your site" />
-					<label for="site">网站</label>
-				</p>
-				<div class="comment-input">
-					<label for="comment">评论内容（支持markdown^_^）</label>
-					<textarea id="comment" class="textarea" rows="5" placeholder="Input your comment"></textarea>
-				</div>
-				<div class="add-comment-btns">
-					<button data-postid="{{ post._id }}" id="btn-add" class="i-btn i-btn-blue comment-submit">
-						<i class="icon-checkmark"></i>提交
-					</button>
-					<button id="btn-cancel" class="i-btn comment-cancel">
-						<i class="icon-close"></i>取消
-					</button>
-					<span id="tips" class="tips i-btn i-btn-red none"></span>
-				</div>
-			</section>
-		</section>
-	</div>
-
-	{% include 'server/views/sitebar.html' %}
+	</section>
+	<!-- </div> -->
 </div>
 {% endblock %}
 

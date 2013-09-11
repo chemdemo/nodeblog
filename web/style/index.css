@@ -10,7 +10,7 @@
 	line-height: 1.5em;
 	border-left: 3px solid #DDD;
 	background-color: transparent;
-	display: inline-block;
+	/*display: inline-block;*/
 	font-size: 1.5em;
 	transition: all .5s;
 }
@@ -23,7 +23,7 @@
 	text-decoration: none;
 }
 .post-title:hover {
-	background-color: #EEE;
+	background-color: #F8F8F8;
 	border-color: #33B5E5;
 }
 .post-cover {
@@ -36,7 +36,7 @@
 }
 .post-date {
 	margin-bottom: 1em;
-	border-bottom: 1px solid #EEE;
+	/*border-bottom: 1px solid #EEE;*/
 }
 .post-summary {
 	/*text-indent: 2em;*/
@@ -57,7 +57,7 @@
 	margin-top: 1em;
 	color: #999;
 	/*background-color: #f8f8f8;*/
-	/*border-top: 1px solid #EEE;*/
+	border-bottom: 1px solid #EEE;
 	/*padding: .5em 2em .5em;*/
 }
 .post-edit,

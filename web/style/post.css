@@ -1,22 +1,29 @@
 /*@import url(global.css);
 @import url(web_font_icon.css);*/
 
+.page-body {
+	padding: 1em 0;
+}
 .post {
-	padding: 2em 2em 1em;
+	/*padding: 2em 2em 1em;*/
 	font-family: 'Segoe UI Semilight', Helvetica, Tahoma;
 }
 .post-title {
-	font-size: 1.5em;
+	font-size: 1.8em;
 }
 .edit-info {
 	padding: 0;
 	border-bottom: 1px dashed #EEE;
+	margin: 0 2em 2em 0;
 }
 .post-top {
 	color: #888;
 }
 .post-edit {
 	margin-right: .5em;
+}
+.post-body {
+	padding: 0 2em;
 }
 .post-body p {
 	/*text-indent: 2em;*/
@@ -31,14 +38,14 @@
 .post-comments {
 	margin-top: 2em;
 	font-size: 12px;
-	background-color: #F8F8F8;
 	padding: 1em;
-	border: 1px solid #E6E6E6;
+	/*background-color: #F8F8F8;
+	border: 1px solid #E6E6E6;*/
 }
 
 /* comment list style */
 .comment-list {
-	border-top: 1px solid #EEE;
+	/*border-top: 1px solid #EEE;*/
 	margin-top: .5em;
 }
 .no-comment {
@@ -53,7 +60,7 @@
 .comment {
 	padding: 1em;
 	/*border-bottom: 1px dashed #DDD;*/
-	border-bottom: 1px solid #EEE;
+	border-top: 1px solid #EEE;
 	/*margin-top: .5em;*/
 	transition: background-color .8s ease-in-out;
 }

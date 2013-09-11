@@ -96,7 +96,7 @@ define(
 			$.ajax({
 				url: '/comment/' + cid, 
 				method: 'delete',
-				data: {postid: postId},
+				data: {postid: postId, _csrf: $('#csrf').val()},
 				success: function(r) {
 					console.log(r);
 					if(r.rcode === 0) {
@@ -169,7 +169,7 @@ define(
 		var pid = $('#postid').val();
 		if(pid) {
 			$.get('/post/' + pid, function(r) {
-				if(r.rcode === 0) {console.log(r.result)
+				if(r.rcode === 0) {//console.log(r.result)
 					$('#post-body').html(r.result);
 					bindEvents();
 					fetchComments();
