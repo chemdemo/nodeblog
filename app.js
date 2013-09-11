@@ -34,7 +34,7 @@ app.configure(function() {
     app.set('view options', {layout: false});
     swig.setFilter('split', filters.split);
     swig.setFilter('length', filters.length);
-    app.use(express.favicon(__dirname + '/web/favicon.ico'));
+    app.use(express.favicon(__dirname + '/web/dm.ico'));
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());

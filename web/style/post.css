@@ -3,9 +3,10 @@
 
 .post {
 	padding: 2em 2em 1em;
+	font-family: 'Segoe UI Semilight', Helvetica, Tahoma;
 }
 .post-title {
-	font-family: 'Microsoft JhengHei';
+	font-size: 1.5em;
 }
 .edit-info {
 	padding: 0;

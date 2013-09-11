@@ -12,7 +12,7 @@
 <input type="hidden" class="none" id="postid" value="{{ post._id }}" />
 <div class="page-body clearfix">
 	<div class="page-content">
-		<section class="post shadow-box">
+		<section class="post">
 			<h1 class="post-title">
 				{% if post.topped %}<b class="topped">【置顶】</b>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
 			</h1>
@@ -84,7 +84,7 @@
 		</section>
 	</div>
 
-	{% include './sitebar.html' %}
+	{% include 'server/views/sitebar.html' %}
 </div>
 {% endblock %}
 

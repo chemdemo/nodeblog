@@ -2,16 +2,17 @@
 @import url(web_font_icon.css);*/
 
 .post {
-	margin-bottom: 2em;
-	padding-top: 1em;
+	margin-bottom: 5em;
+	/*padding-top: 1em;*/
 }
 .post-title {
-	margin: .5em 2em 1.5em;
-	line-height: 22px;
-	border-left: 3px solid #404040;
+	/*margin: .5em 2em 1.5em;*/
+	line-height: 1.5em;
+	border-left: 3px solid #DDD;
 	background-color: transparent;
-	transition: all .5s;
 	display: inline-block;
+	font-size: 1.5em;
+	transition: all .5s;
 }
 .post-title a {
 	padding-right: 5px;
@@ -33,12 +34,16 @@
 	width: auto;
 	max-width: 100%;
 }
+.post-date {
+	margin-bottom: 1em;
+	border-bottom: 1px solid #EEE;
+}
 .post-summary {
 	/*text-indent: 2em;*/
-	padding: 0 2em;
+	/*padding: 0 2em;*/
 }
 .post-more {
-	padding: 0 2em;
+	/*padding: 0 2em;*/
 	/*text-align: right;*/
 }
 .post-more a {
@@ -51,9 +56,9 @@
 .post-info {
 	margin-top: 1em;
 	color: #999;
-	background-color: #f8f8f8;
-	border-top: 1px solid #EEE;
-	padding: .5em 2em .5em;
+	/*background-color: #f8f8f8;*/
+	/*border-top: 1px solid #EEE;*/
+	/*padding: .5em 2em .5em;*/
 }
 .post-edit,
 .post-visite,
