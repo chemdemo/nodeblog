@@ -5,7 +5,8 @@ var ObjectId = Schema.ObjectId;
 
 var PostSchema = new Schema({
 	title: {type: String, unique: true}
-	, create_at: {type: Date, default: Date.now, index: true}
+	, i: {type: Number, default: Date.now, index: true}// for next and prev post finding
+	, create_at: {type: Date, default: Date.now}
 	, update_at: {type: Date, default: Date.now}
 	, author_id: ObjectId
 	, content: String

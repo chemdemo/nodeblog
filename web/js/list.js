@@ -8,6 +8,25 @@ require.config({
 	//, urlArgs: '_t=' + Date.now()// no cache
 });
 
-define(['jquery', 'utils'], function($, utils) {
-	;
+define(['jquery'/*, 'utils'*/], function($/*, utils*/) {
+	$('.post-delete').on('click', function(e) {
+		var self = $(e.target);
+		var pid = self.attr('data-pid');
+
+		if(pid) {
+			$.ajax({
+				url: '/post/' + pid, 
+				method: 'delete',
+				data: {postid: pid, _csrf: $('#csrf').val()},
+				success: function(r) {
+					console.log(r);
+					if(r.rcode === 0) {
+						self.parent().parent().remove();
+					} else {
+						console.log('Remove post error: ', r);
+					}
+				}
+			});
+		}
+	});
 });

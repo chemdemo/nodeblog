@@ -149,6 +149,16 @@ function findCommentsByPostId(postid, callback) {
 	]*/
 }
 
+function removeCommentsByPostId(postid, callback) {
+	Comment.find({post_id: postid}, function(err, doc) {
+		if(err) return callback(err);
+		if(!doc.length) return callback(null);
+		async.each(doc, function(comment, cb) {
+			comment.remove(cb);
+		}, callback);
+	});
+}
+
 exports.add = function(req, res, next) {
 	var postid = req.body.postid || req.params.postid;
 	var user = req.body.user || null;
@@ -291,8 +301,13 @@ exports.remove = function(req, res, next) {
 	}
 
 	Comment.findOne({_id: commentId, post_id: postid}, function(err, doc) {
-		if(err) return next(err);
-		if(!doc) return next();
+		if(err) {
+			console.log('Remove comment error.', err);
+			return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
+		}
+
+		if(!doc) return next(404);
+
 		if(user.admin || doc.author_id.toString() === user._id.toString()) {
 			/*Comment.findByIdAndRemove(doc._id, function(err, doc) {
 				if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
@@ -317,3 +332,4 @@ exports.remove = function(req, res, next) {
 
 exports.findById = findById;
 exports.findByIdAndUpdate = findByIdAndUpdate;
+exports.removeCommentsByPostId = removeCommentsByPostId;

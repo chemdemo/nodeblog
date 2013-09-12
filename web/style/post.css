@@ -1,12 +1,9 @@
 /*@import url(global.css);
 @import url(web_font_icon.css);*/
 
-.page-body {
-	padding: 1em 0;
-}
 .post {
 	/*padding: 2em 2em 1em;*/
-	font-family: 'Segoe UI Semilight', Helvetica, Tahoma;
+	font-family: 'Segoe UI', Helvetica, Tahoma, sans-serif;
 }
 .post-title {
 	font-size: 1.8em;
@@ -23,7 +20,7 @@
 	margin-right: .5em;
 }
 .post-body {
-	padding: 0 2em;
+	/*padding: 0 2em;*/
 }
 .post-body p {
 	/*text-indent: 2em;*/

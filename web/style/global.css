@@ -30,7 +30,7 @@ html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input, textarea
 	padding: 0;
 }
 body, input, button, textarea {
-	font: normal normal normal 13px/2 'Segoe UI Semilight', Helvetica, Tahoma, Arial, sans-serif;
+	font: normal normal normal 13px/2 'Segoe UI Semilight', Helvetica, Tahoma, sans-serif;
 	color: #333;
 }
 html {
@@ -92,8 +92,8 @@ a:hover {
 	height: 0;
 }
 ::selection {
-	color: #808080;
-	background-color: #DDD;
+	color: #555;
+	background-color: #CCC;
 }
 
 .shadow-box {
@@ -222,7 +222,7 @@ header {
 	overflow: hidden;
 }
 .header-inner {
-	width: 75%;
+	width: 960px;
 	margin: 0 auto;
 }
 .page-title {
@@ -299,7 +299,7 @@ header nav a:hover {
 
 /* page body set */
 .page-body {
-	width: 75%;
+	width: 960px;
 	margin: 8em auto 0;
 	/*padding: 8em 0 0 1.5em;*/
 	/*background-color: #FFF;*/
@@ -308,7 +308,7 @@ header nav a:hover {
 	min-height: 500px;
 }
 .page-content {
-	width: 75%;
+	width: 70%;
 	float: left;
 	/*margin-right: 250px;*/
 	/*margin-right: 40px;
@@ -336,10 +336,14 @@ header nav a:hover {
 	*zoom: 1;*/
 	color: #888;
 	position: fixed;
-	right: 12%;
+	right: 16%;
 }
 .page-sitebar a {
-	color: #0F789E;
+	/*color: #0F789E;*/
+}
+.page-sitebar a:hover {
+	background-color: #EEE;
+	text-decoration: none;
 }
 .page-sitebar > section {
 	margin-bottom: 20px;

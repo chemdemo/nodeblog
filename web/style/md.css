@@ -52,11 +52,11 @@
 }
 .md h1 {
 	font-size:2.5em;
-	border-bottom:1px solid #ddd
+	/*border-bottom:1px solid #ddd*/
 }
 .md h2 {
 	font-size:2em;
-	border-bottom:1px solid #eee
+	/*border-bottom:1px solid #eee*/
 }
 .md h3 {
 	font-size:1.5em

@@ -23,7 +23,8 @@
 	text-decoration: none;
 }
 .post-title:hover {
-	background-color: #F8F8F8;
+	/*background-color: #F8F8F8;*/
+	background-color: #EEE;
 	border-color: #33B5E5;
 }
 .post-cover {

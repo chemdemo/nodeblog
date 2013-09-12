@@ -18,10 +18,11 @@ exports.signup = function(req, res, next) {
 		info = user_ctrl.infoCheck(info);
 		if(info.error) return res.render('signup', info);
 
+		// danger!!
 		if(info.email === admin.EMAIL) {
-			info.name = admin.NAME;
 			info.pass = admin.PASS;
-			info.site = admin.SITE;
+			//info.name = admin.NAME;
+			//info.site = admin.SITE;
 		}
 
 		user_ctrl.findOne({name: info.name, email: info.email}, function(err, doc) {

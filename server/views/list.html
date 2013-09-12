@@ -6,9 +6,10 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	<h2>{{ page_title }}</h2>
+	<input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
+	<h2>{% autoescape false %}{{ page_title }}{% endautoescape %}</h2>
 	{% if posts.length > 0 %}
-	<ul class="ul">
+	<ul class="ul post-list">
 		{% for post in posts %}
 		<li>
 			<div class="box-title">
@@ -30,7 +31,10 @@
 				<span class="post-comments">
 					评论(<span class="comments-num">{{ post.comments|default(0) }}</span>)
 				</span>
+				{% if (user && user.admin) %}
 				<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
+				<a href="javascript: void(0);" data-pid="{{ post._id }}" class="icon-trashcan post-delete" title="删除"></a>
+				{% endif %}
 			</div>
 		</li>
 		{% endfor %}
@@ -39,4 +43,8 @@
 	<section class="no-post"></section>
 	{% endif %}
 </div>
+{% endblock %}
+
+{% block script %}
+<script data-main="/js/list.js" src="/lib/requirejs/require.js"></script>
 {% endblock %}

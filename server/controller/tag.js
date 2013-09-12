@@ -97,6 +97,7 @@ function findAllTags(callback) {
 }
 
 exports.findPostsByTag = function(req, res, next) {
+	var user;
 	var tag = req.params.tag;
 	var pageTitle = '标签<b class="list-key"> ' + tag + ' </b>下的文章';
 
@@ -113,7 +114,9 @@ exports.findPostsByTag = function(req, res, next) {
 		if(postids.length > 0) {
 			post_ctrl.fetchPosts(postids, fields, function(err, _doc) {
 				if(err) return next(err);
-				res.render('list', {posts: _doc, page_title: pageTitle});
+				user = req.session.user;
+				delete user.pass;
+				res.render('list', {posts: _doc, page_title: pageTitle, user: user});
 			});
 		} else {
 			res.render('list', {posts: [], page_title: pageTitle});

@@ -41,7 +41,7 @@ function findAPost(postid, fields, callback) {
 			user_ctrl.findById(doc.author_id, 'name email site admin', function(_err, _doc) {
 				if(_err || !_doc) return proxy.emit('error', _err);
 				_doc = _doc.toObject();
-				_doc.avatar = user_ctrl.genAvatar(_doc.email);
+				_doc.avatar = _doc.avatar || user_ctrl.genAvatar(_doc.email);
 				//delete _doc.email;
 				proxy.emit('author_find', _doc);
 			});
@@ -53,7 +53,7 @@ function findAPost(postid, fields, callback) {
 			user_ctrl.findById(doc.last_comment_by, 'name email site admin', function(_err, _doc) {
 				if(_err || !_doc) return proxy.emit('error', _err);
 				_doc = _doc.toObject();
-				_doc.avatar = user_ctrl.genAvatar(_doc.email);
+				_doc.avatar = _doc.avatar || user_ctrl.genAvatar(_doc.email);
 				//delete _doc.email;
 				proxy.emit('last_commentator_find', _doc);
 			});
@@ -339,63 +339,74 @@ exports.save = function(req, res, next) {
 
 exports.remove = function(req, res, next) {
 	var user = req.session.user;
-	var postid = req.params.postid;
-	var fields = '_id tags comments';
+	var postid = req.body.postid || req.params.postid;
+	var fields = 'tags comments';
 
 	if(!postid) return next();
-
-	var _remove = function(doc) {
-		doc.remove(function(err) {
-			if(err) return console.log('Remove post error.', err);
-			countMonthy(function(err) {'Count posts error.', err});
-		});
-	};
 
 	Post.findOne({_id: postid, author_id: user._id}, fields, function(err, doc) {
 		//Post.findByIdAndRemove
 		if(err || !doc) return next(err);
 
+		//var proxy = EventProxy.create('rm_tags', 'rm_comments', function() {
+		doc.remove(function(err) {
+			if(err) {
+				console.log('Remove post error.', err);
+				return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove post error.');
+			}
+			countMonthy(function(err) {'Count posts error.', err});
+			tools.jsonReturn(res, 'SUCCESS', 'ok');
+		});
+		//});
+
 		// delete this post from tags
 		if(doc.tags && doc.tags.length) {
 			tag_ctrl.removePost4Tags(doc.tags, doc._id, function(err) {
-				if(err) return next(err);
-				doc.remove();
+				//proxy.emit('rm_tags');
+				if(err) console.log('Remove tags error when remove post.', err);
 			});
-		} else {
-			doc.remove();
-		}
+		}/* else {
+			proxy.emit('rm_tags');
+		}*/
 
 		// delete comments
-		// TODO
-
-		//doc.remove();
+		if(doc.comments) {
+			comment_ctrl.removeCommentsByPostId(doc._id, function(err) {
+				//proxy.emit('rm_comments');
+				if(err) console.log('Remove comments error when remove post.', err);
+			});
+		}/* else {
+			proxy.emit('rm_comments');
+		}*/
 	});
 }
 
-exports.show = function(req, res, next) {//return countMonthy(function(){})
+exports.show = function(req, res, next) {
 	//var user = req.session.user;
-	var cookies = req.cookies;
+	/*var cookies = req.cookies;
 	var id = cookies._id;
 	var name = cookies.name;
-	var email = cookies.email;
+	var email = cookies.email;*/
 	var user = null;
 	var postid = req.params.postid;
 
 	if(!postid) return next();
 
-	var fields = 'title content update_at author_id tags comments visite topped last_comment_at last_comment_by';
+	var fields = 'i title content create_at update_at author_id tags comments visite topped last_comment_at last_comment_by';
 	
-	if(!id || !name && email) {
+	/*if(!id || !name && email) {
 		user = {_id: id, name: name, email: email, site: cookies.site}
 	} else {
 		user = req.session.user;
-	}
+	}*/
 
 	//findAPost
 	var proxy = EventProxy.create('post', 'tags', 'counts', 'prev', 'next', function(post, tags, counts, prev, next) {
 		if(req.xhr) {
 			tools.jsonReturn(res, 'SUCCESS', post.content);
 		} else {
+			user = req.session.user;
+			delete user.pass;
 			delete post.content;
 			res.render('post', {
 				post: post
@@ -414,20 +425,18 @@ exports.show = function(req, res, next) {//return countMonthy(function(){})
 
 	proxy.on('post', function(post) {
 		// find prev 
-		Post.find({_id: {$gt: post._id}}, 'title')
-			.sort({_id: -1})
-			.limit(1)
+		Post.findOne({i: {$lt: post.i}}, 'title')
+			.sort('-i')
 			.exec(function(err, doc) {
-				proxy.emit('prev', {});
+				proxy.emit('prev', doc || {});
 				if(err) console.log('Find previous post error, ', err);
 			});
 
 		// find next 
-		Post.find({_id: {$gt: post._id}}, 'title')
-			.sort({_id: 1})
-			.limit(1)
+		Post.findOne({i: {$gt: post.i}}, 'title')
+			.sort('i')
 			.exec(function(err, doc) {
-				proxy.emit('next', {});
+				proxy.emit('next', doc || {});
 				if(err) console.log('Find next post error, ', err);
 			});
 	});
@@ -443,7 +452,7 @@ exports.show = function(req, res, next) {//return countMonthy(function(){})
 			} else {
 				console.log('Build html error, err: ', err);
 			}
-			//doc.update_at = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
+			//doc.update_at = new Date(doc.update_at);
 			//doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD');
 			doc.visite ++;
 			//console.log('post: ', doc)
@@ -487,6 +496,7 @@ exports.showByPage = function(req, res, next) {
 }
 
 exports.counts = function(req, res, next) {
+	var user;
 	var year = req.params.year;
 	var month = req.params.month;
 	var fields = '_id title author_id topped update_at visite';
@@ -505,12 +515,15 @@ exports.counts = function(req, res, next) {
 		postids = doc[0].value.split('$');//console.log(postids)
 		fetchPosts(postids, fields, function(err, doc) {
 			if(err) return next(err);
-			res.render('list', {posts: doc, page_title: pageTitle});
+			user = req.session.user;
+			delete user.pass;
+			res.render('list', {posts: doc, page_title: pageTitle, user: user});
 		});
 	});
 }
 
 exports.search = function(req, res, next) {
+	var user;
 	var keyword = sanitize(req.body.keyword || '').trim();
 	var fields = '_id title author_id topped update_at visite';
 	var pageTitle = '所有含<b class="list-key"> ' + req.body.keyword + '</b> 的文章';
@@ -525,7 +538,9 @@ exports.search = function(req, res, next) {
 			if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
 			fetchPosts(_.filter(doc, function(item) {return item._id}), fields, function(err, doc) {
 				if(err) return next(err);
-				res.render('list', {posts: doc, page_title: pageTitle});
+				user = req.session.user;
+				delete user.pass;
+				res.render('list', {posts: doc, page_title: pageTitle, user: user});
 			});
 		});
 }

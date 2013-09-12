@@ -14,8 +14,11 @@ var EventProxy = require('eventproxy');
 function home(req, res, next) {
 	//console.log('session: ', req.session.user);
 	//console.log('cookie: ', req.cookies);
+	var sUser = req.session.user;
+	var user = {admin: sUser ? sUser.admin : false};
 	var proxy = EventProxy.create('posts', 'tags', 'counts', function(posts, tags, counts) {
 		res.render('index', {
+			user: user,
 			posts: posts,
 			tags: tags,
 			counts: counts,
