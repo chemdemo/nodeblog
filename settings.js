@@ -15,7 +15,7 @@ module.exports = {
 	, EXPIRES: 1000 * 60 * 60 * 24 * 30
 	, SESSION_PORT: 6379
 	, SESSION_SECRET: 'nodeblog@chemdemo$007'
-	, APP_PORT: 3000
+	, APP_PORT: 3344
 	, UPLOAD_DIR: path.resolve(__dirname, '/tmp')
 
 	, DEFAULT_USER_PASS: 'pass@123'
