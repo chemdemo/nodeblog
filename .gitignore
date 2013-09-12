@@ -3,8 +3,7 @@
 .idea
 *.log
 .allow-devtools-edit
-/log
-/bin
+/logs
 /node_modules
 /tmp
 /see
