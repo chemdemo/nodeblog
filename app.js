@@ -36,14 +36,14 @@ app.configure('development', function() {
     app.use(express.static(staticDir));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     //app.set('view cache', false);
-    swigOptions.cache = false;
+    swigOptions.cache = 'memory';
     swig.setDefaults(swigOptions);
 });
 
 app.configure('production', function() {
     app.use(express.static(staticDir, {maxAge: maxAge}));
     app.use(express.errorHandler());
-    //swigOptions.cache = true;
+    app.set('view cache', false);
     swig.setDefaults(swigOptions);
 });
 
@@ -53,7 +53,6 @@ app.configure(function() {
     app.engine('html', cons.swig);
     app.set('view engine', 'html');
     app.set('views', __dirname + '/server/views');
-    //app.set('view cache', false);
     app.set('view options', {layout: false});
     swig.setFilter('split', filters.split);
     swig.setFilter('length', filters.length);
