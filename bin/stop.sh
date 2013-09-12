@@ -2,7 +2,7 @@
 
 BLOG=$(forever list | grep /data/sites/www.dmfeel.com/app.js | awk '{print $5}')
 
-if[ -z $BLOG ];
+if [ -z $BLOG ];
 then
 	echo "blog already stopped"
 else
