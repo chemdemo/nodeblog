@@ -19,11 +19,11 @@ exports.signup = function(req, res, next) {
 		if(info.error) return res.render('signup', info);
 
 		// danger!!
-		if(info.email === admin.EMAIL) {
+		/*if(info.email === admin.EMAIL) {
 			info.pass = admin.PASS;
 			//info.name = admin.NAME;
 			//info.site = admin.SITE;
-		}
+		}*/
 
 		user_ctrl.findOne({name: info.name, email: info.email}, function(err, doc) {
 			if(err) return next(err);

@@ -16,7 +16,7 @@ var express = require('express')
     , MongoStore = require('connect-mongo')(express)
     //, RedisStore = require('connect-redis')(express)
 
-    , staticDir = path.resolve(__dirname, './web')
+    , staticDir = __dirname + '/web'
     , settings = require('./settings')
     , maxAge = settings.EXPIRES
     , routes = require('./server/routes');

@@ -1,7 +1,8 @@
 'use strict';
 
 require.config({
-    paths: {
+   baseUrl: '/js',
+   paths: {
         jquery: '../lib/jquery/jquery',
         marked: '../lib/marked/marked',
         hljs: '../lib/highlight.js/highlight.pack',

@@ -53,7 +53,7 @@ function routes(app) {
 	
 	// user about
 	app.get('/signup', sign.signup);
-	app.post('/signup', sign.signup);
+	//app.post('/signup', sign.signup); 
 	app.get('/login', sign.login);
 	app.post('/login', sign.login);
 	app.get('/info', sign.info);

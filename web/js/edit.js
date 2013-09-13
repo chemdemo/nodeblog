@@ -1,6 +1,5 @@
 //see https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 //see http://ghosertblog.github.io/mdeditor/static/editor/scrollLink.js
-
 'use strict';
 
 require.config({
