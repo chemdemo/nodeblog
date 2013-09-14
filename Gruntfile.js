@@ -30,9 +30,9 @@ module.exports = function(grunt) {
 						{
 							name: 'post'
 						},
-						{
+						/*{
 							name: 'edit'
-						},
+						},*/
 						{
 							name: 'list'
 						},

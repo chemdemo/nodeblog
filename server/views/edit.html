@@ -112,11 +112,6 @@
 {% endblock %}
 
 {% block script %}
-{% if (env && env === 'production') %}
-<script data-main="/build/js/edit" src="/build/js/require.min.js"></script>
-{% else %}
-<script src="/lib/require/require.js"></script>
-<script src="/js/config.js"></script>
+<script src="/build/js/require.min.js"></script>
 <script src="/js/edit.js"></script>
-{% endif %}
 {% endblock %}

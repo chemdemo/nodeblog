@@ -2,7 +2,27 @@
 //see http://ghosertblog.github.io/mdeditor/static/editor/scrollLink.js
 'use strict';
 
-require(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked, hljs, utils) {
+require.config({
+	urlArgs: '_t=' + (new Date()).getTime(), //for development
+	baseUrl: '/js',
+	paths: {
+		'jquery': '../lib/jquery/jquery',
+		'ace': '../lib/ace',
+        'marked': '../lib/marked/marked',
+        'hljs': '../lib/highlight.js/highlight.pack',
+        'underscore': '../lib/underscore/underscore',
+		'utils': 'utils',
+		'themes': 'themes'
+	},
+	//waitSeconds: 15,
+	shim: {
+		'underscore': {
+			'exports': '_'
+		}
+	}
+});
+
+require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked, hljs, utils) {
 	marked.setOptions({
 		highlight: function (code, lang) {
 			if(lang) {
@@ -14,7 +34,7 @@ require(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marke
 		pedantic: true,
 		sanitize: false,
 		smartypants: true
-	});//window.ace = ace;
+	});
 
 	var editor = ace.edit('post-editor');
 	var session = editor.getSession();

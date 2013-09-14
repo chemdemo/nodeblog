@@ -3,7 +3,7 @@ require.config({
 	baseUrl: '/js',
 	paths: {
 		'jquery': '../lib/jquery/jquery',
-		'ace': '../lib/ace',
+		//'ace': '../lib/ace',
         'marked': '../lib/marked/marked',
         'hljs': '../lib/highlight.js/highlight.pack',
         'underscore': '../lib/underscore/underscore',
