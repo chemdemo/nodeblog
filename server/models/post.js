@@ -16,8 +16,8 @@ var PostSchema = new Schema({
 	, comments: {type: Number, default: 0}
 	, visite: {type: Number, default: 0}
 	, topped: {type: Number, default: 0}
-	, last_comment_at: {type: Date}
-	, last_comment_by: ObjectId
+	//, last_comment_at: {type: Date}
+	//, last_comment_by: ObjectId
 }, {collection: 'post'});
 
 PostSchema.index({create_at: 1});

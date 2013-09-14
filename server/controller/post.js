@@ -392,7 +392,7 @@ exports.show = function(req, res, next) {
 
 	if(!postid) return next();
 
-	var fields = 'i title content create_at update_at author_id tags comments visite topped last_comment_at last_comment_by';
+	var fields = 'i title content create_at update_at author_id tags comments visite topped';
 	
 	/*if(!id || !name && email) {
 		user = {_id: id, name: name, email: email, site: cookies.site}

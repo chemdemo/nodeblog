@@ -1,8 +1,15 @@
 {% extends 'layout.html' %}
 
 {% block stylesheet %}
+{% if (env && env === 'production') %}
+<link rel="stylesheet" href="/build/style/edit.min.css" />
+{% else %}
+<link rel="stylesheet" href="/style/icons.css" />
+<link rel="stylesheet" href="/style/md.css" />
+<link rel="stylesheet" href="/style/global.css" />
 <link rel="stylesheet" href="/style/edit.css" />
-<!-- <link rel="stylesheet" href="http://uedsky.com/static/css/markdown-github.css" /> -->
+{% endif %}
+<link id="code-theme" rel="stylesheet" href="/lib/highlight.js/styles/solarized_light.css" />
 {% endblock %}
 
 {% block header %}
@@ -105,6 +112,11 @@
 {% endblock %}
 
 {% block script %}
-<script>var content = '';</script>
-<script data-main="/js/edit.js" src="/lib/requirejs/require.js"></script>
+{% if (env && env === 'production') %}
+<script data-main="/build/js/edit" src="/build/js/require.min.js"></script>
+{% else %}
+<script src="/lib/require/require.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/edit.js"></script>
+{% endif %}
 {% endblock %}

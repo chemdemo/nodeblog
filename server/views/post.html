@@ -5,7 +5,15 @@
 {% endblock %}
 
 {% block stylesheet %}
+{% if (env && env === 'production') %}
+<link rel="stylesheet" href="/build/style/post.min.css" />
+{% else %}
+<link rel="stylesheet" href="/style/icons.css" />
+<link rel="stylesheet" href="/style/md.css" />
+<link rel="stylesheet" href="/style/global.css" />
 <link rel="stylesheet" href="/style/post.css" />
+{% endif %}
+<link id="code-theme" rel="stylesheet" href="/lib/highlight.js/styles/solarized_light.css" />
 {% endblock %}
 
 {% block content %}
@@ -71,7 +79,7 @@
 			</p>
 			<div class="comment-input">
 				<label for="comment">评论内容（支持markdown^_^）</label>
-				<textarea id="comment" class="textarea" rows="5" placeholder="随便说点？"></textarea>
+				<textarea id="comment" class="textarea" rows="5" placeholder="随便说点(支持markdown)？"></textarea>
 			</div>
 			<div class="add-comment-btns">
 				<button data-postid="{{ post._id }}" id="btn-add" class="i-btn i-btn-blue comment-submit">
@@ -83,11 +91,19 @@
 				<span id="tips" class="tips i-btn i-btn-red none"></span>
 			</div>
 		</section>
+		<!-- <div class="ds-thread" data-thread-key="{{ post._id }}" data-title="{{ post.title }}" data-author-key="{{ post.author._id }}" data-limit="200"></div> -->
 	</section>
 	<!-- </div> -->
 </div>
+<!-- <div class="ds-login"></div> -->
 {% endblock %}
 
 {% block script %}
-<script data-main="/js/post.js" src="/lib/requirejs/require.js"></script>
+{% if (env && env === 'production') %}
+<script data-main="/build/js/post" src="/build/js/require.min.js"></script>
+{% else %}
+<script src="/lib/require/require.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/post.js"></script>
+{% endif %}
 {% endblock %}

@@ -54,25 +54,25 @@
 	margin-top: .5em;
 	/*border-left: 1px dashed #DDD;*/
 }
-.comment {
+.i-comment {
 	padding: 1em;
 	/*border-bottom: 1px dashed #DDD;*/
 	border-top: 1px solid #EEE;
 	/*margin-top: .5em;*/
 	transition: background-color .8s ease-in-out;
 }
-/*.comment:hover {
+/*.i-comment:hover {
 	background-color: #FBFAE6;
 }*/
-.reply-list .comment {
+.reply-list .i-comment {
 	/*border: 1px dashed #DDD;*/
 	margin-bottom: .5em;
 	background-color: #F3F3F3;
 }
-/*.reply-list .comment:hover {
+/*.reply-list .i-comment:hover {
 	background-color: #FFF;
 }*/
-.comment .avatar {
+.i-comment .avatar {
 	float: left;
 	width: 48px;
 	height: 48px;
@@ -81,24 +81,24 @@
 	/*border-radius: 24px;*/
 	box-shadow: 0 0 10px 1px rgba(5, 215, 255, 0.2);
 }
-.comment .comment-body {
+.i-comment .comment-body {
 	padding-left: 5em;
 }
-.comment h3 {
+.i-comment h3 {
 	line-height: 1em;
 }
-.comment h3 a {
+.i-comment h3 a {
 	color: #222;
 }
-.comment h3 .comment-date {
+.i-comment h3 .comment-date {
 	font-weight: normal;
 	float: right;
 	font-size: .8em;
 }
-.comment .comment-content {
+.i-comment .comment-content {
 	margin: 1em 0;
 }
-.comment .comment-btns {
+.i-comment .comment-btns {
 	text-align: right;
 }
 .comment-btns .comment-del {

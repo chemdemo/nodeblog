@@ -1,23 +1,12 @@
 'use strict';
 
-require.config({
-    //baseUrl: '../libs',
-    paths: {
-        jquery: '../lib/jquery/jquery',
-        underscore: '../lib/underscore/underscore',
-        text: '../lib/requirejs/text',
-		utils: './utils'
-    }
-	//, urlArgs: '_t=' + Date.now()// no cache
-});
-
-define(
+require(
 	['jquery',
 	'underscore',
 	'text!tmpl/comment.html', 
 	'text!tmpl/reply.html',
 	/*'utils',*/
-	'./themes'], 
+	'themes'], 
 	function($, _, commentTmpl, replyTmpl, /*utils, */themes) {
 	
 	var postId = function() {
@@ -180,6 +169,26 @@ define(
 				}
 			});
 		}
+
+		// init duoshuo module
+		/*(function() {
+			window.duoshuoQuery = {
+				short_name: 'dmfeel',
+				sso: { 
+			       //login: 'http://duoshuo.com/login/',
+			       login: location.href,
+			       //logout: 'http://duoshuo.com/logout/'
+			       logout: location.href
+	   			}
+			};
+
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = 'http://static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			|| document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();*/
 	}
 
 	$(init);

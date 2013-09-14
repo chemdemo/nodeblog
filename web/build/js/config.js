@@ -1,0 +1,1 @@
+require.config({urlArgs:"_t="+(new Date).getTime(),baseUrl:"/js",paths:{jquery:"../lib/jquery/jquery",ace:"../lib/ace",marked:"../lib/marked/marked",hljs:"../lib/highlight.js/highlight.pack",underscore:"../lib/underscore/underscore",text:"../lib/require/text",utils:"utils",themes:"themes"},shim:{underscore:{exports:"_"}}});

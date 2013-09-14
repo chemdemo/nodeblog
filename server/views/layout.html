@@ -3,18 +3,18 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="keywords" content="notes dmyang" />
-	<meta name="description" content="dmyang dm chemdemo" />
+	<meta name="description" content="Note my life, note my work." />
 	<meta name="author" content="dmyang @demo-i" />
 	<meta name="copyright" content="dmyang" />
 	<meta name="application-name" content="dmyang's blog" />
 	<meta name="viewport" content="minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, width=device-width, user-scalable=no">
 	<title>{% block title %}Notes·dm{% endblock %}</title>
 	<!-- <link rel="shortcut icon" href="/favicon1.ico" /> -->
-	<link rel="stylesheet" href="/style/style.css" />
-	<link rel="stylesheet" href="/style/md.css" />
-	<link id="code-theme" rel="stylesheet" href="/lib/highlight.js/styles/solarized_light.css" />
+	{% block stylesheet %}
+	<link rel="stylesheet" href="/style/icons.css" />
 	<link rel="stylesheet" href="/style/global.css" />
-	<link>{% block stylesheet %}{% endblock %}</link>
+	<link rel="stylesheet" href="/style/md.css" />
+	{% endblock %}
 </head>
 
 <body>

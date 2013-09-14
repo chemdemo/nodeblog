@@ -1,5 +1,5 @@
 {
-  "name": "nodeblog",
+  "name": "Note·dm",
   "version": "0.0.1",
   "private": true,
   "starcripts": {
@@ -20,5 +20,16 @@
     "connect-mongo": "~0.3.3",
     "marked": "~0.2.9",
     "swig": "~1.0.0-rc1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-compass": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-imagemin": "~0.3.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.4.1"
   }
 }

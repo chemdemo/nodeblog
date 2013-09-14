@@ -77,6 +77,7 @@ app.configure(function() {
     app.use(express.csrf());
     app.use(function(req, res, next) {
         res.locals.token = req.session._csrf;
+        res.locals.env = app.settings.env;
         next();
     });
     app.use('/upload/', express.static(settings.UPLOAD_DIR, {maxAge: maxAge}));

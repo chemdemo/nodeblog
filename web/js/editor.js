@@ -3,17 +3,7 @@
 
 'use strict';
 
-require.config({
-    paths: {
-        //jquery: '../lib/jquery/jquery',
-        ace: '../lib/ace',
-        marked: '../lib/marked/marked',
-        hljs: '../lib/highlight.js/highlight.pack',
-		utils: './utils'
-    }
-});
-
-define(['ace/ace', 'marked', 'hljs', 'utils'], function(ace, marked, hljs, utils) {
+require(['ace/ace', 'marked', 'hljs', 'utils'], function(ace, marked, hljs, utils) {
 	var editor;
 	var session;
 	var previewBox;
@@ -116,6 +106,5 @@ define(['ace/ace', 'marked', 'hljs', 'utils'], function(ace, marked, hljs, utils
 
 		bindEvents();
 	}
-
-	exports.
+	
 });

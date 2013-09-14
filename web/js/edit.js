@@ -2,18 +2,7 @@
 //see http://ghosertblog.github.io/mdeditor/static/editor/scrollLink.js
 'use strict';
 
-require.config({
-    paths: {
-        jquery: '../lib/jquery/jquery',
-        ace: '../lib/ace',
-        marked: '../lib/marked/marked',
-        hljs: '../lib/highlight.js/highlight.pack',
-		utils: './utils'
-    }
-	//, urlArgs: '_t=' + Date.now()// no cache
-});
-
-define(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked, hljs, utils) {
+require(['jquery', 'ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked, hljs, utils) {
 	marked.setOptions({
 		highlight: function (code, lang) {
 			if(lang) {

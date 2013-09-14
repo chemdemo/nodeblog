@@ -1,6 +1,6 @@
 'use strict';
 
-define(function(require, exports, module) {
+define('themes', function(require, exports, module) {
 	var files = ['arta', 'ascetic', 'brown_paper', 'dark', 'default', 'docco', 'far', 
 		'foundation', 'github', 'googlecode', 'idea', 'ir_black', 'magula', 'mono-blue', 
 		'monokai', 'monokai_sublime', 'obsidian', 'pojoaque', 'railscasts', 'rainbow', 

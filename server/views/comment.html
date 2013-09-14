@@ -1,5 +1,5 @@
 {% for comment in comments %}
-<li class="comment">
+<li class="i-comment">
 	<img class="avatar" src="{{ comment.author.avatar }}" alt="{{ comment.author.name }}" />
 	<div class="comment-body">
 		<h2>{{ comment.author.name }}
@@ -21,7 +21,7 @@
 		{% if replies.length %}
 		<ul class="reply-list">
 			{% for reply in replies %}
-			<li class="comment">
+			<li class="i-comment">
 				<img class="avatar" src="{{ reply.author.avatar }}" alt="{{ reply.author.name }}" />
 				<div class="comment-body">
 					<h2>{{ reply.author.name }}
