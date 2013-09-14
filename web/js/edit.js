@@ -3,7 +3,7 @@
 'use strict';
 
 require.config({
-	urlArgs: '_t=' + (new Date()).getTime(), //for development
+	//urlArgs: '_t=' + (new Date()).getTime(), //for development
 	baseUrl: '/js',
 	paths: {
 		'jquery': '../lib/jquery/jquery',
