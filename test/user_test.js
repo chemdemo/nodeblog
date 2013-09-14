@@ -3,7 +3,7 @@ var user_ctrl = require('../server/controller/user');
 var testInfo = {
 	name: 'test',
 	email: '212erreg@gmail.com',
-	pass: 'pass@123'
+	pass: 'pass4site'
 };
 
 function find() {
@@ -24,3 +24,4 @@ function add() {
 
 find();
 //add();
+
