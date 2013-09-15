@@ -122,11 +122,14 @@ function countMonthy(callback) {
 	var mapFn = function() {
 		var create = this.create_at;
 		var year = create.getFullYear();
-		var month = create.getMonth()+1;
-		month = ('0' + month).slice(-2);
-		var key = new Date(create.getFullYear(), create.getMonth()+1).getTime();
+		var month = create.getMonth();
+		//month = ('0' + month).slice(-2);
+		var key = new Date(year, month).getTime();
 		//emit(key, {postid: [this._id]});
-		emit(key, this._id.toString());// win mongodb have bug
+		// There has bug at mongodb v2.4
+		// _id.toString() function is not work
+		var v = this._id.toString().replace(/ObjectId\(\"(.+)\"\)/, '$1');
+		emit(key, v);
 	};
 
 	var reduceFn = function(key, values) {//{'2013/09': ['xxx', 'xxxx']}
