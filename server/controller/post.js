@@ -491,7 +491,7 @@ exports.getPostContent = function(req, res) {// for ajax
 			});
 		}
 		if('markdown' === type) {
-			tool.jsonReturn(res, 'SUCCESS', doc);
+			tools.jsonReturn(res, 'SUCCESS', doc);
 		}
 	});
 }
