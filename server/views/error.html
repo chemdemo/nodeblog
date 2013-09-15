@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Notes·dm</title>
-	<style type="text/css">
-		body {
-			background-color: #f6f4ec;
-			/*color: #222;
-			text-align: center;
-			line-height: 12em;
-			font-size: 3em;*/
-		}
-	</style>
-</head>
-<body>
-	<!-- <h2>{{ error|default('Server error.') }}</h2> -->
-</body>
-<script src="http://www.qq.com/404/search_children.js"></script>
-</html>
+{% extends 'layout.html' %}
+
+{% block stylesheet %}
+<style type="text/css">body {background-color: #f6f4ec;}</style>
+{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center; line-height: 12em; color: red; font-size: 3em;">
+	{{ error|default('Server error.') }}
+</h2>
+{% endblock %}
