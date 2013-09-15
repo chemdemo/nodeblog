@@ -36,6 +36,7 @@
 	margin-top: 2em;
 	font-size: 12px;
 	padding: 1em;
+	padding-bottom: 0;
 	/*background-color: #F8F8F8;
 	border: 1px solid #E6E6E6;*/
 }
@@ -84,22 +85,24 @@
 .i-comment .comment-body {
 	padding-left: 5em;
 }
-.i-comment h3 {
-	line-height: 1em;
+.i-comment .comment-info {
+	overflow: auto;
 }
-.i-comment h3 a {
-	color: #222;
+.i-comment .comment-author {
+	/*line-height: 1em;*/
+	margin-right: .5em;
 }
-.i-comment h3 .comment-date {
+/*.i-comment .comment-author a {
+	color: #333;
+}*/
+.i-comment .comment-date {
 	font-weight: normal;
-	float: right;
+	/*float: right;*/
 	font-size: .8em;
 }
-.i-comment .comment-content {
-	margin: 1em 0;
-}
 .i-comment .comment-btns {
-	text-align: right;
+	/*text-align: right;*/
+	float: right;
 }
 .comment-btns .comment-del {
 	opacity: 0;
@@ -109,10 +112,13 @@
 	opacity: 1;
 }
 .comment-btns a {
-	margin-right: 1em;
+	margin-right: .5em;
 }
 .comment-btns a, .comment-btns i {
-	color: #222;
+	color: #888;
+}
+.i-comment .comment-content {
+	margin: 3px 0;
 }
 #tips {
 	display: none;
@@ -122,6 +128,32 @@
 .add-comment {
 	margin: .5em 0;
 }
+.add-comment h4 {
+	padding-left: 1em;
+	/*background-color: #EEE;*/
+	border-bottom: 1px solid #EEE;
+}
+.add-comment .user-login {
+	text-align: center;
+	margin: 1em;
+}
+.user-login,
+.user-login + .comment-input {
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 1em;
+}
+.user-login .avatar {
+	display: block;
+	float: none;
+}
+.user-login + .comment-input + .add-comment-btns {
+	padding-left: 75px;
+}
+.reply-list .user-login + .comment-input + .add-comment-btns {
+	padding-left: 78px;
+}
+
 .add-comment p {
 	margin: 1em 0;
 }
@@ -136,6 +168,7 @@
 }
 .comment-input {
 	margin-bottom: .5em;
+	width: 88%;
 }
 .comment-input label {
 	display: block;
@@ -146,7 +179,7 @@
 .add-comment textarea {
 	resize: none;
 	line-height: 1.5em;
-	width: 98%;
+	width: 100%;
 }
 .add-comment-btns i {
 	margin-right: 3px;

@@ -22,26 +22,37 @@ function infoCheck(info) {
 	info.email = sanitize(info.email).xss();
 	info.pass = sanitize(info.pass).trim();
 	info.pass = sanitize(info.pass).xss();
-	info.site = sanitize(info.site || '').trim();
-	info.site = sanitize(info.site).xss();
+	if(info.site) {
+		info.site = sanitize(info.site).trim();
+		info.site = sanitize(info.site).xss();
+	}
 
 	if(!info.name || !info.email || !info.pass) {
 		info.error = '信息填写不完整。';
 		return info;
 	}
 
-	try {
+	/*try {
 		check(info.name, '用户名只能使用0-9，a-z，A-Z。').isAlphanumeric();
 	} catch(e) {
 		info.error = e.message;
 		return info;
-	}
+	}*/
 
 	try {
 		check(info.email, 'Illegal email.').isEmail();
 	} catch(e) {
 		info.error = e.message;
 		return info;
+	}
+
+	if(info.site) {
+		try {
+			check(info.site, 'Illegal site url.').isUrl();
+		} catch(e) {
+			info.error = e.message;
+			return info;
+		}
 	}
 
 	if(!info.pass) {

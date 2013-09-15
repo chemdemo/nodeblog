@@ -1,4 +1,5 @@
 var settings = require('../../settings');
+var tools = require('../utils/tools');
 
 var user_ctrl = require('./user');
 
@@ -19,11 +20,11 @@ exports.signup = function(req, res, next) {
 		if(info.error) return res.render('signup', info);
 
 		// danger!!
-		/*if(info.email === admin.EMAIL) {
-			info.pass = admin.PASS;
-			//info.name = admin.NAME;
-			//info.site = admin.SITE;
-		}*/
+		// if(info.email === admin.EMAIL) {
+		// 	info.pass = admin.PASS;
+		// 	//info.name = admin.NAME;
+		// 	//info.site = admin.SITE;
+		// }
 
 		user_ctrl.findOne({name: info.name, email: info.email}, function(err, doc) {
 			if(err) return next(err);
@@ -74,6 +75,7 @@ exports.login = function(req, res, next) {
 					user_ctrl.setCookie(res, doc);
 					req.session.user = doc;
 					res.render('info', doc);
+					//tools.jsonReturn(res, 'SUCCESS', 0);
 				} else {
 					res.render('login', {
 						email: info.email, 
@@ -87,6 +89,21 @@ exports.login = function(req, res, next) {
 	}
 }
 
+exports.logout = function(req, res, next) {
+	req.session.destroy();
+	res.clearCookie('_id');
+	res.clearCookie('name');
+	res.clearCookie('email');
+	res.clearCookie('site');
+	res.clearCookie('avatar');
+	//req.session.user = null;
+	if(req.xhr) {
+		tools.jsonReturn(res, 'SUCCESS', 0);
+	} else {
+		res.redirect('/login');
+	}
+}
+
 exports.info = function(req, res, next) {
 	var user = req.session.user || null;
 	if(user) user.avatar = user_ctrl.genAvatar(user.email);
@@ -95,7 +112,10 @@ exports.info = function(req, res, next) {
 
 exports.loginCheck = function(req, res, next) {
 	if(!req.session.user) {
-		return res.redirect('/login');
+		if(req.xhr) {
+			return tools.jsonReturn(res, 'AUTH_ERROR', null, 'Need login!');
+		}
+		res.redirect('/login');
 	}
 	next();
 }
@@ -109,14 +129,4 @@ exports.adminCheck = function(req, res, next) {
 		return next(403);
 	}*/
 	next();
-}
-
-exports.logout = function(req, res, next) {
-	req.session.user = null;
-	//req.flash('success', 'Logout success!');
-	res.redirect('/');
-	//next();
-	//req.session.destroy();
-	//res.clearCookie(config.auth_cookie_name, { path: '/' });
-	//res.redirect(req.headers.referer || 'home');
 }

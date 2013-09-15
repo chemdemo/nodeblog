@@ -2,14 +2,26 @@
 <li class="i-comment"<% if(reply_id) { %> data-rid="<%= reply_id %>"<% } %> data-cid="<%= _id %>" data-uid="<%= author._id %>">
 	<img class="avatar" src="<%= author.avatar %>" alt="<%= author.name %>" />
 	<div class="comment-body">
-		<h3>
-			<% if(author.site) { %>
-			<a href="<%= author.site %>" target="_blank"><%= author.name %></a>
-			<% } else { %>
-			<%= author.name %>
-			<% } %>
+		<div class="comment-info">
+			<strong class="comment-author">
+				<% if(author.site) { %>
+				<a href="<%= author.site %>" target="_blank"><%= author.name %></a>
+				<% } else { %>
+				<%= author.name %>
+				<% } %>
+			</strong>
 			<span class="comment-date"><%= create_at %></span>
-		</h3>
+			<span class="comment-btns">
+				<a href="javascript: void(0);" data-cmd="delete" class="comment-del" title="删除">
+					<i class="icon-trashcan"></i>
+					删除
+				</a>
+				<a href="javascript: void(0);" data-cmd="<%= (reply_id ? 're-reply' : 'reply') %>" class="comment-reply" title="回复">
+					<i class="icon-undo-2"></i>
+					回复
+				</a>
+			</span>
+		</div>
 		<div class="comment-content md">
 			<% if(reply_author) { %>
 				<em class="re-reply">@ 
@@ -21,16 +33,6 @@
 				</em>
 			<% } %>
 			<%= content %>
-		</div>
-		<div class="comment-btns">
-			<a href="javascript: void(0);" data-cmd="delete" class="comment-del" title="删除">
-				<i class="icon-trashcan"></i>
-				删除
-			</a>
-			<a href="javascript: void(0);" data-cmd="<%= (reply_id ? 're-reply' : 'reply') %>" class="comment-reply" title="回复">
-				<i class="icon-undo-2"></i>
-				回复
-			</a>
 		</div>
 		<% if(!reply_id) { %>
 		<ul class="reply-list"></ul>

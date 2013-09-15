@@ -37,9 +37,12 @@
 				<span class="post-comments">
 					评论(<span class="comments-num">{{ post.comments|default(0) }}</span>)
 				</span>
-				{% if (user && user.admin) %}
+				{% if user %}
+				{% if user.admin %}
+				<!-- 这里是swig的bug，它会用in去遍历user，如果user为null的话会报错 -->
 				<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
 				<a href="javascript: void(0);" data-pid="{{ post._id }}" class="icon-trashcan post-delete" title="删除"></a>
+				{% endif %}
 				{% endif %}
 			</div>
 		</li>

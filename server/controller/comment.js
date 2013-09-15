@@ -173,7 +173,7 @@ exports.add = function(req, res, next) {
 
 		user_ctrl.findOne({name: user.name, email: user.email}, function(err, doc) {
 			if(err) return callback(err);
-
+			
 			if(!doc) {
 				user_ctrl.addOne(user, callback);
 			} else {
@@ -248,7 +248,7 @@ exports.add = function(req, res, next) {
 		delete doc.modify_at;
 		//delete doc.email;
 		user_ctrl.setCookie(res, doc);
-		//req.session.user = doc;
+		req.session.user = doc;
 		proxy.emit('user_check', doc);
 	});
 
@@ -275,26 +275,30 @@ exports.findAllByPostId = function(req, res, next) {
 	var email = cookies.email;
 	var user = null;
 
-	if(id && name && email) {
-		user = {_id: id, name: name, email: email, site: cookies.site}
-	} else {
-		user = req.session.user;
-	}
-
 	if(!postid) {
 		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Param postid required.');
 	}
 
 	findCommentsByPostId(postid, function(err, comments) {
 		if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Find comments error.');
+		// 暂时先不通过cookie拿数据
+		//if(id && name && email) {
+			//user = {_id: id, name: name, email: email, site: cookies.site}
+		//} else {
+			user = req.session.user || null;
+		//}
 		tools.jsonReturn(res, 'SUCCESS', {user: user, comments: comments});
 	});
 }
 
 exports.remove = function(req, res, next) {
 	var postid = req.body.postid || req.params.postid;
-	var user = req.session.user;
 	var commentId = req.body.commentid || req.params.commentid;
+	var cookies = req.cookies;
+	var id = cookies._id;
+	var name = cookies.name;
+	var email = cookies.email;
+	var user = null;
 
 	if(!postid) {
 		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Param postid required.');
@@ -307,8 +311,13 @@ exports.remove = function(req, res, next) {
 		}
 
 		if(!doc) return next(404);
-
-		if(user.admin || doc.author_id.toString() === user._id.toString()) {
+		// 暂时先不通过cookie拿数据
+		//if(id && name && email) {
+			//user = {_id: id, name: name, email: email, site: cookies.site}
+		//} else {
+			user = req.session.user || null;
+		//}
+		if(user && (user.admin || doc.author_id.toString() === user._id.toString())) {
 			/*Comment.findByIdAndRemove(doc._id, function(err, doc) {
 				if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
 				tools.jsonReturn(res, 'SUCCESS', 0);

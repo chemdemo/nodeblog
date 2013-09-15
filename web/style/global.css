@@ -246,8 +246,8 @@ header .sub-title {
 	line-height: 1em;
 	font-size: 12px;
 	margin-top: -11px;
-	color: rgba(51, 181, 229, 0.2);
-	font-style: italic;
+	color: #888;
+	/*font-style: italic;*/
 }
 header nav {
 	float: right;
@@ -369,6 +369,6 @@ footer {
 	text-align: center;
 	color: #999;
 	/*background-color: #f8f8f8;*/
-	height: 100px;
-	line-height: 100px;
+	height: 60px;
+	padding-top: 40px;
 }

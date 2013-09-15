@@ -331,6 +331,7 @@ exports.save = function(req, res, next) {
 			res.contentType('application/json');
 			res.header('Content-Length', data.length);
 			res.end(data);*/
+			console.log(doc._id)
 			tools.jsonReturn(res, 'SUCCESS', doc._id);
 			countMonthy(function(err) {if(err) console.log('Count posts error.', err);});
 		});
@@ -381,42 +382,32 @@ exports.remove = function(req, res, next) {
 	});
 }
 
-exports.show = function(req, res, next) {
-	//var user = req.session.user;
-	/*var cookies = req.cookies;
+exports.show = function(req, res, next) {//console.log(req.session)
+	var cookies = req.cookies;
 	var id = cookies._id;
 	var name = cookies.name;
-	var email = cookies.email;*/
+	var email = cookies.email;
 	var user = null;
+	var sUser;
 	var postid = req.params.postid;
 
 	if(!postid) return next();
 
-	var fields = 'i title content create_at update_at author_id tags comments visite topped';
+	var fields = 'i title create_at update_at author_id tags comments visite topped';
 	
-	/*if(!id || !name && email) {
-		user = {_id: id, name: name, email: email, site: cookies.site}
-	} else {
-		user = req.session.user;
-	}*/
-
 	//findAPost
 	var proxy = EventProxy.create('post', 'tags', 'counts', 'prev', 'next', function(post, tags, counts, prev, next) {
-		if(req.xhr) {
-			tools.jsonReturn(res, 'SUCCESS', post.content);
-		} else {
-			user = req.session.user;
-			delete user.pass;
-			delete post.content;
-			res.render('post', {
-				post: post
-				, tags: tags
-				, counts: counts
-				, prev: prev
-				, next: next
-				, user: user
-			});
-		}
+		// 需要优化，先从cookie拿数据
+		user = req.session.user || null;
+		if(user) delete user.pass;
+		res.render('post', {
+			post: post
+			, tags: tags
+			, counts: counts
+			, prev: prev
+			, next: next
+			, user: user
+		});
 
 		Post.findByIdAndUpdate(post._id, {$inc: {visite: 1}}, function(_err, _doc) {
 			if(_err) console.log('Add visite error.', _err);
@@ -443,21 +434,8 @@ exports.show = function(req, res, next) {
 
 	findAPost(postid, fields, function(err, doc) {
 		if(err || !doc) return proxy.emit('error', err);
-		//doc.save(function(_err) {if(_err) console.log('Add visite error.');});
-		//doc = doc.toObject();
-		tools.marked(doc.content, function(err, content) {
-			if(!err) {
-				doc.content = content;
-				//console.log(doc.content)
-			} else {
-				console.log('Build html error, err: ', err);
-			}
-			//doc.update_at = new Date(doc.update_at);
-			//doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD');
-			doc.visite ++;
-			//console.log('post: ', doc)
-			proxy.emit('post', doc);
-		});
+		doc.visite ++;//console.log('post: ', doc)
+		proxy.emit('post', doc);
 	}, false);
 
 	tag_ctrl.findAllTags(function(err, doc) {
@@ -484,6 +462,38 @@ exports.show = function(req, res, next) {
 			res.render('post', doc);
 		});
 	});*/
+}
+
+// 单独拉取content, 配合show
+exports.getPostContent = function(req, res) {// for ajax
+	var postid = req.query.postid || req.params.postid;
+	var type = req.query.type || 'markdown';
+	var summary = req.query.summary || false;
+	var fields = 'content';
+
+	if(summary) fields += ' summary';
+
+	findAPost(postid, fields, function(err, doc) {
+		if(err) {
+			console.log('Get post content error.', err);
+			return tools.jsonReturn(res, 'DB_ERROR', null, 'Get post content error.');
+		}
+		//doc = doc.toObject();
+		delete doc._id;
+		if('html' === type) {// html
+			tools.marked(doc.content, function(err, content) {
+				if(!err) {
+					doc.content = content;
+				} else {
+					console.log('Build html error, err: ', err);
+				}
+				tools.jsonReturn(res, 'SUCCESS', doc.content);
+			});
+		}
+		if('markdown' === type) {
+			tool.jsonReturn(res, 'SUCCESS', doc);
+		}
+	});
 }
 
 exports.showByPage = function(req, res, next) {
@@ -515,8 +525,8 @@ exports.counts = function(req, res, next) {
 		postids = doc[0].value.split('$');//console.log(postids)
 		fetchPosts(postids, fields, function(err, doc) {
 			if(err) return next(err);
-			user = req.session.user;
-			delete user.pass;
+			user = req.session.user || null;
+			if(user) delete user.pass;
 			res.render('list', {posts: doc, page_title: pageTitle, user: user});
 		});
 	});
@@ -538,8 +548,8 @@ exports.search = function(req, res, next) {
 			if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
 			fetchPosts(_.filter(doc, function(item) {return item._id}), fields, function(err, doc) {
 				if(err) return next(err);
-				user = req.session.user;
-				delete user.pass;
+				user = req.session.user || null;
+				if(user) delete user.pass;
 				res.render('list', {posts: doc, page_title: pageTitle, user: user});
 			});
 		});
@@ -551,3 +561,5 @@ exports.fetchPosts = fetchPosts;
 exports.fetchByPage = fetchByPage;
 exports.countMonthy = countMonthy;
 exports.findCounts = findCounts;
+
+module.exports = exports;

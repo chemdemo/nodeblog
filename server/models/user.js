@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
 	name: String
-	, email: {type: String, unique: true}
+	, email: {type: String/*, unique: true*/}
 	, pass: String
 	, avatar: String// 允许自定义头像
 	, site: String

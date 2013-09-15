@@ -231,7 +231,7 @@ require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 		//editor.setValue($('#post-content').val());
 		var pid = $('#postid').val();
 		if(pid) {
-			$.get('/edit/' + pid, function(r) {
+			$.get('/post/content/' + pid + '?summary=true', function(r) {
 				console.log(r);
 				if(r.rcode === 0) {
 					r = r.result;
