@@ -522,7 +522,7 @@ exports.counts = function(req, res, next) {
 
 	pageTitle = tools.dateFormat(new Date(year, month-1), 'YYYY年MM月') + '文章归档';
 
-	findCounts({_id: new Date(year, month).getTime()}, function(err, doc) {
+	findCounts({_id: new Date(year, month-1).getTime()}, function(err, doc) {
 		if(err) return next(err);
 		if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
 		postids = doc[0].value.split('$');//console.log(postids)
