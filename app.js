@@ -111,7 +111,7 @@ routes(app);
 
 function on404(req, res, next) {
     console.log(404, req.url);
-    res.render('error', {error: 'Page not found!'});
+    res.render('404', {error: 'Page not found!'});
 }
 
 function logErrors(err, req, res, next) {

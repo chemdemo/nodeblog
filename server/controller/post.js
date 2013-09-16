@@ -125,10 +125,8 @@ function countMonthy(callback) {
 		var month = create.getMonth();
 		//month = ('0' + month).slice(-2);
 		var key = new Date(year, month).getTime();
-		//emit(key, {postid: [this._id]});
-		// There has bug at mongodb v2.4
-		// _id.toString() function is not work
-		var v = this._id.toString().replace(/ObjectId\(\"(.+)\"\)/, '$1');
+		//var v = this._id.toString().replace(/ObjectId\(\"(.+)\"\)/, '$1');
+		var v = this._id.str;// _id.toString() function is not work on mongodb V2.4
 		emit(key, v);
 	};
 

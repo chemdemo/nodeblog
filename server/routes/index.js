@@ -61,7 +61,8 @@ function routes(app) {
 	
 	// post about
 	app.get('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.edit);
-	app.post('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.save);
+	app.post('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.save);// post.create
+	//app.put('/edit/:postid', sign.loginCheck, sign.adminCheck, post.update);
 	app.delete('/post/:postid', sign.loginCheck, sign.adminCheck, post.remove);
 	app.get('/post/:postid', post.show);
 	app.get('/post/content/:postid?', post.getPostContent);
