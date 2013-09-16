@@ -265,6 +265,9 @@ header nav a:hover {
 	color: #EEE;
 	border-color: #33B5E5;
 	text-decoration: none;
+	background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+	background: -o-linear-gradient(top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
 }
 .page-search {
 	float: right;
