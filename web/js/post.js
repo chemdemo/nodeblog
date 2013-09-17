@@ -75,7 +75,7 @@ require(['jquery','underscore','utils','themes'], function($, _, utils, themes) 
 
 			if(!content) return tips('随便说点啥嘛～');
 
-			$.post('/comment/' + postId, {
+			$.post('/comment/add/' + postId, {
 				user: user || {name: name, email: email, site: site},
 				_csrf: csrf,
 				reply_comment_id: $('#reply-comment-id').val(),
@@ -108,7 +108,7 @@ require(['jquery','underscore','utils','themes'], function($, _, utils, themes) 
 
 		function delComment(cid) {
 			$.ajax({
-				url: '/comment/' + cid, 
+				url: '/comment/delete/' + cid, 
 				method: 'delete',
 				data: {postid: postId, _csrf: csrf},
 				success: function(r) {

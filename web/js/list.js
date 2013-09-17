@@ -7,11 +7,10 @@ require(['jquery'/*, 'utils'*/], function($/*, utils*/) {
 
 		if(pid) {
 			$.ajax({
-				url: '/post/' + pid, 
+				url: '/post/delete/' + pid,
 				method: 'delete',
 				data: {postid: pid, _csrf: $('#csrf').val()},
 				success: function(r) {
-					console.log(r);
 					if(r.rcode === 0) {
 						self.parent().parent().remove();
 					} else {

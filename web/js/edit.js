@@ -22,7 +22,7 @@ require.config({
 	}
 });
 
-require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked, hljs, utils) {
+require(['jquery','ace/ace','marked','hljs','underscore','utils'], function($,ace,marked,hljs,_,utils) {
 	marked.setOptions({
 		highlight: function (code, lang) {
 			if(lang) {
@@ -46,7 +46,11 @@ require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 	session.setMode('ace/mode/markdown');
 	session.setUseWrapMode(true);
 
-	//var bar = new ScrollBar($('#post-editor')[0]);
+	var postId = $('#postid').val() || function() {
+		var u = location.href;
+		var m = u.match(/edit\/(\w+)(?:#.*)?/);
+		return m ? m[1] : null;
+	}();
 
 	var render = function() {
 		var val = editor.getValue();
@@ -60,22 +64,12 @@ require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 		});
 	};
 
-	var getData = function() {
-		var r = {};
-		r.title = $('#post-title').val();
-		r.content = editor.getValue();
-		//r.cover = '';
-		r.summary = $('#post-summary').val();
-		r.tags = $('#post-tags').val().split(/[\s;]/);
-		r.topped = $('#set-topped').prop('checked') - 0;
-		return r;
-	};
-
 	var bindEvents = (function() {
 		var previewWrapper = $('#post-preview');
 		var previewBox = $('#preview-box');
 		var previewOpen = false;
 		var tagsBoxShow = false;
+		var update = {};//window.update = update
 
 		function stopPropagation(e) {
 			e.preventDefault();
@@ -154,12 +148,6 @@ require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 
 			reader.readAsText(files[0]);
 		}
-		
-		function onEditerChange(e) {
-			if(!previewOpen) return;
-
-			~utils.debounce(render, 500, true)();
-		}
 
 		function onCursorChange() {
 			console.log('cursor change!');
@@ -176,24 +164,50 @@ require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 			previewOpen = !previewOpen;
 		}
 
-		function save(e) {
-			var pid = $('#postid').val();
-			var url = '/edit/' + pid;
-			var data = getData();
-			//return console.log(data.content)
+		function createPost(e) {
+			var data = function() {
+				var r = {};
+				r.title = $('#post-title').val();
+				r.content = editor.getValue();
+				//r.cover = '';
+				r.summary = $('#post-summary').val();
+				r.tags = $('#post-tags').val().split(/[\s;]/);
+				r.topped = $('#set-topped').prop('checked') - 0;
+				return r;
+			}();
 
 			if(!data.title || !data.content) return alert('字段不完整！');
 
-			$.post(url, {
+			$.post('/post/create', {
 				data: JSON.stringify(data),
-				postid: pid,
+				postid: postId,
 				_csrf: $('#csrf').val()
 			}, function(r) {
 				if(r.rcode === 0) {
 					return window.location = '/post/' + r.result;
+				} else {
+					console.log(r);
 				}
-				console.log(r);
 			});
+		}
+
+		function updatePost(e) {
+			if(!_.isEmpty(update)) {
+				$.ajax({
+					url: '/post/update/' + postId,
+					method: 'PUT',
+					data: {update: JSON.stringify(update), postid: postId, _csrf: $('#csrf').val()},
+					success: function(r) {
+						if(r.rcode === 0) {
+							update = {};
+							alert('更新成功！');
+						} else {
+							console.log(r);
+							alert('更新失败！');
+						}
+					}
+				});
+			}
 		}
 
 		function syncScroll(e) {
@@ -209,8 +223,32 @@ require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 			}, 500, true)();
 		}
 
+		// 这里使用MVC模式更好，考虑下angular..
+		function updateBind() {
+			var _set = function(key) {
+				if('tags' === key) return update[key] = this.val().split(/[\s;]/);
+				if('topped' === key) return update[key] = this.prop('checked') - 0;
+				update[key] = this.val();
+			};
+
+			$('#post-title').on('change', _set.bind($('#post-title'), 'title'));
+			$('#post-summary').on('change', _set.bind($('#post-summary'), 'summary'));
+			$('#post-tags').on('change', _set.bind($('#post-tags'), 'tags'));
+			$('#set-topped').on('change', _set.bind($('#set-topped'), 'topped'));
+		}
+
+		function onEditerChange(e) {
+			//~utils.debounce(render, 500, true)();
+			~_.debounce(function() {
+				update['content'] = editor.getValue();
+				if(previewOpen) render();
+			}, 500)();
+		}
+
 		return function() {//moveCursorTo
 			$('.preview-ctrl').on('click', previewSwitch);
+			$('#btn-create').on('click', createPost);
+			$('#btn-update').on('click', updatePost);
 			$('.add-tags').on('click', showTagsBox);
 			$('.tags-select').on('click', stopPropagation);
 			$('.tags-list .tag').on('click', selectTag);
@@ -220,27 +258,28 @@ require(['jquery','ace/ace', 'marked', 'hljs', 'utils'], function($, ace, marked
 			editor.on('change', onEditerChange);
 			$('.editor-btn').on('click', editorHandler);
 			$('#import-md').on('change', importHandler);
-			$('#btn-save').on('click', save);
 			editor.session.on('changeScrollTop', syncScroll);
 			editor.session.selection.on('changeCursor', syncScroll);
+
+			updateBind();
 		}
 	}());
 
 	function init() {
-		bindEvents();
-		//editor.setValue($('#post-content').val());
-		var pid = $('#postid').val();
-		if(pid) {
-			$.get('/post/content/' + pid + '?summary=true', function(r) {
+		if(postId) {
+			$.get('/post/content/' + postId + '?summary=true', function(r) {
 				console.log(r);
 				if(r.rcode === 0) {
 					r = r.result;
 					editor.setValue(r.content);
 					$('#post-summary').val(r.summary);
+					bindEvents();
 				} else {
 					alert('Fetch data error.', r);
 				}
 			});
+		} else {
+			bindEvents();
 		}
 	}
 
