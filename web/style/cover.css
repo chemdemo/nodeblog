@@ -1,0 +1,104 @@
+html, body, p, ul, li {
+	padding: 0;
+	margin: 0;
+}
+html {
+	height: 100%;
+	width: 100%;
+}
+body {
+	position: relative;
+	font: 13px 'Segoe UI Semilight', /*'Microsoft JhengHei', */Helvetica, Tahoma, sans-serif;
+	color: #EEE;
+	width: 100%;
+	height: 100%;
+}
+a {
+	color: #33B5E5;
+	text-decoration: none;
+	transition: all .3s;
+}
+a:hover {
+	text-decoration: underline;
+}
+ul, li {
+	list-style: none;
+}
+::selection {
+	background-color: #CCC;
+}
+
+nav {
+	padding-right: 3em;
+	text-align: right;
+}
+nav a {
+	text-transform: capitalize;
+	display: inline-block;
+	line-height: 59px;
+	border-top: 1px solid transparent;
+	padding: 0 1em;
+	margin-left: -3px;
+	color: #DDD;
+	font-size: 1.3em;
+}
+nav a:hover,
+nav a.active {
+	border-color: #33B5E5;
+	background-color: rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+	background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.01));
+	background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.01));
+	background: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.01));
+}
+
+.page-body {
+	position: absolute;
+	top: 200px;
+	left: 0;
+	z-index: 1;
+	/*max-height: 350px;
+	overflow: hidden;*/
+	/*min-height: 300px;*/
+	width: 100%;
+	border-top: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+	background-color: rgba(0, 0, 0, .3);
+}
+.page-body article {
+	margin: 2em 15em;
+	overflow-y: auto;
+}
+article h2 {
+	/*border-bottom: 1px solid #DDD;*/
+	/*text-align: center;*/
+	font-family: 'Microsoft Yahei';
+}
+article h2 .sub-title {
+	font: normal normal normal 13px 'Segoe UI Semilight', /*'Microsoft JhengHei', */Helvetica, Tahoma, sans-serif;
+	margin-left: 2em;
+}
+article li, article p {
+	border-bottom: 1px dotted rgba(204, 204, 204, 0.3);
+	/*line-height: 30px;*/
+	padding: 8px 0;
+	text-indent: 2em;
+}
+
+.cover {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	/*width: 100%;
+	height: 100%;
+	background-size: cover;
+	background: url(../covers/014.jpg) no-repeat 0 0;*/
+}
+
+footer {
+	text-align: center;
+	position: absolute;
+	bottom: 1em;
+	width: 100%;
+}

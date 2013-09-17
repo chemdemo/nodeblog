@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>dm</title>
+	<link rel="stylesheet" href="/style/cover.css" />
+</head>
+<body>
+	<header>
+		<nav>
+			<a href="/cover" class="active">cover</a>
+			<a href="/">home</a>
+			<a href="/album">album</a>
+			<a href="/about">about</a>
+		</nav>
+	</header>
+
+	<div class="page-body">
+		<article>
+			<h2>关于·人生<em class="sub-title">文 / Lwise</em></h2>
+			<ul>
+				<li>人生或许是一个阶段 从新生到幼年到懵懂到青年到叛逆到成年到处事到相伴到白头到一生</li>
+				<li>回顾自己的一生 就像一条很长的风筝 到死之时落地</li>
+				<li>你观察到了什么嘛 这一条风筝的名字应该叫做不易</li>
+				<li>新生 幼年 懵懂 青年 叛逆 这是父母的不易 那个时候的你我都太纯真 不懂什么叫天高 什么叫地厚 一心以为的父母是能让我们想要什么就有的天使</li>
+				<li>成年 处事 相伴 白头 一生 这是我们自己的不易 这个时候的你我终于开始明白了什么叫生活 充满着欲望 欲望这一条河水冲淡的你我曾经的纯真换上一副面具 </li>
+				<li>请你记住 人生的一百年 或长 或短 你都要有一颗单纯的心</li>
+				<li>不会沾染欲望 不会忘记自己 不会为心所为 不会被人牵引</li>
+				<li>没有人能一路单纯到底 请不要忘记最初的自己</li>
+			</ul>
+		</article>
+	</div>
+
+	<footer>
+		Copyright &copy; <script>document.write(new Date().getFullYear());</script>. Built with 
+		<a href="http://nodejs.org/" target="_blank">NodeJS(expressjs)</a> 
+		and <a href="http://www.mongodb.org/" target="_blank">MongoDB(mongoose)</a>.
+		By <a href="http://www.dmfeel.com" target="_blank">dmyang</a>.
+	</footer>
+	<img id="cover" src="/covers/010.jpg" width="100%" class="cover"></img>
+	<!-- <p><img src="/covers/014.jpg" width="100%" /></p> -->
+</body>
+<script>
+onload = function() {
+	var h = document.documentElement.clientHeight;
+	document.body.style.height = h + 'px';
+	document.querySelector('#cover').style.height = h + 'px';
+
+	console.info('To dream\n我一定要未来的自己，是自己喜欢的模样。');
+}
+</script>
+</html>
