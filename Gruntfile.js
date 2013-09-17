@@ -122,11 +122,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	// grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.registerTask('mincss', ['concat', 'cssmin', 'clean:temp']);
 
 	grunt.registerTask('default', ['clean:build', 'requirejs', 'uglify', 'mincss', 'imagemin']);
-	//grunt.registerTask('dev', []);
+	//grunt.registerTask('win', ['clean:build', 'requirejs', 'uglify', 'mincss']);
 }
