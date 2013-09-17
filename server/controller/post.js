@@ -124,7 +124,7 @@ function countMonthy(callback) {
 		var year = create.getFullYear();
 		var month = create.getMonth();
 		//month = ('0' + month).slice(-2);
-		var key = new Date(year, month).getTime();
+		var key = new Date(year, month+1).getTime();
 		//var v = this._id.toString().replace(/ObjectId\(\"(.+)\"\)/, '$1');
 		var v = this._id.str;// _id.toString() function is not work on mongodb V2.4
 		emit(key, v);
@@ -239,122 +239,6 @@ function _extend(doc, data) {
 
 	return doc;
 }
-
-// exports.save = function(req, res, next) {
-// 	var user = req.session.user;
-// 	var postid = req.body.postid || req.params.postid;
-// 	var fields = ['title', 'content', 'cover', 'summary', 'tags', 'topped'];
-
-// 	function _extend(doc, data) {
-// 		if(data.tags) data.tags = _.without(_.uniq(data.tags), '');
-
-// 		_(fields).each(function(field) {
-// 			if(data[field]) {
-// 				if('topped' === field) data[field] -= 0;// convert to Number
-// 				doc[field] = data[field];
-// 			}
-// 		});
-
-// 		doc.setSummary(doc.summary);
-// 		doc.update_at = Date.now();
-
-// 		return doc;
-// 	}
-
-// 	if(postid) {// update
-// 		var data = JSON.parse(req.body.data || null);
-		
-// 		if(!data) return next();
-
-// 		Post.findById(postid, fields.join(' '), function(err, doc) {
-// 			if(err || !doc) return next(err);
-
-// 			var dataTags = _.uniq(data.tags || []);
-// 			var docTags = doc.tags || [];
-// 			var arrAdd = _.without(_.difference(dataTags, docTags), '');
-// 			var arrDel = _.without(_.difference(docTags, dataTags), '');
-
-// 			//console.log('arrAdd: ', arrAdd);
-// 			//console.log('arrDel: ', arrDel);
-
-// 			var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
-// 				doc = _extend(doc, data);
-// 				//delete doc._id;
-// 				doc.save(function(err, doc) {
-// 					if(err || !doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
-// 					//res.redirect('/post/' + doc._id);
-// 					tools.jsonReturn(res, 'SUCCESS', doc._id);
-// 				});
-// 			}).fail(function(err) {
-// 				console.log('Set tags error, err', err);
-// 				//next(err);
-// 				tools.jsonReturn(res, 'DB_ERROR', null, 'Set tags error.');
-// 			});
-
-// 			if(arrDel.length) {
-// 				tag_ctrl.removePost4Tags(arrDel, postid, function(err) {
-// 					if(err) {
-// 						console.log('Remove tags error.');
-// 						return proxy.emit('error');
-// 					}
-// 					proxy.emit('tags_deleted');
-// 				});
-// 			} else {
-// 				proxy.emit('tags_deleted');
-// 			}
-
-// 			if(arrAdd.length) {
-// 				tag_ctrl.addTags4Post(arrAdd, postid, function(err) {
-// 					if(err) {
-// 						console.log('Add tags error.');
-// 						return proxy.emit('error');
-// 					}
-// 					proxy.emit('tags_saved');
-// 				});
-// 			} else {
-// 				proxy.emit('tags_saved');
-// 			}
-// 		});
-// 	} else {// create
-// 		var data = JSON.parse(req.body.data || null) || {};
-		
-// 		if(!data.title || !data.content) {
-// 			console.log('Both title and content were required.');
-// 			return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Both title and content were required.');
-// 		}
-
-// 		if(data.tags) data.tags = _.without(data.tags, '');
-
-// 		var post = new Post();
-// 		post = _extend(post, data);
-// 		post.create_at = Date.now();
-// 		post.author_id = user._id;
-
-// 		post.save(function(err, doc) {
-// 			if(err) {
-// 				console.log('Create post error, err: ', err);
-// 				//return next(err);
-// 				return tools.jsonReturn(res, 'DB_ERROR', null, 'Create post error.');
-// 			}
-
-// 			if(doc.tags && doc.tags.length) {
-// 				tag_ctrl.addTags4Post(doc.tags, doc._id, function(err, r) {
-// 					if(err) console.log('Add tags for post error, err: ', err);
-// 				});
-// 			}
-
-// 			// res.redirect will not work if the method is post by ajax
-// 			//return res.redirect(302, '/post/' + doc._id);
-// 			/*var data = JSON.stringify('/post/' + doc._id);
-// 			res.contentType('application/json');
-// 			res.header('Content-Length', data.length);
-// 			res.end(data);*/
-// 			console.log(doc._id)
-// 			tools.jsonReturn(res, 'SUCCESS', doc._id);
-// 			countMonthy(function(err) {if(err) console.log('Count posts error.', err);});
-// 		});
-// 	}
-// }
 
 exports.create = function(req, res, next) {
 	var user = req.session.user;
@@ -636,7 +520,7 @@ exports.counts = function(req, res, next) {
 
 	pageTitle = tools.dateFormat(new Date(year, month-1), 'YYYY年MM月') + '文章归档';
 
-	findCounts({_id: new Date(year, month-1).getTime()}, function(err, doc) {
+	findCounts({_id: new Date(year, month).getTime()}, function(err, doc) {
 		if(err) return next(err);
 		if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
 		postids = doc[0].value.split('$');//console.log(postids)
