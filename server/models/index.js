@@ -21,9 +21,9 @@ db.on('connected', function() {
 });
 db.on('disconnected', function() {
 	console.log('MongoDB disconnected!');
-	mongoose.connect(dbURI, {server: {auto_reconnect: true}});
+	mongoose.connect(dbURI, {server: {auto_reconnect: true, socketOptions: {keepAlive: 10}}});
 });
-mongoose.connect(dbURI, {server: {auto_reconnect: true}});
+mongoose.connect(dbURI, {server: {auto_reconnect: true, socketOptions: {keepAlive: 10}}});
 
 require('./user');
 require('./post');
