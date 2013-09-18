@@ -4,6 +4,7 @@
 .idea
 *.log
 .allow-devtools-edit
+/bin
 /logs
 /node_modules
 /tmp
