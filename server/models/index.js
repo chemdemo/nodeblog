@@ -6,7 +6,7 @@ var connOpts = {
 	db: {native_parser: true},
 	server: {
 		//auto_reconnect: true, // default is true
-		poolSize: 50,
+		//poolSize: 5,
 		socketOptions: {keepAlive: 10}
 	},
 	//replset: {rs_name: ''},
