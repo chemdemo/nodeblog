@@ -30,6 +30,9 @@ db.on('error', function(err) {
 	console.error('Error in MongoDb connection: ' + err);
 	mongoose.disconnect();
 });
+db.on('open', function() {
+	console.log('Connect opened!');
+});
 db.on('connected', function() {
 	console.log('Connect to MongoDb success.');
 });
