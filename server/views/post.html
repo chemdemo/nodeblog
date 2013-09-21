@@ -36,8 +36,8 @@
 				<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s') }}</span>
 			</span>
 			<span class="post-gap">/</span>by 
-			{% if post.author.site %}
-			<a href="{{ post.author.site }}" target="_blank">{{ post.author.name }}</a>
+			{% if post.author.site|genLink %}
+			<a href="{{ post.author.site|genLink }}" target="_blank">{{ post.author.name }}</a>
 			{% else %}
 			{{ post.author.name }}
 			{% endif %}

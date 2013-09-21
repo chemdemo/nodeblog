@@ -1,7 +1,7 @@
 /**
- * Module dependencies.
+ * NodeJS blog.
+ * @Author: <yangdemo@gmail.com>
  */
-// npm install marked
 
 var express = require('express')
     , http = require('http')
@@ -47,45 +47,46 @@ app.configure('production', function() {
     swig.setDefaults(swigOptions);
 });
 
-app.configure(function() {
-    app.set('port', process.env.PORT || settings.APP_PORT);
-    //app.engine('html', swig.renderFile);
-    app.engine('html', cons.swig);
-    app.set('view engine', 'html');
-    app.set('views', __dirname + '/server/views');
-    app.set('view options', {layout: false});
-    swig.setFilter('split', filters.split);
-    swig.setFilter('length', filters.length);
-    app.use(express.favicon(__dirname + '/web/favicon.ico'));
-    app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(express.cookieParser('nodeblog'));
-    app.use(express.session({
-        /*store: new RedisStore({
-            host: settings.APP_HOST,
-            port: settings.SESSION_PORT
-        }),*/
-        store: new MongoStore({
-            db: settings.DB_NAME
-            //, collection: ''
-            , maxAge: maxAge
-        }),
-        secret: settings.SESSION_SECRET,
-        cookie: {maxAge: maxAge*3}//30*3 days
-    }));
-    app.use(express.csrf());
-    app.use(function(req, res, next) {
-        res.locals.token = req.session._csrf;
-        res.locals.env = app.settings.env;
-        next();
-    });
-    app.use('/upload/', express.static(settings.UPLOAD_DIR, {maxAge: maxAge}));
-    //app.use(require('stylus').middleware(__dirname + '/web/'));
-    //app.use(express.static(staticDir));
-    app.use(app.router);
-    app.use(connectDomain());
+//app.configure(function() {
+app.set('port', process.env.PORT || settings.APP_PORT);
+//app.engine('html', swig.renderFile);
+app.engine('html', cons.swig);
+app.set('view engine', 'html');
+app.set('views', __dirname + '/server/views');
+app.set('view options', {layout: false});
+swig.setFilter('split', filters.split);
+swig.setFilter('length', filters.length);
+swig.setFilter('genLink', filters.genLink);
+app.use(express.favicon(__dirname + '/web/favicon.ico'));
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.cookieParser('nodeblog'));
+app.use(express.session({
+    /*store: new RedisStore({
+        host: settings.APP_HOST,
+        port: settings.SESSION_PORT
+    }),*/
+    store: new MongoStore({
+        db: settings.DB_NAME
+        //, collection: ''
+        , maxAge: maxAge
+    }),
+    secret: settings.SESSION_SECRET,
+    cookie: {maxAge: maxAge*3}//30*3 days
+}));
+app.use(express.csrf());
+app.use(function(req, res, next) {
+    res.locals.token = req.session._csrf;
+    res.locals.env = app.settings.env;
+    next();
 });
+app.use('/upload/', express.static(settings.UPLOAD_DIR, {maxAge: maxAge}));
+//app.use(require('stylus').middleware(__dirname + '/web/'));
+//app.use(express.static(staticDir));
+app.use(app.router);
+app.use(connectDomain());
+//});
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log("Application listening on port %s in %s mode, pid: %s.", app.get('port'), app.settings.env, process.pid);
