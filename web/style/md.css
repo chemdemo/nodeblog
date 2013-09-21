@@ -71,7 +71,7 @@
 	color:#777;
 	font-size:1em
 }
-.md p,.md blockquote,.md ul,.md ol,.md dl,.md table,.md pre {
+.md blockquote,.md ul,.md ol,.md dl,.md table,.md pre {
 	margin:15px 0
 }
 .md hr {
