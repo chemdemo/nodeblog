@@ -116,12 +116,12 @@
 {% endblock %}
 
 {% block script %}
+<script id='bd_soc_login_boot'></script>
 {% if (env && env === 'production') %}
 <script data-main="/build/js/post" src="/build/js/require.min.js"></script>
 {% else %}
 <script src="/lib/require/require.js"></script>
 <script src="/js/config.js"></script>
 <script src="/js/post.js"></script>
-<script id='bd_soc_login_boot'></script>
 {% endif %}
 {% endblock %}
