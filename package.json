@@ -10,7 +10,6 @@
     "mongodb": "*",
     "mongoose": "*",
     "validator": "*",
-    "request": "*",
     "async": "*",
     "eventproxy": "*",
     "connect-domain": "~0.5.0",
