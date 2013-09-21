@@ -7,6 +7,7 @@ var post_ctrl = require('./post');
 var user_ctrl = require('./user');
 
 var tools = require('../utils/tools');
+var filters = require('../utils/filters');
 var sanitize = require('validator').sanitize;
 var EventProxy = require('eventproxy');
 var async = require('async');
@@ -63,6 +64,7 @@ function findCommentsByPostId(postid, callback) {
 					} else {
 						doc = doc.toObject();
 						doc.avatar = doc.avatar || user_ctrl.genAvatar(doc.email);
+						if(doc.site) doc.site = filters.genLink(doc.site);
 						//delete doc.email;
 					}
 					callback(null, doc);
