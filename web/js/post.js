@@ -248,17 +248,17 @@ require(['jquery','underscore','utils','themes'], function($, _, utils, themes) 
 			|| document.getElementsByTagName('body')[0]).appendChild(ds);
 		})();*/
 		
-		/*var t = new Date().getTime(),
+		var t = new Date().getTime(),
 	        script = document.getElementById('bd_soc_login_boot'),
 	        redirect_uri = encodeURIComponent(location.href),
 	        domid = 'socal-login',
 	        src = "http://openapi.baidu.com/social/oauth/2.0/connect/login?redirect_uri=" + redirect_uri + "&domid=" + domid + "&client_type=web&response_type=code&media_types=sinaweibo%2Cqqdenglu%2Cbaidu%2Cqqweibo%2Crenren&size=54x184&button_type=4&client_id=IXRaAxjZhBCXURI67ju2ZwM2&view=embedded&t=" + t;
-	    script.src = src;*/
+	    script.src = src;
 
-		var _dl_time = new Date().getTime();
-		var _dl_login = document.getElementById('bd_soc_login_boot');
-		_dl_login.id = _dl_login.id + '_' + _dl_time;
-		_dl_login.src = 'http://static.denglu.cc/connect/logincode?appid=27886denL48LDm4QSGwQ3e1YdsRAo3&v=1.0.2&widget=4&styletype=2&size=438_98&asyn=true&time=' + _dl_time;
+		//var _dl_time = new Date().getTime();
+		//var _dl_login = document.getElementById('bd_soc_login_boot');
+		//_dl_login.id = _dl_login.id + '_' + _dl_time;
+		//_dl_login.src = 'http://static.denglu.cc/connect/logincode?appid=27886denL48LDm4QSGwQ3e1YdsRAo3&v=1.0.2&widget=4&styletype=2&size=438_98&asyn=true&time=' + _dl_time;
 	}
 
 	$(init);
