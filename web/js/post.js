@@ -256,7 +256,7 @@ require(['jquery','underscore','utils','themes'], function($, _, utils, themes) 
 	    script.src = src;*/
 
 		var _dl_time = new Date().getTime();
-		var _dl_login = document.getElementById('bd_soc_login_boot');
+		var _dl_login = document.getElementById('denglu_login_js');
 		_dl_login.id = _dl_login.id + '_' + _dl_time;
 		_dl_login.src = 'http://static.denglu.cc/connect/logincode?appid=27886denL48LDm4QSGwQ3e1YdsRAo3&v=1.0.2&widget=4&styletype=2&size=438_98&asyn=true&time=' + _dl_time;
 	}
