@@ -18,7 +18,7 @@
 		{% for post in posts %}
 		<article class="post">
 			<h3 class="post-title">
-				{% if post.topped %}<b class="topped">【置顶】</b>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
+				{% if post.topped %}<b class="topped">[置顶] </b>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
 			</h3>
 			<div class="post-date">
 				<i class="icon-alarm" title="最后编辑时间"></i>
