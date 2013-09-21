@@ -3,7 +3,7 @@ var exec = require('child_process').exec;
 var mongoose = require('mongoose');
 var dbURI = 'mongodb://' + settings.DB_HOST + ':' + settings.DB_PORT + '/' + settings.DB_NAME;
 var connOpts = {
-	db: {native_parser: true},
+	//db: {native_parser: true},
 	server: {
 		//auto_reconnect: true, // default is true
 		//poolSize: 5,
