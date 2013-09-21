@@ -78,6 +78,7 @@
 				<a href="javascript:void(0);" data-cmd="logout" class="logout">登出</a>
 			</div>
 			{% else %}
+			<div class="socal-login none">社会化登录：<div id="socal-login"></div></div>
 			<div class="user-logout" id="user-logout">
 				<p>
 					<input class="input" name="name" id="name" placeholder="怎么称呼？" />
@@ -95,7 +96,7 @@
 			{% endif %}
 			<div class="comment-input">
 				<label for="comment">评论内容（支持markdown^_^）</label>
-				<textarea id="comment" class="textarea" rows="5" placeholder="随便说点(支持markdown)？"></textarea>
+				<textarea {% if user %}disabled="true" {% endif %}id="comment" class="textarea" rows="5" placeholder="随便说点(支持markdown)？"></textarea>
 			</div>
 			<div class="add-comment-btns">
 				<button id="btn-add" data-cmd="add" class="i-btn i-btn-blue comment-submit">
@@ -112,11 +113,10 @@
 	<!-- </div> -->
 </div>
 <!-- <div class="ds-login"></div> -->
-<div id="socal-login"></div>
 {% endblock %}
 
 {% block script %}
-<script id='bd_soc_login_boot'></script>
+<!-- <script id='bd_soc_login_boot'></script> -->
 {% if (env && env === 'production') %}
 <script data-main="/build/js/post" src="/build/js/require.min.js"></script>
 {% else %}
