@@ -172,15 +172,26 @@ function countMonthy(callback) {
 function findCounts(conditions, callback) {
 	try {
 		var mongo = require('mongodb');
-		var server = mongo.Server(settings.DB_HOST, settings.DB_PORT, {auto_reconnect: true});
+		var server = mongo.Server(settings.DB_HOST, settings.DB_PORT, {auto_reconnect: false});
 		var db = new mongo.Db(settings.DB_NAME, server, {safe: false});
 
 		db.open(function(err, dbConn) {
-			if(err) return callback(err);
-			dbConn.collection('count_monthy', function(err, conn) {
-				if(err) return callback(err);
-				conn.find(conditions).toArray(callback);
-			});
+			if(err) {
+				callback(err);
+				db.close();
+			} else {
+				dbConn.collection('count_monthy', function(err, conn) {
+					if(err) {
+						callback(err);
+						db.close();
+					} else {
+						conn.find(conditions).toArray(function(err, doc) {
+							callback(err, doc);
+							db.close();
+						});
+					}
+				});
+			}
 		});
 	} catch(e) {
 		console.log('Mongodb connect error.', e);
