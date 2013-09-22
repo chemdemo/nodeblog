@@ -118,7 +118,6 @@ exports.socialLogin = function(req, res, next) {
 	if(!code) return next(404);
 
 	https.get(baidu_url + code, function(_res) {
-		console.log('_res: ', _res);
 		_res.on('data', function(d) {
 			process.stdout.write(d);
 		});
