@@ -115,8 +115,10 @@ exports.socialLogin = function(req, res, next) {
 	var infoUrl = 'https://openapi.baidu.com/social/api/2.0/user/info?access_token=';
 	var code = req.query.code || req.params.code;
 	var https = require('https');
+	var request = require('request');
 	var qs = require('querystring');
 	var q;
+	console.log('headers: ', req.headers);
 
 	if(!code) return next(404);
 
@@ -128,7 +130,18 @@ exports.socialLogin = function(req, res, next) {
 		code: code
 	});
 
-	https.get(tokenUrl + '?' + q, function(_res) {
+	request.get(tokenUrl + '?' + q, function(err, _res, body) {
+		console.log('token body: ', body);
+		if(!err) {
+			request.get(infoUrl + body.access_token, function(err, _res, body) {
+				console.log(err, body);
+				//res.redirect('/');
+				res.json({});
+			});
+		}
+	});
+
+	/*https.get(tokenUrl + '?' + q, function(_res) {
 		_res.on('data', function(d) {
 			//process.stdout.write(d);
 			if(d && d.access_token) {
@@ -145,7 +158,7 @@ exports.socialLogin = function(req, res, next) {
 		});
 	}).on('error', function(err) {
 		console.log('https error: ', err);
-	});
+	});*/
 }
 
 exports.loginCheck = function(req, res, next) {
