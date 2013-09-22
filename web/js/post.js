@@ -250,12 +250,12 @@ require(['jquery','underscore','utils','themes'], function($, _, utils, themes) 
 			|| document.getElementsByTagName('body')[0]).appendChild(ds);
 		})();*/
 
-		var t = new Date().getTime(),
+		/*var t = new Date().getTime(),
         	script = document.getElementById('bd_soc_login_boot'),
-        	redirect_uri = encodeURIComponent(location.href),
+        	redirect_uri = encodeURIComponent('http://www.dmfeel.com/social/oauth/callback'),
         	domid = 'social-login-bd',
         	src = "http://openapi.baidu.com/social/oauth/2.0/connect/login?redirect_uri=" + redirect_uri + "&domid=" + domid + "&client_type=web&response_type=code&media_types=sinaweibo%2Cqqdenglu%2Cbaidu%2Cqqweibo%2Crenren&size=-1&button_type=3&client_id=IXRaAxjZhBCXURI67ju2ZwM2&view=embedded&t=" + t;
-    	script.src = src;
+    	script.src = src;*/
 	}
 
 	$(init);
