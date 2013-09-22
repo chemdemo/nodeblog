@@ -225,6 +225,8 @@ require(['jquery','underscore','utils','themes'], function($, _, utils, themes) 
 					console.log(r);
 					alert('拉取数据失败。');
 				}
+
+				$('#page-body').removeClass('none');
 			});
 		}
 
@@ -251,7 +253,7 @@ require(['jquery','underscore','utils','themes'], function($, _, utils, themes) 
 		var t = new Date().getTime(),
         	script = document.getElementById('bd_soc_login_boot'),
         	redirect_uri = encodeURIComponent('http://www.dmfeel.com/socal/oauth/callback'),
-        	domid = 'socal-login',
+        	domid = 'socal-login-bd',
         	src = "http://openapi.baidu.com/social/oauth/2.0/connect/login?redirect_uri=" + redirect_uri + "&domid=" + domid + "&client_type=web&response_type=code&media_types=sinaweibo%2Cqqdenglu%2Cbaidu%2Cqqweibo%2Crenren&size=-1&button_type=4&client_id=IXRaAxjZhBCXURI67ju2ZwM2&view=embedded&t=" + t;
     	script.src = src;
 	}
