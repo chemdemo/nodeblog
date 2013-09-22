@@ -58,7 +58,7 @@ function routes(app) {
 	app.post('/login', sign.login);
 	app.get('/logout', sign.logout);
 	app.get('/info', sign.info);
-	app.get('/social/oauth/callback/:code', sign.socialLogin);
+	app.get('/social/oauth/callback', sign.socialLogin);
 	
 	// post about
 	app.get('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.edit);
