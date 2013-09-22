@@ -30,6 +30,6 @@ function run(email) {
 	console.log('Listen port %s.', '8888');
 }
 
-var email = process.argv[2] || 'yangdemo@gmail.com';
+var email = process.argv[2];
 
 run(email);
