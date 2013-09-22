@@ -110,7 +110,8 @@ exports.info = function(req, res, next) {
 	res.render('info', user);
 }
 
-exports.socialLogin = function(req, res, next) {
+// 百度的social login没法解决登陆成功后跳转回原页面的问题（无法拿到referer），暂不接入
+/*exports.socialLogin = function(req, res, next) {
 	var tokenUrl = 'https://openapi.baidu.com/social/oauth/2.0/token';
 	var infoUrl = 'https://openapi.baidu.com/social/api/2.0/user/info?access_token=';
 	var code = req.query.code || req.params.code;
@@ -142,7 +143,7 @@ exports.socialLogin = function(req, res, next) {
 			});
 		} else next(err);
 	});
-}
+}*/
 
 exports.loginCheck = function(req, res, next) {
 	if(!req.session.user) {

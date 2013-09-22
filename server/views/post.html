@@ -78,7 +78,7 @@
 				<a href="javascript:void(0);" data-cmd="logout" class="logout">登出</a>
 			</div>
 			{% else %}
-			<div class="social-login" id="social-login">
+			<div class="social-login none" id="social-login">
 				<span class="social-login-label">使用社交账号登录：</span>
 				<div id="social-login-bd" class="social-login-bd"></div>
 				<ul class="ul social-login-bd">
@@ -88,21 +88,12 @@
 					<li>
 						<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=qqdenglu&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocial%2Foauth%2Fcallback&amp;display=page&amp;client_type=web" target="_blank" class="qq">QQ</a>
 					</li>
-					<!-- <li>
-						<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=baidu&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocial%2Foauth%2Fcallback&amp;display=page&amp;client_type=web"  target="_blank" class="baidu">百度</a>
-					</li>
-					<li>
-						<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=qqweibo&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocial%2Foauth%2Fcallback&amp;display=page&amp;client_type=web"  target="_blank" class="qq-weibo">腾讯微博</a>
-					</li>
-					<li>
-						<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=renren&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocial%2Foauth%2Fcallback&amp;display=page&amp;client_type=web"  target="_blank" class="renren">人人</a>
-					</li> -->
 					<li class="none">
 						<a class="no-social" href="javascript:void(0)">邮箱登录»</a>
 					</li>
 				</ul>
 			</div>
-			<div class="user-logout none" id="user-logout">
+			<div class="user-logout" id="user-logout">
 				<p>
 					<input class="input" name="name" id="name" placeholder="怎么称呼？" />
 					<label for="name">名称<b class="required">（*）</b></label>

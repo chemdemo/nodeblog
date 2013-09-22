@@ -203,7 +203,7 @@
 .reply-list .user-login + .comment-input + .add-comment-btns {
 	padding-left: 78px;
 }
-.comment-input textarea {
+.comment-input .textarea {
 	padding: .5em;
 	box-shadow: none;
 }
@@ -219,6 +219,7 @@
 	height: 30px;
 	line-height: 1.5em;
 	width: 25em;
+	box-shadow: none;
 }
 .comment-input {
 	margin-bottom: .5em;
