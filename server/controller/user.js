@@ -90,10 +90,6 @@ function genAvatar(email) {
 	return 'http://www.gravatar.com/avatar/' + md5(email) + '?size=48';
 }
 
-function genSite(info) {
-	;
-}
-
 function addOne(info, callback) {
 	var user = new User();
 	user.name = info.name;
