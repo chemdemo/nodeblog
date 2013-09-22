@@ -111,7 +111,8 @@ exports.info = function(req, res, next) {
 }
 
 exports.socialLogin = function(req, res, next) {
-	var token_url = 'https://openapi.baidu.com/social/oauth/2.0/token';
+	var tokenUrl = 'https://openapi.baidu.com/social/oauth/2.0/token';
+	var infoUrl = 'https://openapi.baidu.com/social/api/2.0/user/info?access_token=';
 	var code = req.query.code || req.params.code;
 	var https = require('https');
 	var qs = require('querystring');
@@ -127,12 +128,20 @@ exports.socialLogin = function(req, res, next) {
 		code: code
 	});
 
-	https.get(token_url + '?' + q, function(_res) {
+	https.get(tokenUrl + '?' + q, function(_res) {
 		_res.on('data', function(d) {
-			process.stdout.write(d);
+			//process.stdout.write(d);
+			if(d && d.access_token) {
+				https.get(infoUrl + d.access_token, function($res) {
+					$res.on('data', function($d) {
+						console.log('info ', $d);
+					});
+				});
+			}
 		});
 		_res.on('end', function() {
-			console.log('body: ', _res.body);
+			console.log('on end: ', arguments);
+			console.log(_res);
 		});
 	}).on('error', function(err) {
 		console.log('https error: ', err);
