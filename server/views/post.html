@@ -79,8 +79,28 @@
 			</div>
 			{% else %}
 			<div class="socal-login" id="socal-login">
-				<span class="socal-login-label">社会化登录：</span>
-				<div id="socal-login-bd" class="socal-login-bd"></div>
+				<span class="socal-login-label">使用社交账号登录：</span>
+				<!-- <div id="socal-login-bd" class="socal-login-bd"></div> -->
+				<ul class="ul socal-login-bd">
+						<li>
+							<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=sinaweibo&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocal%2Foauth%2Fcallback&amp;display=page&amp;client_type=web" rel="nofollow" class="sina-weibo">新浪微博</a>
+						</li>
+						<li>
+							<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=qqdenglu&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocal%2Foauth%2Fcallback&amp;display=page&amp;client_type=web" rel="nofollow" class="qq">QQ</a>
+						</li>
+						<li>
+							<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=baidu&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocal%2Foauth%2Fcallback&amp;display=page&amp;client_type=web" rel="nofollow" class="baidu">百度</a>
+						</li>
+						<li>
+							<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=qqweibo&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocal%2Foauth%2Fcallback&amp;display=page&amp;client_type=web" rel="nofollow" class="qq-weibo">腾讯微博</a>
+						</li>
+						<li>
+							<a href="http://openapi.baidu.com/social/oauth/2.0/authorize?media_type=renren&amp;client_id=IXRaAxjZhBCXURI67ju2ZwM2&amp;state=&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fwww.dmfeel.com%2Fsocal%2Foauth%2Fcallback&amp;display=page&amp;client_type=web" rel="nofollow" class="renren">人人</a>
+						</li>
+						<li>
+							<a class="no-socal" href="javascript:void(0)">更多»</a>
+						</li>
+					</ul>
 			</div>
 			<div class="user-logout none" id="user-logout">
 				<p>
@@ -119,6 +139,7 @@
 {% endblock %}
 
 {% block script %}
+<script id='denglu_login_js'></script>
 <script id='bd_soc_login_boot'></script>
 {% if (env && env === 'production') %}
 <script data-main="/build/js/post" src="/build/js/require.min.js"></script>
