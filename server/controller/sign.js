@@ -111,14 +111,23 @@ exports.info = function(req, res, next) {
 }
 
 exports.socialLogin = function(req, res, next) {
-	var baidu_url = 'https://openapi.baidu.com/social/api/2.0/user/info?access_token=';
+	var token_url = 'https://openapi.baidu.com/social/oauth/2.0/token';
 	var code = req.query.code || req.params.code;
 	var https = require('https');
-	console.log('code: ', code)
+	var qs = require('querystring');
+	var q;
 
 	if(!code) return next(404);
 
-	https.get(baidu_url + code, function(_res) {
+	q = qs.stringify({
+		grant_type: 'authorization_code',
+		client_id: settings.SOCIAL_AUTH_INFO.API_KEY,
+		client_secret: settings.SOCIAL_AUTH_INFO.SCRIPT_KEY,
+		redirect_uri: 'http://www.dmfeel.com/social/oauth/callback',
+		code: code
+	});
+
+	https.get(token_url + '?' + q, function(_res) {
 		_res.on('data', function(d) {
 			process.stdout.write(d);
 		});
