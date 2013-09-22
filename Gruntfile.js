@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 				separator: ';'
 			},
 			dist: {
-				src: ['web/style/icons.css','web/style/md.css','web/style/global.css'],
+				src: ['web/style/global.css','web/style/icons.css','web/style/md.css'],
 				dest: 'web/build-tmp/common.css'
 			}
 		},
