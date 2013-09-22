@@ -308,8 +308,8 @@ exports.update = function(req, res, next) {
 		var docTags = doc.tags || [];
 		var arrAdd = _.without(_.difference(dataTags, docTags), '');
 		var arrDel = _.without(_.difference(docTags, dataTags), '');
-		//console.log('arrAdd: ', arrAdd);
-		//console.log('arrDel: ', arrDel);
+		console.log('arrAdd: ', arrAdd);
+		console.log('arrDel: ', arrDel);
 		var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
 			doc = _extend(doc, update);
 			//delete doc._id;
