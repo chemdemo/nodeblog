@@ -136,25 +136,22 @@
 	/*background-color: #EEE;*/
 	border-bottom: 1px solid #EEE;
 }
-.socal-login {
+.social-login {
 	line-height: 30px;
 }
-.socal-login-label,
-.socal-login-bd {
+.social-login-label,
+.social-login-bd {
 	display: inline-block;
 	vertical-align: middle;
 }
-.socal-login-bd {
-	margin-left: -1em;
-}
-.socal-login-bd li {
+.social-login-bd li {
 	float: left;
 	height: 16px;
 	/*width: 54px;*/
 	padding: 4px 0;
-	margin: 0 0 0 6px;
+	margin-right: 1em;
 }
-.socal-login-bd a {
+.social-login-bd a {
 	cursor: pointer;
 	background-color: transparent;
 	transition: color .15s linear;
@@ -162,27 +159,27 @@
 	-moz-transition: color .15s linear;
 
 	line-height: 16px;
-	padding-left: 20px;
+	padding-left: 18px;
 	display: block;
-	background: url(images/socal-icons.png) no-repeat;
+	background: url(images/social-icons.png) no-repeat;
 	overflow: hidden;
 }
-.socal-login-bd a.sina-weibo {
-	;
+.social-login-bd a.sina-weibo {
+	background-position: 0 0;
 }
-.socal-login-bd a.qq {
+.social-login-bd a.qq {
 	background-position: 0 -192px;
 }
-.socal-login-bd a.baidu {
+.social-login-bd a.baidu {
 	background-position: 0 -208px;
 }
-.socal-login-bd a.qq-weibo {
+.social-login-bd a.qq-weibo {
 	background-position: 0 -64px;
 }
-.socal-login-bd a.renren {
+.social-login-bd a.renren {
 	background-position: 0 -32px;
 }
-.socal-login-bd a.no-socal {
+.social-login-bd a.no-social {
 	background-image: none;
 	padding-left: 0;
 }
@@ -205,6 +202,10 @@
 }
 .reply-list .user-login + .comment-input + .add-comment-btns {
 	padding-left: 78px;
+}
+.comment-input textarea {
+	padding: .5em;
+	box-shadow: none;
 }
 
 .add-comment p {

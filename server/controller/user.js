@@ -86,21 +86,23 @@ function findById(id, fields, callback) {
 	User.findById(id, fields, callback);
 }
 
-function addOne(info, callback) {
-	var avatar_url = 'http://www.gravatar.com/avatar/' + md5(info.email) + '?size=48';
+function genAvatar(email) {
+	return 'http://www.gravatar.com/avatar/' + md5(email) + '?size=48';
+}
 
+function genSite(info) {
+	;
+}
+
+function addOne(info, callback) {
 	var user = new User();
 	user.name = info.name;
 	user.pass = md5(info.pass);
 	user.email = info.email;
 	user.site = info.site;
-	user.avatar = info.avatar || avatar_url;
+	user.avatar = info.avatar || genAvatar(info.email);
 	user.admin = (info.email === admin.EMAIL && user.pass === md5(admin.PASS));
 	user.save(callback);
-}
-
-function genAvatar(email) {
-	return 'http://www.gravatar.com/avatar/' + md5(email) + '?size=48';
 }
 
 function setCookie(res, user) {
