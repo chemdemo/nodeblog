@@ -18,7 +18,7 @@
 
 {% block content %}
 <input type="hidden" class="none" id="postid" value="{{ post._id }}" />
-<div class="page-body clearfix">
+<div id="page-body" class="page-body none clearfix">
 	<!-- <div class="page-content"> -->
 	<section class="post">
 		<h1 class="post-title">
@@ -78,8 +78,11 @@
 				<a href="javascript:void(0);" data-cmd="logout" class="logout">登出</a>
 			</div>
 			{% else %}
-			<div class="socal-login">社会化登录：<div id="socal-login"></div></div>
-			<div class="user-logout" id="user-logout">
+			<div class="socal-login" id="socal-login">
+				<span class="socal-login-label">社会化登录：</span>
+				<div id="socal-login-bd" class="socal-login-bd"></div>
+			</div>
+			<div class="user-logout none" id="user-logout">
 				<p>
 					<input class="input" name="name" id="name" placeholder="怎么称呼？" />
 					<label for="name">名称<b class="required">（*）</b></label>
