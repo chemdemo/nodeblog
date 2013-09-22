@@ -1,9 +1,5 @@
 'use strict';
 
-require(['jquery'], function($) {
-	function init() {
-		;
-	}
-
-	$(init);
+require(['jquery', 'common'], function($, common) {
+	$(common.init);
 });

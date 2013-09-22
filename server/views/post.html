@@ -22,7 +22,7 @@
 	<!-- <div class="page-content"> -->
 	<section class="post">
 		<h1 class="post-title">
-			{% if post.topped %}<b class="topped">[置顶] </b>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
+			{% if post.topped %}<i class="topped icon-star"></i>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
 		</h1>
 		<div class="edit-info">
 			{% if user %}

@@ -1,6 +1,6 @@
 'use strict';
 
-require(['jquery','underscore','utils','themes'], function($, _, utils, themes) {
+require(['jquery','underscore','utils','common','themes'], function($, _, utils, common, themes) {
 	var user = function() {
 		var loginBox = $('#user-login');
 		if(loginBox.length) {
@@ -213,6 +213,7 @@ require(['jquery','underscore','utils','themes'], function($, _, utils, themes) 
 	}());
 
 	function init() {
+		common.init();
 		//$('#post-body').html($('#post-content').val());
 		if(postId) {
 			$.get('/post/content/' + postId, {type: 'html'}, function(r) {

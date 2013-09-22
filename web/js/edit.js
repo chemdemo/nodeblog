@@ -214,13 +214,13 @@ require(['jquery','ace/ace','marked','hljs','underscore','utils'], function($,ac
 			//console.log('cursor: ', editor.selection.getCursor())
 			if(!previewOpen) return;
 
-			~utils.debounce(function() {
+			~_.debounce(function() {
 				var H = previewBox[0].scrollHeight;
 				var n = editor.getFirstVisibleRow();
 				var l = editor.getSession().getLength();
 				//console.log('scrollTop: ', H*(n/l));
 				previewBox.scrollTop(H*(n/l));
-			}, 500, true)();
+			}, 500)();
 		}
 
 		// 这里使用MVC模式更好，考虑下angular..
@@ -238,7 +238,6 @@ require(['jquery','ace/ace','marked','hljs','underscore','utils'], function($,ac
 		}
 
 		function onEditerChange(e) {
-			//~utils.debounce(render, 500, true)();
 			~_.debounce(function() {
 				update['content'] = editor.getValue();
 				if(previewOpen) render();

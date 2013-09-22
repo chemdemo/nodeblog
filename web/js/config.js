@@ -9,6 +9,7 @@ require.config({
         'underscore': '../lib/underscore/underscore',
         'text': '../lib/require/text',
 		'utils': 'utils',
+		'common': 'common',
 		'themes': 'themes'
 	},
 	//waitSeconds: 15,
