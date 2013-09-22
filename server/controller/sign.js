@@ -114,6 +114,7 @@ exports.socialLogin = function(req, res, next) {
 	var baidu_url = 'https://openapi.baidu.com/social/api/2.0/user/info?access_token=';
 	var code = req.query.code || req.params.code;
 	var https = require('https');
+	console.log('code: ', code)
 
 	if(!code) return next(404);
 
