@@ -110,6 +110,26 @@ exports.info = function(req, res, next) {
 	res.render('info', user);
 }
 
+exports.socialLogin = function(req, res, next) {
+	var baidu_url = 'https://openapi.baidu.com/social/api/2.0/user/info?access_token=';
+	var code = req.params.code;
+	var https = require('https');
+
+	if(!code) return next(404);
+
+	https.get(baidu_url + code, function(_res) {
+		console.log('_res: ', _res);
+		_res.on('data', function(d) {
+			process.stdout.write(d);
+		});
+		_res.on('end', function() {
+			console.log('body: ', _res.body);
+		});
+	}).on('error', function(err) {
+		console.log('https error: ', err);
+	});
+}
+
 exports.loginCheck = function(req, res, next) {
 	if(!req.session.user) {
 		if(req.xhr) {
