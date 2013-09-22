@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 				separator: ';'
 			},
 			dist: {
-				src: ['web/style/global.css','web/style/icons.css','web/style/md.css'],
+				src: ['web/style/icons.css','web/style/md.css','web/style/global.css'],
 				dest: 'web/build-tmp/common.css'
 			}
 		},
@@ -78,9 +78,9 @@ module.exports = function(grunt) {
 			},
 			combine: {
 				files: {
-					'web/build-tmp/index.css': ['web/build-tmp/common.css', 'web/style/index.css'],
-					'web/build-tmp/post.css': ['web/build-tmp/common.css', 'web/style/post.css'],
-					'web/build-tmp/edit.css': ['web/build-tmp/common.css', 'web/style/edit.css'],
+					'web/build-tmp/index.css': ['web/style/icons.css','web/style/md.css','web/style/global.css', 'web/style/index.css'],
+					'web/build-tmp/post.css': ['web/style/icons.css','web/style/md.css','web/style/global.css', 'web/style/post.css'],
+					'web/build-tmp/edit.css': ['web/style/icons.css','web/style/md.css','web/style/global.css', 'web/style/edit.css'],
 					'web/build-tmp/list.css': ['web/style/global.css', 'web/style/list.css'],
 					'web/build-tmp/user.css': ['web/style/global.css', 'web/style/user.css']
 				}
@@ -125,8 +125,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
-	grunt.registerTask('mincss', ['concat', 'cssmin', 'clean:temp']);
+	//grunt.registerTask('mincss', ['concat', 'cssmin', 'clean:temp']);
 
-	grunt.registerTask('default', ['clean:build', 'requirejs', 'uglify', 'mincss', 'imagemin']);
+	grunt.registerTask('default', ['clean:build', 'requirejs', 'uglify', 'cssmin', 'imagemin']);
 	//grunt.registerTask('win', ['clean:build', 'requirejs', 'uglify', 'mincss']);
 }

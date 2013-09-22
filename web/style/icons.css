@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('/style/fonts/icomoon.eot');
-	src:url('/style/fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-		url('/style/fonts/icomoon.woff') format('woff'),
-		url('/style/fonts/icomoon.ttf') format('truetype'),
-		url('/style/fonts/icomoon.svg#icomoon') format('svg');
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype'),
+		url('fonts/icomoon.svg#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -28,7 +28,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-image, .icon-bubbles, .icon-search, .icon-spinner, .icon-tags, .icon-attachment, .icon-link, .icon-numbered-list, .icon-list, .icon-play, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-pushpin, .icon-close, .icon-plus-alt, .icon-trashcan, .icon-left-quote, .icon-pencil, .icon-alarm, .icon-undo, .icon-redo, .icon-undo-2, .icon-redo-2, .icon-cancel-circle, .icon-checkmark-circle, .icon-download, .icon-document-alt-fill, .icon-eye, .icon-plus, .icon-arrow-up, .icon-checkmark, .icon-users, .icon-users-2, .icon-bubble, .icon-arrow-right, .icon-arrow-left, .icon-arrow-down-right {
+.icon-image, .icon-bubbles, .icon-search, .icon-spinner, .icon-tags, .icon-attachment, .icon-link, .icon-numbered-list, .icon-list, .icon-play, .icon-bold, .icon-underline, .icon-italic, .icon-strikethrough, .icon-code, .icon-close, .icon-plus-alt, .icon-trashcan, .icon-left-quote, .icon-pencil, .icon-undo, .icon-redo, .icon-undo-2, .icon-redo-2, .icon-cancel-circle, .icon-checkmark-circle, .icon-download, .icon-document-alt-fill, .icon-eye, .icon-plus, .icon-arrow-up, .icon-checkmark, .icon-users, .icon-users-2, .icon-bubble, .icon-arrow-right, .icon-arrow-left, .icon-arrow-down-right, .icon-at, .icon-calendar, .icon-clock, .icon-star {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -83,9 +83,6 @@ you can use the generic selector below, but it's slower:
 .icon-code:before {
 	content: "\e012";
 }
-.icon-pushpin:before {
-	content: "\e013";
-}
 .icon-close:before {
 	content: "\e014";
 }
@@ -100,9 +97,6 @@ you can use the generic selector below, but it's slower:
 }
 .icon-pencil:before {
 	content: "\e000";
-}
-.icon-alarm:before {
-	content: "\e018";
 }
 .icon-undo:before {
 	content: "\e01c";
@@ -157,4 +151,16 @@ you can use the generic selector below, but it's slower:
 }
 .icon-arrow-down-right:before {
 	content: "\e01e";
+}
+.icon-at:before {
+	content: "\e029";
+}
+.icon-calendar:before {
+	content: "\e02b";
+}
+.icon-clock:before {
+	content: "\e02d";
+}
+.icon-star:before {
+	content: "\e013";
 }

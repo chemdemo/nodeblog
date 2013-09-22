@@ -8,6 +8,9 @@
 .post-title {
 	font-size: 1.8em;
 }
+.post-title i {
+	margin-right: 3px;
+}
 .edit-info {
 	padding: 0;
 	border-bottom: 1px dashed #EEE;

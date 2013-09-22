@@ -262,8 +262,7 @@ exports.create = function(req, res, next) {
 		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Both title and content were required.');
 	}
 
-	if(data.tags) data.tags = _.without(data.tags, '');
-
+	//if(data.tags) data.tags = _.without(data.tags, '');
 	post = new Post();
 	post = _extend(post, data);
 	post.create_at = Date.now();

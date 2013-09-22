@@ -110,7 +110,7 @@ a:hover {
 }
 
 .topped {
-	color: #F77;
+	color: #FC407C;
 	font-style: normal;
 	/*font-size: 0.9em;*/
 	font-weight: normal;
@@ -356,16 +356,25 @@ header nav a:hover {
 	padding: 1px 8px;
 }
 .page-sitebar .author-info {
-	border-left: none;
-	padding: 1px;
+	/*border-left: none;
+	padding: 1px;*/
 }
-.author-info .avatar {
-	background: url(images/dm.jpg) no-repeat center;
-	background-size: cover;
-	width: 198px;
-	height: 198px;
-	margin: 0 auto;
+.author-info img {
+	width: 50%;
 	display: block;
+}
+.author-info .sns-icon a {
+	cursor: pointer;
+	background-color: transparent;
+	transition: color .15s linear;
+	line-height: 16px;
+	padding-left: 18px;
+	background: url(images/social-icons.png) no-repeat 0 0;
+	overflow: hidden;
+}
+.author-info .sns-icon .icon-douban {
+	background-position: 0 -96px;
+	margin-left: 5px;
 }
 
 /* footer */
