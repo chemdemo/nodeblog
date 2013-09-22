@@ -1,6 +1,4 @@
-# Welcome
-
-## This is a lightweight blog system built with nodejs.
+## 基于Node.JS构建的轻博客系统
 
 项目地址（调试阶段）：http://dmfeel.com
 
