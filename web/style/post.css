@@ -136,6 +136,56 @@
 	/*background-color: #EEE;*/
 	border-bottom: 1px solid #EEE;
 }
+.socal-login {
+	line-height: 30px;
+}
+.socal-login-label,
+.socal-login-bd {
+	display: inline-block;
+	vertical-align: middle;
+}
+.socal-login-bd {
+	margin-left: -1em;
+}
+.socal-login-bd li {
+	float: left;
+	height: 16px;
+	/*width: 54px;*/
+	padding: 4px 0;
+	margin: 0 0 0 6px;
+}
+.socal-login-bd a {
+	cursor: pointer;
+	background-color: transparent;
+	transition: color .15s linear;
+	-webkit-transition: color .15s linear;
+	-moz-transition: color .15s linear;
+
+	line-height: 16px;
+	padding-left: 20px;
+	display: block;
+	background: url(images/socal-icons.png) no-repeat;
+	overflow: hidden;
+}
+.socal-login-bd a.sina-weibo {
+	;
+}
+.socal-login-bd a.qq {
+	background-position: 0 -192px;
+}
+.socal-login-bd a.baidu {
+	background-position: 0 -208px;
+}
+.socal-login-bd a.qq-weibo {
+	background-position: 0 -64px;
+}
+.socal-login-bd a.renren {
+	background-position: 0 -32px;
+}
+.socal-login-bd a.no-socal {
+	background-image: none;
+	padding-left: 0;
+}
 .add-comment .user-login {
 	text-align: center;
 	margin: 1em;
