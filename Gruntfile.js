@@ -81,8 +81,8 @@ module.exports = function(grunt) {
 					'web/build-tmp/index.css': ['web/style/icons.css','web/style/md.css','web/style/global.css', 'web/style/index.css'],
 					'web/build-tmp/post.css': ['web/style/icons.css','web/style/md.css','web/style/global.css', 'web/style/post.css'],
 					'web/build-tmp/edit.css': ['web/style/icons.css','web/style/md.css','web/style/global.css', 'web/style/edit.css'],
-					'web/build-tmp/list.css': ['web/style/global.css', 'web/style/list.css'],
-					'web/build-tmp/user.css': ['web/style/global.css', 'web/style/user.css']
+					'web/build-tmp/list.css': ['web/style/icons.css','web/style/global.css', 'web/style/list.css'],
+					'web/build-tmp/user.css': ['web/style/icons.css','web/style/global.css', 'web/style/user.css']
 				}
 			},
 			minify: {
@@ -126,7 +126,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	//grunt.registerTask('mincss', ['concat', 'cssmin', 'clean:temp']);
+	grunt.registerTask('mincss', ['cssmin', 'clean:temp']);
 
-	grunt.registerTask('default', ['clean:build', 'requirejs', 'uglify', 'cssmin', 'imagemin']);
+	grunt.registerTask('default', ['clean:build', 'requirejs', 'uglify', 'mincss', 'imagemin']);
 	//grunt.registerTask('win', ['clean:build', 'requirejs', 'uglify', 'mincss']);
 }
