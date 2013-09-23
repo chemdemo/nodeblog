@@ -29,7 +29,7 @@
 		<ul class="archive-list ul">
 			{% for count in counts %}
 			<li>
-				<a href="/posts/{{ count._id|date('Y/m/') }}">{{ count._id|date('Y年m月') }}</a>
+				<a href="/posts/{{ count._id|date('Y/m/', -8*60) }}">{{ count._id|date('Y年m月', -8*60) }}</a>
 				(<b>{{ count.value|split('$')|length|default(0) }}</b>)
 			</li>
 			{% endfor %}
