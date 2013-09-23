@@ -30,12 +30,14 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
 
 	function fetchComments() {
 		$.get('/comment/' + postId, function(r) {
-			console.log(r)
+			//console.log(r)
 			if(r.rcode === 0) {
 				if(r.result.comments.length) {
 					require(['text!tmpl/comment.html'], function(tmpl) {
 						$('#comment-list').html(_.template(tmpl, r.result));
 					});
+				} else {
+					$('#comment-list').html('<li class="no-comment">还没有评论唉^_^！</li>');
 				}
 			} else {
 				console.log('Fetch comments error!', r);
@@ -112,7 +114,7 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
 				method: 'delete',
 				data: {postid: postId, _csrf: csrf},
 				success: function(r) {
-					console.log(r);
+					//console.log(r);
 					if(r.rcode === 0) {
 						fetchComments();// 重新拉一遍，省事儿。。
 					} else {

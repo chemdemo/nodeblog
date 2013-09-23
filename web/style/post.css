@@ -25,6 +25,12 @@
 .post-body {
 	/*padding: 0 2em;*/
 }
+.post-body p {
+	margin-bottom: 1em;
+}
+.post-body p p {
+	margin-bottom: 0;
+}
 /*.post-body li p {
 	margin: 0;
 }*/

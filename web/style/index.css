@@ -64,3 +64,9 @@
 	float: right;
 	margin-left: .6em;
 }
+.post-summary p {
+	margin-bottom: 1em;
+}
+.post-summary p p {
+	margin-bottom: 0;
+}
