@@ -246,7 +246,7 @@ function _extend(doc, data) {
 	});
 
 	doc.setSummary(doc.summary);
-	doc.update_at = Date.now();
+	doc.update_at = new Date();
 
 	return doc;
 }
