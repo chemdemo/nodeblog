@@ -63,13 +63,12 @@ function infoCheck(info) {
 	return info;
 }
 
-/*function adminCheck(user) {
-	var admin = settings.ADMIN;
+function adminCheck(user) {
 	return user && 
-		//user.name === admin.NAME && 
-		user.email === admin.EMAIL && 
+		admin.NAMES.indexOf(user.name) > -1 &&
+		user.email === admin.EMAIL &&
 		user.pass === md5(admin.PASS);
-}*/
+}
 
 function findOne(query, callback) {
 	if(query.pass) {
@@ -96,8 +95,10 @@ function addOne(info, callback) {
 	user.pass = md5(info.pass);
 	user.email = info.email;
 	user.site = info.site;
-	user.avatar = info.avatar || genAvatar(info.email);
-	user.admin = (info.email === admin.EMAIL && user.pass === md5(admin.PASS));
+	user.avatar = info.avatar || genAvatar(user.email);
+	console.log(user)
+	//user.admin = (info.email === admin.EMAIL && user.pass === md5(admin.PASS));
+	user.admin = adminCheck(user);
 	user.save(callback);
 }
 

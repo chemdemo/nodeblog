@@ -19,10 +19,9 @@ exports.signup = function(req, res, next) {
 		info = user_ctrl.infoCheck(info);
 		if(info.error) return res.render('signup', info);
 
-		// danger!!
+		// dangerous!!
 		// if(info.email === admin.EMAIL) {
 		// 	info.pass = admin.PASS;
-		// 	//info.name = admin.NAME;
 		// 	//info.site = admin.SITE;
 		// }
 
@@ -106,7 +105,7 @@ exports.logout = function(req, res, next) {
 
 exports.info = function(req, res, next) {
 	var user = req.session.user || null;
-	if(user) user.avatar = user_ctrl.genAvatar(user.email);
+	if(user && !user.avatar) user.avatar = user_ctrl.genAvatar(user.email);
 	res.render('info', user);
 }
 
@@ -145,23 +144,26 @@ exports.info = function(req, res, next) {
 	});
 }*/
 
-exports.loginCheck = function(req, res, next) {
+exports.loginCheck = function(req, res, next) {console.log(req.session)
 	if(!req.session.user) {
 		if(req.xhr) {
 			return tools.jsonReturn(res, 'AUTH_ERROR', null, 'Need login!');
 		}
-		res.redirect('/login');
+		return res.redirect('/login');
 	}
 	next();
 }
 
 exports.adminCheck = function(req, res, next) {
-	if(!req.session.user.admin) {
-		//return next(403);
-		return res.send(403, 'Admin should login first.');
+	var user = req.session.user;
+
+	if(user.admin/* && user_ctrl.adminCheck(user)*/) {
+		next();
+	} else {
+		if(req.xhr) {
+			tools.jsonReturn(res, 'AUTH_ERROR', null, 'Admin should login first.');
+		} else {
+			res.send(403, 'Admin should login first.');
+		}
 	}
-	/*if(!user_ctrl.adminCheck(req.session.user)) {
-		return next(403);
-	}*/
-	next();
 }

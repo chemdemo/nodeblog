@@ -1,4 +1,5 @@
 var user_ctrl = require('../server/controller/user');
+var settings = require('../settings');
 
 var testInfo = {
 	name: 'test',
@@ -22,6 +23,21 @@ function add() {
 	});
 }
 
-find();
+//find();
 //add();
 
+function addAdmin() {
+	var admin = settings.ADMIN;
+	var info = {
+		email: admin.EMAIL,
+		pass: admin.PASS,
+		name: '',
+		site: admin.SITE
+	};
+
+	user_ctrl.addOne(info, function(err, doc) {
+		console.log(err, doc);
+		user_ctrl.findOne(info, function(err, doc) {console.log(err, doc);});
+	});
+}
+//addAdmin();
