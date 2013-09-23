@@ -65,7 +65,7 @@ a, .a {
 	text-decoration: none;
 	color: #3ED4E5;
 	color: #33B5E5;
-	color: #43c0d9;
+	/*color: #43c0d9;*/
 }
 a:hover {
 	text-decoration: underline;
