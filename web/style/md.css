@@ -2,6 +2,9 @@
 	line-height: 1.7;
 	overflow:hidden
 }
+.md p {
+	margin-top: .5em;
+}
 .md>*:first-child {
 	margin-top:0 !important
 }

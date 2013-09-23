@@ -7,14 +7,12 @@ var express = require('express')
     , http = require('http')
     , path = require('path')
     , domain = require('domain')
-    //, flash = require('connect-flash')
-    //, ejs = require('ejs')
     , swig = require('swig')
     , filters = require('./server/utils/filters')
     , cons = require('consolidate')
     , connectDomain = require('connect-domain')
-    , MongoStore = require('connect-mongo')(express)
-    //, RedisStore = require('connect-redis')(express)
+    //, MongoStore = require('connect-mongo')(express)
+    , RedisStore = require('connect-redis')(express)
 
     , staticDir = __dirname + '/web'
     , settings = require('./settings')
@@ -61,19 +59,19 @@ app.use(express.favicon(__dirname + '/web/favicon.ico'));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('nodeblog'));
+app.use(express.cookieParser(settings.COOKIE_SECRET));
 app.use(express.session({
-    /*store: new RedisStore({
+    store: new RedisStore({
         host: settings.APP_HOST,
-        port: settings.SESSION_PORT
-    }),*/
-    store: new MongoStore({
+        port: settings.SESSION_PORT,
+        db: 1
+    })
+    /*store: new MongoStore({
         db: settings.DB_NAME
-        //, collection: ''
         , maxAge: maxAge
-    }),
-    secret: settings.SESSION_SECRET,
-    cookie: {maxAge: maxAge*3}//30*3 days
+    })*/
+    , secret: settings.SESSION_SECRET
+    //, cookie: {maxAge: maxAge*3}//30*3 days
 }));
 app.use(express.csrf());
 app.use(function(req, res, next) {
