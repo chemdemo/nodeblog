@@ -124,7 +124,7 @@ function countMonthy(callback) {
 		var year = create.getFullYear();
 		var month = create.getMonth();
 		//month = ('0' + month).slice(-2);
-		var key = new Date(year, month+1).getTime();
+		var key = new Date(year, month+1, 01, 00).getTime();
 		//var v = this._id.toString().replace(/ObjectId\(\"(.+)\"\)/, '$1');
 		var v = this._id.str;// _id.toString() function is not work on mongodb V2.4
 		emit(key, v);
