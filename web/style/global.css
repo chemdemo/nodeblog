@@ -32,6 +32,7 @@ html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input, textarea
 body, input, button, textarea {
 	font: normal normal normal 13px/2 'Segoe UI Semilight', Helvetica, Tahoma, sans-serif;
 	color: #333;
+	text-rendering: optimizeLegibility;
 }
 html {
 	overflow-x: hidden;
@@ -347,7 +348,7 @@ header nav a:hover {
 	/*color: #0F789E;*/
 }
 .page-sitebar a:hover {
-	background-color: #EEE;
+	background-color: #DDD !important;
 	text-decoration: none;
 }
 .page-sitebar > section {
@@ -373,7 +374,7 @@ header nav a:hover {
 	background: url(images/social-icons.png) no-repeat 0 0;
 	overflow: hidden;
 }
-.author-info .sns-icon .icon-douban {
+.author-info .sns-icon .sns-douban {
 	background-position: 0 -96px;
 	margin-left: 5px;
 }
