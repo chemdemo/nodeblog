@@ -22,7 +22,7 @@
 			</h3>
 			<div class="post-date">
 				<i class="icon-clock" title="最后编辑时间"></i>
-				<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s') }}</span>
+				<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s', -8*60) }}</span><!-- 北京时间与格林威治标准时间相差8h -->
 			</div>
 			<!-- <div class="post-cover"><img src="covers/c0.jpg" /></div> -->
 			<div class="post-summary md">
@@ -36,7 +36,7 @@
 			<div class="post-info">
 				<!-- <span class="post-date">
 					<i class="icon-alarm" title="最后编辑时间"></i>
-					<span class="update-date">{{ post.update_at|date('Y-m-d') }}</span>
+					<span class="update-date">{{ post.update_at|date('Y-m-d', -8*60) }}</span>
 				</span>
 				<span class="post-gap">/</span> -->
 				<span class="post-tags">
