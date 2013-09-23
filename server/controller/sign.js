@@ -144,7 +144,7 @@ exports.info = function(req, res, next) {
 	});
 }*/
 
-exports.loginCheck = function(req, res, next) {console.log(req.session)
+exports.loginCheck = function(req, res, next) {//console.log(req.session)
 	if(!req.session.user) {
 		if(req.xhr) {
 			return tools.jsonReturn(res, 'AUTH_ERROR', null, 'Need login!');
