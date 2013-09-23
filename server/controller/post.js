@@ -122,9 +122,10 @@ function countMonthy(callback) {
 	var mapFn = function() {
 		var create = this.create_at;
 		var year = create.getFullYear();
-		var month = create.getMonth();
-		//month = ('0' + month).slice(-2);
-		var key = new Date(year, month+1, 01, 00).getTime();
+		var month = create.getMonth() + 1;
+		//month = ('0' + month).slice(-2);// prezero
+		//var key = new Date(year, month).getTime() - 8*60*60*1000;
+		var key = year + '/' + ('0' + month).slice(-2);
 		//var v = this._id.toString().replace(/ObjectId\(\"(.+)\"\)/, '$1');
 		var v = this._id.str;// _id.toString() function is not work on mongodb V2.4
 		emit(key, v);
@@ -524,13 +525,15 @@ exports.counts = function(req, res, next) {
 	var pageTitle = '';
 	var postids;
 
-	year -= 0;
-	month -= 0;
+	//year -= 0;
+	//month -= 0;
+	month = ('0' + month).slice(-2);
 	if(!year || !month) return next();
 
-	pageTitle = tools.dateFormat(new Date(year, month-1), 'YYYY年MM月') + '文章归档';
+	//pageTitle = tools.dateFormat(new Date(year, month-1), 'YYYY年MM月') + '文章归档';
+	pageTitle = year + '年' + month + '月文章归档';
 
-	findCounts({_id: new Date(year, month).getTime()}, function(err, doc) {
+	findCounts({_id: year + '/' + month}, function(err, doc) {
 		if(err) return next(err);
 		if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
 		postids = doc[0].value.split('$');//console.log(postids)
