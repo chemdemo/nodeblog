@@ -63,15 +63,15 @@ function routes(app) {
 	// post about
 	app.get('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.edit);
 	//app.post('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.save);// post.create
-	app.post('/post/create', sign.loginCheck, sign.adminCheck, post.create);
-	app.put('/post/update/:postid?', sign.loginCheck, sign.adminCheck, post.update);
+	app.put('/post/create', sign.loginCheck, sign.adminCheck, post.create);
+	app.post('/post/update/:postid?', sign.loginCheck, sign.adminCheck, post.update);
 	app.delete('/post/delete/:postid', sign.loginCheck, sign.adminCheck, post.remove);
 	app.get('/post/:postid', post.show);
 	app.get('/post/content/:postid?', post.getPostContent);
 
 	// comment about
 	app.get('/comment/:postid?', comment.findAllByPostId);
-	app.post('/comment/add/:postid?', comment.add);
+	app.put('/comment/add/:postid?', comment.add);
 	app.delete('/comment/delete/:commentid?', /*sign.loginCheck, */comment.remove);
 
 	// tag about
