@@ -4,5 +4,5 @@ require(['jquery', 'common'], function($, common) {
 	$(common.init);
 	
 	// site info
-	console.info('To dream\n我一定要未来的自己，是自己喜欢的模样。');
+	console.info('To dream\n一切，只为让生活更美好！');
 });

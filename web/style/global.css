@@ -249,7 +249,7 @@ header .sub-title {
 	line-height: 1em;
 	font-size: 12px;
 	margin-top: -11px;
-	color: #888;
+	color: #999;
 	/*font-style: italic;*/
 }
 header nav {
@@ -371,7 +371,7 @@ header nav a:hover {
 	transition: color .15s linear;
 	line-height: 16px;
 	padding-left: 18px;
-	background: url(images/social-icons.png) no-repeat 0 0;
+	background: url(images/social-icons.png) no-repeat 0 1px;
 	overflow: hidden;
 }
 .author-info .sns-icon .sns-douban {
