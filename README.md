@@ -1,4 +1,4 @@
-## 基于Node.JS构建的轻博客系统
+## 基于NodeJS构建的轻博客系统
 
 博客地址：http://www.dmfeel.com
 

@@ -77,33 +77,38 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
 
 			if(!content) return tips('随便说点啥嘛～');
 
-			$.post('/comment/add/' + postId, {
-				user: user || {name: name, email: email, site: site},
-				_csrf: csrf,
-				reply_comment_id: $('#reply-comment-id').val(),
-				at_user_id: $('#at-user-id').val(),
-				content: content
-			}, function(r) {
-				//console.log(r)
-				if(r.rcode === 0) {
-					require(['text!tmpl/reply.html'], function(tmpl) {
-						$('#comment-list .no-comment').remove();
-						appendWrapper.append(_.template(tmpl, r.result));
-						$('#btn-cancel').trigger('click');
-					});
-					if(!user) {
-						user = r.result.author;
-						require(['text!tmpl/user-login.html'], function(tmpl) {
-							$('#user-logout').replaceWith(_.template(tmpl, user));
-							lazyLoadAvatar();
+			$.ajax({
+				url: '/comment/add/' + postId,
+				method: 'PUT',
+				data: {
+					user: user || {name: name, email: email, site: site},
+					_csrf: csrf,
+					reply_comment_id: $('#reply-comment-id').val(),
+					at_user_id: $('#at-user-id').val(),
+					content: content
+				},
+				success: function(r) {
+					//console.log(r)
+					if(r.rcode === 0) {
+						require(['text!tmpl/reply.html'], function(tmpl) {
+							$('#comment-list .no-comment').remove();
+							appendWrapper.append(_.template(tmpl, r.result));
+							$('#btn-cancel').trigger('click');
 						});
+						if(!user) {
+							user = r.result.author;
+							require(['text!tmpl/user-login.html'], function(tmpl) {
+								$('#user-logout').replaceWith(_.template(tmpl, user));
+								lazyLoadAvatar();
+							});
+						}
+					} else if(r.rcode === 10000) {
+						location.href = '/login';
+					} else {
+						//tips('添加评论失败，再试一次？');
+						alert('添加评论失败');
+						console.log('Add comment error, ', r);
 					}
-				} else if(r.rcode === 10000) {
-					location.href = '/login';
-				} else {
-					//tips('添加评论失败，再试一次？');
-					alert('添加评论失败');
-					console.log('Add comment error, ', r);
 				}
 			});
 		}
@@ -111,7 +116,7 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
 		function delComment(cid) {
 			$.ajax({
 				url: '/comment/delete/' + cid, 
-				method: 'delete',
+				method: 'DELETE',
 				data: {postid: postId, _csrf: csrf},
 				success: function(r) {
 					//console.log(r);

@@ -178,15 +178,20 @@ require(['jquery','ace/ace','marked','hljs','underscore','utils'], function($,ac
 
 			if(!data.title || !data.content) return alert('字段不完整！');
 
-			$.post('/post/create', {
-				data: JSON.stringify(data),
-				postid: postId,
-				_csrf: $('#csrf').val()
-			}, function(r) {
-				if(r.rcode === 0) {
-					return window.location = '/post/' + r.result;
-				} else {
-					console.log(r);
+			$.ajax({
+				url: '/post/create',
+				method: 'PUT',
+				data: {
+					data: JSON.stringify(data),
+					postid: postId,
+					_csrf: $('#csrf').val()
+				},
+				success: function(r) {
+					if(r.rcode === 0) {
+						return window.location = '/post/' + r.result;
+					} else {
+						console.log(r);
+					}
 				}
 			});
 		}
@@ -195,7 +200,7 @@ require(['jquery','ace/ace','marked','hljs','underscore','utils'], function($,ac
 			if(!_.isEmpty(update)) {
 				$.ajax({
 					url: '/post/update/' + postId,
-					method: 'PUT',
+					method: 'POST',
 					data: {update: JSON.stringify(update), postid: postId, _csrf: $('#csrf').val()},
 					success: function(r) {
 						if(r.rcode === 0) {
