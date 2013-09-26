@@ -223,25 +223,31 @@
 }
 .md code, .md tt {
 	margin:0 2px;
-	padding:0px 5px;
-	border:1px solid #ddd;
-	background-color: #EEE;
+	padding:1px 5px;
+	border:1px solid #EEE;
+	/*background-color: #EEE;*/
+	color: #F92672;
 }
 .md pre {
 	overflow-x: auto;
 	overflow-y: hidden;
-	border: 1px solid #EEE;
-	padding: .5em;
-	background-color: #333;
+	/*border: 1px solid #EEE;*/
+	padding: 0 .5em;
+	background-color: #555;
+	display: block;
+}
+.md pre .comment {
+	color: #888;
 }
 .md code {
-	white-space:nowrap
+	white-space: nowrap
 }
-.md pre code,.md pre tt {
+.md pre code, .md pre tt {
 	/*margin:0;
 	padding:0;*/
 	background-color: transparent;
 	border: none;
+	color: #EEE;
 }
 .md pre > code {
 	margin:0;
