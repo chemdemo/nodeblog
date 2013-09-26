@@ -235,11 +235,11 @@ exports.edit = function(req, res, next) {// get
 	}
 }
 
-function _extend(doc, data) {
+function _extend(doc, data) {console.log(data)
 	var fields = ['title', 'content', 'cover', 'summary', 'tags', 'topped'];
 	if(data.tags) data.tags = _.without(_.uniq(data.tags), '');
 
-	_(fields).each(function(field) {
+	_(fields).each(function(field) {console.log(field)
 		if(data[field]) {
 			if('topped' === field) data[field] -= 0;// convert to Number
 			doc[field] = data[field];
@@ -248,7 +248,7 @@ function _extend(doc, data) {
 
 	//doc.setSummary(doc.summary);
 	doc.update_at = new Date();
-
+console.log(doc)
 	return doc;
 }
 
