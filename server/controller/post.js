@@ -246,7 +246,7 @@ function _extend(doc, data) {
 		}
 	});
 
-	doc.setSummary(doc.summary);
+	//doc.setSummary(doc.summary);
 	doc.update_at = new Date();
 
 	return doc;
@@ -266,6 +266,7 @@ exports.create = function(req, res, next) {
 	//if(data.tags) data.tags = _.without(data.tags, '');
 	post = new Post();
 	post = _extend(post, data);
+	post.setSummary(data.summary);
 	post.create_at = new Date();
 	post.author_id = user._id;
 
@@ -316,7 +317,9 @@ exports.update = function(req, res, next) {
 		//console.log('arrAdd: ', arrAdd);
 		//console.log('arrDel: ', arrDel);
 		var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
+			console.log(doc)
 			doc = _extend(doc, update);
+			console.log(doc)
 			//delete doc._id;
 			doc.save(function(err, doc) {
 				if(err || !doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
