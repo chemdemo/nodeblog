@@ -235,12 +235,12 @@ exports.edit = function(req, res, next) {// get
 	}
 }
 
-function _extend(doc, data) {console.log(data)
+function _extend(doc, data) {
 	var fields = ['title', 'content', 'cover', 'summary', 'tags', 'topped'];
 	if(data.tags) data.tags = _.without(_.uniq(data.tags), '');
 
-	_(fields).each(function(field) {console.log(field)
-		if(data[field]) {
+	_(fields).each(function(field) {
+		if(data[field] !== 'undefined') {
 			if('topped' === field) data[field] -= 0;// convert to Number
 			doc[field] = data[field];
 		}
@@ -248,7 +248,7 @@ function _extend(doc, data) {console.log(data)
 
 	//doc.setSummary(doc.summary);
 	doc.update_at = new Date();
-console.log(doc)
+
 	return doc;
 }
 
@@ -317,9 +317,7 @@ exports.update = function(req, res, next) {
 		//console.log('arrAdd: ', arrAdd);
 		//console.log('arrDel: ', arrDel);
 		var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
-			console.log(doc)
 			doc = _extend(doc, update);
-			console.log(doc)
 			//delete doc._id;
 			doc.save(function(err, doc) {
 				if(err || !doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
