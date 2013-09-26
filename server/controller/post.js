@@ -240,7 +240,7 @@ function _extend(doc, data) {
 	if(data.tags) data.tags = _.without(_.uniq(data.tags), '');
 
 	_(fields).each(function(field) {
-		if(data[field]) {
+		if(data[field] !== 'undefined') {
 			if('topped' === field) data[field] -= 0;// convert to Number
 			doc[field] = data[field];
 		}
@@ -317,9 +317,7 @@ exports.update = function(req, res, next) {
 		//console.log('arrAdd: ', arrAdd);
 		//console.log('arrDel: ', arrDel);
 		var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
-			console.log(doc)
 			doc = _extend(doc, update);
-			console.log(doc)
 			//delete doc._id;
 			doc.save(function(err, doc) {
 				if(err || !doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
