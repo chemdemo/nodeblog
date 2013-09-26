@@ -304,10 +304,15 @@ exports.update = function(req, res, next) {
 	Post.findById(postid, fields.join(' '), function(err, doc) {
 		if(err || !doc) return next(err);
 
-		var dataTags = _.uniq(update.tags || []);
 		var docTags = doc.tags || [];
-		var arrAdd = _.without(_.difference(dataTags, docTags), '');
-		var arrDel = _.without(_.difference(docTags, dataTags), '');
+		var dataTags;
+		var arrAdd = [];
+		var arrDel = [];
+		if(update.tags) {
+			dataTags = _.uniq(update.tags);
+			arrAdd = _.without(_.difference(dataTags, docTags), '');
+			arrDel = _.without(_.difference(docTags, dataTags), '');
+		}
 		//console.log('arrAdd: ', arrAdd);
 		//console.log('arrDel: ', arrDel);
 		var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
