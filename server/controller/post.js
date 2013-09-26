@@ -317,13 +317,15 @@ exports.update = function(req, res, next) {
 		//console.log('arrAdd: ', arrAdd);
 		//console.log('arrDel: ', arrDel);
 		var proxy = EventProxy.create('tags_deleted', 'tags_saved', function() {
-			doc = _extend(doc, update);
-			//delete doc._id;
-			doc.save(function(err, doc) {
+			Post.findByIdAndUpdate(doc._id, update, function(err, doc) {
 				if(err || !doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
-				//res.redirect('/post/' + doc._id);
 				tools.jsonReturn(res, 'SUCCESS', doc._id);
 			});
+			/*doc = _extend(doc, update);
+			doc.save(function(err, doc) {
+				if(err || !doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Update post error.');
+				tools.jsonReturn(res, 'SUCCESS', doc._id);
+			});*/
 		}).fail(function(err) {
 			console.log('Set tags error, err', err);
 			//next(err);
