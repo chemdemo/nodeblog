@@ -112,3 +112,99 @@ pre .xml .css,
 pre .xml .cdata {
   opacity: 0.5;
 }
+
+/* by dmyang */
+pre .keyword,
+pre .literal,
+pre .css .id,
+pre .phpdoc,
+pre .title,
+pre .haskell .type,
+pre .vbscript .built_in,
+pre .sql .aggregate,
+pre .rsl .built_in,
+pre .smalltalk .class,
+pre .diff .header,
+pre .chunk,
+pre .winutils,
+pre .bash .variable,
+pre .apache .tag,
+pre .tex .special,
+pre .request,
+pre .status {
+  font-weight: normal;
+}
+
+pre .tag .value,
+pre .string,
+pre .subst,
+pre .title,
+pre .haskell .type,
+pre .preprocessor,
+pre .ruby .class .parent,
+pre .built_in,
+pre .sql .aggregate,
+pre .django .template_tag,
+pre .django .variable,
+pre .smalltalk .class,
+pre .javadoc,
+pre .django .filter .argument,
+pre .smalltalk .localvars,
+pre .smalltalk .array,
+pre .attr_selector,
+pre .pseudo,
+pre .addition,
+pre .stream,
+pre .envvar,
+pre .apache .tag,
+pre .apache .cbracket,
+pre .tex .command,
+pre .prompt {
+  color: #FCFCCD;
+}
+
+pre .number {
+  color: #EBFF00;
+}
+
+pre .params {
+  color: #AEF2FF;
+}
+
+pre .css .tag,
+pre .css .pseudo {
+    color: #D0D2B5;
+}
+
+pre .attribute,
+pre .constant {
+    color: #6FEEFF;
+}
+
+pre .xml .attribute {
+    color: #B3B689;
+}
+
+pre .xml .tag .value {
+    color: #E8E2B7;
+}
+
+pre .code,
+pre .class .title,
+pre .header {
+    color: white;
+}
+
+pre .class,
+pre .hexcolor {
+    color: #93C763;
+}
+
+pre .at_rule,
+pre .at_rule .keyword {
+    color: #A082BD;
+}
+
+pre .doctype {
+    color: #557182;
+}
