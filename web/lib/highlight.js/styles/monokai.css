@@ -134,6 +134,7 @@ pre .tex .special,
 pre .request,
 pre .status {
   font-weight: normal;
+  color: #FF5A96;
 }
 
 pre .tag .value,
