@@ -96,7 +96,6 @@ function addOne(info, callback) {
 	user.email = info.email;
 	user.site = info.site;
 	user.avatar = info.avatar || genAvatar(user.email);
-	console.log(user)
 	//user.admin = (info.email === admin.EMAIL && user.pass === md5(admin.PASS));
 	user.admin = adminCheck(user);
 	user.save(callback);
