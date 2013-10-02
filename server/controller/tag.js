@@ -99,7 +99,7 @@ function findAllTags(callback) {
 exports.findPostsByTag = function(req, res, next) {
 	var user;
 	var tag = req.params.tag;
-	var pageTitle = '标签<b class="list-key"> ' + tag + ' </b>下的文章';
+	var pageTitle = '所有含标签<b class="list-key"> ' + tag + ' </b>的文章';
 
 	if(!tag) {
 		console.log('Param tag required');

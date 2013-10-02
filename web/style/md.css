@@ -231,13 +231,16 @@
 .md pre {
 	overflow-x: auto;
 	overflow-y: hidden;
-	/*border: 1px solid #EEE;*/
 	padding: 0 .5em;
-	background-color: #555;
+	/*background-color: #555;*/
+	/*border: 1px solid #EEE;*/
+	background-color: #f0f7fd;
+	border: 1px solid #d0e3f0;
 	display: block;
 }
 .md pre .comment {
-	color: #888;
+	/*color: #888;*/
+	color: #009C1F;
 }
 .md code {
 	white-space: nowrap
@@ -247,7 +250,8 @@
 	padding:0;*/
 	background-color: transparent;
 	border: none;
-	color: #EEE;
+	/*color: #EEE;*/
+	color: #555;
 }
 .md pre > code {
 	margin:0;
