@@ -38,7 +38,8 @@ pre .symbol,
 pre .symbol .string,
 pre .value,
 pre .regexp {
-	color: #BF79DB;
+  /*color: #BF79DB;*/
+	color: #B2A7A7;
 }
 
 pre .tag .value,
@@ -160,15 +161,17 @@ pre .apache .tag,
 pre .apache .cbracket,
 pre .tex .command,
 pre .prompt {
-  color: #FCFCCD;
+  /*color: #FCFCCD;*/
+  color: #920063;
 }
 
 pre .number {
-  color: #EBFF00;
+  color: #E9D64B;
 }
 
 pre .params {
-  color: #AEF2FF;
+  /*color: #AEF2FF;*/
+  color: #00677A;
 }
 
 pre .css .tag,
@@ -178,7 +181,8 @@ pre .css .pseudo {
 
 pre .attribute,
 pre .constant {
-    color: #6FEEFF;
+    /*color: #6FEEFF;*/
+    color: #01AEC5;
 }
 
 pre .xml .attribute {
@@ -192,7 +196,8 @@ pre .xml .tag .value {
 pre .code,
 pre .class .title,
 pre .header {
-    color: white;
+    /*color: white;*/
+    color: #93C763;
 }
 
 pre .class,
