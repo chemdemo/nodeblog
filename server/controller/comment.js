@@ -52,7 +52,7 @@ function findCommentsByPostId(postid, callback) {
 			var findAuthor = function(uid, callback) {
 				if(infoCache[uid]) return callback(null, infoCache[uid]);
 
-				user_ctrl.findById(uid, 'name email site admin', function(err, doc) {
+				user_ctrl.findById(uid, 'name email site', function(err, doc) {
 					if(err) return callback(err);
 					if(!doc) {
 						doc = {
@@ -161,10 +161,10 @@ function removeCommentsByPostId(postid, callback) {
 	});
 }
 
-exports.add = function(req, res, next) {
+exports.add = function(req, res, next) {//console.log('session commit: ', req.session.user)
 	var postid = req.body.postid || req.params.postid;
 	var user = req.body.user || null;
-	var sUser = req.session.user;
+	var sUser = user_ctrl.getSessionUser(req);
 	var content = sanitize(req.body.content || '').trim();
 	var replyId = req.body.reply_comment_id || '';
 	var atUid = req.body.at_user_id || '';
@@ -173,7 +173,11 @@ exports.add = function(req, res, next) {
 		user = user_ctrl.infoCheck(user);
 		if(user.error) return callback(user.error);
 
-		user_ctrl.findOne({name: user.name, email: user.email}, function(err, doc) {
+		user_ctrl.findOne({
+			name: user.name
+			, email: user.email
+			, pass: user.pass
+		}, function(err, doc) {
 			if(err) return callback(err);
 			
 			if(!doc) {
@@ -193,10 +197,10 @@ exports.add = function(req, res, next) {
 	if(!content) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Comment content null.');
 	
 	if(user.email !== admin.EMAIL) {
-		user.pass = settings.DEFAULT_USER_PASS;
+		user.pass = user_ctrl.md5(settings.DEFAULT_USER_PASS);
 	} else {// for admin
 		if(sUser && sUser.admin) {
-			user.pass = admin.PASS;
+			user.pass = sUser.pass;
 		} else {
 			return tools.jsonReturn(res, 'AUTH_ERROR', null, 'Admin need login first.');
 		}
@@ -245,17 +249,18 @@ exports.add = function(req, res, next) {
 		if(err) return emitErr('Check user error on add comment.', err);
 		doc = doc.toObject();
 		doc.avatar = doc.avatar || user_ctrl.genAvatar(doc.email);
-		delete doc.pass;
+		//delete doc.pass;
 		delete doc.create_at;
 		delete doc.modify_at;
 		//delete doc.email;
-		user_ctrl.setCookie(res, doc);
-		req.session.user = doc;
+		/*user_ctrl.setCookie(res, doc);
+		req.session.user = doc;*/
+		user_ctrl.genSessionUser(res, doc);
 		proxy.emit('user_check', doc);
 	});
 
 	if(atUid) {
-		user_ctrl.findById(atUid, 'name email site admin', function(err, doc) {console.log(666)
+		user_ctrl.findById(atUid, 'name email site', function(err, doc) {//console.log(666)
 			if(err || !doc) return proxy.emit('at_user_check', null);
 			doc = doc.toObject();
 			doc.avatar = doc.avatar || user_ctrl.genAvatar(doc.email);
@@ -271,11 +276,7 @@ exports.add = function(req, res, next) {
 
 exports.findAllByPostId = function(req, res, next) {
 	var postid = req.body.postid || req.params.postid;
-	var cookies = req.cookies;
-	var id = cookies._id;
-	var name = cookies.name;
-	var email = cookies.email;
-	var user = null;
+	var user = user_ctrl.getSessionUser(req);
 
 	if(!postid) {
 		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Param postid required.');
@@ -283,12 +284,13 @@ exports.findAllByPostId = function(req, res, next) {
 
 	findCommentsByPostId(postid, function(err, comments) {
 		if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Find comments error.');
-		// 暂时先不通过cookie拿数据
-		//if(id && name && email) {
-			//user = {_id: id, name: name, email: email, site: cookies.site}
-		//} else {
-			user = req.session.user || null;
-		//}
+		if(user) {
+			// delete pass, email and name etc
+			user = {
+				_id: user._id,
+				admin: user.admin
+			}
+		}
 		tools.jsonReturn(res, 'SUCCESS', {user: user, comments: comments});
 	});
 }
@@ -296,11 +298,7 @@ exports.findAllByPostId = function(req, res, next) {
 exports.remove = function(req, res, next) {
 	var postid = req.body.postid || req.params.postid;
 	var commentId = req.body.commentid || req.params.commentid;
-	var cookies = req.cookies;
-	var id = cookies._id;
-	var name = cookies.name;
-	var email = cookies.email;
-	var user = null;
+	var user = user_ctrl.getSessionUser(req);
 
 	if(!postid) {
 		return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Param postid required.');
@@ -313,12 +311,6 @@ exports.remove = function(req, res, next) {
 		}
 
 		if(!doc) return next(404);
-		// 暂时先不通过cookie拿数据
-		//if(id && name && email) {
-			//user = {_id: id, name: name, email: email, site: cookies.site}
-		//} else {
-			user = req.session.user || null;
-		//}
 		if(user && (user.admin || doc.author_id.toString() === user._id.toString())) {
 			/*Comment.findByIdAndRemove(doc._id, function(err, doc) {
 				if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');

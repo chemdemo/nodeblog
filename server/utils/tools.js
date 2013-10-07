@@ -1,5 +1,6 @@
 var settings = require('../../settings');
 var rcodes = settings.RCODES;
+var crypto = require('crypto');
 
 /**
  * 让日期和时间按照指定的格式显示的方法

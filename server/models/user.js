@@ -13,7 +13,7 @@ var UserSchema = new Schema({
 	, pass: String
 	, avatar: String// 允许自定义头像
 	, site: String
-	, admin: {type: Boolean, default: false}
+	//, admin: {type: Boolean, default: false}
 	, create_at: {type: Date, default: Date.now}
 	, modify_at: {type: Date, default: Date.now}
 }, {collection: 'user'});

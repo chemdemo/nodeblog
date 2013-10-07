@@ -3,9 +3,9 @@ var tools = require('../utils/tools');
 
 var user_ctrl = require('./user');
 
+// 关闭注册接口
 exports.signup = function(req, res, next) {
-	if(req.session.user) return res.redirect('/login');
-
+	//if(user_ctrl.getSessionUser(req)) return res.redirect('/');
 	if(req.method === 'POST') {
 		var admin = settings.ADMIN;
 		var info = {
@@ -19,22 +19,21 @@ exports.signup = function(req, res, next) {
 		info = user_ctrl.infoCheck(info);
 		if(info.error) return res.render('signup', info);
 
-		// dangerous!!
-		// if(info.email === admin.EMAIL) {
-		// 	info.pass = admin.PASS;
-		// 	//info.site = admin.SITE;
-		// }
+		// dangerous
+		if(info.email === admin.EMAIL) {
+			info.pass = admin.PASS;
+		}
 
-		user_ctrl.findOne({name: info.name, email: info.email}, function(err, doc) {
+		info.pass = user_ctrl.md5(info.pass);
+
+		user_ctrl.findOne({name: info.name, email: info.email, pass: info.pass}, function(err, doc) {
 			if(err) return next(err);
 
 			if(!doc) {// add a user
 				user_ctrl.addOne(info, function(err, doc) {
 					if(err) return next(err);
-					//doc.isAdmin = user_ctrl.adminCheck(doc);
-					delete doc.pass;
-					user_ctrl.setCookie(res, doc);
-					req.session.user = doc;
+					//delete doc.pass;
+					user_ctrl.genSessionUser(res, doc);
 					res.render('info', doc);
 				});
 			} else {
@@ -43,7 +42,7 @@ exports.signup = function(req, res, next) {
 			}
 		});
 	} else {
-		res.render('signup', {});
+		res.render('signup', user_ctrl.getSessionUser(req) || {});
 	}
 }
 
@@ -51,62 +50,55 @@ exports.login = function(req, res, next) {
 	//console.log('user: ', req.session.user);
 	if(req.method === 'POST') {
 		var info = {};
-		//info.name = req.body.name;
+		info.name = req.body.name;
 		info.email = req.body.email;
 		info.pass = req.body.pass;
-		//info.site = req.body.site;
 
 		//info = user_ctrl.infoCheck(info);
 		//if(info.error) return res.render('login', {error: info.error});
 		if(!info.email || !info.pass) {
-			return res.render('login', {
-				email: info.email || '', 
-				error: 'Param email and pass requird.'
-			});
+			info.error = '参数缺失！';
+			return res.render('login', info);
 		}
 
-		user_ctrl.findOne({email: info.email}, function(err, doc) {
+		user_ctrl.findOne({
+			name: info.name
+			, email: info.email
+			, pass: user_ctrl.md5(info.pass)
+		}, function(err, doc) {
 			if(err) return next(err);
 			if(!doc) {
-				res.render('login', {email: info.email, error: 'This email is not registered.'});
+				info.error = '此用户不存在！';
+				res.render('login', info);
 			} else {
 				if(user_ctrl.md5(info.pass) === doc.pass) {
-					user_ctrl.setCookie(res, doc);
-					req.session.user = doc;
+					user_ctrl.genSessionUser(res, doc);
 					res.render('info', doc);
 					//tools.jsonReturn(res, 'SUCCESS', 0);
 				} else {
-					res.render('login', {
-						email: info.email, 
-						error: 'Wrong user name or password.'
-					});
+					info.error = '登陆信息错误！';
+					res.render('login', info);
 				}
 			}
 		});
 	} else {
-		res.render('login', req.session.user);
+		res.render('login', user_ctrl.getSessionUser(req));
 	}
 }
 
 exports.logout = function(req, res, next) {
-	req.session.destroy();
-	res.clearCookie('_id');
-	res.clearCookie('name');
-	res.clearCookie('email');
-	res.clearCookie('site');
-	res.clearCookie('avatar');
-	//req.session.user = null;
+	//req.session.destroy();
+	req.session.user = null;
+	res.clearCookie(settings.COOKIE_KEY, { path: '/' });
 	if(req.xhr) {
 		tools.jsonReturn(res, 'SUCCESS', 0);
 	} else {
-		res.redirect('/login');
+		res.redirect('/');
 	}
 }
 
 exports.info = function(req, res, next) {
-	var user = req.session.user || null;
-	if(user && !user.avatar) user.avatar = user_ctrl.genAvatar(user.email);
-	res.render('info', user);
+	res.render('info', user_ctrl.getSessionUser(req));
 }
 
 // 百度的social login没法解决登陆成功后跳转回原页面的问题（无法拿到referer），暂不接入
@@ -145,7 +137,7 @@ exports.info = function(req, res, next) {
 }*/
 
 exports.loginCheck = function(req, res, next) {//console.log(req.session)
-	if(!req.session.user) {
+	if(!user_ctrl.getSessionUser(req)) {
 		if(req.xhr) {
 			return tools.jsonReturn(res, 'AUTH_ERROR', null, 'Need login!');
 		}
@@ -155,15 +147,16 @@ exports.loginCheck = function(req, res, next) {//console.log(req.session)
 }
 
 exports.adminCheck = function(req, res, next) {
-	var user = req.session.user;
+	var user = user_ctrl.getSessionUser(req);
 
-	if(user.admin/* && user_ctrl.adminCheck(user)*/) {
+	if(user.admin) {
 		next();
 	} else {
 		if(req.xhr) {
 			tools.jsonReturn(res, 'AUTH_ERROR', null, 'Admin should login first.');
 		} else {
 			res.send(403, 'Admin should login first.');
+			//res.redirect('/login');
 		}
 	}
 }

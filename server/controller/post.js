@@ -38,7 +38,7 @@ function findAPost(postid, fields, callback) {
 		}).fail(callback);
 
 		if(fields.indexOf('author_id') > -1) {
-			user_ctrl.findById(doc.author_id, 'name email site admin', function(_err, _doc) {
+			user_ctrl.findById(doc.author_id, 'name email site', function(_err, _doc) {
 				if(_err || !_doc) return proxy.emit('error', _err);
 				_doc = _doc.toObject();
 				_doc.avatar = _doc.avatar || user_ctrl.genAvatar(_doc.email);
@@ -50,7 +50,7 @@ function findAPost(postid, fields, callback) {
 		}
 		
 		if(fields.indexOf('last_comment_by') > -1 && doc.last_comment_by) {
-			user_ctrl.findById(doc.last_comment_by, 'name email site admin', function(_err, _doc) {
+			user_ctrl.findById(doc.last_comment_by, 'name email site', function(_err, _doc) {
 				if(_err || !_doc) return proxy.emit('error', _err);
 				_doc = _doc.toObject();
 				_doc.avatar = _doc.avatar || user_ctrl.genAvatar(_doc.email);
@@ -201,7 +201,7 @@ function findCounts(conditions, callback) {
 }
 
 exports.edit = function(req, res, next) {// get
-	var user = req.session.user;
+	//var user = user_ctrl.getSessionUser(req);
 	var postid = req.params.postid;
 	
 	if(postid) {
@@ -253,7 +253,7 @@ function _extend(doc, data) {
 }
 
 exports.create = function(req, res, next) {
-	var user = req.session.user;
+	var user = user_ctrl.getSessionUser(req);
 	var fields = ['title', 'content', 'cover', 'summary', 'tags', 'topped'];
 	var data = JSON.parse(req.body.data || null) || {};
 	var post;
@@ -288,14 +288,14 @@ exports.create = function(req, res, next) {
 		res.contentType('application/json');
 		res.header('Content-Length', data.length);
 		res.end(data);*/
-		console.log(doc._id)
+		//console.log(doc._id)
 		tools.jsonReturn(res, 'SUCCESS', doc._id);
 		countMonthy(function(err) {if(err) console.log('Count posts error.', err);});
 	});
 }
 
 exports.update = function(req, res, next) {
-	var postid = req.body.postid || req.params.postid;
+	var postid = req.params.postid;
 	var fields = ['title', 'content', 'cover', 'summary', 'tags', 'topped'];
 	var update = JSON.parse(req.body.update || null);
 
@@ -359,7 +359,7 @@ exports.update = function(req, res, next) {
 }
 
 exports.remove = function(req, res, next) {
-	var user = req.session.user;
+	var user = user_ctrl.getSessionUser(req);
 	var postid = req.body.postid || req.params.postid;
 	var fields = 'tags comments';
 
@@ -402,14 +402,9 @@ exports.remove = function(req, res, next) {
 	});
 }
 
-exports.show = function(req, res, next) {//console.log(req.session)
-	var cookies = req.cookies;
-	var id = cookies._id;
-	var name = cookies.name;
-	var email = cookies.email;
-	var user = null;
-	var sUser;
+exports.show = function(req, res, next) {//console.log('session show: ', req.session.user)
 	var postid = req.params.postid;
+	var user = user_ctrl.getSessionUser(req);
 
 	if(!postid) return next();
 
@@ -417,9 +412,6 @@ exports.show = function(req, res, next) {//console.log(req.session)
 	
 	//findAPost
 	var proxy = EventProxy.create('post', 'tags', 'counts', 'prev', 'next', function(post, tags, counts, prev, next) {
-		// 需要优化，先从cookie拿数据
-		user = req.session.user || null;
-		if(user) delete user.pass;
 		res.render('post', {
 			post: post
 			, tags: tags
@@ -518,7 +510,7 @@ exports.getPostContent = function(req, res) {// for ajax
 
 exports.showByPage = function(req, res, next) {
 	// page从0开始
-	var page = (req.query.page-0) || 0;
+	var page = (req.query.page - 0) || 0;
 	fetchByPage(page*itemLimit, itemLimit, function(err, r) {
 		if(err) return tools.jsonReturn(res, 'DB_ERROR', '', err);
 		tools.jsonReturn(res, 'SUCCESS', r);
@@ -547,8 +539,8 @@ exports.counts = function(req, res, next) {
 		postids = doc[0].value.split('$');//console.log(postids)
 		fetchPosts(postids, fields, function(err, doc) {
 			if(err) return next(err);
-			user = req.session.user || null;
-			if(user) delete user.pass;
+			user = user_ctrl.getSessionUser(req);
+			res.locals.user = user;
 			res.render('list', {posts: doc, page_title: pageTitle, user: user});
 		});
 	});
@@ -570,8 +562,8 @@ exports.search = function(req, res, next) {
 			if(!doc.length) return res.render('list', {posts: [], page_title: pageTitle});
 			fetchPosts(_.filter(doc, function(item) {return item._id}), fields, function(err, doc) {
 				if(err) return next(err);
-				user = req.session.user || null;
-				if(user) delete user.pass;
+				user = user_ctrl.getSessionUser(req);
+				res.locals.user = user;
 				res.render('list', {posts: doc, page_title: pageTitle, user: user});
 			});
 		});
