@@ -71,9 +71,6 @@ function adminCheck(user) {
 }
 
 function findOne(query, callback) {
-	if(query.pass) {
-		query.pass = md5(query.pass);
-	}
 	User.findOne(query, callback);
 }
 
@@ -97,24 +94,58 @@ function addOne(info, callback) {
 	user.site = info.site;
 	user.avatar = info.avatar || genAvatar(user.email);
 	//user.admin = (info.email === admin.EMAIL && user.pass === md5(admin.PASS));
-	user.admin = adminCheck(user);
+	//user.admin = adminCheck(user);//动态设置admin更灵活
 	user.save(callback);
 }
 
-function setCookie(res, user) {
-	res.cookie('_id', user._id);
-	res.cookie('name', user.name);
-	res.cookie('email', user.email);
-	res.cookie('site', user.site);
-	res.cookie('avatar', user.avatar);
+function encrypt(str, secret) {
+	var cipher = crypto.createCipher('aes192', secret || settings.SESSION_SECRET);
+	var enc = cipher.update(str, 'utf8', 'hex');
+	enc += cipher.final('hex');
+	return enc;
+}
+
+function decrypt(str, secret) {
+	var decipher = crypto.createDecipher('aes192', secret || settings.SESSION_SECRET);
+	var dec = decipher.update(str, 'hex', 'utf8');
+	dec += decipher.final('utf8');
+	return dec;
+}
+
+function genSessionUser(res, user) {
+	var authToken = encrypt([user._id, user.name, user.email, user.pass, user.avatar, user.site].join('\t'));
+	//req.session.user = user;// 不依赖session得了
+	res.cookie(settings.COOKIE_KEY, authToken, {/*domain: '.dmfeel.com', */path: '/', maxAge: 3*settings.EXPIRES}); //cookie 有效期90天
+}
+
+function getSessionUser(req) {
+	var cookie = req.cookies[settings.COOKIE_KEY];
+	var r = null;
+	//console.log('session: ', user)
+	if(cookie) {
+		var authToken = decrypt(cookie);
+		var auth = authToken.split('\t');
+		r = {
+			_id: auth[0],
+			name: auth[1],
+			email: auth[2],
+			pass: auth[3],
+			avatar: auth[4],
+			site: auth[5]
+		};
+		//console.log('cookies: ', r);
+	}
+	if(r) r.admin = adminCheck(r);
+	return r;
 }
 
 exports.md5 = md5;
 exports.genAvatar = genAvatar;
-exports.setCookie = setCookie;
 exports.infoCheck = infoCheck;
 exports.findById = findById;
 exports.findByIdAndUpdate = findByIdAndUpdate;
 exports.addOne = addOne;
 exports.findOne = findOne;
 // exports.adminCheck = adminCheck;
+exports.genSessionUser = genSessionUser;
+exports.getSessionUser = getSessionUser;

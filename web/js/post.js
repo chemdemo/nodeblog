@@ -79,7 +79,7 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
 
 			$.ajax({
 				url: '/comment/add/' + postId,
-				method: 'PUT',
+				method: 'POST',
 				data: {
 					user: user || {name: name, email: email, site: site},
 					_csrf: csrf,

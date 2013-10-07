@@ -3,7 +3,7 @@
  */
 var settings = require('../../settings');
 var controller = require('../controller');
-//var user = controller.user;
+var user = controller.user;
 var sign = controller.sign;
 var post = controller.post;
 var tag = controller.tag;
@@ -12,13 +12,10 @@ var comment = controller.comment;
 var EventProxy = require('eventproxy');
 
 function home(req, res, next) {
-	//console.log('session: ', req.session);
-	//console.log('cookie: ', req.cookies);
 	var proxy = EventProxy.create('posts', 'tags', 'counts', function(posts, tags, counts) {
-		var sUser = req.session.user;
-		var user = {admin: sUser ? sUser.admin : false};
+		var sUser = user.getSessionUser(req) || {};
 		res.render('index', {
-			user: user,
+			user: {admin: !!sUser.admin},
 			posts: posts,
 			tags: tags,
 			counts: counts,
@@ -62,16 +59,15 @@ function routes(app) {
 	
 	// post about
 	app.get('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.edit);
-	//app.post('/edit/:postid?', sign.loginCheck, sign.adminCheck, post.save);// post.create
-	app.put('/post/create', sign.loginCheck, sign.adminCheck, post.create);
-	app.post('/post/update/:postid?', sign.loginCheck, sign.adminCheck, post.update);
+	app.post('/post/create', sign.loginCheck, sign.adminCheck, post.create);
+	app.put('/post/update/:postid', sign.loginCheck, sign.adminCheck, post.update);
 	app.delete('/post/delete/:postid', sign.loginCheck, sign.adminCheck, post.remove);
 	app.get('/post/:postid', post.show);
 	app.get('/post/content/:postid?', post.getPostContent);
 
 	// comment about
 	app.get('/comment/:postid?', comment.findAllByPostId);
-	app.put('/comment/add/:postid?', comment.add);
+	app.post('/comment/add/:postid?', comment.add);
 	app.delete('/comment/delete/:commentid?', /*sign.loginCheck, */comment.remove);
 
 	// tag about
