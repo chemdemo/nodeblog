@@ -111,7 +111,7 @@ function fetchByPage(start, offset, callback) {
 						console.log('Build summary error: ', _err);
 					}
 					cb(null, item);
-				});
+				}, false);
 			}, callback);
 		});
 }
@@ -500,7 +500,7 @@ exports.getPostContent = function(req, res) {// for ajax
 					console.log('Build html error, err: ', err);
 				}
 				tools.jsonReturn(res, 'SUCCESS', doc.content);
-			});
+			}, false);// 不过滤html标签
 		}
 		if('markdown' === type) {
 			tools.jsonReturn(res, 'SUCCESS', doc);

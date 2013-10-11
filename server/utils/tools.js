@@ -52,19 +52,22 @@ function prezero(n) {
 var marked = require('marked');
 var hljs = require('highlight.js');
 
-exports.marked = function(val, callback) {
+exports.marked = function(val, callback, sanitize) {
 	marked(val, {
+		//gfm: true,
 		highlight: function (code, lang) {
 			if(lang) {
 				return hljs.highlight(lang, code).value;
 			}
 			return hljs.highlightAuto(code).value;
 		},
-		//autoescape: true,
+		//tables: true,
 		//breaks: false,
-		pedantic: false,
-		sanitize: false,
-		smartypants: true
+		//pedantic: false,
+		//smartypants: true,
+		//langPrefix: 'lang-',
+		smartypants: true,// default is false
+		sanitize: undefined !== sanitize ? sanitize : true // default is false
 	}, callback);
 }
 

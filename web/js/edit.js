@@ -8,9 +8,9 @@ require.config({
 	paths: {
 		'jquery': '../lib/jquery/jquery',
 		'ace': '../lib/ace',
-        'marked': '../lib/marked/marked',
-        'hljs': '../lib/highlight.js/highlight.pack',
-        'underscore': '../lib/underscore/underscore',
+		'marked': '../lib/marked/marked',
+		'hljs': '../lib/highlight.js/highlight.pack',
+		'underscore': '../lib/underscore/underscore',
 		'utils': 'utils',
 		'themes': 'themes'
 	},

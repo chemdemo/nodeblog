@@ -193,6 +193,8 @@ exports.add = function(req, res, next) {//console.log('session commit: ', req.se
 		proxy.emit('error', msg);
 	};
 
+	//content = sanitize(content).xss();// xss filter
+
 	if(!user) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'User info missing.');
 	if(!content) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Comment content null.');
 	
