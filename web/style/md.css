@@ -118,28 +118,30 @@
 	margin-bottom:0px
 }
 .md table {
-	width:100%;
-	overflow:auto;
-	display:block
+	width: 100%;
+	overflow: auto;
+	display: block;
 }
 .md table th {
-	font-weight:bold
+	font-weight: bold;
 }
 .md table th,.md table td {
-	border:1px solid #ddd;
-	padding:6px 13px
+	border: 1px solid #DDD;
+	padding: 5px 10px；
 }
 .md table tr {
-	border-top:1px solid #ccc;
-	background-color:#fff
+	/*border-top:1px solid #EEE;*/
+	background-color: #FFF;
 }
 .md table tr:nth-child(2n) {
-	background-color:#f8f8f8
+	/*background-color: #f8f8f8;*/
+	background-color: transparent;
 }
 .md img {
-	max-width:100%;
-	-moz-box-sizing:border-box;
-	box-sizing:border-box
+	max-width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 1px solid #EEE;
 }
 .md span.frame {
 	display:block;
