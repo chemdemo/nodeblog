@@ -114,8 +114,7 @@ function decrypt(str, secret) {
 
 function genSessionUser(res, user) {
 	var authToken = encrypt([user._id, user.name, user.email, user.pass, user.avatar, user.site].join('\t'));
-	//req.session.user = user;// 不依赖session得了
-	res.cookie(settings.COOKIE_KEY, authToken, {/*domain: '.dmfeel.com', */path: '/', maxAge: 3*settings.EXPIRES}); //cookie 有效期90天
+	res.cookie(settings.COOKIE_KEY, authToken, {domain: '.dmfeel.com', /*path: '/', */maxAge: 3*settings.EXPIRES, httpOnly: true}); //cookie 有效期90天
 }
 
 function getSessionUser(req) {
