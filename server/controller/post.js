@@ -187,6 +187,10 @@ function findCounts(conditions, callback) {
 						db.close();
 					} else {
 						conn.find(conditions).toArray(function(err, doc) {
+							//console.log(doc);
+							doc.sort(function(a, b) {
+								return new Date(b._id).getTime() - new Date(a._id).getTime();
+							});
 							callback(err, doc);
 							db.close();
 						});
