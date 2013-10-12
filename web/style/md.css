@@ -125,13 +125,14 @@
 .md table th {
 	font-weight: bold;
 }
-.md table th,.md table td {
+.md table th,
+.md table td {
 	border: 1px solid #DDD;
-	padding: 5px 10px；
+	padding: 5px 10px;
 }
 .md table tr {
 	/*border-top:1px solid #EEE;*/
-	background-color: #FFF;
+	background-color: #EEE;
 }
 .md table tr:nth-child(2n) {
 	/*background-color: #f8f8f8;*/
