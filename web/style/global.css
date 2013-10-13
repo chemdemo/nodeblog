@@ -49,7 +49,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
 pre, code {
-	font-family: /*Monaco, 'PT Mono', */Consolas, 'Lucida Console', monospace;
+	font-family: Monaco, Consolas, 'Lucida Console', monospace;
 }
 /*pre ::selection,
 code ::selection {
