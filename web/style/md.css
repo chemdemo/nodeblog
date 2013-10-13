@@ -239,6 +239,7 @@
 	/*border: 1px solid #EEE;*/
 	background-color: #f0f7fd;
 	border: 1px solid #d0e3f0;
+	border-width: 1px 1px 1px 6px;
 	display: block;
 }
 .md pre .comment {
