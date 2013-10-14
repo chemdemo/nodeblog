@@ -1,11 +1,33 @@
-{% extends 'layout.html' %}
-
-{% block stylesheet %}
-<style type="text/css">body {background-color: #f6f4ec;}</style>
-{% endblock %}
-
-{% block content %}
-<h2 style="text-align: center; line-height: 12em; color: red; font-size: 3em;">
-	{{ error|default('Server error.') }}
-</h2>
-{% endblock %}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <title>500 server error</title>
+    <style type="text/css">
+    	body * {
+    		text-align: center;
+    		font-family: 'Microsoft Yahei', Tahoma;
+    		color: #999;
+    	}
+    	h2 {
+    		margin-top: 300px;
+    		font-size: 2em;
+    	}
+    	p {
+    		margin-top: 30px;
+    	}
+    	a {
+    		text-decoration: none;
+    		color: #33B5E5;
+    	}
+    	a:hover {
+    		text-decoration: underline;
+    	}
+    </style>
+</head>
+<body>
+    <h2>不好，后台发生了一个错误！</h2>
+    <p>返回<a href="/">首页</a>？</p>
+</body>
+</html>
