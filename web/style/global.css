@@ -251,7 +251,7 @@ header {
 	/*background-color: #404040;*/
 	/*background-color: #323232;*/
 	/*background-color: rgba(32,32,32,0.9);*/
-	background-color: rgba(255, 255, 255, 0.85);
+	background-color: rgba(251, 255, 249, 0.87);
 	border-top: 1px solid #33B5E5;
 	border-bottom: 1px solid rgba(0,0,0,0.05);
 	/*background-color: rgba(255, 255, 255, 0.9);
@@ -320,14 +320,12 @@ header nav a:hover {
 }
 .search-wrap {
 	background-color: #FFF;
-	border: 1px solid #DDD;
+	border: 1px solid #EEE;
 	padding: 2px 10px;
 	width: 170px;
 	display: inline-block;
 	text-align: left;
-	box-shadow: 0 2px 2px #f0f0f0 inset;
-	height: 25px;
-	line-height: 25px;
+	box-shadow: 0 1px 2px #f0f0f0 inset;
 }
 .search-wrap label {
 	cursor: pointer;
@@ -339,11 +337,12 @@ header nav a:hover {
 	outline: none;
 	width: 153px;
 	text-align: left;
+	line-height: 17px;
 }
 
 /* page body set */
 .page-body {
-	width: 960px;
+	width: 950px;
 	margin: 8em auto 0;
 	/*padding: 8em 0 0 1.5em;*/
 	/*background-color: #FFF;*/
@@ -352,7 +351,7 @@ header nav a:hover {
 	min-height: 500px;
 }
 .page-content {
-	width: 70%;
+	width: 75%;
 	float: left;
 	/*margin-right: 250px;*/
 	/*margin-right: 40px;
@@ -380,7 +379,7 @@ header nav a:hover {
 	*zoom: 1;*/
 	color: #888;
 	position: fixed;
-	right: 16%;
+	right: 15.8%;
 }
 .page-sitebar a {
 	/*color: #0F789E;*/

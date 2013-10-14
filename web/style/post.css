@@ -1,9 +1,9 @@
 /*@import url(global.css);
 @import url(web_font_icon.css);*/
-
 .post {
 	/*padding: 2em 2em 1em;*/
 	font-family: 'Segoe UI', Helvetica, Tahoma, sans-serif;
+	text-align: justify;
 }
 .post-title {
 	font-size: 1.8em;
@@ -14,7 +14,7 @@
 .edit-info {
 	padding: 0;
 	border-bottom: 1px dashed #EEE;
-	margin: 0 2em 2em 0;
+	margin-bottom: 2em;
 }
 .post-top {
 	color: #888;

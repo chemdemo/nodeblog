@@ -27,6 +27,9 @@
 	background-color: #EEE;
 	border-color: #33B5E5;
 }
+.post-summary {
+	text-align: justify;
+}
 .post-cover {
 	text-align: center;
 	overflow: hidden;
