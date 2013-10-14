@@ -297,11 +297,11 @@ header nav a {
 	display: inline-block;
 	padding: 0 1em;
 	margin-right: -3px;
-	border-top: 1px solid transparent;
+	/*border-top: 1px solid transparent;*/
 }
 header nav a.active,
 header nav a:hover {
-	background-color: #3D3D3D;
+	/*background-color: #3D3D3D;*/
 	/*color: #33C5EC;*/
 	border-color: #33B5E5;
 	text-decoration: none;
