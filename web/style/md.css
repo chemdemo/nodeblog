@@ -238,10 +238,12 @@
 	/*background-color: #555;*/
 	/*background-color: #f0f7fd;*/
 	/*background-color: #F2FEFF;*/
-	background-color: #F4F9FA;
+	/*background-color: #F4F9FA;*/
+	background-color: #F0F0F0;
 	/*border: 1px solid #d0e3f0;*/
 	/*border: 1px solid #EEE;*/
-	border: 1px solid #D7E3EC;
+	/*border: 1px solid #D7E3EC;*/
+	border: 1px solid #DDD;
 	border-width: 0px 0px 0px 3px;
 	display: block;
 }
