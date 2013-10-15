@@ -248,8 +248,7 @@
 	display: block;
 }
 .md pre .comment {
-	/*color: #888;*/
-	color: #009C1F;
+	color: #999;
 }
 .md code {
 	white-space: nowrap
@@ -260,7 +259,7 @@
 	background-color: transparent;
 	border: none;
 	/*color: #EEE;*/
-	color: #555;
+	color: #222;
 }
 .md pre > code {
 	margin:0;

@@ -38,8 +38,7 @@ pre .symbol,
 pre .symbol .string,
 pre .value,
 pre .regexp {
-  /*color: #BF79DB;*/
-	color: #B2A7A7;
+  color: #BF79DB;
 }
 
 pre .tag .value,
