@@ -238,18 +238,16 @@
 	/*background-color: #555;*/
 	/*background-color: #f0f7fd;*/
 	/*background-color: #F2FEFF;*/
-	/*background-color: #F4F9FA;*/
-	background-color: #F0F0F0;
+	/*background-color: #F0F0F0;*/
+	background-color: #F4F9FA;
 	/*border: 1px solid #d0e3f0;*/
-	/*border: 1px solid #EEE;*/
-	/*border: 1px solid #D7E3EC;*/
-	border: 1px solid #DDD;
-	border-width: 0px 0px 0px 3px;
+	/*border: 1px solid #DDD;*/
+	border: 1px solid #D7E3EC;
+	border-width: 1px 1px 1px 5px;
 	display: block;
 }
 .md pre .comment {
-	/*color: #888;*/
-	color: #009C1F;
+	color: #999;
 }
 .md code {
 	white-space: nowrap
@@ -260,7 +258,7 @@
 	background-color: transparent;
 	border: none;
 	/*color: #EEE;*/
-	color: #555;
+	color: #222;
 }
 .md pre > code {
 	margin:0;
