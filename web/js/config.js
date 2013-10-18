@@ -16,6 +16,9 @@ require.config({
 	shim: {
 		'underscore': {
 			'exports': '_'
+		},
+		{
+			'hljs': 'hljs'
 		}
 	}
 });
