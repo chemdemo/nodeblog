@@ -85,7 +85,7 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
 					_csrf: csrf,
 					reply_comment_id: $('#reply-comment-id').val(),
 					at_user_id: $('#at-user-id').val(),
-					content: content
+					content: content.slice(0, 300)
 				},
 				success: function(r) {
 					//console.log(r)
