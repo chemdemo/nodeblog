@@ -4,12 +4,12 @@
 {% if (env && env === 'production') %}
 <link rel="stylesheet" href="/build/style/index.min.css" />
 {% else %}
-<link rel="stylesheet" href="/style/icons.css" />
-<link rel="stylesheet" href="/style/md.css" />
-<link rel="stylesheet" href="/style/global.css" />
-<link rel="stylesheet" href="/style/index.css" />
+<link rel="stylesheet" href="/src/style/icons.css" />
+<link rel="stylesheet" href="/src/style/md.css" />
+<link rel="stylesheet" href="/src/style/global.css" />
+<link rel="stylesheet" href="/src/style/index.css" />
+<link id="code-theme" rel="stylesheet" href="/src/bower-libs/highlightjs/styles/monokai.css" />
 {% endif %}
-<link id="code-theme" rel="stylesheet" href="/lib/highlight.js/styles/monokai.css" />
 {% endblock %}
 
 {% block content %}
@@ -69,10 +69,8 @@
 
 {% block script %}
 {% if (env && env === 'production') %}
-<script data-main="/build/js/index" src="/build/js/require.min.js"></script>
+<script data-main="/build/js/index" src="/require.min.js"></script>
 {% else %}
-<script src="/lib/require/require.js"></script>
-<script src="/js/config.js"></script>
-<script src="/js/index.js"></script>
+<script data-main="/src/js/index" src="/require.min.js"></script>
 {% endif %}
 {% endblock %}

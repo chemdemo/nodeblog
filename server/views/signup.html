@@ -4,9 +4,9 @@
 {% if (env && env === 'production') %}
 <link rel="stylesheet" href="/build/style/user.min.css" />
 {% else %}
-<link rel="stylesheet" href="/style/icons.css" />
-<link rel="stylesheet" href="/style/global.css" />
-<link rel="stylesheet" href="/style/user.css" />
+<link rel="stylesheet" href="/src/style/icons.css" />
+<link rel="stylesheet" href="/src/style/global.css" />
+<link rel="stylesheet" href="/src/style/user.css" />
 {% endif %}
 {% endblock %}
 
@@ -42,10 +42,8 @@
 
 {% block script %}
 {% if (env && env === 'production') %}
-<script data-main="/build/js/user" src="/build/js/require.min.js"></script>
+<script data-main="/build/js/user" src="/require.min.js"></script>
 {% else %}
-<script src="/lib/require/require.js"></script>
-<script src="/js/config.js"></script>
-<script src="/js/user.js"></script>
+<script data-main="/src/js/user" src="/require.min.js"></script>
 {% endif %}
 {% endblock %}
