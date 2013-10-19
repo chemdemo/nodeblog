@@ -58,8 +58,10 @@
 <script type="text/javascript">
 var require = {};
 {% if (env && env === 'production') %}
-require.baseDir = '/build';
-require.urlArgs = '_t=' + (new Date()).getTime();
+require = {
+    baseDir: '/build',
+    urlArgs: '_t=v_{{ VERSION }}'
+}
 {% else %}
 require = {
     baseDir: '/src',
@@ -68,7 +70,7 @@ require = {
     packages: [
         {
             name: 'ace',
-            location: '../../src/bower-libs/ace/lib/ace',
+            location: '../../src/js/ace',
             main: 'ace'
         },
         {
@@ -85,9 +87,7 @@ require = {
         'text': '../bower-libs/require/text',
         'utils': 'utils',
         'common': 'common',
-        'themes': 'themes',
-        //'markdown': 'mode-markdown',
-        //'crimson_editor': 'theme-crimson_editor'
+        'themes': 'themes'
     },
     shim: {
         underscore: {

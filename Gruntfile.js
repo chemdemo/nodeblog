@@ -42,8 +42,7 @@ module.exports = function(grunt) {
                     appDir: '<%= path.dev %>/js',
                     baseUrl: '../../',
                     dir: '<%= path.build %>/js',
-                    //optimize: 'uglify',
-                    optimize: 'none',
+                    optimize: 'uglify',
                     mainConfigFile: '<%= path.dev %>/main.js',
                     //locale: 'en-us',
                     modules: [
@@ -54,8 +53,8 @@ module.exports = function(grunt) {
                             name: 'build/js/post'
                         },
                         {
-                            name: 'build/js/edit',
-                            exclude: ['src/js/libs/ace/ace']
+                            name: 'build/js/edit'/*,
+                            exclude: ['src/js/ace/ace']*/
                         },
                         {
                             name: 'build/js/list'
@@ -182,7 +181,6 @@ module.exports = function(grunt) {
         if(!type) {
             grunt.task.run('default');
         } else {
-            grunt.log.writeln('Start to rebuild ' + type + ' module.');
             grunt.task.run('build-' + type);
         }
     });

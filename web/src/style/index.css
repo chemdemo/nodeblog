@@ -1,0 +1,75 @@
+/*@import url(global.css);
+@import url(web_font_icon.css);*/
+
+.post {
+	margin-bottom: 5em;
+	/*padding-top: 1em;*/
+}
+.post-title {
+	/*margin: .5em 2em 1.5em;*/
+	line-height: 1.5em;
+	border-left: 3px solid #DDD;
+	background-color: transparent;
+	/*display: inline-block;*/
+	font-size: 1.5em;
+	transition: all .5s;
+}
+.post-title a {
+	padding-right: 5px;
+}
+.post-title .topped,
+.post-title a {
+	margin-left: 5px;
+	text-decoration: none;
+}
+.post-title:hover {
+	/*background-color: #F8F8F8;*/
+	background-color: #EEE;
+	border-color: #33B5E5;
+}
+.post-summary {
+	text-align: justify;
+}
+.post-cover {
+	text-align: center;
+	overflow: hidden;
+}
+.post-cover img {
+	width: auto;
+	max-width: 100%;
+}
+.post-date {
+	margin-bottom: 1em;
+	/*border-bottom: 1px solid #EEE;*/
+}
+.post-more {
+	/*padding: 0 2em;*/
+	/*text-align: right;*/
+}
+.post-more a {
+	color: #888;
+}
+.post-more i {
+	color: #33B5E5;
+	color: #888;
+}
+.post-info {
+	margin-top: 1em;
+	color: #999;
+	/*background-color: #f8f8f8;*/
+	border-bottom: 1px solid #EEE;
+	/*padding: .5em 2em .5em;*/
+}
+.post-edit,
+.post-visite,
+.line,
+.post-comments {
+	float: right;
+	margin-left: .6em;
+}
+.post-summary p {
+	margin-bottom: 1em;
+}
+.post-summary p p {
+	margin-bottom: 0;
+}
