@@ -10,7 +10,8 @@
 /tmp
 /settings.js
 /see
-/web/covers
+/web/src/bower-libs
+/web/src/covers
 /web/build
 /web/edit.html
 /web/index.html
