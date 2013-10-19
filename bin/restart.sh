@@ -1,2 +1,2 @@
-[path of app]/bin/stop.sh
-[path of app]/bin/start.sh
+/data/sites/www.dmfeel.com/bin/stop.sh
+/data/sites/www.dmfeel.com/bin/start.sh
