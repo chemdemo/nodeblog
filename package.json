@@ -19,8 +19,7 @@
     "marked": "~0.2.9",
     "swig": "~1.0.0-rc1",
     "request": "~2.27.0",
-    "connect-redis": "~1.4.5",
-    "pm2": "~0.6.3"
+    "connect-redis": "~1.4.5"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
