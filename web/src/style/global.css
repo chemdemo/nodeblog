@@ -406,7 +406,7 @@ header nav a:hover {
 	cursor: pointer;
 	line-height: 16px;
 	padding-left: 18px;
-	background: transparent url(/style/images/social-icons.png) no-repeat 0 1px;
+	background: transparent url(images/social-icons.png) no-repeat 0 1px;
 	overflow: hidden;
 	transition: color .15s linear;
 }
