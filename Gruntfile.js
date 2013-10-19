@@ -74,15 +74,12 @@ module.exports = function(grunt) {
         },
 
         concat: {
-            options: {
-                separator: ';'
-            },
             dist: {
                 src: [
                     '<%= path.dev %>/style/icons.css',
                     '<%= path.dev %>/style/md.css',
                     '<%= path.dev %>/style/global.css',
-                    '<%= path.pub %>/libs/highlightjs/styles/monokai.css'
+                    '<%= path.dev %>/bower-libs/highlightjs/styles/monokai.css'
                 ],
                 dest: '<%= path.tmp %>/tmp-all.css'
             }

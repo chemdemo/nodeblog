@@ -2,7 +2,7 @@
 
 {% block stylesheet %}
 {% if (env && env === 'production') %}
-<link rel="stylesheet" href="/build/style/user.min.css?_t=v_{{ VERSION }}" />
+<link rel="stylesheet" href="/build/style/user.min.css?_t=v_%VERSION%" />
 {% else %}
 <link rel="stylesheet" href="/src/style/icons.css" />
 <link rel="stylesheet" href="/src/style/global.css" />
