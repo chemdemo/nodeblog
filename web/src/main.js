@@ -15,8 +15,6 @@ require.config({
     paths: {
         'jquery': 'src/bower-libs/jquery/jquery',
         'marked': 'src/bower-libs/marked/lib/marked',
-        //'mode/markdown': 'ace/mode/markdown',
-        //'theme/crimson_editor': 'ace/theme/crimson_editor',
         'hljs': 'src/bower-libs/highlightjs/highlight.pack',
         'underscore': 'src/bower-libs/underscore/underscore',
         'text': 'src/bower-libs/requirejs-text/text',
@@ -29,7 +27,7 @@ require.config({
             exports: '_'
         },
         hljs: {
-            'hljs': 'hljs'
+            exports: 'hljs'
         }
     }
 });

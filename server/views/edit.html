@@ -2,7 +2,7 @@
 
 {% block stylesheet %}
 {% if (env && env === 'production') %}
-<link rel="stylesheet" href="/build/style/edit.min.css?_t=v_%VERSION%" />
+<link rel="stylesheet" href="/build/style/edit.min.css?_t=%TIMESTAMP%" />
 {% else %}
 <link rel="stylesheet" href="/src/style/icons.css" />
 <link rel="stylesheet" href="/src/style/md.css" />

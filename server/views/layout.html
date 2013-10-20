@@ -38,7 +38,7 @@
             </form>
 
             <nav>
-                <a href="/" class="{% if home %}active{% endif %}" title="To home">Home</a>
+                <a href="/" class="{% if home %}active{% endif %}" title="To home page">Home</a>
                 <a href="http://dmfeel.lofter.com/" target="_blank" title="Thumbs on lofter">Loter</a>
                 <!-- <a href="/about" class="{% if about %}active{% endif %}" title="About blog">About</a> -->
             </nav>
@@ -60,7 +60,7 @@ var require = {};
 {% if (env && env === 'production') %}
 require = {
     baseDir: '/build',
-    urlArgs: '_t=v_{{ VERSION }}'
+    urlArgs: '_t=1382248007643'
 }
 {% else %}
 require = {
@@ -94,7 +94,7 @@ require = {
             exports: '_'
         },
         hljs: {
-            'hljs': 'hljs'
+            exports: 'hljs'
         }
     }
 };

@@ -141,6 +141,28 @@ module.exports = function(grunt) {
             }
         },
 
+        'string-replace': {
+            views: {
+                files: {
+                    'server/views/index.html': 'server/views/index.html',
+                    'server/views/info.html': 'server/views/info.html',
+                    'server/views/layout.html': 'server/views/layout.html',
+                    'server/views/list.html': 'server/views/list.html',
+                    'server/views/login.html': 'server/views/login.html',
+                    'server/views/post.html': 'server/views/post.html',
+                    'server/views/signup.html': 'server/views/signup.html'
+                },
+                options: {
+                    replacements: [
+                        {
+                            pattern: /(%TIMESTAMP%)/g,
+                            replacement: Date.now()
+                        }
+                    ]
+                }
+            }
+        },
+
         bump: {
             options: {
                 files: ['package.json', 'bower.json'],
@@ -188,6 +210,7 @@ module.exports = function(grunt) {
         grunt.task.run('build-css');
         grunt.task.run('build-images');
         grunt.task.run('build-fonts');
+        grunt.task.run('string-replace');
         grunt.task.run('bump-commit');
     });
 }
