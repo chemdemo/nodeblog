@@ -8,7 +8,7 @@ module.exports = {
 	, VERSION: '0.1.1'
 
 	, DB_HOST: '[DB_HOST]'
-	, DB_PORT: [DB_PORT]// default 27017
+	, DB_PORT: ['DB_PORT']// default 27017
 	, DB_NAME: '[DB_NAME]'
 	, DB_USER: '[DB_USER]'
 	, DB_PASS: '[DB_PASS]'
