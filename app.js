@@ -9,7 +9,6 @@ var express = require('express')
     , domain = require('domain')
     , swig = require('swig')
     , filters = require('./server/utils/filters')
-    , cons = require('consolidate')
     , connectDomain = require('connect-domain')
     //, MongoStore = require('connect-mongo')(express)
     , RedisStore = require('connect-redis')(express)
@@ -21,37 +20,12 @@ var express = require('express')
 
 var app = express();
 
-var swigOptions = {
-    allowErrors: true
-    , autoescape: true
-    , encoding: 'utf8'
-    , root: __dirname + '/server/views'
-    , tzOffset: 0
-    , filters: filters
-};
-
-app.configure('development', function() {
-    app.use(express.static(staticDir));
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    //app.set('view cache', false);
-    swigOptions.cache = 'memory';
-    swig.setDefaults(swigOptions);
-});
-
-app.configure('production', function() {
-    app.use(express.static(staticDir, {maxAge: maxAge}));
-    app.use(express.errorHandler());
-    app.set('view cache', false);
-    swig.setDefaults(swigOptions);
-});
-
 //app.configure(function() {
 app.set('port', process.env.PORT || settings.APP_PORT);
-//app.engine('html', swig.renderFile);
-app.engine('html', cons.swig);
+app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/server/views');
-app.set('view options', {layout: false});
+// app.set('view options', {layout: false});
 swig.setFilter('split', filters.split);
 swig.setFilter('length', filters.length);
 swig.setFilter('genLink', filters.genLink);
@@ -86,6 +60,18 @@ app.use('/upload/', express.static(settings.UPLOAD_DIR, {maxAge: maxAge}));
 app.use(app.router);
 app.use(connectDomain());
 //});
+
+app.configure('development', function() {
+    app.use(express.static(staticDir));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function() {
+    app.use(express.static(staticDir, {maxAge: maxAge}));
+    app.use(express.errorHandler());
+    app.set('view cache', false);
+    swig.setDefaults({ cache: false });
+});
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log("Application listening on port %s in %s mode, pid: %s.", app.get('port'), app.settings.env, process.pid);
