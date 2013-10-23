@@ -10,7 +10,7 @@
 
 * 数据库用的是MongoDB，原生的mongddb驱动不太好控制，故选用了封装ODM风格的mongoose，这样schema看起来清晰，同时mongoose操作db的接口也足够简单。
 
-* 部署选用[digitalocean](https://www.digitalocean.com/)提供的VPS，我选择的是CentOS 6.0 bit-64，使用nginx做node进程的反向代理，再使用Redis做session持久化存储。
+* 部署选用[digitalocean](https://www.digitalocean.com/)提供的VPS，我选择的是CentOS 6.0 bit-64，使用nginx做node进程的反向代理，再使用Redis做session持久化存储，采用pm2作node进程管理。
 
 ### 特点
 
@@ -22,32 +22,34 @@
 
 * **灵活构建**：因为使用Grunt构建项目，静态文件的压缩、合并、图片的压缩等工作实现自动化。后台模板吐页面片结合前台Ajax动态拉取、更新数据的方式作前端展现，基于Express提供REST风格的API作数据交换。
 
-### 主要依赖开源项目s
+### 主要依赖开源项目
 
-* **[NodeJS](http://nodejs.org/)**
+* [NodeJS](http://nodejs.org/)
 
-* **[MongoDB](http://www.mongodb.org/)**
+* [Bower](http://sindresorhus.com/bower-components/)
 
-* **[Mongoose](https://github.com/LearnBoost/mongoose)**
+* [MongoDB](http://www.mongodb.org/)
 
-* **[Expressjs](http://expressjs.com/)**
+* [Mongoose](https://github.com/LearnBoost/mongoose)
 
-* **[EventProxy](https://github.com/JacksonTian/eventproxy)**
+* [ExpressJS](http://expressjs.com/)
 
-* **[Async](https://github.com/caolan/async)**
+* [EventProxy](https://github.com/JacksonTian/eventproxy)
 
-* **[Underscore](https://github.com/jashkenas/underscore)**
+* [Async](https://github.com/caolan/async)
 
-* **[Grunt](https://github.com/gruntjs/grunt)**
+* [Underscore](https://github.com/jashkenas/underscore)
 
-* **[Requirejs](https://github.com/jrburke/requirejs)**
+* [Grunt](https://github.com/gruntjs/grunt)
 
-* **[Marked](https://github.com/chjj/marked)**
+* [Requirejs](https://github.com/jrburke/requirejs)
 
-* **[Swig](https://github.com/paularmstrong/swig)**
+* [Marked](https://github.com/chjj/marked)
 
-* **[jQuery](http://jquery.com/)**
+* [Swig](https://github.com/paularmstrong/swig)
 
-* **[Ace](https://github.com/ajaxorg/ace)**
+* [jQuery](http://jquery.com/)
 
-* **[IcoMoon](http://icomoon.io/app/)**
+* [Ace](https://github.com/ajaxorg/ace)
+
+* [IcoMoon](http://icomoon.io/app/)
