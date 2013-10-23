@@ -1,5 +1,14 @@
 /*@import url(global.css);
 @import url(web_font_icon.css);*/
+.page-body {
+	background-color: #EEE;
+	padding: 3px;
+}
+.page-inner {
+	background-color: #FFF;
+	border: 1px solid #DDD;
+	padding: 2em;
+}
 .post {
 	/*padding: 2em 2em 1em;*/
 	text-align: justify;

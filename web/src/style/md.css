@@ -238,12 +238,12 @@
 	/*background-color: #555;*/
 	/*background-color: #f0f7fd;*/
 	/*background-color: #F2FEFF;*/
-	/*background-color: #F0F0F0;*/
-	background-color: #F4F9FA;
+	background-color: #F0F0F0;
+	/*background-color: #F4F9FA;*/
 	/*border: 1px solid #d0e3f0;*/
-	/*border: 1px solid #DDD;*/
+	border: 1px solid #DDD;
 	border: 1px solid #D7E3EC;
-	border-width: 1px 1px 1px 5px;
+	border-width: 0px 0px 0px 3px;
 	display: block;
 }
 .md pre .comment {

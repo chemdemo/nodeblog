@@ -35,7 +35,7 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser(settings.COOKIE_SECRET));
-app.use(express.session({secret: settings.SESSION_SECRET})); // debug on win platform
+// app.use(express.session({secret: settings.SESSION_SECRET})); // debug on win platform
 app.use(express.session({
     store: new RedisStore({
         host: settings.APP_HOST,
