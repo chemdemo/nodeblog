@@ -26,7 +26,7 @@ require([
 	var editor = ace.edit('post-editor');
 	var session = editor.getSession();
 	editor.setShowPrintMargin(false);
-	editor.setHighlightActiveLine(false);
+	// editor.setHighlightActiveLine(false);
 	editor.setShowPrintMargin(false);
 	editor.setAutoScrollEditorIntoView();
 	session.setMode('ace/mode/markdown');
