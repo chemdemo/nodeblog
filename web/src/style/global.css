@@ -247,13 +247,15 @@ a:hover {
 /* header */
 header {
 	width: 100%;
-	height: 60px;
+	height: 40px;
 	/*background-color: #404040;*/
 	/*background-color: #323232;*/
 	/*background-color: rgba(32,32,32,0.9);*/
-	background-color: rgba(251, 255, 249, 0.87);
-	border-top: 1px solid #33B5E5;
-	border-bottom: 1px solid rgba(0,0,0,0.05);
+	/*background-color: rgba(251, 255, 249, 0.87);*/
+	background-color: rgba(44, 44, 44, 0.88);
+	/*border-top: 1px solid #33B5E5;*/
+	/*border-bottom: 1px solid rgba(0,0,0,0.05);*/
+	border-bottom: 3px solid #33B5E5;
 	/*background-color: rgba(255, 255, 255, 0.9);
 	box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);*/
 	position: fixed;
@@ -268,14 +270,16 @@ header {
 }
 .page-title {
 	float: left;
-	font-family: 'Segoe UI Semilight', Tahoma, sans-serif;
+	font-family: /*'Segoe UI Semilight',*/ Tahoma, SimSun, sans-serif;
+	line-height: 1;
 }
 header a {
 	color: #888;
-	line-height: 60px;
+	line-height: 40px;
 }
 header a.active {
-	color: #33C5EC;
+	/*color: #33C5EC;*/
+	color: #E2F9FF;
 }
 header h1 a {
 	font-size: 1.3em;
@@ -290,8 +294,9 @@ header .sub-title {
 	/*font-style: italic;*/
 }
 header nav {
-	float: right;
-	margin-right: 3em;
+	/*float: right;
+	margin-right: 3em;*/
+	margin-left: 12em;
 }
 header nav a {
 	display: inline-block;
@@ -302,43 +307,46 @@ header nav a {
 header nav a.active,
 header nav a:hover {
 	/*background-color: #3D3D3D;*/
+	background-color: #555;
 	/*color: #33C5EC;*/
-	border-color: #33B5E5;
+	color: #E2F9FF;
+	/*border-color: #33B5E5;*/
 	text-decoration: none;
-	background: -webkit-linear-gradient(top,rgba(51, 181, 229, 0.1),rgba(255, 255, 255, 0.1));
-	background: -moz-linear-gradient(top,rgba(51, 181, 229, 0.1),rgba(255, 255, 255, 0.1));
-	background: -o-linear-gradient(top,rgba(51, 181, 229, 0.1),rgba(255, 255, 255, 0.1));
-	background: -ms-linear-gradient(top,rgba(51, 181, 229, 0.1),rgba(255, 255, 255, 0.1));
 }
+
 .page-search {
 	float: right;
-	text-align: right;
-	/*background-color: rgba(241, 241, 241, .1);*/
-	/*background-color: #3D3D3D;*/
-	height: 100%;
-	padding: 14px 3px;
-}
-.search-wrap {
-	background-color: #FFF;
-	border: 1px solid #EEE;
-	padding: 2px 10px;
-	width: 170px;
-	display: inline-block;
-	text-align: left;
-	box-shadow: 0 1px 2px #f0f0f0 inset;
-}
-.search-wrap label {
-	cursor: pointer;
-	float: right;
 	margin-top: 7px;
+	position: relative;
+	height: 100%;
+	width: 190px;
+	overflow: hidden;
 }
-.search-wrap input {
-	border: none;
+.page-search .icon-search {
+	cursor: pointer;
+	position: absolute;
+	left: 5px;
+	top: 7px;
+	transition: all .2s linear;
+}
+.page-search .search-text {
 	outline: none;
-	width: 153px;
-	text-align: left;
-	line-height: 17px;
+	background-color: #EEE;
+	line-height: 18px;
+	height: 24px;
+	width: 100%;
+	padding-left: 20px;
+	color: #888;
+	transition: all .2s linear;
 }
+/*.page-search .search-text,
+.page-search.srarch-start .icon-search {
+	opacity: 0;
+}
+.page-search .icon-search,
+.page-search.srarch-start .search-text {
+	opacity: 1;
+}*/
 
 /* page body set */
 .page-body {
