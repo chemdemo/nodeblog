@@ -35,18 +35,14 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser(settings.COOKIE_SECRET));
+app.use(express.session({secret: settings.SESSION_SECRET})); // debug on win platform
 app.use(express.session({
     store: new RedisStore({
         host: settings.APP_HOST,
         port: settings.SESSION_PORT,
         db: 1
     })
-    /*store: new MongoStore({
-        db: settings.DB_NAME
-        , maxAge: maxAge
-    })*/
     , secret: settings.SESSION_SECRET
-    //, cookie: {maxAge: maxAge*3}//30*3 days
 }));
 app.use(express.csrf());
 app.use(function(req, res, next) {

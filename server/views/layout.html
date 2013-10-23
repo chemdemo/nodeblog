@@ -22,25 +22,24 @@
     {% block header %}
     <header>
         <div class="header-inner clearfix">
+            <form class="page-search" method="POST" action="/search">
+                <label id="icon-search" class="icon-search" for="search-text" title="搜索"></label>
+                <input type="hidden" name="_csrf" value="{{ token }}">
+                <!-- <div class="search-wrap clearfix"> -->
+                <input id="search-text" name="keyword" class="input search-text" placeholder="关键字" />
+                <!-- </div> -->
+            </form>
+
             <section class="page-title">
                 <h1>
-                    <a href="/" class="active">Net Notes</a>
+                    <a href="/" class="active">云端笔记</a>
                 </h1>
                 <!-- <p class="sub-title">聊聊技术，写写生活，人生当有所积累！</p> -->
             </section>
 
-            <form class="page-search clearfix" method="POST" action="/search">
-                <input type="hidden" name="_csrf" value="{{ token }}">
-                <div class="search-wrap clearfix">
-                    <label id="icon-search" class="icon-search" for="search-text" title="搜索"></label>
-                    <input id="search-text" name="keyword" class="search-text" placeholder="Input keyword" />
-                </div>
-            </form>
-
             <nav>
-                <a href="/" class="{% if home %}active{% endif %}" title="To home page">Home</a>
-                <a href="http://dmfeel.lofter.com/" target="_blank" title="Thumbs on lofter">Loter</a>
-                <!-- <a href="/about" class="{% if about %}active{% endif %}" title="About blog">About</a> -->
+                <a href="/" class="{% if home %}active{% endif %}" title="回主页">主页</a>
+                <a href="http://dmfeel.lofter.com/" target="_blank" title="Lofter相册">行行摄摄</a>
             </nav>
         </div>
     </header>
