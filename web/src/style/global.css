@@ -66,7 +66,7 @@ html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input, textarea
 	padding: 0;
 }
 body, input, button, textarea {
-	font: normal normal normal 13px/2 'Segoe UI Semilight', Helvetica, Tahoma, sans-serif;
+	font: normal normal normal 13px/2 /*'Segoe UI Semilight', Helvetica, */Tahoma, sans-serif;
 	color: #333;
 	text-rendering: optimizeLegibility;
 }
