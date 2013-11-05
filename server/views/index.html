@@ -5,10 +5,10 @@
 <link rel="stylesheet" href="/build/style/index.min.css?_t=1382248007643" />
 {% else %}
 <link rel="stylesheet" href="/src/style/icons.css" />
-<link rel="stylesheet" href="/src/style/md.css" />
 <link rel="stylesheet" href="/src/style/global.css" />
 <link rel="stylesheet" href="/src/style/index.css" />
 <link id="code-theme" rel="stylesheet" href="/src/bower-libs/highlightjs/styles/monokai.css" />
+<link rel="stylesheet" href="/src/style/md.css" />
 {% endif %}
 {% endblock %}
 
@@ -40,7 +40,7 @@
 				</span>
 				<span class="post-gap">/</span> -->
 				<span class="post-tags">
-					<i class="icon-tags" title="标签"></i> 标签: 
+					<i class="icon-tags" title="标签"></i> 标签:
 					{% for tag in post.tags %}
 					<a class="tag" href="/tag/{{ tag }}">{{ tag }}</a>
 					{% endfor %}

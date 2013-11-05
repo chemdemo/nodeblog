@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="/build/style/post.min.css?_t=1382248007643" />
 {% else %}
 <link rel="stylesheet" href="/src/style/icons.css" />
-<link rel="stylesheet" href="/src/style/md.css" />
 <link rel="stylesheet" href="/src/style/global.css" />
 <link rel="stylesheet" href="/src/style/post.css" />
 <link id="code-theme" rel="stylesheet" href="/src/bower-libs/highlightjs/styles/monokai.css" />
+<link rel="stylesheet" href="/src/style/md.css" />
 {% endif %}
 {% endblock %}
 
@@ -35,7 +35,7 @@
 					<i class="icon-alarm" title="最后编辑时间"></i>
 					<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s', -8*60) }}</span>
 				</span>
-				<span class="post-gap">/</span>by 
+				<span class="post-gap">/</span>by
 				{% if post.author.site|genLink %}
 				<a href="{{ post.author.site|genLink }}" target="_blank">{{ post.author.name }}</a>
 				{% else %}

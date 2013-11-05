@@ -77,14 +77,14 @@ module.exports = function(grunt) {
             dist: {
                 src: [
                     '<%= path.dev %>/style/icons.css',
-                    '<%= path.dev %>/style/md.css',
                     '<%= path.dev %>/style/global.css',
-                    '<%= path.dev %>/bower-libs/highlightjs/styles/monokai.css'
+                    '<%= path.dev %>/bower-libs/highlightjs/styles/monokai.css',
+                    '<%= path.dev %>/style/md.css'
                 ],
                 dest: '<%= path.tmp %>/tmp-all.css'
             }
         },
-        
+
         cssmin: {
             options: {
                 report: 'gzip'
@@ -204,9 +204,9 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('default', function() {
+    grunt.registerTask('default', function(buildJS) {
         grunt.task.run('bump-only');
-        grunt.task.run('build-js');
+        !!buildJS && grunt.task.run('build-js'); // Because there are too many javascript files
         grunt.task.run('build-css');
         grunt.task.run('build-images');
         grunt.task.run('build-fonts');
