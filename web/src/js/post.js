@@ -224,13 +224,14 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
         //$('#post-body').html($('#post-content').val());
         if(postId) {
             $.get('/post/content/' + postId, {type: 'html'}, function(r) {
-                if(r.rcode === 0) {//console.log(r.result)
+                if(r.rcode === 0) {
                     $('#post-body').html(r.result);
                     bindEvents();
                     fetchComments();
-                    themes.init();
+                    // themes.init();
                 } else {
                     console.log(r);
+                    $('#post-body').html('');
                     alert('拉取数据失败。');
                 }
             });
