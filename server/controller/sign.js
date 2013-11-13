@@ -24,9 +24,11 @@ exports.signup = function(req, res, next) {
             info.pass = admin.PASS;
         }
 
-        info.pass = user_ctrl.md5(info.pass);
-
-        user_ctrl.findOne({name: info.name, email: info.email, pass: info.pass}, function(err, doc) {
+        user_ctrl.findOne({
+            name: info.name,
+            email: info.email,
+            pass: user_ctrl.md5(info.pass)
+        }, function(err, doc) {
             if(err) return next(err);
 
             if(!doc) {// add a user

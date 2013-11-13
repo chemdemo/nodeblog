@@ -234,7 +234,7 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
                     alert('拉取数据失败。');
                 }
 
-                $('#page-body').removeClass('none');
+                $('#page-body').removeClass('loading');
             });
         }
 

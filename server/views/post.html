@@ -18,11 +18,11 @@
 
 {% block content %}
 <input type="hidden" class="none" id="postid" value="{{ post._id }}" />
-<div id="page-body" class="page-body none clearfix">
+<div id="page-body" class="page-body loading clearfix">
     <div class="page-inner">
         <section class="post">
             <h1 class="post-title">
-                {% if post.topped %}<i class="topped icon-star"></i>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
+                {% if post.topped %}<i class="topped icon-star" title="置顶"></i>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
             </h1>
             <div class="edit-info">
                 {% if user %}
@@ -130,8 +130,8 @@
 {% endblock %}
 
 {% block script %}
-<script id='denglu_login_js'></script>
-<script id='bd_soc_login_boot'></script>
+<!-- <script id='denglu_login_js'></script>
+<script id='bd_soc_login_boot'></script> -->
 {% if (env && env === 'production') %}
 <script data-main="/build/js/post" src="/require.min.js"></script>
 {% else %}

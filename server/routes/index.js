@@ -49,8 +49,8 @@ function routes(app) {
     app.get('/home', home);
 
     // user about
-    //app.get('/signup', sign.signup);
-    //app.post('/signup', sign.signup);
+    // app.get('/signup', sign.signup);
+    // app.post('/signup', sign.signup);
     app.get('/login', sign.login);
     app.post('/login', sign.login);
     app.get('/logout', sign.logout);
