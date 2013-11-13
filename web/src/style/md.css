@@ -206,19 +206,39 @@
     overflow:hidden;
     float:right
 }
-.md span.float-right>span {
+.md span.float-right > span {
     display:block;
     overflow:hidden;
     margin:13px auto 0;
     text-align:right
 }
-.md .tag {
+.md pre {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1em;
+    display: block;
+}
+.md code, .md tt {
+    margin: 0 2px;
+    padding: 1px 5px;
+    border: 1px solid #EEE;
+    color: #8B0435;
+    font-family: Consolas;
+}
+.md pre code, .md pre tt {
+    border: none;
+    color: #839496;
+    margin: 0;
+    padding: 0;
+    white-space: pre;
+}
+/*.md .tag {
     margin: inherit;
     background-color: inherit;
     color: inherit;
     padding: inherit;
 }
-/*.md code, .md tt {
+.md code, .md tt {
     margin:0 2px;
     padding:1px 5px;
     border:1px solid #EEE;

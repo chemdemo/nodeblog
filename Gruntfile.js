@@ -78,7 +78,7 @@ module.exports = function(grunt) {
                 src: [
                     '<%= path.dev %>/style/icons.css',
                     '<%= path.dev %>/style/global.css',
-                    '<%= path.dev %>/style/themes/monokai.css',
+                    '<%= path.dev %>/style/themes/solarized-dark.css',
                     '<%= path.dev %>/style/md.css'
                 ],
                 dest: '<%= path.tmp %>/tmp-all.css'

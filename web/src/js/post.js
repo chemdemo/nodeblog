@@ -228,13 +228,11 @@ require(['jquery','underscore','utils','common','themes'], function($, _, utils,
                     $('#post-body').html(r.result);
                     bindEvents();
                     fetchComments();
-                    //themes.init();
+                    themes.init();
                 } else {
                     console.log(r);
                     alert('拉取数据失败。');
                 }
-
-                $('#page-body').removeClass('loading');
             });
         }
 

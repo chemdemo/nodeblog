@@ -32,6 +32,21 @@
 }
 .post-body {
 	/*padding: 0 2em;*/
+	min-height: 300px;
+	position: relative;
+}
+.loading {
+	background: url(images/loading.gif) no-repeat 10% 50%;
+	width: 200px;
+	height: 35px;
+	padding-top: 15px;
+	text-indent: 60px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -80px;
+	margin-top: -25px;
+	border: 1px solid #DDD;
 }
 .post-body p {
 	margin-bottom: 1em;

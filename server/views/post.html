@@ -11,14 +11,14 @@
 <link rel="stylesheet" href="/src/style/icons.css" />
 <link rel="stylesheet" href="/src/style/global.css" />
 <link rel="stylesheet" href="/src/style/post.css" />
-<link rel="stylesheet" href="/src/style/themes/monokai.css" />
+<link rel="stylesheet" id="code-theme" href="/src/style/themes/solarized-dark.css" />
 <link rel="stylesheet" href="/src/style/md.css" />
 {% endif %}
 {% endblock %}
 
 {% block content %}
 <input type="hidden" class="none" id="postid" value="{{ post._id }}" />
-<div id="page-body" class="page-body loading clearfix">
+<div id="page-body" class="page-body clearfix">
     <div class="page-inner">
         <section class="post">
             <h1 class="post-title">
@@ -43,7 +43,9 @@
                 {% endif %}
             </div>
             <!-- <textarea type="hidden" class="none" id="post-content">{{ post.content }}</textarea> -->
-            <article class="post-body md" id="post-body"></article>
+            <article class="post-body md" id="post-body">
+                <div class="loading shadow-box">正在努力加载中。。。</div>
+            </article>
             <!-- <div class="post-body md" id="post-body">
             {% autoescape false %}
                 {{ post.content }}
