@@ -144,7 +144,14 @@ module.exports = function(grunt) {
         'string-replace': {
             views: {
                 files: {
-                    'server/views/': 'server/views/*'
+                    // 'server/views/': 'server/views/*', // string-replace has bug
+                    'server/views/index.html': 'server/views/index.html',
+                    'server/views/info.html': 'server/views/info.html',
+                    'server/views/layout.html': 'server/views/layout.html',
+                    'server/views/list.html': 'server/views/list.html',
+                    'server/views/login.html': 'server/views/login.html',
+                    'server/views/post.html': 'server/views/post.html',
+                    'server/views/signup.html': 'server/views/signup.html'
                 },
                 options: {
                     replacements: [
