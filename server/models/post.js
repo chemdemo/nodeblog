@@ -4,26 +4,26 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var PostSchema = new Schema({
-	title: {type: String, unique: true}
-	, i: {type: Number, default: Date.now, index: true}// for next and prev post finding
-	, create_at: {type: Date, default: Date.now}
-	, update_at: {type: Date, default: Date.now}
-	, author_id: ObjectId
-	, content: String
-	, cover: String
-	, summary: String
-	, tags: [String]
-	, comments: {type: Number, default: 0}
-	, visite: {type: Number, default: 0}
-	, topped: {type: Number, default: 0}
-	//, last_comment_at: {type: Date}
-	//, last_comment_by: ObjectId
+    title: {type: String, unique: true}
+    , i: {type: Number, default: Date.now, index: true}// for next and prev post finding
+    , create_at: {type: Date, default: Date.now}
+    , update_at: {type: Date, default: Date.now}
+    , author_id: ObjectId
+    , content: String
+    , cover: String
+    , summary: String
+    , tags: [String]
+    , comments: {type: Number, default: 0}
+    , visite: {type: Number, default: 0}
+    , topped: {type: Number, default: 0}
+    //, last_comment_at: {type: Date}
+    //, last_comment_by: ObjectId
 }, {collection: 'post'});
 
 PostSchema.index({create_at: 1});
 
 PostSchema.methods.setSummary = function(text) {
-	this.summary = text || this.content.substring(0, 200);
+    this.summary = text || this.content.substring(0, 200);
 }
 
 mongoose.model('Post', PostSchema);

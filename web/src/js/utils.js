@@ -188,7 +188,7 @@ define(function(require, exports, module) {
         FS_proto.readyState = FS_proto.INIT = 0;
         FS_proto.WRITING = 1;
         FS_proto.DONE = 2;
-        
+
         FS_proto.error =
         FS_proto.onwritestart =
         FS_proto.onprogress =
@@ -197,7 +197,7 @@ define(function(require, exports, module) {
         FS_proto.onerror =
         FS_proto.onwriteend =
         null;
-        
+
         view.addEventListener('unload', process_deletion_queue, false);
         return saveAs;
     }();
@@ -217,10 +217,10 @@ define(function(require, exports, module) {
     exports.isUrl = isUrl;
 
     var searchParam = function(name) {
-    	var s = window.location.search;
-    	var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
-    	var m = s.substr(1).match(reg);
-    	return m ? unescape(m[2]) : null;
+        var s = window.location.search;
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+        var m = s.substr(1).match(reg);
+        return m ? unescape(m[2]) : null;
     };
     exports.searchParam;
 });

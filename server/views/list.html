@@ -12,45 +12,45 @@
 
 {% block content %}
 <div class="page-body clearfix">
-	<input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
-	<h2>{% autoescape false %}{{ page_title }}{% endautoescape %}</h2>
-	{% if posts.length > 0 %}
-	<ul class="ul post-list">
-		{% for post in posts %}
-		<li>
-			<div class="box-title">
-				{% if post.topped %}
-				<i class="topped icon-star"></i>
-				{% endif %}
-				<a class="title" href="/post/{{ post._id }}">{{ post.title }}</a>
-			</div>
-			<div class="box-info">
-				<span class="post-date">
-					<i class="icon-alarm" title="最后编辑时间"></i>
-					<span class="update-date">{{ post.update_at|date('Y-m-d h:i:s', -8*60) }}</span>
-				</span>
-				<span class="post-author">{{ post.author.name }}</span>
-				<span class="post-visite">
-					访问量(<span class="visite-num">{{ post.visite }}</span>) 
-				</span>
-				|
-				<span class="post-comments">
-					评论(<span class="comments-num">{{ post.comments|default(0) }}</span>)
-				</span>
-				{% if user %}
-				{% if user.admin %}
-				<!-- 这里是swig的bug，它会用in去遍历user，如果user为null的话会报错 -->
-				<a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
-				<a href="javascript: void(0);" data-pid="{{ post._id }}" class="icon-trashcan post-delete" title="删除"></a>
-				{% endif %}
-				{% endif %}
-			</div>
-		</li>
-		{% endfor %}
-	</ul>
-	{% else %}
-	<section class="no-post"></section>
-	{% endif %}
+    <input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
+    <h2>{% autoescape false %}{{ page_title }}{% endautoescape %}</h2>
+    {% if posts.length > 0 %}
+    <ul class="ul post-list">
+        {% for post in posts %}
+        <li>
+            <div class="box-title">
+                {% if post.topped %}
+                <i class="topped icon-star"></i>
+                {% endif %}
+                <a class="title" href="/post/{{ post._id }}">{{ post.title }}</a>
+            </div>
+            <div class="box-info">
+                <span class="post-date">
+                    <i class="icon-alarm" title="最后编辑时间"></i>
+                    <span class="update-date">{{ post.update_at|date('Y-m-d h:i:s', -8*60) }}</span>
+                </span>
+                <span class="post-author">{{ post.author.name }}</span>
+                <span class="post-visite">
+                    访问量(<span class="visite-num">{{ post.visite }}</span>)
+                </span>
+                |
+                <span class="post-comments">
+                    评论(<span class="comments-num">{{ post.comments|default(0) }}</span>)
+                </span>
+                {% if user %}
+                {% if user.admin %}
+                <!-- 这里是swig的bug，它会用in去遍历user，如果user为null的话会报错 -->
+                <a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
+                <a href="javascript: void(0);" data-pid="{{ post._id }}" class="icon-trashcan post-delete" title="删除"></a>
+                {% endif %}
+                {% endif %}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <section class="no-post"></section>
+    {% endif %}
 </div>
 {% endblock %}
 

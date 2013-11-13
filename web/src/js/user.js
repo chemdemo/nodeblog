@@ -2,6 +2,6 @@
 'use strict';
 
 require([], function(require, exports, module) {
-	console.log('!!');
+    console.log('!!');
 });
 define("src/js/user", function(){});

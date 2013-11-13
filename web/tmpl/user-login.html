@@ -1,8 +1,8 @@
 <div class="user-login" id="user-login">
-	<input type="hidden" value="{{ name }}" class="name" />
-	<input type="hidden" value="{{ email }}" class="email" />
-	<input type="hidden" value="{{ site }}" class="site" />
-	<!-- 这里图片采用懒加载，直接设置src如果头像拉取慢的话会阻塞页面渲染 -->
-	<img class="avatar" data-src="<%= avatar %>" alt="<%= name %>" />
-	<a href="javascript:void(0);" data-cmd="logout" class="logout">登出</a>
+    <input type="hidden" value="{{ name }}" class="name" />
+    <input type="hidden" value="{{ email }}" class="email" />
+    <input type="hidden" value="{{ site }}" class="site" />
+    <!-- 这里图片采用懒加载，直接设置src如果头像拉取慢的话会阻塞页面渲染 -->
+    <img class="avatar" data-src="<%= avatar %>" alt="<%= name %>" />
+    <a href="javascript:void(0);" data-cmd="logout" class="logout">登出</a>
 </div>
