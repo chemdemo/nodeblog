@@ -78,7 +78,7 @@ module.exports = function(grunt) {
                 src: [
                     '<%= path.dev %>/style/icons.css',
                     '<%= path.dev %>/style/global.css',
-                    '<%= path.dev %>/bower-libs/highlightjs/styles/monokai.css',
+                    '<%= path.dev %>/style/themes/monokai.css',
                     '<%= path.dev %>/style/md.css'
                 ],
                 dest: '<%= path.tmp %>/tmp-all.css'
@@ -144,19 +144,13 @@ module.exports = function(grunt) {
         'string-replace': {
             views: {
                 files: {
-                    'server/views/index.html': 'server/views/index.html',
-                    'server/views/info.html': 'server/views/info.html',
-                    'server/views/layout.html': 'server/views/layout.html',
-                    'server/views/list.html': 'server/views/list.html',
-                    'server/views/login.html': 'server/views/login.html',
-                    'server/views/post.html': 'server/views/post.html',
-                    'server/views/signup.html': 'server/views/signup.html'
+                    'server/views/': 'server/views/*'
                 },
                 options: {
                     replacements: [
                         {
-                            pattern: /(%TIMESTAMP%)/g,
-                            replacement: Date.now()
+                            pattern: /\?_t=(\d{13})/g,
+                            replacement: '?_t=' + Date.now()
                         }
                     ]
                 }
