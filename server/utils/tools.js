@@ -55,7 +55,7 @@ var hljs = require('highlight.js');
 exports.marked = function(val, callback, sanitize) {
     marked(val, {
         //gfm: true,
-        highlight: function (code, lang) {
+        highlight: function (code, lang) {// return code;
             if(lang) {
                 return hljs.highlight(lang, code).value;
             }
@@ -65,7 +65,8 @@ exports.marked = function(val, callback, sanitize) {
         //breaks: false,
         //pedantic: false,
         //smartypants: true,
-        //langPrefix: 'lang-',
+        langPrefix: 'lang-',
+        // langPrefix: '',
         smartypants: true,// default is false
         sanitize: undefined !== sanitize ? sanitize : true // default is false
     }, callback);

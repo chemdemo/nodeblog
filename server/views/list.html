@@ -2,11 +2,11 @@
 
 {% block stylesheet %}
 {% if (env && env === 'production') %}
-<link rel="stylesheet" href="/build/style/list.min.css?_t=1382248007643" />
+<link rel="stylesheet" href="/build/style/list.min.css?_t=1384348670953" />
 {% else %}
-<link rel="stylesheet" href="/style/icons.css" />
-<link rel="stylesheet" href="/style/global.css" />
-<link rel="stylesheet" href="/style/list.css" />
+<link rel="stylesheet" href="/src/style/icons.css" />
+<link rel="stylesheet" href="/src/style/global.css" />
+<link rel="stylesheet" href="/src/style/list.css" />
 {% endif %}
 {% endblock %}
 
@@ -58,8 +58,6 @@
 {% if (env && env === 'production') %}
 <script data-main="/build/js/list" src="/build/js/require.min.js"></script>
 {% else %}
-<script src="/lib/require/require.js"></script>
-<script src="/js/config.js"></script>
-<script src="/js/list.js"></script>
+<script data-main="/src/js/list" src="/build/js/require.min.js"></script>
 {% endif %}
 {% endblock %}
