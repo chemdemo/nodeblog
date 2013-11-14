@@ -109,10 +109,75 @@
 	float: left;
 	width: 48px;
 	height: 48px;
-	/*padding: 1px;*/
-	border: 1px solid #DDD;
-	/*border-radius: 24px;*/
+	padding: 1px;
+	border: 1px solid #33B5E5;
 	box-shadow: 0 0 10px 1px rgba(5, 215, 255, 0.2);
+	-webkit-animation-duration: 1s;
+	-moz-animation-duration: 1s;
+	-ms-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-iteration-count: infinite;
+	-moz-animation-iteration-count: infinite;
+	-ms-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+}
+.i-comment .avatar:hover {
+	-webkit-animation-name: anim;
+	-moz-animation-name: anim;
+	-ms-animation-name: anim;
+	animation-name: anim;
+}
+@-webkit-keyframes anim {
+	0% {-webkit-transform: scale(1);}
+	10% {-webkit-transform: scale(1.01);}
+	20% {-webkit-transform: scale(1.02);}
+	30% {-webkit-transform: scale(1.03);}
+	40% {-webkit-transform: scale(1.04);}
+	50% {-webkit-transform: scale(1.05);}
+	60% {-webkit-transform: scale(1.04);}
+	70% {-webkit-transform: scale(1.03);}
+	80% {-webkit-transform: scale(1.02);}
+	90% {-webkit-transform: scale(1.01);}
+	100% {-webkit-transform: scale(1);}
+}
+@-moz-keyframes anim {
+	0% {-moz-transform: scale(1);}
+	10% {-moz-transform: scale(1.01);}
+	20% {-moz-transform: scale(1.02);}
+	30% {-moz-transform: scale(1.03);}
+	40% {-moz-transform: scale(1.04);}
+	50% {-moz-transform: scale(1.05);}
+	60% {-moz-transform: scale(1.04);}
+	70% {-moz-transform: scale(1.03);}
+	80% {-moz-transform: scale(1.02);}
+	90% {-moz-transform: scale(1.01);}
+	100% {-moz-transform: scale(1);}
+}
+@-ms-keyframes anim {
+	0% {-ms-transform: scale(1);}
+	10% {-ms-transform: scale(1.01);}
+	20% {-ms-transform: scale(1.02);}
+	30% {-ms-transform: scale(1.03);}
+	40% {-ms-transform: scale(1.04);}
+	50% {-ms-transform: scale(1.05);}
+	60% {-ms-transform: scale(1.04);}
+	70% {-ms-transform: scale(1.03);}
+	80% {-ms-transform: scale(1.02);}
+	90% {-ms-transform: scale(1.01);}
+	100% {-ms-transform: scale(1);}
+}
+@keyframes anim {
+	0% {transform: scale(1);}
+	10% {transform: scale(1.01);}
+	20% {transform: scale(1.02);}
+	30% {transform: scale(1.03);}
+	40% {transform: scale(1.04);}
+	50% {transform: scale(1.05);}
+	60% {transform: scale(1.04);}
+	70% {transform: scale(1.03);}
+	80% {transform: scale(1.02);}
+	90% {transform: scale(1.01);}
+	100% {transform: scale(1);}
 }
 .i-comment .comment-body {
 	padding-left: 5em;
