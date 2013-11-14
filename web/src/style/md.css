@@ -220,52 +220,14 @@
 }
 .md code, .md tt {
     margin: 0 2px;
-    padding: 1px 5px;
+    padding: 1px 3px;
     border: 1px solid #EEE;
     color: #8B0435;
-    font-family: Consolas;
 }
 .md pre code, .md pre tt {
     border: none;
-    color: #839496;
+    /*color: #839496;*/
     margin: 0;
     padding: 0;
     white-space: pre;
 }
-/*.md .tag {
-    margin: inherit;
-    background-color: inherit;
-    color: inherit;
-    padding: inherit;
-}
-.md code, .md tt {
-    margin:0 2px;
-    padding:1px 5px;
-    border:1px solid #EEE;
-    color: #F92672;
-}
-.md pre {
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 1em;
-    background-color: #F0F0F0;
-    border: 1px solid #DDD;
-    border-width: 0px 0px 0px 3px;
-    display: block;
-}
-.md pre .comment {
-    color: #999;
-}
-.md code {
-    white-space: nowrap
-}
-.md pre code, .md pre tt {
-    background-color: transparent;
-    border: none;
-    color: #222;
-}
-.md pre > code {
-    margin:0;
-    padding:0;
-    white-space:pre;
-}*/

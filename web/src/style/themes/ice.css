@@ -1,0 +1,29 @@
+/**
+ * @author dmyang
+ * @version 1.0.0
+ */
+
+pre {
+    background-color: #292D30;
+    /*background-color: #002B36;*/
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+pre, code {
+    font-family: Consolas, Monaco, courier, monospace, sans-serif;
+}
+
+pre code, .md pre code {color: #F8F8F2;}
+
+pre .comment {color: #556270;}
+pre .title {color: #11B4D6;}
+pre .class {color: #04B4D6;}
+pre .attribute {color: #42CDC4; font-style: italic;}
+pre .value {color: #DEF2A8;}
+pre .keyword {color: #FF2D79; font-style: italic;}
+pre .params {color: #DD9721;}
+pre .number {color: #DEFF00;}
+pre .literal {color: #AE81DF;}
+pre .string {color: #FFF2BE;}
+pre .hexcolor {color: #859900;}

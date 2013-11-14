@@ -35,7 +35,7 @@ function dateFormat(date, formatString) {
         }
     }
     return formatString;
-}
+};
 
 function jsonReturn(res, rtype, r, err) {
     res.json({
@@ -43,11 +43,11 @@ function jsonReturn(res, rtype, r, err) {
         result: r,
         errinfo: err || 'No error.'
     });
-}
+};
 
 function prezero(n) {
     return ('0' + n).slice(-2);
-}
+};
 
 var marked = require('marked');
 var hljs = require('highlight.js');
@@ -67,10 +67,11 @@ exports.marked = function(val, callback, sanitize) {
         //smartypants: true,
         langPrefix: 'lang-',
         // langPrefix: '',
+        headerPrefix: 'h-',
         smartypants: true,// default is false
         sanitize: undefined !== sanitize ? sanitize : true // default is false
     }, callback);
-}
+};
 
 exports.dateFormat = dateFormat;
 exports.jsonReturn = jsonReturn;

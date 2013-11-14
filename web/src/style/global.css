@@ -84,9 +84,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
 	font-weight: bold;
 }
-pre, code {
-	font-family: Monaco, Consolas, 'Lucida Console', monospace;
-}
 /*pre ::selection,
 code ::selection {
 	background-color: #720029;
@@ -255,7 +252,7 @@ header {
 	background-color: rgba(44, 44, 44, 0.88);
 	/*border-top: 1px solid #33B5E5;*/
 	/*border-bottom: 1px solid rgba(0,0,0,0.05);*/
-	border-bottom: 3px solid #33B5E5;
+	border-bottom: 3px solid #00BBFF;
 	/*background-color: rgba(255, 255, 255, 0.9);
 	box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);*/
 	position: fixed;
