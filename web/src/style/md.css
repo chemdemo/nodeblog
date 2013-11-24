@@ -220,14 +220,16 @@
 }
 .md code, .md tt {
     margin: 0 2px;
-    padding: 1px 3px;
-    border: 1px solid #EEE;
-    color: #8B0435;
+    padding: 2px 4px;
+    color: #c7254e;
+    white-space: nowrap;
+    background-color: #f9f2f4;
+    font-size: 95%;
 }
 .md pre code, .md pre tt {
-    border: none;
     /*color: #839496;*/
     margin: 0;
     padding: 0;
     white-space: pre;
+    background-color: transparent;
 }

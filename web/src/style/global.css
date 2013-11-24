@@ -57,6 +57,25 @@
 	background:transparent
 }
 
+/* web font */
+/* http://fontpro.com/source-code-pro-font-16018 */
+/*@font-face {
+	font-family: 'SourceCodePro-Light';
+	src: url('SourceCodePro-Light.eot');
+	src: url('SourceCodePro-Light.eot?#iefix') format('embedded-opentype'),
+		 url('SourceCodePro-Light.woff') format('woff'),
+		 url('SourceCodePro-Light.ttf') format('truetype'),
+		 url('SourceCodePro-Light.svg#SourceCodePro-Light') format('svg');
+}*/
+@font-face {
+	font-family: 'SourceCodePro-Regular';
+	src: url('SourceCodePro-Regular.eot');
+	src: url('SourceCodePro-Regular.eot?#iefix') format('embedded-opentype'),
+		 url('SourceCodePro-Regular.woff') format('woff'),
+		 url('SourceCodePro-Regular.ttf') format('truetype'),
+		 url('SourceCodePro-Regular.svg#SourceCodePro-Regular') format('svg');
+}
+
 [class|="icon"] {
 	color: #999;
 }
@@ -66,7 +85,7 @@ html, body, ul, li, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input, textarea
 	padding: 0;
 }
 body, input, button, textarea {
-	font: normal normal normal 13px/2 /*'Segoe UI Semilight', Helvetica, */Tahoma, sans-serif;
+	font: normal normal normal 13px/2 'SourceCodePro-Regular', Tahoma, Helvetica, sans-serif;
 	color: #333;
 	text-rendering: optimizeLegibility;
 }
@@ -82,7 +101,7 @@ body {
 	position: relative;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-weight: bold;
+	font-weight: normal;
 }
 /*pre ::selection,
 code ::selection {
@@ -267,7 +286,6 @@ header {
 }
 .page-title {
 	float: left;
-	font-family: /*'Segoe UI Semilight',*/ Tahoma, SimSun, sans-serif;
 	line-height: 1;
 }
 header a {

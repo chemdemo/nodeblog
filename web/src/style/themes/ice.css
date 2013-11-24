@@ -11,7 +11,7 @@ pre {
 }
 
 pre, code {
-    font-family: Consolas, Monaco, courier, monospace, sans-serif;
+    font-family: 'SourceCodePro-Regular', Menlo, Consolas, Monaco, monospace, sans-serif;
 }
 
 pre code, .md pre code {color: #F8F8F2;}
