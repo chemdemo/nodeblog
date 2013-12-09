@@ -69,11 +69,11 @@
 }*/
 @font-face {
 	font-family: 'SourceCodePro-Regular';
-	src: url('SourceCodePro-Regular.eot');
-	src: url('SourceCodePro-Regular.eot?#iefix') format('embedded-opentype'),
-		 url('SourceCodePro-Regular.woff') format('woff'),
-		 url('SourceCodePro-Regular.ttf') format('truetype'),
-		 url('SourceCodePro-Regular.svg#SourceCodePro-Regular') format('svg');
+	src: url('fonts/SourceCodePro-Regular.eot');
+	src: url('fonts/SourceCodePro-Regular.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/SourceCodePro-Regular.woff') format('woff'),
+		 url('fonts/SourceCodePro-Regular.ttf') format('truetype'),
+		 url('fonts/SourceCodePro-Regular.svg#SourceCodePro-Regular') format('svg');
 }
 
 [class|="icon"] {
