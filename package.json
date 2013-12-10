@@ -2,7 +2,7 @@
   "name": "NodeBlog",
   "version": "0.0.16",
   "private": true,
-  "starcripts": {
+  "scripts": {
     "start": "node app"
   },
   "dependencies": {
