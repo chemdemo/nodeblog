@@ -1,4 +1,4 @@
-## 基于NodeJS构建的轻博客系统
+## 基于NodeJS构建的轻博客 [![Build Status](https://api.travis-ci.org/chemdemo/nodeblog.png)](http://travis-ci.org/chemdemo/nodeblog)
 
 博客地址：http://www.dmfeel.com
 
