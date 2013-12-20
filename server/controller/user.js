@@ -120,7 +120,6 @@ function genSessionUser(res, user) {
 function getSessionUser(req) {
     var cookie = req.cookies[settings.COOKIE_KEY];
     var r = null;
-    console.log('cookie: ', cookie)
     if(cookie) {
         var authToken = decrypt(cookie);
         var auth = authToken.split('\t');

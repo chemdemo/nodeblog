@@ -22,7 +22,7 @@
                 {% if post.topped %}
                 <i class="topped icon-star" title="置顶"></i>
                 {% endif %}
-                <a class="title" href="/post/{{ post._id }}">{{ post._id }}</a>
+                <a class="title" href="/post/{{ post._id|toString }}">{{ post.title }}</a>
             </div>
             <div class="box-info">
                 <span class="post-date">
@@ -40,8 +40,8 @@
                 {% if user %}
                 {% if user.admin %}
                 <!-- 这里是swig的bug，它会用in去遍历user，如果user为null的话会报错 -->
-                <a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
-                <a href="javascript: void(0);" data-pid="{{ post._id }}" class="icon-trashcan post-delete" title="删除"></a>
+                <a href="/edit/{{ post._id|toString }}" class="icon-pencil post-edit" title="编辑"></a>
+                <a href="javascript: void(0);" data-pid="{{ post._id|toString }}" class="icon-trashcan post-delete" title="删除"></a>
                 {% endif %}
                 {% endif %}
             </div>

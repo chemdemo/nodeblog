@@ -30,6 +30,7 @@ swig.setFilter('split', filters.split);
 swig.setFilter('length', filters.length);
 swig.setFilter('genLink', filters.genLink);
 swig.setFilter('countFormat', filters.countFormat);
+swig.setFilter('toString', filters.toString);
 app.use(express.favicon(__dirname + '/web/favicon.ico'));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());

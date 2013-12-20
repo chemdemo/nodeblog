@@ -17,18 +17,18 @@
 {% endblock %}
 
 {% block content %}
-<input type="hidden" class="none" id="postid" value="{{ post._id }}" />
+<input type="hidden" class="none" id="postid" value="{{ post._id|toString }}" />
 <div id="page-body" class="page-body clearfix">
     <div class="page-inner">
         <section class="post">
             <h1 class="post-title">
-                {% if post.topped %}<i class="topped icon-star" title="置顶"></i>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
+                {% if post.topped %}<i class="topped icon-star" title="置顶"></i>{% endif %}<a href="/post/{{ post._id|toString }}">{{ post.title }}</a>
             </h1>
             <div class="edit-info">
                 {% if user %}
                 {% if user.admin %}
                 <!-- 这里是swig的bug，它会用in去遍历user，如果user为null的话会报错 -->
-                <a href="/edit/{{ post._id }}" class="icon-pencil post-edit" title="编辑"></a>
+                <a href="/edit/{{ post._id|toString }}" class="icon-pencil post-edit" title="编辑"></a>
                 {% endif %}
                 {% endif %}
                 <span class="post-date">
@@ -52,9 +52,9 @@
             {% endautoescape %}
             </div> -->
             <div class="prev-next">
-                <p>上一篇：{% if prev._id %}<a href="/post/{{ prev._id }}">{{ prev.title }}</a>{% else %}没有了{% endif %}
+                <p>上一篇：{% if prev._id %}<a href="/post/{{ prev._id|toString }}">{{ prev.title }}</a>{% else %}没有了{% endif %}
                 </p>
-                <p>下一篇：{% if next._id %}<a href="/post/{{ next._id }}">{{ next.title }}</a>{% else %}没有了{% endif %}
+                <p>下一篇：{% if next._id %}<a href="/post/{{ next._id|toString }}">{{ next.title }}</a>{% else %}没有了{% endif %}
                 </p>
             </div>
         </section>
