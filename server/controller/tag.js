@@ -3,6 +3,7 @@ var settings = require('../../settings');
 var models = require('../models');
 var Tag = models.Tag;
 var post_ctrl = require('./post');
+var user_ctrl = require('./user');
 
 var tools = require('../utils/tools');
 var async = require('async');
@@ -114,7 +115,7 @@ exports.findPostsByTag = function(req, res, next) {
         if(postids.length > 0) {
             post_ctrl.fetchPosts(postids, fields, function(err, _doc) {
                 if(err) return next(err);
-                user = req.session.user || null;
+                user = user_ctrl.getSessionUser(req);
                 if(user) delete user.pass;
                 res.render('list', {posts: _doc, page_title: pageTitle, user: user});
             });

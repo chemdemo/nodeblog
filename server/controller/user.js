@@ -120,7 +120,7 @@ function genSessionUser(res, user) {
 function getSessionUser(req) {
     var cookie = req.cookies[settings.COOKIE_KEY];
     var r = null;
-    //console.log('session: ', user)
+    console.log('cookie: ', cookie)
     if(cookie) {
         var authToken = decrypt(cookie);
         var auth = authToken.split('\t');
@@ -132,7 +132,6 @@ function getSessionUser(req) {
             avatar: auth[4],
             site: auth[5]
         };
-        //console.log('cookies: ', r);
     }
     if(r) r.admin = adminCheck(r);
     return r;
