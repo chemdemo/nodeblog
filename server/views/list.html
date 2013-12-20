@@ -56,8 +56,8 @@
 
 {% block script %}
 {% if (env && env === 'production') %}
-<script data-main="/build/js/list" src="/js/require.min.js"></script>
+<script data-main="/build/js/list" src="/require.min.js"></script>
 {% else %}
-<script data-main="/src/js/list" src="/js/require.min.js"></script>
+<script data-main="/src/js/list" src="/require.min.js"></script>
 {% endif %}
 {% endblock %}
