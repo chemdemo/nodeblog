@@ -26,7 +26,7 @@
 <a href="/" title="back" class="i-btn btn-small back"><i class="icon-arrow-left"></i>回主页</a>
 <div class="post-body">
     <input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
-    <input id="postid" type="hidden" name="postid" value="{{ post._id }}">
+    <input id="postid" type="hidden" name="postid" value="{{ post._id|toString }}">
     <section>
         <label for="post-title" class="block-label">文章标题：</label>
         <input class="input post-title" type="text" id="post-title" value="{{ post.title }}" placeholder="post title" />

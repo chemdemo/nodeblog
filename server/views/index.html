@@ -18,7 +18,7 @@
         {% for post in posts %}
         <article class="post">
             <h3 class="post-title">
-                {% if post.topped %}<i class="topped icon-star" title="置顶"></i>{% endif %}<a href="/post/{{ post._id }}">{{ post.title }}</a>
+                {% if post.topped %}<i class="topped icon-star" title="置顶"></i>{% endif %}<a href="/post/{{ post._id|toString }}">{{ post.title }}</a>
             </h3>
             <div class="post-date">
                 <i class="icon-clock" title="最后编辑时间"></i>
@@ -31,7 +31,7 @@
             {% endautoescape %}
             </div>
             <div class="post-more">
-                <a class="i-btn btn-mini" href="/post/{{ post._id }}">阅读更多&nbsp;<i class="icon-arrow-right"></i></a>
+                <a class="i-btn btn-mini" href="/post/{{ post._id|toString }}">阅读更多&nbsp;<i class="icon-arrow-right"></i></a>
             </div>
             <div class="post-info">
                 <!-- <span class="post-date">
@@ -47,7 +47,7 @@
                 </span>
                 {% if user.admin %}
                 <span class="post-edit">
-                    <a href="/edit/{{ post._id }}" class="icon-pencil" title="编辑"></a>
+                    <a href="/edit/{{ post._id|toString }}" class="icon-pencil" title="编辑"></a>
                 </span>
                 {% endif %}
                 <span class="post-comments">
