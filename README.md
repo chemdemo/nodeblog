@@ -1,4 +1,4 @@
-## 基于NodeJS构建的轻博客 [![Build Status](https://api.travis-ci.org/chemdemo/nodeblog.png)](http://travis-ci.org/chemdemo/nodeblog)
+## 基于Node.js构建的轻博客 [![Build Status](https://api.travis-ci.org/chemdemo/nodeblog.png)](http://travis-ci.org/chemdemo/nodeblog)
 
 博客地址：http://www.dmfeel.com
 
@@ -6,7 +6,7 @@
 
 * 前端基于Grunt构建项目，采用Requirejs模式开发，再配合jQuery操作DOM，基本上都是些普通的Web pages开发。
 
-* 后端基于NodeJS Web框架Expressjs，在公司也采用express做过几个小型OA系统供用于监控、活动运营等等，express简单容易上手，也有丰富的文档和教程。view采用[swig](https://github.com/paularmstrong/swig)作为模板引擎，swig提供了强大的过滤器功能以及类Jinja的语法。
+* 后端基于Node.js Web框架Expressjs，在公司也采用express做过几个小型OA系统供用于监控、活动运营等等，express简单容易上手，也有丰富的文档和教程。view采用[swig](https://github.com/paularmstrong/swig)作为模板引擎，swig提供了强大的过滤器功能以及类Jinja的语法。
 
 * 数据库用的是MongoDB，原生的mongddb驱动不太好控制，故选用了封装ODM风格的mongoose，这样schema看起来清晰，同时mongoose操作db的接口也足够简单。
 
@@ -24,7 +24,7 @@
 
 ### 主要依赖开源项目
 
-* [NodeJS](http://nodejs.org/)
+* [Node.js](http://nodejs.org/)
 
 * [Bower](http://sindresorhus.com/bower-components/)
 
