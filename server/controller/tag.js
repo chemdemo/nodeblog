@@ -116,7 +116,7 @@ exports.findPostsByTag = function(req, res, next) {
             post_ctrl.fetchPosts(postids, fields, function(err, _doc) {
                 if(err) return next(err);
                 user = user_ctrl.getSessionUser(req);
-                if(user) delete user.pass;
+                if(user) delete user.pass;_doc.map(function(d) {d._id = '' + d._id});
                 res.render('list', {posts: _doc, page_title: pageTitle, user: user});
             });
         } else {
