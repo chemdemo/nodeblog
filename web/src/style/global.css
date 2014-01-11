@@ -391,6 +391,9 @@ header nav a:hover {
 .post-gap {
 	margin: 0 .5em;
 }
+.post-title {
+	font-family: 'SourceCodePro-Regular';
+}
 
 /* sitebar */
 .page-sitebar {
