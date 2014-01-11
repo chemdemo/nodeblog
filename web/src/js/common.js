@@ -7,8 +7,12 @@ define('common', function(require, exports, module) {
         });
 
         $('#about-author').on('click', function(e) {
-            var infoBox = $(this).parent().find('.author-info');
-            infoBox.slideToggle();
+            var infoBox = $(this).parent().find('.author-info')[0];
+            var cls = infoBox.classList;
+
+            if(cls.contains('open')) cls.remove('open');
+            else cls.add('open');
+            // infoBox.slideToggle();
         });
     }
 
