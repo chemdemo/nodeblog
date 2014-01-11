@@ -406,11 +406,11 @@ exports.remove = function(req, res, next) {
     });
 }
 
-exports.show = function(req, res, next) {//console.log('session show: ', req.session.user)
+exports.show = function(req, res, next) {
     var postid = req.params.postid;
     var user = user_ctrl.getSessionUser(req);
 
-    if(!postid) return next();
+    if(!postid) return next(new Error('Param `postid` required.'));
 
     var fields = 'i title create_at update_at author_id tags comments visite topped';
 
@@ -463,21 +463,6 @@ exports.show = function(req, res, next) {//console.log('session show: ', req.ses
         if(err) return proxy.emit('error', err);
         proxy.emit('counts', doc);
     });
-
-    /*Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(err, doc) {
-        if(err) return next(err);
-        //return res.render('post', doc);
-        tools.marked(doc.content,  function(err, content) {
-            if(!err) {
-                doc.content = content;
-            } else {
-                console.log('Build html error, err: ', err);
-            }
-            //doc.update_at = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
-            doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
-            res.render('post', doc);
-        });
-    });*/
 }
 
 // 单独拉取content, 配合show
