@@ -4,26 +4,27 @@
  */
 
 pre {
-    background-color: #292D30;
+    background-color: #F0F0F0;
     /*background-color: #002B36;*/
     word-wrap: break-word;
     font-size: 14px;
+    border-left: 3px solid #E0E0E0;
 }
 
 pre, code {
     font-family: 'SourceCodePro-Regular', Menlo, Consolas, Monaco, monospace, sans-serif;
 }
 
-pre code, .md pre code {color: #F8F8F2;}
+pre code, .md pre code {color: #000;}
 
-pre .comment {color: #556270;}
+pre .comment {color: #9C9C9C;}
 pre .title {color: #11B4D6;}
 pre .class {color: #04B4D6;}
 pre .attribute {color: #42CDC4; font-style: italic;}
-pre .value {color: #DEF2A8;}
+pre .value {color: #AA0296;}
 pre .keyword {color: #FF2D79; font-style: italic;}
-pre .params {color: #DD9721;}
-pre .number {color: #DEFF00;}
+pre .params {color: #00770A;}
+pre .number {color: #93AD08;}
 pre .literal {color: #AE81DF;}
-pre .string {color: #FFF2BE;}
+pre .string {color: #06697C;}
 pre .hexcolor {color: #859900;}
