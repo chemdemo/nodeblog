@@ -123,20 +123,21 @@ function countMonthy(callback) {
         var create = this.create_at;
         var year = create.getFullYear();
         var month = create.getMonth() + 1;
-        //month = ('0' + month).slice(-2);// prezero
-        //var key = new Date(year, month).getTime() - 8*60*60*1000;
+        // month = ('0' + month).slice(-2);// prezero
+        // var key = new Date(year, month).getTime() - 8*60*60*1000;
         var key = year + '/' + ('0' + month).slice(-2);
-        //var v = this._id.toString().replace(/ObjectId\(\"(.+)\"\)/, '$1');
-        var v = this._id.str;// _id.toString() function is not work on mongodb V2.4
+        // var v = this._id.toString().replace(/ObjectId\(\"(.+)\"\)/, '$1');
+        // _id.toString() function is not work on mongodb V2.4
+        var v = this._id.str;
         emit(key, v);
     };
 
     var reduceFn = function(key, values) {//{'2013/09': ['xxx', 'xxxx']}
-        //return _.flatten(values);
-        //var r = {postids: []};
+        // return _.flatten(values);
+        // var r = {postids: []};
         var r = [];
         values.forEach(function(v, i) {
-            //r.postids.push(v.postid[0]);
+            // r.postids.push(v.postid[0]);
             r.push(v);
         });
         return r.join('$');
@@ -149,11 +150,11 @@ function countMonthy(callback) {
         reduce: reduceFn,
         out: {replace: 'count_monthy'},
         query: {create_at: {$gt: new Date('01/01/2013')}},
-        //jsMode: true,
+        // jsMode: true,
         keeptemp: true,
-        //finalize: finalizeFn,
+        // finalize: finalizeFn,
         verbose: true//,
-        //scope: {_: _, console: console}
+        // scope: {_: _, console: console}
     }, function(err, model, stats) {
         console.log('MapReduce took %d ms.', stats.processtime);
         if(err) {
@@ -162,10 +163,10 @@ function countMonthy(callback) {
         }
         callback && callback(null);
 
-        /*model.find().exec(function(err, doc) {
-            callback(err, doc);
-            if(err || !doc) console.log('Find result of mapReduce error: ', err, doc);
-        });*/
+        // model.find().exec(function(err, doc) {
+        //     callback(err, doc);
+        //     if(err || !doc) console.log('Find result of mapReduce error: ', err, doc);
+        // });
     });
 }
 
@@ -187,7 +188,6 @@ function findCounts(conditions, callback) {
                         db.close();
                     } else {
                         conn.find(conditions).toArray(function(err, doc) {
-                            //console.log(doc);
                             doc.sort(function(a, b) {
                                 return new Date(b._id).getTime() - new Date(a._id).getTime();
                             });
@@ -204,8 +204,9 @@ function findCounts(conditions, callback) {
     }
 }
 
-exports.edit = function(req, res, next) {// get
-    //var user = user_ctrl.getSessionUser(req);
+// get
+exports.edit = function(req, res, next) {
+    // var user = user_ctrl.getSessionUser(req);
     var postid = req.params.postid;
 
     if(postid) {
@@ -406,11 +407,11 @@ exports.remove = function(req, res, next) {
     });
 }
 
-exports.show = function(req, res, next) {//console.log('session show: ', req.session.user)
+exports.show = function(req, res, next) {
     var postid = req.params.postid;
     var user = user_ctrl.getSessionUser(req);
 
-    if(!postid) return next();
+    if(!postid) return next(new Error('Param `postid` required.'));
 
     var fields = 'i title create_at update_at author_id tags comments visite topped';
 
@@ -463,21 +464,6 @@ exports.show = function(req, res, next) {//console.log('session show: ', req.ses
         if(err) return proxy.emit('error', err);
         proxy.emit('counts', doc);
     });
-
-    /*Post.findByIdAndUpdate(postid, {$inc: {visite: 1}}, function(err, doc) {
-        if(err) return next(err);
-        //return res.render('post', doc);
-        tools.marked(doc.content,  function(err, content) {
-            if(!err) {
-                doc.content = content;
-            } else {
-                console.log('Build html error, err: ', err);
-            }
-            //doc.update_at = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
-            doc.update_date = tools.dateFormat(doc.update_at, 'YYYY-MM-DD hh:mm:ss');
-            res.render('post', doc);
-        });
-    });*/
 }
 
 // 单独拉取content, 配合show
