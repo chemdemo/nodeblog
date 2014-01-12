@@ -1,344 +1,344 @@
 /*@import url(global.css);
 @import url(web_font_icon.css);*/
 .page-body {
-	background-color: #EEE;
-	padding: 3px;
+    background-color: #EEE;
+    padding: 3px;
 }
 .page-inner {
-	background-color: #FFF;
-	border: 1px solid #DDD;
-	padding: 2em;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    padding: 2em;
 }
 .post {
-	/*padding: 2em 2em 1em;*/
-	text-align: justify;
+    /*padding: 2em 2em 1em;*/
+    text-align: justify;
 }
 .post-title {
-	font-size: 1.8em;
+    font-size: 1.8em;
 }
 .post-title i {
-	margin-right: 3px;
+    margin-right: 3px;
 }
 .edit-info {
-	padding: 0;
-	border-bottom: 1px dashed #EEE;
-	margin-bottom: 2em;
+    padding: 0;
+    border-bottom: 1px dashed #EEE;
+    margin-bottom: 2em;
 }
 .post-top {
-	color: #888;
+    color: #888;
 }
 .post-edit {
-	margin-right: .5em;
+    margin-right: .5em;
 }
 .post-body {
-	/*padding: 0 2em;*/
-	min-height: 300px;
-	position: relative;
+    /*padding: 0 2em;*/
+    min-height: 300px;
+    position: relative;
 }
 .loading {
-	background: url(images/loading.gif) no-repeat 10% 50%;
-	width: 200px;
-	height: 35px;
-	padding-top: 15px;
-	text-indent: 60px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-left: -80px;
-	margin-top: -25px;
-	border: 1px solid #DDD;
+    background: url(images/loading.gif) no-repeat 10% 50%;
+    width: 200px;
+    height: 35px;
+    padding-top: 15px;
+    text-indent: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -80px;
+    margin-top: -25px;
+    border: 1px solid #DDD;
 }
 .post-body p {
-	margin-bottom: 1em;
+    margin-bottom: 1.8em;
 }
 .post-body p p {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 /*.post-body li p {
-	margin: 0;
+    margin: 0;
 }*/
 .prev-next {
-	margin: 1em 0;
-	padding-top: 1em;
-	border-top: 1px dashed #EEE;
+    margin: 1em 0;
+    padding-top: 1em;
+    border-top: 1px dashed #EEE;
 }
 
 .post-comments {
-	margin-top: 2em;
-	font-size: 12px;
-	padding: 1em;
-	padding-bottom: 0;
-	/*background-color: #F8F8F8;
-	border: 1px solid #E6E6E6;*/
+    margin-top: 2em;
+    font-size: 12px;
+    padding: 1em;
+    padding-bottom: 0;
+    /*background-color: #F8F8F8;
+    border: 1px solid #E6E6E6;*/
 }
 
 /* comment list style */
 .comment-list {
-	/*border-top: 1px solid #EEE;*/
-	margin-top: .5em;
+    /*border-top: 1px solid #EEE;*/
+    margin-top: .5em;
 }
 .no-comment {
-	text-align: center;
-	color: #555;
-	padding-top: 5px;
-	border-top: 1px solid #EEE;
+    text-align: center;
+    color: #555;
+    padding-top: 5px;
+    border-top: 1px solid #EEE;
 }
 .reply-list {
-	margin-top: .5em;
-	/*border-left: 1px dashed #DDD;*/
+    margin-top: .5em;
+    /*border-left: 1px dashed #DDD;*/
 }
 .i-comment {
-	padding: 1em;
-	/*border-bottom: 1px dashed #DDD;*/
-	border-top: 1px solid #EEE;
-	/*margin-top: .5em;*/
-	transition: background-color .8s ease-in-out;
+    padding: 1em;
+    /*border-bottom: 1px dashed #DDD;*/
+    border-top: 1px solid #EEE;
+    /*margin-top: .5em;*/
+    transition: background-color .8s ease-in-out;
 }
 /*.i-comment:hover {
-	background-color: #FBFAE6;
+    background-color: #FBFAE6;
 }*/
 .reply-list .i-comment {
-	/*border: 1px dashed #DDD;*/
-	margin-bottom: .5em;
-	background-color: #F3F3F3;
+    /*border: 1px dashed #DDD;*/
+    margin-bottom: .5em;
+    background-color: #F3F3F3;
 }
 /*.reply-list .i-comment:hover {
-	background-color: #FFF;
+    background-color: #FFF;
 }*/
 .i-comment .avatar {
-	float: left;
-	width: 48px;
-	height: 48px;
-	padding: 1px;
-	border: 1px solid #33B5E5;
-	box-shadow: 0 0 10px 1px rgba(5, 215, 255, 0.2);
-	-webkit-animation-duration: 1s;
-	-moz-animation-duration: 1s;
-	-ms-animation-duration: 1s;
-	animation-duration: 1s;
-	-webkit-animation-iteration-count: infinite;
-	-moz-animation-iteration-count: infinite;
-	-ms-animation-iteration-count: infinite;
-	animation-iteration-count: infinite;
+    float: left;
+    width: 48px;
+    height: 48px;
+    padding: 1px;
+    border: 1px solid #33B5E5;
+    box-shadow: 0 0 10px 1px rgba(5, 215, 255, 0.2);
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    -ms-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -ms-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
 }
 .i-comment .avatar:hover {
-	-webkit-animation-name: anim;
-	-moz-animation-name: anim;
-	-ms-animation-name: anim;
-	animation-name: anim;
+    -webkit-animation-name: anim;
+    -moz-animation-name: anim;
+    -ms-animation-name: anim;
+    animation-name: anim;
 }
 @-webkit-keyframes anim {
-	0% {-webkit-transform: scale(1);}
-	10% {-webkit-transform: scale(1.01);}
-	20% {-webkit-transform: scale(1.02);}
-	30% {-webkit-transform: scale(1.03);}
-	40% {-webkit-transform: scale(1.04);}
-	50% {-webkit-transform: scale(1.05);}
-	60% {-webkit-transform: scale(1.04);}
-	70% {-webkit-transform: scale(1.03);}
-	80% {-webkit-transform: scale(1.02);}
-	90% {-webkit-transform: scale(1.01);}
-	100% {-webkit-transform: scale(1);}
+    0% {-webkit-transform: scale(1);}
+    10% {-webkit-transform: scale(1.01);}
+    20% {-webkit-transform: scale(1.02);}
+    30% {-webkit-transform: scale(1.03);}
+    40% {-webkit-transform: scale(1.04);}
+    50% {-webkit-transform: scale(1.05);}
+    60% {-webkit-transform: scale(1.04);}
+    70% {-webkit-transform: scale(1.03);}
+    80% {-webkit-transform: scale(1.02);}
+    90% {-webkit-transform: scale(1.01);}
+    100% {-webkit-transform: scale(1);}
 }
 @-moz-keyframes anim {
-	0% {-moz-transform: scale(1);}
-	10% {-moz-transform: scale(1.01);}
-	20% {-moz-transform: scale(1.02);}
-	30% {-moz-transform: scale(1.03);}
-	40% {-moz-transform: scale(1.04);}
-	50% {-moz-transform: scale(1.05);}
-	60% {-moz-transform: scale(1.04);}
-	70% {-moz-transform: scale(1.03);}
-	80% {-moz-transform: scale(1.02);}
-	90% {-moz-transform: scale(1.01);}
-	100% {-moz-transform: scale(1);}
+    0% {-moz-transform: scale(1);}
+    10% {-moz-transform: scale(1.01);}
+    20% {-moz-transform: scale(1.02);}
+    30% {-moz-transform: scale(1.03);}
+    40% {-moz-transform: scale(1.04);}
+    50% {-moz-transform: scale(1.05);}
+    60% {-moz-transform: scale(1.04);}
+    70% {-moz-transform: scale(1.03);}
+    80% {-moz-transform: scale(1.02);}
+    90% {-moz-transform: scale(1.01);}
+    100% {-moz-transform: scale(1);}
 }
 @-ms-keyframes anim {
-	0% {-ms-transform: scale(1);}
-	10% {-ms-transform: scale(1.01);}
-	20% {-ms-transform: scale(1.02);}
-	30% {-ms-transform: scale(1.03);}
-	40% {-ms-transform: scale(1.04);}
-	50% {-ms-transform: scale(1.05);}
-	60% {-ms-transform: scale(1.04);}
-	70% {-ms-transform: scale(1.03);}
-	80% {-ms-transform: scale(1.02);}
-	90% {-ms-transform: scale(1.01);}
-	100% {-ms-transform: scale(1);}
+    0% {-ms-transform: scale(1);}
+    10% {-ms-transform: scale(1.01);}
+    20% {-ms-transform: scale(1.02);}
+    30% {-ms-transform: scale(1.03);}
+    40% {-ms-transform: scale(1.04);}
+    50% {-ms-transform: scale(1.05);}
+    60% {-ms-transform: scale(1.04);}
+    70% {-ms-transform: scale(1.03);}
+    80% {-ms-transform: scale(1.02);}
+    90% {-ms-transform: scale(1.01);}
+    100% {-ms-transform: scale(1);}
 }
 @keyframes anim {
-	0% {transform: scale(1);}
-	10% {transform: scale(1.01);}
-	20% {transform: scale(1.02);}
-	30% {transform: scale(1.03);}
-	40% {transform: scale(1.04);}
-	50% {transform: scale(1.05);}
-	60% {transform: scale(1.04);}
-	70% {transform: scale(1.03);}
-	80% {transform: scale(1.02);}
-	90% {transform: scale(1.01);}
-	100% {transform: scale(1);}
+    0% {transform: scale(1);}
+    10% {transform: scale(1.01);}
+    20% {transform: scale(1.02);}
+    30% {transform: scale(1.03);}
+    40% {transform: scale(1.04);}
+    50% {transform: scale(1.05);}
+    60% {transform: scale(1.04);}
+    70% {transform: scale(1.03);}
+    80% {transform: scale(1.02);}
+    90% {transform: scale(1.01);}
+    100% {transform: scale(1);}
 }
 .i-comment .comment-body {
-	padding-left: 5em;
+    padding-left: 5em;
 }
 .i-comment .comment-info {
-	overflow: auto;
+    overflow: auto;
 }
 .i-comment .comment-author {
-	/*line-height: 1em;*/
-	margin-right: .5em;
+    /*line-height: 1em;*/
+    margin-right: .5em;
 }
 /*.i-comment .comment-author a {
-	color: #333;
+    color: #333;
 }*/
 .i-comment .comment-date {
-	font-weight: normal;
-	/*float: right;*/
-	font-size: .8em;
+    font-weight: normal;
+    /*float: right;*/
+    font-size: .8em;
 }
 .i-comment .comment-btns {
-	/*text-align: right;*/
-	float: right;
+    /*text-align: right;*/
+    float: right;
 }
 .comment-btns .comment-del {
-	opacity: 0;
-	transition: opacity .8s ease-in-out;
+    opacity: 0;
+    transition: opacity .8s ease-in-out;
 }
 .comment-btns:hover .comment-del {
-	opacity: 1;
+    opacity: 1;
 }
 .comment-btns a {
-	margin-right: .5em;
+    margin-right: .5em;
 }
 .comment-btns a, .comment-btns i {
-	color: #888;
+    color: #888;
 }
 .i-comment .comment-content {
-	margin: 3px 0;
+    margin: 3px 0;
 }
 #tips {
-	display: none;
+    display: none;
 }
 
 /* add comment */
 .add-comment {
-	margin: .5em 0;
+    margin: .5em 0;
 }
 .add-comment h4 {
-	padding-left: 1em;
-	/*background-color: #EEE;*/
-	border-bottom: 1px solid #EEE;
+    padding-left: 1em;
+    /*background-color: #EEE;*/
+    border-bottom: 1px solid #EEE;
 }
 .social-login {
-	line-height: 30px;
+    line-height: 30px;
 }
 .social-login-label,
 .social-login-bd {
-	display: inline-block;
-	vertical-align: middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 .social-login-bd li {
-	float: left;
-	height: 16px;
-	/*width: 54px;*/
-	padding: 4px 0;
-	margin-right: 1em;
+    float: left;
+    height: 16px;
+    /*width: 54px;*/
+    padding: 4px 0;
+    margin-right: 1em;
 }
 .social-login-bd a {
-	cursor: pointer;
-	background-color: transparent;
-	transition: color .15s linear;
-	-webkit-transition: color .15s linear;
-	-moz-transition: color .15s linear;
+    cursor: pointer;
+    background-color: transparent;
+    transition: color .15s linear;
+    -webkit-transition: color .15s linear;
+    -moz-transition: color .15s linear;
 
-	line-height: 16px;
-	padding-left: 18px;
-	display: block;
-	background: url(images/social-icons.png) no-repeat;
-	overflow: hidden;
+    line-height: 16px;
+    padding-left: 18px;
+    display: block;
+    background: url(images/social-icons.png) no-repeat;
+    overflow: hidden;
 }
 .social-login-bd a.sina-weibo {
-	background-position: 0 0;
+    background-position: 0 0;
 }
 .social-login-bd a.qq {
-	background-position: 0 -192px;
+    background-position: 0 -192px;
 }
 .social-login-bd a.baidu {
-	background-position: 0 -208px;
+    background-position: 0 -208px;
 }
 .social-login-bd a.qq-weibo {
-	background-position: 0 -64px;
+    background-position: 0 -64px;
 }
 .social-login-bd a.renren {
-	background-position: 0 -32px;
+    background-position: 0 -32px;
 }
 .social-login-bd a.no-social {
-	background-image: none;
-	padding-left: 0;
+    background-image: none;
+    padding-left: 0;
 }
 .add-comment .user-login {
-	text-align: center;
-	margin: 1em;
+    text-align: center;
+    margin: 1em;
 }
 .user-login,
 .user-login + .comment-input {
-	display: inline-block;
-	vertical-align: top;
-	margin-top: 1em;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 1em;
 }
 .user-login .avatar {
-	display: block;
-	float: none;
+    display: block;
+    float: none;
 }
 .user-login + .comment-input + .add-comment-btns {
-	padding-left: 75px;
+    padding-left: 75px;
 }
 .reply-list .user-login + .comment-input + .add-comment-btns {
-	padding-left: 78px;
+    padding-left: 78px;
 }
 .comment-input .textarea {
-	padding: .5em;
-	box-shadow: none;
+    padding: .5em;
+    box-shadow: none;
 }
 
 .add-comment p {
-	margin: 1em 0;
+    margin: 1em 0;
 }
 .add-comment label {
-	margin-left: .5em;
+    margin-left: .5em;
 }
 .add-comment input {
-	padding: 2px 5px;
-	height: 30px;
-	line-height: 1.5em;
-	width: 25em;
-	box-shadow: none;
+    padding: 2px 5px;
+    height: 30px;
+    line-height: 1.5em;
+    width: 25em;
+    box-shadow: none;
 }
 .comment-input {
-	margin-bottom: .5em;
-	width: 88%;
+    margin-bottom: .5em;
+    width: 88%;
 }
 .comment-input label {
-	display: block;
-	margin-left: 0;
-	margin-bottom: .5em;
-	display: none;
+    display: block;
+    margin-left: 0;
+    margin-bottom: .5em;
+    display: none;
 }
 .add-comment textarea {
-	resize: none;
-	line-height: 1.5em;
-	width: 100%;
+    resize: none;
+    line-height: 1.5em;
+    width: 100%;
 }
 .add-comment-btns i {
-	margin-right: 3px;
+    margin-right: 3px;
 }
 .comment-submit i {
-	color: #FFF;
+    color: #FFF;
 }
 .comment-cancel {
-	display: none;
+    display: none;
 }
 .comment-list .comment-cancel {
-	display: inline-block;
+    display: inline-block;
 }
