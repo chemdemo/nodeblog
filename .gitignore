@@ -3,6 +3,7 @@
 .DS_Store
 .idea
 *.log
+*.psd
 .allow-devtools-edit
 /bin
 /logs
