@@ -215,7 +215,7 @@
 .md pre {
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 5px 3px;
+    padding: 10px;
     display: block;
 }
 .md code, .md tt {

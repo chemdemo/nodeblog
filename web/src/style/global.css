@@ -263,7 +263,7 @@ a:hover {
 /* header */
 header {
     width: 100%;
-    height: 40px;
+    height: 30px;
     /*background-color: #404040;*/
     /*background-color: #323232;*/
     /*background-color: rgba(32,32,32,0.9);*/
@@ -281,8 +281,8 @@ header {
     overflow: hidden;
 }
 .header-inner {
-    width: 960px;
-    margin: 0 auto;
+    /*width: 960px;*/
+    margin: 0 30px;
 }
 .page-title {
     float: left;
@@ -290,14 +290,13 @@ header {
 }
 header a {
     color: #888;
-    line-height: 40px;
+    line-height: 30px;
 }
 header a.active {
     /*color: #33C5EC;*/
     color: #E2F9FF;
 }
 header h1 a {
-    font-size: 1.3em;
     font-weight: normal;
 }
 header .sub-title {
@@ -311,7 +310,7 @@ header .sub-title {
 header nav {
     /*float: right;
     margin-right: 3em;*/
-    margin-left: 12em;
+    margin-left: 8em;
 }
 header nav a {
     display: inline-block;
@@ -331,7 +330,7 @@ header nav a:hover {
 
 .page-search {
     float: right;
-    margin-top: 7px;
+    margin-top: 2px;
     position: relative;
     height: 100%;
     width: 190px;
@@ -347,8 +346,8 @@ header nav a:hover {
 .page-search .search-text {
     outline: none;
     background-color: #EEE;
-    line-height: 18px;
-    height: 24px;
+    line-height: 16px;
+    height: 20px;
     width: 100%;
     padding-left: 20px;
     color: #888;
@@ -365,7 +364,7 @@ header nav a:hover {
 
 /* page body set */
 .page-body {
-    width: 950px;
+    width: 720px;
     margin: 6em auto 0;
     /*padding: 8em 0 0 1.5em;*/
     /*background-color: #FFF;*/
