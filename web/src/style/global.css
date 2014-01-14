@@ -407,7 +407,7 @@ header nav a:hover {
     right: 15.8%;
 }
 .page-sitebar a {
-    /*color: #0F789E;*/
+    white-space: nowrap;
 }
 .page-sitebar a:hover {
     background-color: #DDD !important;
