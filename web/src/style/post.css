@@ -60,7 +60,7 @@
 .post-body p {
     margin-bottom: 1.8em;
 }
-.post-body p p {
+.post-body li p, .post-body p p {
     margin-bottom: 0;
 }
 /*.post-body li p {
