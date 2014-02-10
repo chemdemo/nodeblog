@@ -27,6 +27,7 @@ app.configure('production', function() {
     app.set('view cache', true);
 });
 
+app.enable('trust proxy');
 app.set('port', process.env.PORT || settings.APP_PORT);
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
