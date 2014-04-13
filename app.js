@@ -47,15 +47,14 @@ app.use(express.cookieParser(settings.COOKIE_SECRET));
 // app.use(express.session({secret: settings.SESSION_SECRET}));
 app.use(express.session({
     store: new RedisStore({
-        host: settings.APP_HOST,
-        port: settings.SESSION_PORT,
-        db: 1
-    })
-    , secret: settings.SESSION_SECRET
+        host: settings.SESSION_HOST,
+        port: settings.SESSION_PORT
+    }),
+    secret: settings.COOKIE_SECRET
 }));
 app.use(express.csrf());
 app.use(function(req, res, next) {
-    res.locals.token = req.session._csrf;
+    res.locals.token = req.session ? req.session._csrf : '';
     res.locals.env = app.settings.env;
     next();
 });
@@ -65,8 +64,10 @@ app.use(app.router);
 routes(app);
 
 app.use(function(err, req, res, next) {
+    var env = process.env.NODE_ENV || 'development';
+
     if(err.status === 404) return res.render('404');
-    console.error('Error occurs(production mode):\n', err.stack, '\nDate: ' + new Date());
+    console.error('Error occurs(' + env + ' mode):\n', err.stack, '\nDate: ' + new Date());
     res.render('error', {error: err.message || 'Unknown error!'});
 });
 
