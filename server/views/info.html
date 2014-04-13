@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block stylesheet %}
+{% if (env && env === 'production') %}
+<<<<<<< HEAD
+<link rel="stylesheet" href="/build/style/user.min.css?_t=1396980477139" />
+=======
+<link rel="stylesheet" href="/build/style/user.min.css?_t=1396980477139" />
+>>>>>>> c4f3e1a48cecfbd16de098c626cccc45a3ce5448
+{% else %}
+<link rel="stylesheet" href="/src/style/icons.css" />
+<link rel="stylesheet" href="/src/style/global.css" />
+<link rel="stylesheet" href="/src/style/user.css" />
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="page-body clearfix">
+    <form class="user-info" method="POST">
+        <input id="csrf" type="hidden" name="_csrf" value="{{ token }}">
+        <p class="user-avatar">
+            <img src="{{ avatar }}" alt="avatar" />
+        </p>
+        <p>
+            <label for="name">姓名：</label>
+            <input class="input" id="name" name="name" value="{{ name }}" />
+        </p>
+        <p >
+            <label for="email">邮箱：</label>
+            <input class="input" id="email" name="email" value="{{ email }}" />
+        </p>
+        <p>
+            <label for="pass">密码：</label>
+            <input class="input" type="password" id="pass" name="password" value="{{ pass }}" />
+        </p>
+        <p>
+            <label for="site">网站：</label>
+            <input class="input" id="site" name="site" value="{{ site }}" />
+        </p>
+        <!-- <p>
+            <button disabled type="submit" class="i-btn i-btn-red">修改</button>
+            <a href="/" class="i-btn">回主页</a>
+        </p> -->
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+{% if (env && env === 'production') %}
+<script data-main="/build/js/user" src="/require.min.js"></script>
+{% else %}
+<script data-main="/src/js/user" src="/require.min.js"></script>
+{% endif %}
+{% endblock %}

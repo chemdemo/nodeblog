@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block stylesheet %}
+{% if (env && env === 'production') %}
+<<<<<<< HEAD
+<link rel="stylesheet" href="/build/style/index.min.css?_t=1396980477139" />
+=======
+<link rel="stylesheet" href="/build/style/index.min.css?_t=1396980477139" />
+>>>>>>> c4f3e1a48cecfbd16de098c626cccc45a3ce5448
+{% else %}
+<link rel="stylesheet" href="/src/style/icons.css" />
+<link rel="stylesheet" href="/src/style/global.css" />
+<link rel="stylesheet" href="/src/style/index.css" />
+<link rel="stylesheet" href="/src/style/themes/ice.css" />
+<link rel="stylesheet" href="/src/style/md.css" />
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="page-body clearfix">
+    <div class="page-content">
+        {% for post in posts %}
+        <article class="post">
+            <h3 class="post-title">
+                {% if post.topped %}<i class="topped icon-star" title="置顶"></i>{% endif %}<a href="/post/{{ post._id|toString }}">{{ post.title }}</a>
+            </h3>
+            <div class="post-date">
+                <i class="icon-clock" title="最后编辑时间"></i>
+                <span class="update-date">{{ post.update_at|date('Y-m-d h:i:s', -8*60) }}</span><!-- 北京时间与格林威治标准时间相差8h -->
+            </div>
+            <!-- <div class="post-cover"><img src="covers/c0.jpg" /></div> -->
+            <div class="post-summary md">
+            {% autoescape false %}
+                {{ post.summary }}
+            {% endautoescape %}
+            </div>
+            <div class="post-more">
+                <a class="i-btn btn-mini" href="/post/{{ post._id|toString }}">阅读更多&nbsp;<i class="icon-arrow-right"></i></a>
+            </div>
+            <div class="post-info">
+                <!-- <span class="post-date">
+                    <i class="icon-alarm" title="最后编辑时间"></i>
+                    <span class="update-date">{{ post.update_at|date('Y-m-d', -8*60) }}</span>
+                </span>
+                <span class="post-gap">/</span> -->
+                <span class="post-tags">
+                    <i class="icon-tags" title="标签"></i> 标签:
+                    {% for tag in post.tags %}
+                    <a class="tag" href="/tag/{{ tag }}">{{ tag }}</a>
+                    {% endfor %}
+                </span>
+                {% if user.admin %}
+                <span class="post-edit">
+                    <a href="/edit/{{ post._id|toString }}" class="icon-pencil" title="编辑"></a>
+                </span>
+                {% endif %}
+                <span class="post-comments">
+                    <!-- <a href="/post/{{ post._id }}#comments" class="icon-bubbles" title="{{ post.comments }}条评论"></a> -->
+                    评论(<span class="comments-num">{{ post.comments }}</span>)
+                </span>
+                <span class="line">|</span>
+                <span class="post-visite">
+                    访问量(<span class="visite-num">{{ post.visite }}</span>)
+                </span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% include './sitebar.html' %}
+</div>
+{% endblock %}
+
+{% block script %}
+{% if (env && env === 'production') %}
+<script data-main="/build/js/index" src="/require.min.js"></script>
+{% else %}
+<script data-main="/src/js/index" src="/require.min.js"></script>
+{% endif %}
+{% endblock %}

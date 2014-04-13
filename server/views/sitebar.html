@@ -1,0 +1,54 @@
+{% block sitebar %}
+<div class="page-sitebar">
+    <section class="author-desc">
+        <a href="javascript: void(0);" id="about-author">ABOUT ME</a>
+        <div class="author-info" itemscope itemtype="http://data-vocabulary.org/Person">
+            <p>
+                <strong>Name：</strong><span itemprop="name">dmyang</span>
+            </p>
+            <p>
+                <strong>Work：</strong>11年毕业，现居<span itemprop="location">深圳</span>，<span itemprop="role">Web前端开发、NodeJS开发</span>，喜欢旅行、摄影。
+            </p>
+            <p><strong>GitHub：</strong><a href="https://github.com/chemdemo" target="_blank">chemdemo</a></p>
+            <p class="sns-icon">
+                <strong>SNS：</strong><a title="新浪微博" href="//weibo.com/chemdemo" target="_blank" class="sns-weibo">新浪微博</a>
+                <a title="豆瓣" href="//www.douban.com/people/chemdemo/" target="_blank" class="sns-douban">豆瓣</a>
+            </p>
+        </div>
+    </section>
+
+    <section class="site-tags">
+        <h3>所有标签</h3>
+        <div class="tags-list">
+            {% for tag in tags %}
+            <a href="/tag/{{ tag.name }}" class="tag">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="site-archive">
+        <h3>文章归档</h3>
+        <ul class="archive-list ul">
+            {% for count in counts %}
+            <li>
+                <a href="/posts/{{ count._id|toString }}">{{ count._id|toString|countFormat }}</a>
+                <!-- <a href="/posts/{{ count._id }}">{{ count._id|date('Y年m月', -60*8) }}</a> -->
+                (<b>{{ count.value|split('$')|length|default(0) }}</b>)
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="friend-links">
+        <h3>友情链接</h3>
+        <ul class="links-list ul">
+            <li>
+                <a href="http://www.alloyteam.com">AlloyTeam</a>
+            </li>
+            <li>
+                <a href="http://jianshu.io/c/BDu5F8">Markdown</a>
+            </li>
+        </ul>
+    </section>
+</div>
+{% endblock %}
