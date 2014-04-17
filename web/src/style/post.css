@@ -14,7 +14,7 @@
     text-align: justify;
 }
 .post-title {
-    font-size: 1.8em;
+    font-size: 1.5em;
 }
 .post-title a {
     background-color: transparent;
@@ -74,7 +74,7 @@
 
 .post-comments {
     margin-top: 2em;
-    font-size: 12px;
+    font-size: 14px;
     padding: 1em;
     padding-bottom: 0;
     /*background-color: #F8F8F8;
