@@ -1,6 +1,6 @@
 {
   "name": "NodeBlog",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A lightweight blog system built with nodejs.",
   "dependencies": {
     "jquery": "2.0.3",
