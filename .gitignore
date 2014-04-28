@@ -5,7 +5,6 @@
 *.log
 *.psd
 .allow-devtools-edit
-/bin
 /logs
 /node_modules
 /tmp
