@@ -417,6 +417,10 @@ exports.show = function(req, res, next) {
 
     //findAPost
     var proxy = EventProxy.create('post', 'tags', 'counts', 'prev', 'next', function(post, tags, counts, prev, next) {
+        Post.findByIdAndUpdate(post._id, {$inc: {visite: 1}}, function(_err, _doc) {
+            if(_err) console.log('Add visite error.', _err);
+        });
+
         res.render('post', {
             post: post
             , tags: tags
@@ -426,9 +430,10 @@ exports.show = function(req, res, next) {
             , user: user
         });
 
-        Post.findByIdAndUpdate(post._id, {$inc: {visite: 1}}, function(_err, _doc) {
-            if(_err) console.log('Add visite error.', _err);
-        });
+        // res.render()修改了post._id，会导致visite更新不成功！
+        // Post.findByIdAndUpdate(post._id, {$inc: {visite: 1}}, function(_err, _doc) {
+        //     if(_err) console.log('Add visite error.', _err);
+        // });
     }).fail(next);
 
     proxy.on('post', function(post) {
