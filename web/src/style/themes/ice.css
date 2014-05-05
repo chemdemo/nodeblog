@@ -6,9 +6,10 @@
 pre {
     /*background-color: #F5F5F5;*/
     /*background-color: #002B36;*/
+    background-color: #EFF2F5;
     word-wrap: break-word;
     font-size: 14px;
-    border: 1px solid #E0E0E0;
+    /*border: 1px solid #E0E0E0;*/
     line-height: 1.3;
 }
 

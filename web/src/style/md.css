@@ -192,13 +192,13 @@
     text-align:right
 }
 .md span.float-left {
-    display:block;
-    margin-right:13px;
-    overflow:hidden;
-    float:left
+    display: block;
+    margin-right: 13px;
+    overflow: hidden;
+    float: left
 }
 .md span.float-left span {
-    margin:13px 0 0
+    margin: 13px 0 0
 }
 .md span.float-right {
     display:block;
@@ -207,10 +207,10 @@
     float:right
 }
 .md span.float-right > span {
-    display:block;
-    overflow:hidden;
-    margin:13px auto 0;
-    text-align:right
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right
 }
 .md pre {
     overflow-x: auto;

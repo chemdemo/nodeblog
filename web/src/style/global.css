@@ -259,15 +259,15 @@ a:hover {
 /* header */
 header {
     width: 100%;
-    height: 30px;
     /*background-color: #404040;*/
     /*background-color: #323232;*/
     /*background-color: rgba(32,32,32,0.9);*/
     /*background-color: rgba(251, 255, 249, 0.87);*/
-    background-color: rgba(44, 44, 44, 0.88);
+    /*background-color: rgba(44, 44, 44, 0.88);*/
+    background-color: #2C3E50;
     /*border-top: 1px solid #33B5E5;*/
     /*border-bottom: 1px solid rgba(0,0,0,0.05);*/
-    border-bottom: 3px solid #00BBFF;
+    /*border-bottom: 3px solid #00BBFF;*/
     /*background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);*/
     position: fixed;
@@ -278,15 +278,15 @@ header {
 }
 .header-inner {
     /*width: 960px;*/
-    margin: 0 30px;
+    margin: 0 60px;
 }
 .page-title {
     float: left;
     line-height: 1;
 }
 header a {
-    color: #888;
-    line-height: 30px;
+    color: #E2F9FF;
+    line-height: 40px;
 }
 header a.active {
     /*color: #33C5EC;*/
@@ -317,9 +317,9 @@ header nav a {
 header nav a.active,
 header nav a:hover {
     /*background-color: #3D3D3D;*/
-    background-color: #555;
+    background-color: #34495E;
     /*color: #33C5EC;*/
-    color: #E2F9FF;
+    /*color: #E2F9FF;*/
     /*border-color: #33B5E5;*/
     text-decoration: none;
 }
@@ -331,6 +331,7 @@ header nav a:hover {
     height: 100%;
     width: 190px;
     overflow: hidden;
+    display: none;
 }
 .page-search .icon-search {
     cursor: pointer;
@@ -447,7 +448,9 @@ header nav a:hover {
 footer {
     text-align: center;
     color: #999;
+    /*color: #E2F9FF;*/
     /*background-color: #f8f8f8;*/
+    /*background-color: #2C3E50;*/
     height: 60px;
     padding-top: 40px;
 }
