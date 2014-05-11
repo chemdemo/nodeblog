@@ -40,13 +40,14 @@ function home(req, res, next) {
         if(err) return proxy.emit('error', err);
         proxy.emit('counts', doc);
     });
-}
+};
 
 function routes(app) {
     // index
     app.get('/', home);
     app.get('/index', home);
     app.get('/home', home);
+    app.get('/about', function(req, res, next) {res.render('about', {about: true});});
 
     // user about
     // app.get('/signup', sign.signup);
