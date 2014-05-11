@@ -4,8 +4,8 @@ var fs = require('fs');
 
 // force reload
 function requireUncached(module){
-    delete require.cache[require.resolve(module)]
-    return require(module)
+    delete require.cache[require.resolve(module)];
+    return require(module);
 };
 
 module.exports = function(grunt) {
