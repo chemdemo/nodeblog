@@ -2,7 +2,7 @@
 
 {% block stylesheet %}
 {% if (env && env === 'production') %}
-<link rel="stylesheet" href="/build/style/index.min.css?_t=1399298245482" />
+<link rel="stylesheet" href="/dist/style/index.min.css?_VER=0.1.7" />
 {% else %}
 <link rel="stylesheet" href="/src/style/icons.css" />
 <link rel="stylesheet" href="/src/style/global.css" />
@@ -21,7 +21,8 @@
                 {% if post.topped %}<i class="topped icon-star" title="置顶"></i>{% endif %}<a href="/post/{{ post._id|toString }}">{{ post.title }}</a>
             </h3>
             <div class="post-date">
-                <i class="icon-clock" title="最后编辑时间"></i>
+                <!-- <i class="icon-clock" title="最后编辑时间"></i> -->
+                Last edit at
                 <span class="update-date">{{ post.update_at|date('Y-m-d h:i:s', -8*60) }}</span><!-- 北京时间与格林威治标准时间相差8h -->
             </div>
             <!-- <div class="post-cover"><img src="covers/c0.jpg" /></div> -->
@@ -51,12 +52,13 @@
                 </span>
                 {% endif %}
                 <span class="post-comments">
-                    <!-- <a href="/post/{{ post._id }}#comments" class="icon-bubbles" title="{{ post.comments }}条评论"></a> -->
+                    <!-- <a href="/post/{{ post._id }}#comments" class="icon-bubbles" title="{{ post.comments }}"></a> -->
                     评论(<span class="comments-num">{{ post.comments }}</span>)
                 </span>
                 <span class="line">|</span>
                 <span class="post-visite">
                     访问量(<span class="visite-num">{{ post.visite }}</span>)
+                    <!-- <i class="icon-eye"></i>{{ post.visite }} -->
                 </span>
             </div>
         </article>
@@ -69,7 +71,7 @@
 
 {% block script %}
 {% if (env && env === 'production') %}
-<script data-main="/build/js/index" src="/require.min.js"></script>
+<script data-main="/dist/js/index" src="/require.min.js"></script>
 {% else %}
 <script data-main="/src/js/index" src="/require.min.js"></script>
 {% endif %}

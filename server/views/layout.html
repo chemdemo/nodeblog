@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="keywords" content="notes dm dmyang nodeblog" />
+    <meta name="keywords" content="dm dmyang nodeblog" />
     <meta name="description" content="Note my life, note my work." />
     <meta name="author" content="dmyang @demo-i" />
     <meta name="copyright" content="dmyang" />
@@ -12,8 +12,8 @@
     <link href="/favicon.ico" type="image/x-icon" rel="icon" />
     <link href="/favicon.ico" type="image/x-icon" rel="shortcut icon" />
     {% block stylesheet %}
-    <link rel="stylesheet" href="/style/icons.css" />
-    <link rel="stylesheet" href="/style/global.css" />
+    <link rel="stylesheet" href="/src/style/icons.css" />
+    <link rel="stylesheet" href="/src/style/global.css" />
     <link rel="stylesheet" href="/src/style/themes/ice.css" />
     <link rel="stylesheet" href="/src/style/md.css" />
     {% endblock %}
@@ -32,15 +32,16 @@
             </form>
 
             <section class="page-title">
-                <h1>
-                    <a href="/" class="active">无股杂良</a>
+                <h1>dmyang blog
+                    <a href="/" title="logo"></a>
                 </h1>
                 <!-- <p class="sub-title">聊聊技术，写写生活，人生当有所积累！</p> -->
             </section>
 
             <nav>
-                <a href="/" class="{% if home %}active{% endif %}" title="回主页">主页</a>
+                <a href="/" {% if home %}class="active"{% endif %} title="回主页">主页</a>
                 <a href="http://dmfeel.lofter.com/" target="_blank" title="Lofter相册">行行摄摄</a>
+                <a href="/about" {% if about %}class="active"{% endif %} title="About Me">关于</a>
             </nav>
         </div>
     </header>
@@ -50,23 +51,21 @@
 
     <footer>
         Copyright &copy; <script>document.write(new Date().getFullYear());</script>. Built with
-        <a href="http://nodejs.org/" target="_blank">NodeJS(expressjs)</a>
-        and <a href="http://www.mongodb.org/" target="_blank">MongoDB(mongoose)</a>.
-        By <a href="http://www.dmfeel.com" target="_blank">dmyang</a>.
+        <a href="http://nodejs.org/" target="_blank">Node.js</a>
+        and <a href="http://www.mongodb.org/" target="_blank">MongoDB</a>.
     </footer>
 </body>
 <script type="text/javascript">
 var require = {};
 {% if (env && env === 'production') %}
 require = {
-    baseDir: '/build',
-    urlArgs: '_t=1382248007643'
-}
+    baseDir: '/dist',
+    urlArgs: '_VER=0.1.7'
+};
 {% else %}
 require = {
     baseDir: '/src',
-    urlArgs: '_t=' + (new Date()).getTime(),
-    waitSeconds: 15,
+    urlArgs: '_t=' + Date.now(),
     packages: [
         {
             name: 'ace',

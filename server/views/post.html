@@ -6,7 +6,7 @@
 
 {% block stylesheet %}
 {% if (env && env === 'production') %}
-<link rel="stylesheet" href="/build/style/post.min.css?_t=1399298245482" />
+<link rel="stylesheet" href="/dist/style/post.min.css?_VER=0.1.7" />
 {% else %}
 <link rel="stylesheet" href="/src/style/icons.css" />
 <link rel="stylesheet" href="/src/style/global.css" />
@@ -32,7 +32,7 @@
                 {% endif %}
                 {% endif %}
                 <span class="post-date">
-                    <i class="icon-alarm" title="最后编辑时间"></i>
+                    Last edit at
                     <span class="update-date">{{ post.update_at|date('Y-m-d h:i:s', -8*60) }}</span>
                 </span>
                 <span class="post-gap">/</span>by
@@ -41,6 +41,12 @@
                 {% else %}
                 {{ post.author.name }}
                 {% endif %}
+                <!-- <span class="post-visite">
+                    views(<span class="visite-num">{{ post.visite }}</span>)
+                </span>
+                <span class="post-comments">
+                    comments(<span class="comments-num">{{ post.comments }}</span>)
+                </span> -->
             </div>
             <!-- <textarea type="hidden" class="none" id="post-content">{{ post.content }}</textarea> -->
             <article class="post-body md" id="post-body">
@@ -80,7 +86,7 @@
                     <a href="javascript:void(0);" data-cmd="logout" class="logout">登出</a>
                 </div>
                 {% else %}
-                <div class="social-login none" id="social-login">
+                <!-- <div class="social-login none" id="social-login">
                     <span class="social-login-label">使用社交账号登录：</span>
                     <div id="social-login-bd" class="social-login-bd"></div>
                     <ul class="ul social-login-bd">
@@ -94,7 +100,7 @@
                             <a class="no-social" href="javascript:void(0)">邮箱登录»</a>
                         </li>
                     </ul>
-                </div>
+                </div> -->
                 <div class="user-logout" id="user-logout">
                     <p>
                         <input class="input" name="name" id="name" placeholder="怎么称呼？" />
@@ -135,7 +141,7 @@
 <!-- <script id='denglu_login_js'></script>
 <script id='bd_soc_login_boot'></script> -->
 {% if (env && env === 'production') %}
-<script data-main="/build/js/post" src="/require.min.js"></script>
+<script data-main="/dist/js/post" src="/require.min.js"></script>
 {% else %}
 <script data-main="/src/js/post" src="/require.min.js"></script>
 {% endif %}

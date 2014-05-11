@@ -2,7 +2,7 @@
 
 {% block stylesheet %}
 {% if (env && env === 'production') %}
-<link rel="stylesheet" href="/build/style/edit.min.css?_t=1384348670953" />
+<link rel="stylesheet" href="/dist/style/edit.min.css?_VER=0.1.7" />
 {% else %}
 <link rel="stylesheet" href="/src/style/icons.css" />
 <link rel="stylesheet" href="/src/style/global.css" />
@@ -119,7 +119,7 @@
 
 {% block script %}
 {% if (env && env === 'production') %}
-<script data-main="/build/js/edit" src="/require.min.js"></script>
+<script data-main="/dist/js/edit" src="/require.min.js"></script>
 {% else %}
 <script data-main="/src/js/edit" src="/require.min.js"></script>
 {% endif %}

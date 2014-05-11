@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block stylesheet %}
+{% if (env && env === 'production') %}
+<link rel="stylesheet" href="/dist/style/about.min.css?_VER=0.1.7" />
+{% else %}
+<link rel="stylesheet" href="/src/style/icons.css" />
+<link rel="stylesheet" href="/src/style/global.css" />
+<link rel="stylesheet" href="/src/style/about.css" />
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="page-body clearfix">
+    <h2>关于我</h2>
+    <dl>
+        <dt>个人信息</dt>
+        <dd>英文名：dmyang</dd>
+        <dd>工作相关：2011年毕业于中山大学，化学专业，却阴差阳错走上IT这条（不归）路。目前职位是前端开发（深圳），但是兴趣却不止前端，慢慢地在接触和学习更多后端的东西，爱JavaScript，也爱Linux。</dd>
+    </dl>
+
+    <dl>
+        <dt>没啥爱好</dt>
+        <dd>喜欢找个地方安静的读书，历史、哲学、宗教等等</dd>
+        <dd>喜欢背着相机到处去旅行，风尘仆仆也无所谓，我喜欢旅行那种心情</dd>
+        <dd>当然，大部分时间还是窝在家，吃饭睡觉写写代码，无聊也逛逛微博豆瓣知乎什么的～</dd>
+    </dl>
+
+    <dl>
+        <dt>联系方式</dt>
+        <dd>GitHub：<a href="https://github.com/chemdemo" target="_blank">chemdemo</a></dd>
+        <dd>新浪微博：<a href="//weibo.com/chemdemo" target="_blank">@demo-i</a></dd>
+        <dd>QQ：<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=497965915&amp;site=qq&amp;menu=yes">497965915</a></dd>
+        <dd>Email：<a href="mailto:yangdemo@gmail.com">yangdemo@gmail.com</a></dd>
+    </dl>
+</div>
+{% endblock %}
