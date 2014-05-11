@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var semver = require('semver');
 
 // force reload
 function requireUncached(module){
@@ -169,8 +169,15 @@ module.exports = function(grunt) {
                     replacements: [
                         {
                             pattern: /_VER=([^\'\"]+)?/g,
-                            // replacement: '_VER=' + require('./package.json').version
-                            replacement: '_VER=' + requireUncached('./package.json').version
+                            // pattern: /(?:[\'|\"|\?])?_VER=([\d||A-a|.|-]*)(?:[\'|\"])?/g,n
+                            // replacement: '_VER=' + requireUncached('./package.json').version
+                            replacement: function(match, version) {
+                                if(!semver.valid(version)) throw Error('version error!');
+                                var nextVer = '0.2.0' || semver.inc(version, 'patch');
+                                // can not get the src url of the file here
+                                grunt.log.ok('Version bumped to ' + nextVer);
+                                return '_VER=' + nextVer
+                            }
                         }
                     ]
                 }
@@ -181,8 +188,11 @@ module.exports = function(grunt) {
             options: {
                 files: ['package.json', 'bower.json'],
                 commitMessage: 'Release v%VERSION%',
-                // updateConfigs: ['pkg'],
                 commitFiles: ['-a'],
+                // updateConfigs: ['pkg'],
+                tagMessage: 'Version %VERSION',
+                createTag: true,
+                push: true,
                 pushTo: 'origin'
             }
         }
