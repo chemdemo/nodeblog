@@ -191,8 +191,13 @@ module.exports = function(grunt) {
                 commitFiles: ['-a'],
                 // updateConfigs: ['pkg'],
                 tagMessage: 'Version %VERSION',
+<<<<<<< HEAD
                 createTag: true,
                 push: true,
+=======
+		createTag: false,
+		push: false,
+>>>>>>> 56580e008f2cf9bd6676945cfaafd9a694a5904e
                 pushTo: 'origin'
             }
         }
