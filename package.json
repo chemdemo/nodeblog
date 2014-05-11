@@ -1,10 +1,6 @@
 {
   "name": "NodeBlog",
-<<<<<<< HEAD
   "version": "0.2.0",
-=======
-  "version": "0.1.11",
->>>>>>> 56580e008f2cf9bd6676945cfaafd9a694a5904e
   "private": true,
   "scripts": {
     "start": "node app"
