@@ -1,5 +1,7 @@
 'use strict';
 
+var fs = require('fs');
+
 module.exports = function(grunt) {
     // show elapsed time at the end
     require('time-grunt')(grunt);
@@ -8,28 +10,29 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         // pkg: grunt.file.readJSON('package.json'),
+
         path: {
             pub: 'web',
             dev: 'web/src',
-            tmp: 'web/src/.tmp',
-            build: 'web/build'
+            dist: 'web/dist',
+            tmp: 'web/src/.tmp'
         },
 
         clean: {
             all: {
-                src: ['<%= path.build %>/']
+                src: ['<%= path.dist %>/']
             },
             css: {
-                src: ['<%= path.build %>/style/{,*/}*.{css,txt}']
+                src: ['<%= path.dist %>/style/{,*/}*.{css,txt}']
             },
             fonts: {
-                src: ['<%= path.build %>/style/fonts']
+                src: ['<%= path.dist %>/style/fonts']
             },
             images: {
-                src: ['<%= path.build %>/style/images']
+                src: ['<%= path.dist %>/style/images']
             },
             js: {
-                src: ['<%= path.build %>/js/']
+                src: ['<%= path.dist %>/js/']
             },
             tmp: {
                 src: ['<%= path.tmp %>/']
@@ -41,26 +44,26 @@ module.exports = function(grunt) {
                 options: {
                     appDir: '<%= path.dev %>/js',
                     baseUrl: '../../',
-                    dir: '<%= path.build %>/js',
+                    dir: '<%= path.dist %>/js',
                     optimize: 'uglify',
                     mainConfigFile: '<%= path.dev %>/main.js',
                     //locale: 'en-us',
                     modules: [
                         {
-                            name: 'build/js/index'
+                            name: 'dist/js/index'
                         },
                         {
-                            name: 'build/js/post'
+                            name: 'dist/js/post'
                         },
                         {
-                            name: 'build/js/edit'/*,
+                            name: 'dist/js/edit'/*,
                             exclude: ['src/js/ace/ace']*/
                         },
                         {
-                            name: 'build/js/list'
+                            name: 'dist/js/list'
                         },
                         {
-                            name: 'build/js/user'
+                            name: 'dist/js/user'
                         }
                     ],
                     logLevel: 0,
@@ -95,7 +98,8 @@ module.exports = function(grunt) {
                     '<%= path.tmp %>/style/post.css': ['<%= path.tmp %>/tmp-all.css', '<%= path.dev %>/style/post.css'],
                     '<%= path.tmp %>/style/edit.css': ['<%= path.tmp %>/tmp-all.css', '<%= path.dev %>/style/edit.css'],
                     '<%= path.tmp %>/style/list.css': ['<%= path.tmp %>/tmp-all.css', '<%= path.dev %>/style/list.css'],
-                    '<%= path.tmp %>/style/user.css': ['<%= path.tmp %>/tmp-all.css', '<%= path.dev %>/style/user.css']
+                    '<%= path.tmp %>/style/user.css': ['<%= path.tmp %>/tmp-all.css', '<%= path.dev %>/style/user.css'],
+                    '<%= path.tmp %>/style/about.css': ['<%= path.tmp %>/tmp-all.css', '<%= path.dev %>/style/about.css'],
                 }
             },
             minify: {
@@ -106,9 +110,10 @@ module.exports = function(grunt) {
                     'style/post.css',
                     'style/edit.css',
                     'style/list.css',
-                    'style/user.css'
+                    'style/user.css',
+                    'style/about.css',
                 ],
-                dest: '<%= path.build %>/',
+                dest: '<%= path.dist %>/',
                 ext: '.min.css'
             }
         },
@@ -123,7 +128,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: '<%= path.dev %>/style/images/',
                         src: ['**/*.{png,jpg,gif}'],
-                        dest: '<%= path.build %>/style/images/'
+                        dest: '<%= path.dist %>/style/images/'
                     }
                 ]
             }
@@ -135,7 +140,7 @@ module.exports = function(grunt) {
                     expand: true,
                     dot: true,
                     cwd: '<%= path.dev %>',
-                    dest: '<%= path.build %>',
+                    dest: '<%= path.dist %>',
                     src: ['style/fonts/{,*/}*.*']
                 }]
             }
@@ -151,13 +156,14 @@ module.exports = function(grunt) {
                     'server/views/list.html': 'server/views/list.html',
                     'server/views/login.html': 'server/views/login.html',
                     'server/views/post.html': 'server/views/post.html',
+                    'server/views/about.html': 'server/views/about.html',
                     'server/views/signup.html': 'server/views/signup.html'
                 },
                 options: {
                     replacements: [
                         {
-                            pattern: /\?_t=(\d{13})/g,
-                            replacement: '?_t=' + Date.now()
+                            pattern: /_VER=([^\'\"]+)?/g,
+                            replacement: '_VER=' + require('./package.json').version
                         }
                     ]
                 }
@@ -175,43 +181,44 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('build-css', function() {
+    grunt.registerTask('dist-css', function() {
         grunt.task.run('clean:css');
         grunt.task.run('concat');
         grunt.task.run('cssmin');
         grunt.task.run('clean:tmp');
     });
 
-    grunt.registerTask('build-js', function() {
+    grunt.registerTask('dist-js', function() {
         grunt.task.run('clean:js');
         grunt.task.run('requirejs');
     });
 
-    grunt.registerTask('build-images', function() {
+    grunt.registerTask('dist-images', function() {
         grunt.task.run('clean:images');
         grunt.task.run('imagemin');
     });
 
-    grunt.registerTask('build-fonts', function() {
+    grunt.registerTask('dist-fonts', function() {
         grunt.task.run('clean:fonts');
         grunt.task.run('copy');
     });
 
-    grunt.registerTask('build', function(type) {
+    grunt.registerTask('dist', function(type) {
         if(!type) {
             grunt.task.run('default');
         } else {
-            grunt.task.run('build-' + type);
+            grunt.task.run('dist-' + type);
         }
     });
 
-    grunt.registerTask('default', function(buildJS) {
-        grunt.task.run('bump-only');
-        !!buildJS && grunt.task.run('build-js'); // Because there are too many javascript files
-        grunt.task.run('build-css');
-        grunt.task.run('build-images');
-        grunt.task.run('build-fonts');
+    grunt.registerTask('default', function(distJS) {
+        // grunt.task.run('bump-only');
+        // Because there are too many javascript files in ace lib.
+        !!distJS && grunt.task.run('dist-js');
+        grunt.task.run('dist-css');
+        grunt.task.run('dist-images');
+        grunt.task.run('dist-fonts');
+        // grunt.task.run('bump-commit');
         grunt.task.run('string-replace');
-        grunt.task.run('bump-commit');
     });
-}
+};
