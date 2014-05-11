@@ -2,6 +2,12 @@
 
 var fs = require('fs');
 
+// force reload
+function requireUncached(module){
+    delete require.cache[require.resolve(module)]
+    return require(module)
+};
+
 module.exports = function(grunt) {
     // show elapsed time at the end
     require('time-grunt')(grunt);
@@ -163,7 +169,8 @@ module.exports = function(grunt) {
                     replacements: [
                         {
                             pattern: /_VER=([^\'\"]+)?/g,
-                            replacement: '_VER=' + require('./package.json').version
+                            // replacement: '_VER=' + require('./package.json').version
+                            replacement: '_VER=' + requireUncached('./package.json').version
                         }
                     ]
                 }
