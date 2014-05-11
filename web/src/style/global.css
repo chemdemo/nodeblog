@@ -187,7 +187,7 @@ a:hover {
     display: inline-block;
     vertical-align: middle;
     border: none;
-    padding: 5px 15px;
+    padding: 5px 15px 1px;
     line-height: 20px;
     text-align: center;
     background-color: #EBEBEB;
@@ -203,6 +203,8 @@ a:hover {
 }
 .i-btn.btn-mini {
     padding: 1px 3px;
+    height: 20px;
+    line-height: 24px;
 }
 .i-btn:hover {
     text-decoration: none;
@@ -278,7 +280,7 @@ header {
 }
 .header-inner {
     /*width: 960px;*/
-    margin: 0 60px;
+    margin: 0 90px;
 }
 .page-title {
     float: left;
@@ -292,8 +294,16 @@ header a.active {
     /*color: #33C5EC;*/
     color: #E2F9FF;
 }
-header h1 a {
+header h1 {
     font-weight: normal;
+    font-size: 0;
+}
+header h1 a {
+    background: url(images/logo.png) no-repeat center;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    display: block;
 }
 header .sub-title {
     float: left;
@@ -306,7 +316,7 @@ header .sub-title {
 header nav {
     /*float: right;
     margin-right: 3em;*/
-    margin-left: 8em;
+    margin-left: 4em;
 }
 header nav a {
     display: inline-block;
@@ -326,7 +336,7 @@ header nav a:hover {
 
 .page-search {
     float: right;
-    margin-top: 2px;
+    margin-top: 6px;
     position: relative;
     height: 100%;
     width: 190px;
@@ -343,8 +353,8 @@ header nav a:hover {
 .page-search .search-text {
     outline: none;
     background-color: #EEE;
-    line-height: 16px;
-    height: 20px;
+    line-height: 24px;
+    height: 24px;
     width: 100%;
     padding-left: 20px;
     color: #888;
@@ -447,10 +457,11 @@ header nav a:hover {
 /* footer */
 footer {
     text-align: center;
-    color: #999;
+    /*color: #263c4c;*/
+    color: #ADADAD;
     /*color: #E2F9FF;*/
-    /*background-color: #f8f8f8;*/
+    background-color: #f8f8f8;
     /*background-color: #2C3E50;*/
-    height: 60px;
-    padding-top: 40px;
+    margin-top: 30px;
+    padding: 30px 0;
 }
