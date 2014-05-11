@@ -173,7 +173,7 @@ module.exports = function(grunt) {
                             // replacement: '_VER=' + requireUncached('./package.json').version
                             replacement: function(match, version) {
                                 if(!semver.valid(version)) throw Error('version error!');
-                                var nextVer = '0.2.0' || semver.inc(version, 'patch');
+                                var nextVer = semver.inc(version, 'patch');
                                 // can not get the src url of the file here
                                 grunt.log.ok('Version bumped to ' + nextVer);
                                 return '_VER=' + nextVer
