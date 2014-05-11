@@ -212,13 +212,13 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', function(distJS) {
-        // grunt.task.run('bump-only');
+        grunt.task.run('bump-only');
         // Because there are too many javascript files in ace lib.
         !!distJS && grunt.task.run('dist-js');
         grunt.task.run('dist-css');
         grunt.task.run('dist-images');
         grunt.task.run('dist-fonts');
-        // grunt.task.run('bump-commit');
+        grunt.task.run('bump-commit');
         grunt.task.run('string-replace');
     });
 };
