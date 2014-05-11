@@ -1,6 +1,12 @@
 'use strict';
 
-require(['jquery','underscore','utils','common','themes'], function($, _, utils, common, themes) {
+require([
+    'jquery',
+    'underscore',
+    'utils',
+    'common'//,
+    // 'themes'
+], function($, _, utils, common) {
     var user = function() {
         var loginBox = $('#user-login');
         if(loginBox.length) {
