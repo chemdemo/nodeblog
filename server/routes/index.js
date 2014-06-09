@@ -20,7 +20,7 @@ function routes(app) {
     app.get('/index', home);
     app.get('/home', home);
     app.get('/about', function(req, res, next) {res.render('about', {about: true});});
-    app.get('/about/resume', resume);
+    app.get('/resume', resume);
 
     // user about
     // app.get('/signup', sign.signup);
