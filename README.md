@@ -4,7 +4,7 @@
 
 ### 简介
 
-* 前端基于Grunt构建项目，采用Requirejs模式开发，再配合jQuery操作DOM，基本上都是些普通的Web pages开发。
+* 前端基于Grunt构建项目，采用Requirejs作为模块loader，再配合jQuery操作DOM，基本上都是些普通的Web pages开发。
 
 * 后端基于Node.js Web框架Expressjs，在公司也采用express做过几个小型OA系统供用于监控、活动运营等等，express简单容易上手，也有丰富的文档和教程。view采用[swig](https://github.com/paularmstrong/swig)作为模板引擎，swig提供了强大的过滤器功能以及类Jinja的语法。
 
