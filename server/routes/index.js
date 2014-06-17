@@ -87,8 +87,15 @@ function home(req, res, next) {
 
 function resume(req, res, next) {
     var key = req.query.from;
+    var type = req.query.type;
 
     if(!key || !~settings.REAUME_KEYS.indexOf(key)) return next(403);
+
+    if(type && type == 'node') {
+        if(!fs.existsSync(settings.REAUME_PATH_NODE)) return next(404);
+        fs.createReadStream(settings.REAUME_PATH_NODE).pipe(res);
+        return;
+    }
 
     if(!fs.existsSync(settings.REAUME_PATH)) return next(404);
 
