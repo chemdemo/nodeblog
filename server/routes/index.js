@@ -86,7 +86,7 @@ function home(req, res, next) {
 };
 
 function resume(req, res, next) {
-    var key = req.query.from;
+    var key = req.query.for || req.query.from;
     var type = req.query.type;
 
     if(!key || !~settings.REAUME_KEYS.indexOf(key)) return next(403);
