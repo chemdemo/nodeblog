@@ -54,6 +54,7 @@ module.exports = function(grunt) {
                     optimize: 'uglify',
                     mainConfigFile: '<%= path.dev %>/main.js',
                     //locale: 'en-us',
+			allowSourceOverwrites: true,
                     modules: [
                         {
                             name: 'dist/js/index'
