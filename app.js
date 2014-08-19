@@ -18,12 +18,12 @@ var routes = require('./server/routes');
 
 var app = express();
 
-app.configure('development', function() {
-    app.use(express.static(staticDir));
-});
+// app.configure('development', function() {
+//     app.use(express.static(staticDir));
+// });
 
 app.configure('production', function() {
-    app.use(express.static(staticDir, {maxAge: maxAge}));
+    // app.use(express.static(staticDir, {maxAge: maxAge}));
     app.set('view cache', true);
 });
 
