@@ -13,10 +13,10 @@ pre {
     line-height: 1.3;
 }
 
-pre, code {
-    /*font-family: 'SourceCodePro-Regular', Menlo, Consolas, Monaco, monospace, sans-serif;*/
-    font-family: Consolas, Monaco, monospace, sans-serif;
-}
+/*pre, code {
+    font-family: 'SourceCodePro-Regular', Menlo, Consolas, Monaco, monospace, sans-serif;
+    font-family: 'Lucida Console', Consolas, Monaco, monospace, sans-serif;
+}*/
 
 pre code, .md pre code {color: #000;}
 
