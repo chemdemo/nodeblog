@@ -3,7 +3,6 @@ var admin = settings.ADMIN;
 
 var crypto = require('crypto');
 //var request = require('request');
-var check = require('validator').check;
 var validator = require('validator');
 var xss = require('xss');
 
@@ -33,27 +32,19 @@ function infoCheck(info) {
         return info;
     }
 
-    /*try {
-        check(info.name, '用户名只能使用0-9，a-z，A-Z。').isAlphanumeric();
-    } catch(e) {
-        info.error = e.message;
-        return info;
-    }*/
-
-    try {
-        check(info.email, 'Illegal email.').isEmail();
-    } catch(e) {
-        info.error = e.message;
+    if(info.name && !validator.isAlphanumeric(info.name)) {
+        info.error = '用户名只能使用0-9，a-z，A-Z。';
         return info;
     }
 
-    if(info.site) {
-        try {
-            check(info.site, 'Illegal site url.').isUrl();
-        } catch(e) {
-            info.error = e.message;
-            return info;
-        }
+    if(info.email && !validator.isUrl(info.email)) {
+        info.error = '不合法的邮箱.';
+        return info;
+    }
+
+    if(info.site && !validator.isUrl(info.site)) {
+        info.error = '地址不合法.';
+        return info;
     }
 
     if(!info.pass) {
