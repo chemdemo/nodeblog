@@ -313,14 +313,14 @@ exports.remove = function(req, res, next) {
             return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
         }
 
-        if(!doc) return next(404);
+        if(!doc) return tools.jsonReturn(res, 'SUCCESS', 0);
         if(user && (user.admin || doc.author_id.toString() === user._id.toString())) {
             /*Comment.findByIdAndRemove(doc._id, function(err, doc) {
                 if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
                 tools.jsonReturn(res, 'SUCCESS', 0);
             });*/
             doc.remove(function(err, doc) {
-                if(err || doc) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
+                if(err) return tools.jsonReturn(res, 'DB_ERROR', null, 'Remove comment error.');
                 tools.jsonReturn(res, 'SUCCESS', 0);
 
                 post_ctrl.findByIdAndUpdate(postid, {
