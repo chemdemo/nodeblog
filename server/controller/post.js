@@ -8,7 +8,8 @@ var tag_ctrl = require('./tag');
 var comment_ctrl = require('./comment');
 
 var tools = require('../utils/tools');
-var sanitize = require('validator').sanitize;
+var validator = require('validator');
+var xss = require('xss');
 var async = require('async');
 var EventProxy = require('eventproxy');
 var _ = require('underscore');
@@ -543,13 +544,13 @@ exports.counts = function(req, res, next) {
 
 exports.search = function(req, res, next) {
     var user;
-    var keyword = sanitize(req.body.keyword || '').trim();
+    var keyword = validator.trim(req.body.keyword || '');
     var fields = '_id title author_id topped update_at visite';
     var pageTitle = '所有含<b class="list-key"> ' + req.body.keyword + '</b> 的文章';
 
     if(!keyword) return res.render('list', {posts: [], page_title: pageTitle});
 
-    keyword = sanitize(keyword).xss();
+    keyword = xss(keyword);
     Post.find(null, '_id')
         .$where('(/' + keyword + '/ig.test(this.title))')
         .exec(function(err, doc) {

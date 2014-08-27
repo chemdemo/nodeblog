@@ -8,7 +8,8 @@ var user_ctrl = require('./user');
 
 var tools = require('../utils/tools');
 var filters = require('../utils/filters');
-var sanitize = require('validator').sanitize;
+var validator = require('validator');
+var xss = require('xss');
 var EventProxy = require('eventproxy');
 var async = require('async');
 var _ = require('underscore');
@@ -165,7 +166,7 @@ exports.add = function(req, res, next) {//console.log('session commit: ', req.se
     var postid = req.body.postid || req.params.postid;
     var user = req.body.user || null;
     var sUser = user_ctrl.getSessionUser(req);
-    var content = sanitize(req.body.content || '').trim();
+    var content = validator.trim(req.body.content || '');
     var replyId = req.body.reply_comment_id || '';
     var atUid = req.body.at_user_id || '';
 
@@ -193,7 +194,7 @@ exports.add = function(req, res, next) {//console.log('session commit: ', req.se
         proxy.emit('error', msg);
     };
 
-    //content = sanitize(content).xss();// xss filter
+    //content = xss(content);// xss filter
 
     if(!user) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'User info missing.');
     if(!content) return tools.jsonReturn(res, 'PARAM_MISSING', null, 'Comment content null.');

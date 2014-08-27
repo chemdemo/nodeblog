@@ -4,7 +4,8 @@ var admin = settings.ADMIN;
 var crypto = require('crypto');
 //var request = require('request');
 var check = require('validator').check;
-var sanitize = require('validator').sanitize;
+var validator = require('validator');
+var xss = require('xss');
 
 var models = require('../models');
 var User = models.User;
@@ -16,15 +17,15 @@ function md5(str) {
 }
 
 function infoCheck(info) {
-    info.name = sanitize(info.name || '').trim();
-    info.name = sanitize(info.name).xss();
-    info.email = sanitize(info.email).trim().toLowerCase();
-    info.email = sanitize(info.email).xss();
-    info.pass = sanitize(info.pass).trim();
-    info.pass = sanitize(info.pass).xss();
+    info.name = validator.trim(info.name || '');
+    info.name = xss(info.name);
+    info.email = validator.trim(info.email).toLowerCase();
+    info.email = xss(info.email);
+    info.pass = validator.trim(info.pass);
+    info.pass = xss(info.pass);
     if(info.site) {
-        info.site = sanitize(info.site).trim();
-        info.site = sanitize(info.site).xss();
+        info.site = validator.trim(info.site);
+        info.site = xss(info.site);
     }
 
     if(!info.name || !info.email || !info.pass) {
