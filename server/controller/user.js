@@ -37,12 +37,12 @@ function infoCheck(info) {
         return info;
     }
 
-    if(info.email && !validator.isUrl(info.email)) {
+    if(info.email && !validator.isEmail(info.email)) {
         info.error = '不合法的邮箱.';
         return info;
     }
 
-    if(info.site && !validator.isUrl(info.site)) {
+    if(info.site && !validator.isURL(info.site)) {
         info.error = '地址不合法.';
         return info;
     }
