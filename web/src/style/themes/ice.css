@@ -6,10 +6,11 @@
 pre {
     /*background-color: #F5F5F5;*/
     /*background-color: #002B36;*/
-    background-color: #EFF2F5;
+    background-color: #F0F3F8;
     word-wrap: break-word;
     font-size: 14px;
     /*border: 1px solid #E0E0E0;*/
+    border-left: 4px solid #D7DBE4;
     line-height: 1.3;
 }
 
