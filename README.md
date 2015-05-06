@@ -1,6 +1,6 @@
 ## 基于Node.js构建的轻博客 [![Build Status](https://api.travis-ci.org/chemdemo/nodeblog.png)](http://travis-ci.org/chemdemo/nodeblog)
 
-博客地址：http://www.dmfeel.com
+博客地址：http://blog.dmfeel.com
 
 ### 简介
 
@@ -78,7 +78,7 @@ server {
 }
 ```
 
-pm2启动node（推荐）：`pm2 start app.js -i 2` 
+pm2启动node（推荐）：`pm2 start pm2_deploy.json` 
 
 forever启动：`sh ./bin/restart.sh`
 
