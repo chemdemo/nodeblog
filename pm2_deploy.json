@@ -1,0 +1,13 @@
+{
+    "name": "blog",
+    "script": "app.js",
+    "instances": "1",
+    "out_file": "./logs/access.log",
+    "error_file": "./logs/error.log",
+    "cron_restart": "1 0 * * *",
+    "merge_logs": true,
+    "exec_interpreter" : "node",
+    "env": {
+        "NODE_ENV": "production"
+    }
+}
