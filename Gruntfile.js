@@ -96,9 +96,9 @@ module.exports = function(grunt) {
         },
 
         cssmin: {
-            options: {
-                report: 'gzip'
-            },
+            //options: {
+            //    report: 'gzip'
+            //},
             combine: {
                 files: {
                     '<%= path.tmp %>/style/index.css': ['<%= path.tmp %>/tmp-all.css', '<%= path.dev %>/style/index.css'],
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
 
         imagemin: {
             options: {
-                optimizationLevel: 3
+                cache: false
             },
             dynamic: {
                 files: [
@@ -149,6 +149,15 @@ module.exports = function(grunt) {
                     cwd: '<%= path.dev %>',
                     dest: '<%= path.dist %>',
                     src: ['style/fonts/{,*/}*.*']
+                }]
+            },
+            images: {
+            	files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= path.dev %>',
+                    dest: '<%= path.dist %>',
+                    src: ['style/images/{,*/}*.*']
                 }]
             }
         },
@@ -213,12 +222,14 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dist-images', function() {
         grunt.task.run('clean:images');
-        grunt.task.run('imagemin');
+        // grunt.task.run('imagemin');
+        //imagemin 插件有bug @see https://github.com/gruntjs/grunt-contrib-imagemin/issues/159
+        grunt.task.run('copy:images');
     });
 
     grunt.registerTask('dist-fonts', function() {
         grunt.task.run('clean:fonts');
-        grunt.task.run('copy');
+        grunt.task.run('copy:fonts');
     });
 
     grunt.registerTask('dist', function(type) {
